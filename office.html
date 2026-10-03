@@ -1,0 +1,1686 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>فضاء المكتب | الزلوطي للمحاماة</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#0b2420">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap">
+<style>
+:root{--bg:#f6f0e1;--paper:#fbf8f0;--fg:#14211e;--muted:#43524c;--line:#d9cdaa;--gt:#7a5a12;--gold:#c8a24a;--green:#0b2420;--terra:#a8452a;--fh:"Noto Sans Arabic","Roboto",system-ui,sans-serif}
+@media(prefers-color-scheme:dark){:root{--bg:#0c1815;--paper:#122520;--fg:#efe8d6;--muted:#a9b3ac;--line:#27403a;--gt:#d8b25c}}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 1.0625rem/1.8 "Noto Sans Arabic","Roboto",system-ui,sans-serif;padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+button,input,select{font:inherit;color:inherit}
+.bar{position:sticky;top:0;z-index:10;background:var(--green);color:#efe8d6;display:flex;align-items:center;gap:.8rem;padding:calc(env(safe-area-inset-top,0px) + .6rem) 1rem .6rem;border-bottom:1px solid rgba(200,162,74,.45)}
+.bar img{width:42px;height:42px;border-radius:10px}
+.bar b{display:block;font:700 1.25rem var(--fh)}
+.bar small{color:#b9c4bd}
+.bar button{margin-inline-start:auto}
+main{max-width:760px;margin:0 auto;padding:1rem}
+h2{font:700 1.5rem/1.3 var(--fh);margin:.4rem 0 .8rem}
+h3{font:700 1.05rem var(--fh);margin:1.2rem 0 .4rem;color:var(--gt)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;min-height:42px;padding:.45rem 1.1rem;border:1.5px solid var(--gt);background:none;color:var(--gt);font-weight:700;text-decoration:none;cursor:pointer}
+.btn.p{background:var(--gold);border-color:var(--gold);color:var(--green)}
+.btn.sm{min-height:40px;padding:.3rem .9rem;font-size:.95rem}
+.row2{display:flex;flex-wrap:wrap;gap:.5rem;align-items:center}
+.meta{margin:0;color:var(--muted);font-size:1rem}
+.msg{margin:.6rem 0;color:var(--terra);font-weight:700}
+.msg.ok{color:var(--gt)}
+.soon{border:1.5px solid var(--terra);background:var(--paper);padding:.7rem 1rem;margin-bottom:1rem}
+.soon b{color:var(--terra)}
+.day{font:700 1rem var(--fh);color:var(--gt);margin:1.1rem 0 .4rem;border-bottom:1px solid var(--line);padding-bottom:.2rem}
+.ev,.fc{background:var(--paper);border:1px solid var(--line);border-inline-start:4px solid var(--gold);padding:.7rem .9rem;margin-bottom:.6rem;display:grid;gap:.35rem}
+.ev h4,.fc h4{margin:0;font:700 1.05rem var(--fh)}
+.tm{font:700 1.1rem "Roboto",sans-serif;color:var(--gt);direction:ltr;unicode-bidi:isolate}
+.chip{display:inline-block;padding:.05rem .7rem;border:1.5px solid var(--gold);font-weight:700;font-size:.85rem;color:var(--gt)}
+.chip.s2{background:var(--terra);border-color:var(--terra);color:#fff}
+.chip.s3{background:var(--gt);border-color:var(--gt);color:var(--paper)}
+.pbox{border:1px solid var(--gold);padding:.6rem .8rem;margin-top:.3rem}
+.pbox h5{margin:.2rem 0 .4rem;font:700 .98rem var(--fh);color:var(--gt)}
+.al{list-style:none;margin:0 0 .6rem;padding:0;display:grid;gap:.4rem}
+.al li{display:flex;flex-wrap:wrap;gap:.3rem .8rem;align-items:center;padding:.45rem .6rem;border:1px solid var(--line)}
+.al .x{margin-inline-start:auto}
+.trf{display:grid;gap:.7rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr));align-items:end;margin:.6rem 0}
+.trf label{display:grid;gap:.25rem;font-weight:700;font-size:.93rem}
+.trf input,.trf select,.fc select{padding:.55rem .7rem;border:1px solid var(--gold);background:var(--bg);min-height:44px;width:100%;border-radius:0}
+.fc select{min-height:36px;padding:.2rem .5rem;width:auto}
+details>summary{cursor:pointer;font-weight:700;color:var(--gt);padding:.3rem 0}
+.tabs{position:fixed;inset:auto 0 0 0;z-index:10;display:grid;grid-template-columns:repeat(4,1fr);background:var(--green);border-top:1px solid rgba(200,162,74,.5);padding-bottom:env(safe-area-inset-bottom,0px)}
+.tabs button{background:none;border:0;color:#b9c4bd;min-height:62px;font-weight:700;display:grid;place-items:center;gap:0;cursor:pointer}
+.tabs button[aria-selected=true]{color:var(--gold)}
+.tabs svg{width:24px;height:24px;fill:currentColor}
+.card{background:var(--paper);border:1px solid var(--line);padding:1rem;margin-bottom:1rem}
+.note{font-size:.9rem;color:var(--muted)}
+.sug{display:flex;flex-direction:column;gap:2px;margin-top:4px}
+.sug button{text-align:start;background:var(--paper);border:1px solid var(--line);padding:.5rem .7rem;font:inherit;font-weight:400;color:var(--fg);cursor:pointer;min-height:44px}
+.kind{margin:.1rem 0 .6rem;font-weight:700;color:var(--gt)}
+.tabs{grid-template-columns:repeat(5,1fr)!important}.tabs button{font-size:.8rem}
+.bar{background:linear-gradient(135deg,rgba(18,70,61,.96),rgba(11,36,32,.96))}
+#login{position:fixed;inset:0;z-index:120;background:radial-gradient(circle at 20% 10%,#17594d,#0b2420 60%);display:grid;place-items:center;padding:1rem;overflow:auto}
+#login .gl{width:min(100%,420px);padding:1.4rem;border-radius:28px;color:#f6f1e2;background:linear-gradient(135deg,rgba(255,255,255,.2),rgba(255,255,255,.06));border:1px solid rgba(255,255,255,.28);-webkit-backdrop-filter:blur(22px) saturate(1.6);backdrop-filter:blur(22px) saturate(1.6);box-shadow:0 24px 60px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.4);display:grid;gap:.8rem}
+#login h2{margin:0;color:#fff}#login label{color:#f6f1e2}
+#login label{display:grid;gap:.3rem;font-weight:700}
+#login input{width:100%;min-height:46px;padding:.55rem .8rem;border-radius:14px;background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.35);font:inherit}
+#login input::placeholder{color:rgba(255,255,255,.55)}
+#login .msg{color:#ffd0bd}
+#sync{margin-inline-start:auto;font-size:.8rem;color:#c8d6cf}
+.hres{display:grid;gap:.4rem;margin-top:.8rem}
+.hres table{width:100%;border-collapse:collapse}
+.hres td,.hres th{padding:.4rem .5rem;border-bottom:1px solid var(--line);text-align:start;font-size:.95rem}
+.hres .tot td{font-weight:700;color:var(--gt)}
+.warn{color:var(--terra);font-weight:700;font-size:.92rem}
+#dr,#dfile{padding:.55rem .7rem;border:1px solid var(--gold);background:var(--bg);min-height:44px;width:100%;max-width:100%;border-radius:0;text-overflow:ellipsis}
+label{min-width:0}.card{min-width:0}main{overflow-x:hidden}
+.dinfo{background:var(--bg);border:1px solid var(--line);padding:.6rem .8rem;margin:.6rem 0;font-size:.95rem;white-space:pre-line}
+.dres{display:grid;gap:.5rem;margin-top:1rem}
+.dres .r{display:flex;justify-content:space-between;align-items:center;gap:.8rem;flex-wrap:wrap;padding:.6rem .8rem;border:1px solid var(--line);background:var(--bg)}
+.dres .r.main{border:2px solid var(--gold)}
+.dres .big{font:700 1.1rem "Roboto",sans-serif}
+.pill{display:inline-block;padding:.1rem .8rem;font-weight:700;border:1.5px solid var(--gt);color:var(--gt);justify-self:start}
+.pill.bad{background:var(--terra);border-color:var(--terra);color:#fff}
+.chk{display:flex;gap:.6rem;align-items:center;font-weight:500}
+.chk input{width:24px;height:24px;min-height:0}
+#lock{position:fixed;inset:0;z-index:100;background:var(--green);color:#efe8d6;display:grid;place-items:center;padding:1.5rem;text-align:center}
+#lock .box{width:min(100%,340px);display:grid;gap:.9rem}
+#lock img{width:84px;margin:0 auto}
+#lock input{font-size:1.7rem;text-align:center;letter-spacing:.4em;padding:.6rem;border:1px solid var(--gold);background:#0d2e29;color:#fff;width:100%}
+textarea{width:100%;padding:.55rem;border:1px solid var(--gold);background:var(--bg);margin:.6rem 0;font:inherit;color:inherit}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="i-gav" viewBox="0 0 24 24"><path d="M6 2v6h.01L6 8.01 10 12l-4 4 .01.01H6V22h12v-5.99h-.01L18 16l-4-4 4-3.99-.01-.01H18V2H6zm10 14.5V20H8v-3.5l4-4 4 4zm-4-5l-4-4V4h8v3.5l-4 4z"/></symbol>
+<symbol id="i-help" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8a4 4 0 0 1 8 0c0 .88-.36 1.68-.93 2.25z"/></symbol>
+<symbol id="i-cal" viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 16H5V10h14v10z"/></symbol>
+<symbol id="i-fold" viewBox="0 0 24 24"><path d="M10 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-8l-2-2z"/></symbol>
+<symbol id="i-set" viewBox="0 0 24 24"><path d="M19.4 13a7.5 7.5 0 0 0 0-2l2.1-1.6-2-3.4-2.5 1a7.4 7.4 0 0 0-1.7-1L15 3h-4l-.4 3a7.4 7.4 0 0 0-1.7 1l-2.5-1-2 3.4L6.6 11a7.5 7.5 0 0 0 0 2l-2.1 1.6 2 3.4 2.5-1a7.4 7.4 0 0 0 1.7 1l.4 3h4l.4-3a7.4 7.4 0 0 0 1.7-1l2.5 1 2-3.4zM13 15.5A3.5 3.5 0 1 1 13 8.5a3.5 3.5 0 0 1 0 7z"/></symbol>
+</svg>
+
+<header class="bar">
+  <img src="icons/icon-192.png" alt="">
+  <div><b>ملفاتي</b><small>مكتب الزلوطي للمحاماة</small></div>
+  <span id="sync"></span><button class="btn p sm" id="inst" hidden>تثبيت التطبيق</button>
+</header>
+
+<main>
+  <section id="p-agenda">
+    <h2>المواعيد القادمة</h2>
+    <div class="soon" id="soon" hidden></div>
+    <div class="row2">
+      <button class="btn p" id="exall">تصدير الكل إلى الأجندة (.ics)</button>
+      <button class="btn" id="notif">تفعيل التنبيهات</button>
+      <button class="btn" id="wk">تقرير الأسبوع (واتساب)</button>
+    </div>
+    <p class="msg" id="amsg"></p>
+    <div id="agl"></div>
+  </section>
+
+  <section id="p-files" hidden>
+    <h2>ملفاتي</h2>
+    <div class="trf">
+      <label><span>عرض</span><select id="mflt"><option value="0">كل الملفات</option><option value="1">قيد الدرس</option><option value="2">مسطرة جارية</option><option value="3">ملف مغلق</option></select></label>
+      <label><span>بحث</span><input id="msearch" placeholder="رقم، محكمة، عنوان، مرجعنا…" autocomplete="off"></label>
+      <p class="meta" id="mcnt"></p>
+    </div>
+    <p class="msg" id="mmsg"></p>
+    <div id="mlist"></div>
+    <details class="card" id="madd" open>
+      <summary>إضافة ملف جديد</summary>
+      <div class="trf">
+        <label><span>عنوان الملف (اختياري)</span><input id="mlabel" maxlength="60"></label>
+        <label><span>المحكمة</span><input id="mcourt" maxlength="80" autocomplete="off" placeholder="اكتبوا جزءًا من الاسم، أو اسمًا غير مدرج"><div class="sug" id="csug"></div></label>
+        <label><span>نوع الملف</span><select id="mtype"><option>عادي</option><option>جنحي</option><option>شكاية</option><option>محضر</option><option>تبليغ</option><option>تنفيذ</option></select></label>
+      </div>
+      <div class="trf">
+        <label><span>القاعة</span><input id="mroom" maxlength="40"></label>
+        <label><span>القاضي / القاضية المقرر(ة)</span><input id="mjudge" maxlength="60"></label>
+        <label><span>مرجعنا (مرجع المكتب)</span><input id="mour" maxlength="30"></label>
+      </div>
+      <div class="trf">
+        <label><span>رقم الملف</span><input id="mno" dir="ltr" inputmode="numeric" maxlength="12"></label>
+        <label><span>رمز الملف (إن وُجد)</span><input id="mcode" dir="ltr" inputmode="numeric" maxlength="8"></label>
+        <label><span>السنة</span><input id="myr" dir="ltr" inputmode="numeric" maxlength="4"></label>
+        <label><span>المرحلة</span><select id="mst"><option value="1">قيد الدرس</option><option value="2">مسطرة جارية</option><option value="3">ملف مغلق</option></select></label>
+      </div>
+      <div class="trf"><label><span>نوع القضية (يظهر تلقائيًا من الرمز)</span><input id="mkind" maxlength="80" autocomplete="off"></label></div>
+      <p class="kind" id="mkindhint"></p>
+      <div class="trf"><label><span>ملاحظة خاصة (اختياري)</span><input id="mnote" maxlength="160"></label></div>
+      <details><summary>الأطراف والأتعاب (اختياري)</summary>
+        <div class="trf">
+          <label><span>اسم الموكل</span><input id="mcli" maxlength="60"></label>
+          <label><span>هاتف الموكل</span><input id="mtel" dir="ltr" inputmode="tel" maxlength="20" autocomplete="off"></label>
+          <label><span>الخصم</span><input id="madv" maxlength="60"></label>
+          <label><span>الأتعاب المتفق عليها (درهم)</span><input id="mfee" dir="ltr" inputmode="decimal" maxlength="10" autocomplete="off"></label>
+        </div>
+      </details>
+      <details><summary>ربط الموقع: بيانات اطلاع الموكل (اختياري)</summary>
+        <div class="trf">
+          <label><span>رقم الاطلاع للموكل</span><input id="mcref" dir="ltr" autocomplete="off" maxlength="40"></label>
+          <label><span>رمز الاطلاع للموكل</span><input id="mccode" dir="ltr" autocomplete="off" maxlength="40"></label>
+          <button type="button" class="btn sm" id="mcgen">توليد رمز</button>
+        </div>
+      </details>
+      <div class="row2"><button class="btn p" id="msave">إضافة الملف</button><button class="btn" id="mcancel" hidden>إلغاء التعديل</button></div>
+    </details>
+  </section>
+
+  <section id="p-dl" hidden>
+    <h2>بوابة الآجال</h2>
+    <p class="note">القواعد وفق قانون المسطرة المدنية رقم 58.25 (نُشر في الجريدة الرسمية عدد 7485 بتاريخ 23 فبراير 2026، ونافذ منذ 24 غشت 2026). أداة مساعدة للتذكير ولا تغني عن قراءة النص، والخطأ في الأجل قد يُسقط الحق.</p>
+    <div class="card">
+      <label><span>الإجراء</span><select id="dr"></select></label>
+      <div class="dinfo" id="dinfo"></div>
+      <div class="trf">
+        <label><span id="dsl">تاريخ البداية</span><input id="dd" dir="ltr" inputmode="numeric" placeholder="25/10/2026" maxlength="10" autocomplete="off"></label>
+        <label><span>أيام إضافية (مسافة أو تمديد)</span><input id="dx" dir="ltr" inputmode="numeric" maxlength="3" value="0" autocomplete="off"></label>
+      </div>
+      <div class="trf" id="dcustom" hidden>
+        <label><span>المدة</span><input id="dcn" dir="ltr" inputmode="numeric" maxlength="3" autocomplete="off"></label>
+        <label><span>الوحدة</span><select id="dcu"><option value="d">أيام</option><option value="m">أشهر</option></select></label>
+      </div>
+      <div class="row2"><button class="btn sm" id="dtoday">اليوم</button><label class="chk"><input type="checkbox" id="dtwice"><span>مضاعفة الأجل (لمن لا موطن له بالمغرب، م209، تحقّقوا)</span></label></div>
+      <div class="dres" id="dres" hidden></div>
+      <div id="dfileBox" class="trf" style="margin-top:1rem">
+        <label><span>ربط بملف</span><select id="dfile"></select></label>
+        <button class="btn p" id="dadd">أضف الأجل كموعد في الملف</button>
+      </div>
+      <p class="msg" id="dmsg"></p>
+      <p class="note">«آخر موعد آمن» هو آخر يوم عمل على أو قبل نهاية الأجل محسوبًا بأقل تقدير، فاعتمدوه للإيداع. الآجال الجنائية (قانون المسطرة الجنائية بعد التعديل 03.23، نافذ منذ 8 دجنبر 2025) والآجال غير المدرجة تُحسب بخيار «أجل مخصص» وبالمدة التي تقرؤونها في النص.</p>
+    </div>
+    <details class="card"><summary>العطل المعتمدة في الحساب</summary>
+      <p class="note">تُعتبر السبت والأحد وكذا العطل الوطنية الثابتة غير أيام عمل: 1 يناير، 11 يناير، 14 يناير، 1 ماي، 30 يوليوز، 14 غشت، 20 غشت، 21 غشت، 6 نونبر، 18 نونبر. أما الأعياد الدينية (تتغير سنويًا) فأضيفوها هنا.</p>
+      <div class="trf"><label><span>التاريخ</span><input id="hd" dir="ltr" inputmode="numeric" placeholder="25/10/2026" maxlength="10" autocomplete="off"></label><label><span>الاسم</span><input id="hn" maxlength="40" placeholder="مثال: عيد المولد"></label><button class="btn p" id="hadd">إضافة</button></div>
+      <ul class="al" id="hlist"></ul>
+    </details>
+  </section>
+
+  <section id="p-help" hidden>
+    <h2>بوابة المساعدة</h2>
+    <details class="card" open><summary>معرفة القضية من الرمز</summary>
+      <div class="trf"><label><span>اكتبوا الرمز أو رقم الملف كاملًا (مثل 2026/1201/55) أو كلمة من نوع القضية</span><input id="hq" dir="auto" autocomplete="off" placeholder="1201 أو نفقة أو شيك"></label></div>
+      <div class="hres" id="hqres"></div>
+    </details>
+    <details class="card"><summary>حاسبة الإرث (مدونة الأسرة، الكتاب السادس، المواد 321 إلى 395)</summary>
+      <p class="note">تدعم الورثة التالين: الزوج أو الزوجات، الأب، الأم، الأبناء، البنات، الإخوة والأخوات الأشقاء، الإخوة لأم. وتطبّق الحجب والعول والرد والعمريتين وفق المدونة. لا تدعم: الجد والجدة، وأبناء الابن، والإخوة لأب، والأعمام، والتنزيل. فإن وُجد أحدهم فاحسبوا يدويًا.</p>
+      <div class="trf">
+        <label><span>الزوج / الزوجة</span><select id="iz"><option value="">لا يوجد</option><option value="H">زوج</option><option value="W">زوجة أو زوجات</option></select></label>
+        <label><span>عدد الزوجات</span><input id="iw" dir="ltr" inputmode="numeric" maxlength="1" value="1"></label>
+        <label><span>الأب</span><select id="iF"><option value="0">غير موجود</option><option value="1">موجود</option></select></label>
+        <label><span>الأم</span><select id="iM"><option value="0">غير موجودة</option><option value="1">موجودة</option></select></label>
+        <label><span>عدد الأبناء</span><input id="iS" dir="ltr" inputmode="numeric" maxlength="2" value="0"></label>
+        <label><span>عدد البنات</span><input id="iD" dir="ltr" inputmode="numeric" maxlength="2" value="0"></label>
+        <label><span>الإخوة الأشقاء</span><input id="iBF" dir="ltr" inputmode="numeric" maxlength="2" value="0"></label>
+        <label><span>الأخوات الشقيقات</span><input id="iSF" dir="ltr" inputmode="numeric" maxlength="2" value="0"></label>
+        <label><span>الإخوة لأم (ذكورًا وإناثًا)</span><input id="iUM" dir="ltr" inputmode="numeric" maxlength="2" value="0"></label>
+      </div>
+      <div class="trf">
+        <label><span>قيمة التركة (درهم)</span><input id="iest" dir="ltr" inputmode="decimal" maxlength="14"></label>
+        <label><span>مصاريف التجهيز</span><input id="ifu" dir="ltr" inputmode="decimal" maxlength="12" value="0"></label>
+        <label><span>الديون</span><input id="ide" dir="ltr" inputmode="decimal" maxlength="14" value="0"></label>
+        <label><span>الوصية (حتى الثلث)</span><input id="iwi" dir="ltr" inputmode="decimal" maxlength="14" value="0"></label>
+      </div>
+      <label class="chk"><input type="checkbox" id="ioth"><span>يوجد وارث آخر غير مدرج</span></label>
+      <div class="row2" style="margin-top:.6rem"><button class="btn p" id="icalc">احسب</button></div>
+      <div class="hres" id="ires"></div>
+    </details>
+    <details class="card"><summary>التعويض عن حوادث السير (ظهير 2 أكتوبر 1984 والقانون 70.24)</summary>
+      <p class="note">تُحسب البنود بالصيغ المنصوص عليها. أما الجداول الرسمية (رأس المال المعتمد حسب السن ونسب العجز) فتُدخلونها أنتم من النص النافذ، لأني لم أتمكن من التحقق منها بعد التعديل 70.24. مبالغ الحد الأدنى للأجر السنوي المعتمدة هنا: 2026: 10270، 2027: 11270، 2028: 12270، 2029: 13270، 2030: 14270 درهمًا (منشورة في دليل عملي، وتحتاج إلى مراجعتكم).</p>
+      <div class="trf">
+        <label><span>سنة الحادثة</span><select id="cy"><option>2026</option><option>2027</option><option>2028</option><option>2029</option><option>2030</option></select></label>
+        <label><span>قسط مسؤولية المتسبب (%)</span><input id="cl" dir="ltr" inputmode="decimal" maxlength="5" value="100"></label>
+      </div>
+      <h3>العجز الكلي المؤقت</h3>
+      <div class="trf">
+        <label><span>عدد الأيام</span><input id="cd" dir="ltr" inputmode="numeric" maxlength="4" value="0"></label>
+        <label><span>الدخل السنوي المثبت (0 إن لم يثبت)</span><input id="ci" dir="ltr" inputmode="decimal" maxlength="10" value="0"></label>
+      </div>
+      <h3>العجز البدني الدائم والألم</h3>
+      <div class="trf">
+        <label><span>رأس المال المعتمد (من الجدول)</span><input id="cc" dir="ltr" inputmode="decimal" maxlength="12" value="0"></label>
+        <label><span>نسبة العجز (%)</span><input id="cp" dir="ltr" inputmode="decimal" maxlength="5" value="0"></label>
+        <label><span>رأس المال المطابق للحد الأدنى (للألم)</span><input id="cm" dir="ltr" inputmode="decimal" maxlength="12" value="0"></label>
+        <label><span>درجة الألم الجسماني</span><select id="cpain"><option value="0">لا ألم يُعتد به</option><option value="5">على جانب من الأهمية (5%)</option><option value="7">مهم (7%)</option><option value="10">مهم جدًا (10%)</option></select></label>
+      </div>
+      <div class="row2"><button class="btn p" id="ccalc">احسب</button></div>
+      <div class="hres" id="cres"></div>
+    </details>
+    <p class="note">الآجال لها تبويب خاص «الآجال». هذه الأدوات للمساعدة والتذكير فقط ولا تغني عن النص القانوني.</p>
+  </section>
+
+  <section id="p-set" hidden>
+    <h2>الإعدادات</h2>
+    <div class="card">
+      <h3>التنبيهات</h3>
+      <p class="meta" id="nstat"></p>
+      <div class="row2" style="margin-top:.6rem"><button class="btn p" id="notif2">تفعيل التنبيهات</button><button class="btn" id="ntest" hidden>اختبار تنبيه بعد 15 ثانية</button></div>
+      <p class="note">تُجدول التنبيهات على نظام أندرويد نفسه كمنبّه دقيق، قبل كل موعد بيوم وبثلاث ساعات وبساعة وبربع ساعة وعند الموعد نفسه، فتصل والتطبيق مغلق وبعد إعادة تشغيل الهاتف. وتُعاد جدولتها تلقائيًا عند كل تعديل. إن لم تصل: عطّلوا «توفير البطارية» لهذا التطبيق، وفعّلوا له التشغيل التلقائي في إعدادات الهاتف (تتفاوت الأسماء بين الشركات).</p>
+    </div>
+    <div class="card" hidden>
+      <h3>قفل التطبيق</h3>
+      <p class="note">رمز سري من 4 إلى 8 أرقام يُطلب عند الفتح وبعد 30 ثانية من مغادرة التطبيق. إن نسيتموه فلا استرجاع إلا بحذف التطبيق وفقدان بياناته، فاحتفظوا بنسخة احتياطية.</p>
+      <div class="trf"><label><span>الرمز</span><input id="pin1" type="password" inputmode="numeric" maxlength="8" autocomplete="off"></label><label><span>تأكيد الرمز</span><input id="pin2" type="password" inputmode="numeric" maxlength="8" autocomplete="off"></label></div>
+      <div class="row2"><button class="btn p" id="pinset">تفعيل / تغيير الرمز</button><button class="btn" id="pinoff">إلغاء القفل (أدخلوا الرمز الحالي)</button></div>
+      <p class="msg" id="pmsg"></p>
+    </div>
+    <div class="card" hidden>
+      <h3>سجل اطلاع الموكلين (للموقع)</h3>
+      <p class="note">يولّد ملف `registry.json` من الملفات التي أدخلتم لها رقم الاطلاع ورمزه. يتضمن بصمات مشفّرة والمرحلة وتاريخها فقط، دون أي اسم. ضعوه في مجلد الموقع بجانب `index.html` ثم أعيدوا نشر الموقع.</p>
+      <div class="row2"><button class="btn p" id="regbtn">توليد السجل</button><button class="btn" id="regcopy">نسخ</button></div>
+      <textarea id="regout" rows="4" readonly></textarea>
+      <p class="msg" id="regmsg"></p>
+    </div>
+    <div class="card" id="diag" hidden>
+      <h3>فحص التنبيهات</h3>
+      <p class="meta" id="dstat" style="white-space:pre-line"></p>
+      <div class="row2" style="margin-top:.7rem">
+        <button class="btn p" id="dtest">اختبار تنبيه بعد 15 ثانية</button>
+        <button class="btn" id="dbat">السماح بالعمل في الخلفية</button>
+        <button class="btn" id="dnot">إعدادات الإشعارات</button>
+        <button class="btn" id="dapp">إعدادات التطبيق</button>
+      </div>
+      <p class="note"><b>هاتف سامسونج (One UI):</b> تُعطِّل ميزةُ «السكون» التنبيهات إن لم تفتحوا التطبيق أيامًا. افعلوا ما يلي مرة واحدة:<br>1) الإعدادات ← التطبيقات ← ملفاتي ← البطارية ← اختاروا «غير مقيَّد» (Unrestricted).<br>2) الإعدادات ← العناية بالبطارية والجهاز ← البطارية ← حدود استخدام الخلفية ← عطّلوا «وضع التطبيقات غير المستخدمة في السكون»، وأضيفوا ملفاتي إلى «التطبيقات التي لا تنام أبدًا».<br>3) الإعدادات ← التطبيقات ← ملفاتي ← عطّلوا «إيقاف نشاط التطبيق إن لم يُستخدم».<br>4) الإعدادات ← التطبيقات ← ملفاتي ← الإشعارات ← تأكدوا أن «مواعيد الملفات» مفعّلة بأهمية عالية. قد تختلف الأسماء قليلًا بحسب الإصدار.</p>
+    </div>
+    <div class="card">
+      <h3>الحساب والمستخدمون</h3>
+      <p class="note" id="me"></p>
+      <ul class="al" id="ulist"></ul>
+      <div class="trf"><label><span>بريد مستخدم جديد</span><input id="ue" type="email" dir="ltr" autocomplete="off"></label><label><span>رمز سري مؤقت (8 أحرف فأكثر)</span><input id="up" type="password" dir="ltr" autocomplete="new-password"></label><button class="btn p" id="uadd">إضافة مستخدم</button></div>
+      <div class="trf"><label><span>رمزي الحالي</span><input id="op" type="password" dir="ltr" autocomplete="current-password"></label><label><span>رمزي الجديد</span><input id="np" type="password" dir="ltr" autocomplete="new-password"></label><button class="btn" id="pchg">تغيير رمزي</button></div>
+      <div class="trf"><label><span>مفتاح GitHub (للتحديث)</span><input id="gtk" type="password" dir="ltr" autocomplete="off"></label><button class="btn" id="gtks">حفظ المفتاح</button></div>
+      <div class="row2"><button class="btn" id="logout">تسجيل الخروج</button></div>
+      <p class="msg" id="umsg"></p>
+    </div>
+    <div class="card">
+      <h3>رابط موقع المكتب</h3>
+      <p class="note">الصقوا رابط الموقع ليظهر في الملفات زرا «رسالة للموكل» و«الموقع». ولإظهار المآل للموكل أدخلوا رقم الاطلاع ورمزه في «فضاء المحامي» بالموقع.</p>
+      <div class="trf"><label><span>الرابط</span><input id="siteurl" dir="ltr" placeholder="https://..." autocomplete="off"></label><button class="btn p" id="sitesave">حفظ</button></div>
+      <p class="msg" id="smsg"></p>
+    </div>
+    <div class="card">
+      <h3>نسخة احتياطية</h3>
+      <p class="note">البيانات مشفّرة ومخزنة في مستودع المكتب. يمكنكم مع ذلك تصدير نسخة احتياطية غير مشفّرة، فاحفظوها في مكان آمن.</p>
+      <div class="row2"><button class="btn" id="bk">تصدير نسخة (.json)</button><label class="btn" for="bkin">استيراد ودمج</label><input type="file" id="bkin" accept="application/json,.json" hidden></div>
+      <textarea id="bkta" rows="3" placeholder="الصقوا النسخة الاحتياطية هنا ثم اضغطوا «استيراد من النص»" hidden></textarea>
+      <div class="row2"><button class="btn" id="bkpaste" hidden>استيراد من النص</button></div>
+      <p class="msg" id="bmsg"></p>
+    </div>
+    <div class="card">
+      <h3>تطبيق محاكم</h3>
+      <p class="note">لا توجد واجهة برمجية عامة تسمح بمزامنة هذا التطبيق مع تطبيق محاكم أو بوابة mahakim.ma. يتيح كل ملف هنا نسخ مرجعه وفتح تطبيق «Mahakim Mobile» الرسمي أو البوابة للتحقق من الملف.</p>
+    </div>
+  </section>
+</main>
+
+<nav class="tabs" role="tablist" aria-label="التنقل">
+  <button role="tab" data-tab="agenda" aria-selected="true"><svg><use href="#i-cal"/></svg>المواعيد</button>
+  <button role="tab" data-tab="files" aria-selected="false"><svg><use href="#i-fold"/></svg>ملفاتي</button>
+  <button role="tab" data-tab="dl" aria-selected="false"><svg><use href="#i-gav"/></svg>الآجال</button>
+  <button role="tab" data-tab="help" aria-selected="false"><svg><use href="#i-help"/></svg>المساعدة</button>
+  <button role="tab" data-tab="set" aria-selected="false"><svg><use href="#i-set"/></svg>الإعدادات</button>
+</nav>
+
+<div id="login">
+  <div class="gl">
+    <h2 id="lg-h">فضاء المكتب</h2>
+    <p class="note" id="lg-p" style="color:#cfe0d8">دخول مخصص لفريق المكتب. البيانات مشفّرة ولا يطّلع عليها الزوار.</p>
+    <label><span>مستودع البيانات (اسم-الحساب/اسم-المستودع)</span><input id="lg-repo" dir="ltr" placeholder="username/zoulouti-data" autocomplete="off"></label>
+    <label><span>البريد الإلكتروني</span><input id="lg-mail" type="email" dir="ltr" autocomplete="username"></label>
+    <label><span>الرمز السري</span><input id="lg-pw" type="password" dir="ltr" autocomplete="current-password"></label>
+    <div id="lg-setup" hidden>
+      <label><span>تأكيد الرمز السري</span><input id="lg-pw2" type="password" dir="ltr" autocomplete="new-password"></label>
+      <label><span>مفتاح GitHub (Fine-grained token بصلاحية Contents: Read and write على هذا المستودع فقط)</span><input id="lg-tok" type="password" dir="ltr" autocomplete="off"></label>
+    </div>
+    <button class="btn p" id="lg-go">دخول</button>
+    <p class="msg" id="lg-msg"></p>
+  </div>
+</div>
+<div id="lock" hidden>
+  <div class="box">
+    <img src="icons/icon-192.png" alt="">
+    <h2 style="margin:0">ملفاتي</h2>
+    <input id="lpin" type="password" inputmode="numeric" maxlength="8" autocomplete="off" placeholder="الرمز السري">
+    <button class="btn p" id="lgo">فتح</button>
+    <p class="msg" id="lmsg" style="color:#ffb59e"></p>
+  </div>
+</div>
+
+<script>
+var KEY='zl_files_v1',NKEY='zl_notified_v1';
+var $=function(id){return document.getElementById(id);};
+var items={},editId=null,armed=null,openD={};
+var STN={1:'قيد الدرس',2:'مسطرة جارية',3:'ملف مغلق'};
+var MK_PLAY='https://play.google.com/store/apps/details?id=com.justice.service';
+var MK_APP='intent://#Intent;package=com.justice.service;S.browser_fallback_url='+encodeURIComponent(MK_PLAY)+';end';
+var MK_WEB='https://www.mahakim.ma/';
+var isAndroid=/Android/i.test(navigator.userAgent);
+var NATIVE=!!(window.Capacitor&&typeof window.Capacitor.isNativePlatform==='function'&&window.Capacitor.isNativePlatform());
+var LN=(NATIVE&&window.Capacitor.Plugins)?window.Capacitor.Plugins.LocalNotifications:null;
+
+function load(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){return {};}}
+function pad(n){return ('0'+n).slice(-2);}
+function today(){var d=new Date();return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());}
+function fd(d){return d?d.split('-').reverse().join('/'):'';}
+function addDays(n){var d=new Date();d.setDate(d.getDate()+n);return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());}
+function maskDate(v){var x=v.replace(/\D/g,'').slice(0,8),o=x.slice(0,2);if(x.length>2)o+='/'+x.slice(2,4);if(x.length>4)o+='/'+x.slice(4);return o;}
+function maskTime(v){var x=v.replace(/\D/g,'').slice(0,4),o=x.slice(0,2);if(x.length>2)o+=':'+x.slice(2);return o;}
+function parseDate(v){var m=/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/.exec(String(v).trim());if(!m)return '';var d=+m[1],mo=+m[2],y=+m[3],dt=new Date(y,mo-1,d);if(y<2000||y>2100||dt.getFullYear()!==y||dt.getMonth()!==mo-1||dt.getDate()!==d)return '';return y+'-'+pad(mo)+'-'+pad(d);}
+function parseTime(v){v=String(v).trim();if(!v)return '';var m=/^(\d{1,2}):(\d{2})$/.exec(v);if(!m)return null;var h=+m[1],mi=+m[2];if(h>23||mi>59)return null;return pad(h)+':'+pad(mi);}
+function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e;}
+function field(l,i){var x=el('label');x.appendChild(el('span',null,l));x.appendChild(i);return x;}
+function mm(id,t,ok){var m=$(id);m.textContent=t;m.className='msg'+(ok?' ok':'');}
+
+/* ---------- data ---------- */
+function persist(){
+  cloudSave();
+  renderAll();
+}
+function refLine(f){return (f.court||'—')+' | '+f.type+' | '+f.no+(f.code?' / '+f.code:'')+' / '+f.yr;}
+function refText(f){return 'المحكمة: '+(f.court||'—')+'، نوع الملف: '+f.type+'، الرقم: '+f.no+(f.code?'، الرمز: '+f.code:'')+'، السنة: '+f.yr+(f.kind?'، نوع القضية: '+f.kind:'');}
+function fname(f){return f.label||('ملف '+f.no+'/'+f.yr);}
+
+
+/* ---------- courts and case codes (source: Moroccan judicial map; Ministry of Justice code tables as published) ---------- */
+var CODE_TXT=`1101|الاستعجالي
+1102|الأمر بالأداء
+1103|الحجز التحفظي
+1104|الحجز لدى الغير
+1105|التقييد الاحتياطي
+1106|الإنذار العقاري
+1107|الإنذار بأداء الكراء
+1108|الإحالة
+1109|باقي الأوامر المبنية على الطلب
+1110|تبليغ إنذار ظ.ش 64-99
+1111|المصادقة على الإنذار ظ.ش 64-99
+1112|المصادقة على الحجز لدى الغير
+1113|الإلغاء (قضاء القرب)
+1114|طلبات الاستفادة من صندوق التكافل العائلي
+1115|محاولة الصلح (ظهير 24 ماي 1955)
+1118|استرجاع الناقلة
+1120|الطعن ضد مقررات تحديد الأتعاب الصادرة عن نقيب المحامين
+1121|صعوبة التنفيذ
+1122|أداء اليمين المهنية
+1123|إيقاف التنفيذ
+1124|الطعون ضد مقررات مجلس الهيئة ونزاعات المحامين
+1125|مخالفات العدول المهنية
+1126|مخالفات المفوضين القضائيين المهنية
+1127|مخالفات الموثقين المهنية
+1128|تجريح القضاة
+1154|المصادقة على الحجز لدى الغير المستأنفة
+1201|المدني المتنوع
+1202|المسؤولية التقصيرية
+1203|التجاري
+1204|الإداري
+1205|المدني النهائي
+1206|المدني مقاطعات
+1207|تذييل بالصيغة التنفيذية
+1208|المسطرة التأديبية
+1209|قضايا المشورة مدني
+1210|مدني عبري
+1211|المنازعات الانتخابية
+1220|الأوامر بالأداء المستأنفة
+1221|القضايا الاستعجالية المستأنفة
+1251|المدني المتنوع المستأنف
+1252|المسؤولية التقصيرية المستأنفة
+1253|التجاري المستأنف
+1254|الإداري المستأنف
+1255|المدني النهائي المستأنف
+1256|المدني مقاطعات المستأنف
+1257|غرفة المشورة للقضايا المدنية المستأنفة
+1258|مدني عبري مستأنف
+1301|أداء واجبات الكراء
+1302|الإفراغ
+1303|الأداء والإفراغ
+1304|مراجعة السومة الكرائية
+1305|قضايا المشورة أكرية
+1351|أداء واجبات الكراء المستأنف
+1352|مراجعة السومة الكرائية المستأنفة
+1353|غرفة المشورة لقضايا الأكرية المستأنفة
+1401|العقار العادي
+1402|العقار المحفظ
+1403|العقار في طور التحفيظ
+1404|القضايا العقارية العينية المختلطة
+1405|قضايا المشورة عقار
+1406|العقار العبري
+1451|العقار العادي المستأنف
+1452|العقار المحفظ المستأنف
+1453|العقار في طور التحفيظ المستأنف
+1454|القضايا العقارية العينية المختلطة المستأنف
+1455|قضايا المشورة عقار المستأنف
+1456|العقار العبري المستأنف
+1501|نزاعات الشغل
+1502|حوادث الشغل
+1503|الأمراض المهنية
+1504|قضايا المشورة نزاعات الشغل
+1505|قضايا المشورة حوادث الشغل
+1551|نزاعات الشغل المستأنفة
+1552|حوادث الشغل المستأنفة
+1553|الأمراض المهنية المستأنفة
+1554|غرفة المشورة لنزاعات الشغل المستأنفة
+1555|غرفة المشورة لحوادث الشغل المستأنفة
+1601|الإصلاح والتغيير
+1602|تسجيل الولادة
+1603|تسجيل الوفاة
+1604|إضافة بيانات
+1605|الزواج عادي
+1606|النفقة
+1607|التطليق
+1608|الطلاق (الإذن بالطلاق والمقرر النهائي)
+1609|الحضانة
+1610|الرجوع لبيت الزوجية
+1611|ثبوت الزوجية
+1612|صلة الرحم
+1613|النسب
+1614|التذييل بالصيغة التنفيذية (أسرة)
+1615|الميراث
+1616|زواج القاصرين
+1617|كفالة الأطفال المهملين
+1618|الإذن بالتعدد
+1619|النيابة الشرعية
+1620|قضايا الأحوال الشخصية الأخرى
+1621|غرفة المشورة لقضايا الأسرة
+1622|مراجعة لوازم الطلاق
+1623|التحجير
+1624|الزواج المختلط
+1625|التصريح بالإهمال
+1626|التطليق للشقاق
+1627|التطليق للضرر
+1628|التطليق لعدم الإنفاق
+1629|التطليق للغيبة
+1630|التطليق للعيب
+1631|التطليق بسبب الإيلاء والهجر
+1632|التطليق لإخلال الزوج بشرط من شروط العقد
+1633|الطلاق قبل البناء
+1634|الطلاق المملك
+1635|الطلاق الاتفاقي
+1636|الطلاق بالخلع
+1637|فسخ عقد زواج
+1638|بطلان الزواج
+1639|الأحوال الشخصية العبرية المغربية
+1640|الأحوال الشخصية للأجانب
+1641|دعاوى الجنسية
+1642|كفالة الأطفال غير المهملين
+1643|النيابة القانونية
+1651|النفقة المستأنفة
+1652|غرفة المشورة لقضايا الأسرة المستأنفة
+1653|مراجعة لوازم الطلاق المستأنفة
+1701|طلب الأداء (قضاء القرب)
+1702|الحجز لدى الغير (قضاء القرب)
+1703|الإنذار بأداء الكراء
+1707|المدني المتنوع (قضاء القرب)
+1708|المسؤولية التقصيرية (قضاء القرب)
+1709|التجاري (قضاء القرب)
+1710|أداء واجبات الكراء (قضاء القرب)
+1711|مراجعة السومة الكرائية (قضاء القرب)
+6101|البيوعات العقارية
+6102|الحجز التحفظي على عقار
+6103|بيع الأصول التجارية
+6104|التصفية القضائية
+6105|الإنذارات العقارية
+6106|التركات الشاغرة
+6107|الحجز التنفيذي على عقار
+6108|تحقيق الرهن على عقار
+6109|الحجز التحفظي على أصل تجاري
+6110|تحقيق الرهن على أصل تجاري
+6111|الحجز التحفظي على سفينة
+6112|الحجز التنفيذي على سفينة
+6150|تنفيذ الأمر بالأداء
+6151|تنفيذ الأوامر المختلفة
+6152|تنفيذ الأوامر الاستعجالية
+6153|مختلف تنفيذات مؤسسة الرئيس
+6201|مختلف قضايا التنفيذ المدني
+6202|الحجز التحفظي على منقول
+6203|الحجز لدى الغير
+6204|الإفراغات
+6205|الحجز التنفيذي على منقول
+6206|تنفيذ الأداءات
+6207|تنفيذ الاسترجاعات
+6208|تنفيذات المسؤولية المدنية
+6209|تنفيذات حوادث السير (الدعوى المدنية)
+6210|تنفيذات منازعات الشغل
+6211|تنفيذات حوادث الشغل
+6212|تنفيذ أحكام قضاء القرب
+6213|التنفيذ التلقائي
+6250|تنفيذ النفقة
+6251|تنفيذ الرجوع لبيت الزوجية
+6252|تنفيذ مستحقات الطلاق
+6253|تنفيذ مستحقات التطليق
+6254|تنفيذ الأحوال الشخصية المختلفة
+6255|تنفيذات أخرى لقضاء الأسرة
+2101|جنحي عادي تأديبي
+2102|جنحي عادي ضبطي
+2103|جنحي تلبسي تأديبي اعتقال
+2104|جنحي تلبسي تأديبي سراح
+2105|جنحي تلبسي ضبطي اعتقال
+2106|جنحي تلبسي ضبطي سراح
+2107|جنحي غابة
+2108|جنحي بناء بدون رخصة
+2109|جنحي قمع الغش
+2110|جنحي مقاطعات
+2111|التصديق على مسطرة الصلح
+2112|غرفة المشورة قضايا جنحي
+2113|العنف ضد الأطفال ضبطي
+2114|العنف ضد الأطفال تأديبي
+2115|العنف ضد النساء ضبطي
+2116|العنف ضد النساء تأديبي
+2117|العنف ضد الأطفال ضبطي تلبسي
+2118|العنف ضد الأطفال تأديبي تلبسي
+2119|العنف ضد النساء ضبطي تلبسي
+2120|العنف ضد النساء تأديبي تلبسي
+2121|جنحي بيئة
+2201|جنحي أحداث ضبطي سراح
+2202|جنحي أحداث ضبطي اعتقال
+2203|جنحي أحداث تأديبي سراح
+2204|جنحي أحداث تأديبي اعتقال
+2205|جنح السير أحداث عادي
+2206|جنح السير تلبسي أحداث
+2207|حوادث السير أحداث عادي
+2208|حوادث السير تلبسي أحداث
+2301|التحقيق (رشداء)
+2302|التحقيق (أحداث)
+2303|إنابة محلية واردة (تحقيق)
+2304|إنابة دولية واردة (تحقيق)
+2305|قضايا التحقيق العنف ضد النساء
+2306|قضايا التحقيق العنف ضد الأطفال
+2307|التحقيق في حادثة سير مميتة
+2401|حوادث السير عادي تأديبي
+2402|حوادث السير عادي ضبطي
+2403|حوادث السير تلبسي تأديبي اعتقال
+2404|حوادث السير تلبسي تأديبي سراح
+2405|حوادث السير تلبسي ضبطي اعتقال
+2406|حوادث السير تلبسي ضبطي سراح
+2407|جنح السير (الأمر القضائي)
+2408|جنح السير تلبسي
+2409|جنح السير عادي (القواعد العامة)
+2410|مخالفات السير عادي (القواعد العامة)
+2411|مخالفات السير (السند التنفيذي)
+2412|غرفة المشورة قضايا السير
+2413|مخالفات قضاء القرب محلي
+2414|مخالفات قضاء القرب تنقلية
+2415|إلغاءات مخالفات قضاء القرب
+2416|جرائم غسل الأموال
+2417|مخالفات السير (الرادار الثابت)
+2418|جنح السير (الرادار الثابت)
+2801|جنحي عادي استئنافي
+2802|جنحي تلبسي استئنافي اعتقال
+2803|جنحي تلبسي استئنافي سراح
+2804|العنف ضد الأطفال عادي استئنافي
+2805|العنف ضد النساء عادي استئنافي
+2806|جنحي أحداث استئنافي سراح
+2807|جنحي أحداث استئنافي اعتقال
+2808|حوادث السير عادي استئنافي
+2809|حوادث السير تلبسي استئنافي اعتقال
+2810|حوادث السير تلبسي استئنافي سراح
+2811|جنح السير تلبسي استئنافي سراح
+2812|جنح السير تلبسي استئنافي اعتقال
+2813|جنح السير عادي استئنافي
+2814|مخالفات السير استئنافي
+2815|جنح السير أحداث استئنافي عادي
+2816|جنح السير تلبسي استئنافي أحداث
+2817|حوادث السير أحداث استئنافي عادي
+2818|حوادث السير تلبسي استئنافي أحداث
+2819|جنحي غابة استئنافي
+2820|جنحي بناء بدون رخصة استئنافي
+2821|جنحي قمع الغش استئنافي
+2822|جنحي بيئة استئنافي
+2823|العنف ضد الأطفال تلبس استئنافي
+2824|العنف ضد النساء تلبس استئنافي
+2901|شكاية مباشرة أمام المحكمة (قضايا الصحافة)
+2902|شكاية مباشرة أمام المحكمة (قضايا مختلفة)
+3101|شكاية عادية
+3102|شكاية إهمال الأسرة
+3103|شكاية العنف ضد الأطفال
+3104|شكاية العنف ضد النساء
+3105|شكاية الرجوع إلى بيت الزوجية (ف 53 م أ)
+3106|شكاية شيك بدون مؤونة
+3107|شكاية المعتقلين
+3108|شكاية الجالية المغربية
+3110|شكاية استثنائية
+3114|شكاية ضد المفوضين القضائيين
+3117|شكاية العنف ضد الزوج
+3119|شكاية خرق قانون الانتخابات
+3120|شكاية مباشرة أمام قاضي التحقيق
+3121|شكاية مباشرة أمام المحكمة
+3122|شكاية قضاء الأسرة (ف 54 م أ)
+3123|شكاية الجرائم المالية
+3125|شكاية البيئة
+3126|شكاية خلية حقوق الإنسان
+3201|محضر عادي
+3202|محضر تلبسي
+3203|محضر تلبسي جنح السير
+3204|محضر تلبسي حوادث السير
+3205|محضر حوادث السير
+3206|محضر جنح السير
+3207|محضر مخالفات السير
+3208|محضر قمع الغش
+3209|محضر الغش في الأسعار
+3210|محضر مخالفات الغابة
+3211|محضر بناء بدون رخصة
+3212|محضر محاربة التهريب
+3213|محضر محاربة المخدرات
+3214|محضر قضايا الأسرة
+3215|محضر تلبسي أحداث
+3216|محضر العنف ضد النساء
+3217|محضر العنف ضد القاصرين
+3218|محضر الإكراه البدني
+3219|محضر البحث عن متغيب
+3220|محضر تنفيذ العقوبة الحبسية
+3226|محضر مخالفات التعمير
+3227|محضر عادي أحداث
+3228|محضر البيئة
+3229|محضر المقالع
+3230|محضر العنف ضد النساء تلبس
+3234|محضر العنف ضد القاصرين تلبس
+3235|محضر حقوق الإنسان
+3236|محضر حقوق الطفل
+3237|محضر حماية الأحداث ضحايا العنف
+3238|محضر الأحداث في وضعية صعبة
+3239|محضر مخالفات السير (الرادار الثابت)
+3240|محضر جنح السير (الرادار الثابت)
+3241|محضر مخالفة قانون الانتخابات
+4101|تنفيذ الغرامات المالية
+4102|تنفيذ العقوبات السالبة للحرية
+4103|إنابة واردة مالية
+7101|القضايا الاستعجالية (إداري)
+7102|الأوامر المبنية على طلب (إداري)
+7103|المصادقة على الحجز (إداري)
+7104|المعاشات المدنية والعسكرية
+7105|الوضعية الفردية
+7106|إيقاف التنفيذ (إداري)
+7107|المنازعات الانتخابية
+7108|نزع الملكية
+7109|تحصيل ديون الخزينة
+7110|قضاء الإلغاء
+7111|فحص الشرعية
+7112|المسؤولية الإدارية
+7113|المنازعات الضريبية
+7114|العقود الإدارية والصفقات
+7115|المختلفة (إداري)
+7116|المساعدة القضائية (إداري)
+7129|الوضعية الفردية (المادة 11 من ظهير 10-09-1993)
+7130|المنازعات (المادة 11 من ظهير 10-09-1993)
+7201|الاستعجالي (اختصاص الرئيس الأول، إداري)
+7202|الاستعجالي المستأنف (إداري)
+7203|غرفة المشورة (إداري)
+7204|المساعدة القضائية (استئناف إداري)
+7205|قضاء الإلغاء (استئناف إداري)
+7206|المسؤولية الإدارية (استئناف إداري)
+7207|العقود الإدارية والصفقات (استئناف إداري)
+7208|الوضعية الفردية (استئناف إداري)
+7209|المنازعات الضريبية (استئناف إداري)
+7210|المعاشات المدنية والعسكرية (استئناف إداري)
+7211|نزع الملكية (استئناف إداري)
+7212|المنازعات الانتخابية (استئناف إداري)
+7213|تحصيل ديون الخزينة (استئناف إداري)
+7214|إيقاف تنفيذ القرارات الإدارية
+7215|فحص الشرعية (استئناف إداري)
+8101|الاستعجالي (تجاري)
+8102|الأمر بالأداء (تجاري)
+8103|الأوامر المبنية على طلب (تجاري)
+8104|استرجاع السيارات
+8105|الحجز لدى الغير (تجاري)
+8106|الحجز التحفظي (تجاري)
+8107|رفع الحجز
+8108|مسطرة التوفيق (ظهير 24 ماي 1955)
+8109|إيقاف التنفيذ (تجاري)
+8110|صعوبة التنفيذ (تجاري)
+8111|التوزيع الودي
+8112|التسوية الودية
+8116|استرجاع حيازة محل مهجور
+8201|العقود التجارية
+8202|المنازعات بين التجار بشأن أعمال تجارية
+8203|الأوراق التجارية
+8204|منازعات الشركاء في شركة تجارية
+8205|الأصول التجارية
+8206|منازعات ظهير 24 ماي 1955
+8207|أكرية المحلات التجارية
+8208|تصحيح الحجز
+8209|معاملات مؤسسات التمويل
+8210|المعاملات البنكية والقروض
+8211|المنافسة غير المشروعة والتقليد
+8212|مشورة متنوعة (تجاري)
+8213|ما يتعلق بالتنفيذ (تجاري)
+8214|منازعات السجل التجاري
+8215|غرامات السجل التجاري
+8216|التعرض على أمر بالأداء
+8217|إيقاف تنفيذ أمر بالأداء
+8218|قضايا التأمين
+8220|المسؤولية البنكية
+8221|المعاملات البنكية
+8222|القروض البنكية
+8223|الأوامر بالأداء المستأنفة (تجاري)
+8224|الأوامر المبنية على طلب المستأنفة (تجاري)
+8225|الأوامر الاستعجالية المستأنفة (تجاري)
+8226|الحجز لدى الغير المستأنف (تجاري)
+8227|الاختصاص (تجاري)
+8228|المنازعات بين الشركات التجارية
+8229|الطعن في مقررات مكتب الملكية الصناعية
+8230|الطعن بالبطلان في الأحكام التحكيمية
+8231|إصلاح خطأ مادي
+8232|قضايا أخرى (تجاري)
+8301|صعوبات المقاولة
+8302|التسوية القضائية
+8303|التصفية القضائية
+8304|الطلبات الأخرى المعروضة على القاضي المنتدب
+8305|تمديد فترة إعداد الحل
+8306|إعداد الحل
+8307|تحديد الأتعاب (صعوبات المقاولة)
+8308|فسخ المخطط
+8309|متابعة تنفيذ المخطط
+8310|العقوبات (صعوبات المقاولة)
+8311|الاستبدال
+8312|قفل المسطرة
+8313|طلبات تحقيق الدين المعروضة على القاضي المنتدب
+8314|تمديد فترة الاستغلال
+8316|حصر مخطط الاستمرارية
+8317|اختيار عرض التفويت
+8318|تحويل التسوية إلى تصفية
+8319|طلبات أخرى في صعوبات المقاولة
+8320|تمديد التسوية القضائية
+8321|تمديد التصفية القضائية
+8322|قفل مسطرة التسوية القضائية
+8323|قفل مسطرة التصفية القضائية
+8401|تبليغ الأحكام والأوامر والقرارات (محلي)
+8402|تبليغ الأحكام والأوامر والقرارات (إنابة)
+8403|تبليغ أوامر القاضي المنتدب (محلي)
+8404|تبليغ أوامر القاضي المنتدب (إنابة)
+8405|تبليغ أحكام غرفة المشورة
+8406|تبليغ تلقائي (تجاري)
+8407|تبليغات أخرى (تجاري)
+8408|تبليغ الأوامر الاستعجالية
+8409|تبليغ الأوامر بالأداء
+8410|تبليغ الإنذارات
+8411|تبليغ أحكام الموضوع
+8412|تبليغ أحكام صعوبات المقاولة`;
+var CODEMAP={};CODE_TXT.split('\n').forEach(function(l){var p=l.split('|');if(p.length===2)CODEMAP[p[0].trim()]=p[1].trim();});
+var FAM={'11':'مؤسسة الرئيس وغرفة المشورة','12':'مدني','13':'أكرية','14':'عقار','15':'اجتماعي','16':'أحوال شخصية / أسرة','17':'قضاء القرب','21':'جنحي عادي وتلبسي','22':'جنحي أحداث','23':'تحقيق','24':'جنح وحوادث السير','28':'جنحي استئنافي','29':'شكاية مباشرة','31':'شكايات','32':'محاضر','41':'تنفيذ زجري','61':'تنفيذات','62':'تنفيذات مدنية','63':'تنفيذات (إنابات)','65':'تبليغات','66':'تبليغات وتنفيذ زجري','67':'تبليغات','68':'تبليغات (إنابات واردة)','71':'محكمة إدارية','72':'محكمة استئناف إدارية','73':'تبليغ (إداري)','74':'تنفيذ (إداري)','75':'تبليغ (إداري)','76':'تنفيذ (إداري)','81':'تجاري: مؤسسة الرئيس','82':'تجاري: شعبة الموضوع','83':'صعوبات المقاولة','84':'تبليغات تجارية','85':'تنفيذات تجارية'};
+function typeOf(c){var p=c.slice(0,2);if(['21','22','23','24','28','29'].indexOf(p)>=0)return 'جنحي';if(p==='31')return 'شكاية';if(p==='32')return 'محضر';if(['41','61','62','63','74','76','85'].indexOf(p)>=0)return 'تنفيذ';if(['65','66','67','68','73','75','84'].indexOf(p)>=0)return 'تبليغ';return 'عادي';}
+function kindInfo(v){var c=String(v||'').replace(/\D/g,'');if(c.length<4)return null;c=c.slice(0,4);if(CODEMAP[c])return {t:CODEMAP[c],ex:1,c:c};return {t:FAM[c.slice(0,2)]||'',ex:0,c:c};}
+function ct(p,l){return l.split('|').map(function(c){return p+' ب'+c;});}
+var COURTS=[].concat(
+  ct('محكمة الاستئناف','الرباط|القنيطرة|الدار البيضاء|الجديدة|فاس|تازة|مراكش|ورزازات|آسفي|مكناس|الرشيدية|أكادير|العيون|تطوان|طنجة|سطات|بني ملال|خريبكة|وجدة|الناظور|الحسيمة|كلميم|الداخلة'),
+  ct('المحكمة الابتدائية','الرباط|سلا|تمارة|الخميسات|الرماني|تيفلت|القنيطرة|سيدي قاسم|سيدي سليمان|سوق الأربعاء الغرب|مشرع بلقصيري|المحمدية|ابن سليمان|بوزنيقة|الجديدة|سيدي بنور|أولاد تايمة|مكناس|أزرو|الحاجب|فاس|صفرو|تاونات|ميسور|تازة|مراكش|قلعة السراغنة|ابن جرير|إيمنتانوت|تحناوت|شيشاوة|دمنات|آسفي|الصويرة|اليوسفية|وجدة|بركان|تاوريرت|فجيج (بوعرفة)|جرسيف|جرادة|الناظور|الدريوش|الحسيمة|تارجيست|أكادير|إنزكان|بيوكرى|تارودانت|تيزنيت|طانطان|كلميم|طاطا|أسا الزاك|العيون|السمارة|الداخلة (وادي الذهب)|بوجدور|خريبكة|وادي زم|أبي الجعد|بني ملال|أزيلال|قصبة تادلة|الفقيه بن صالح|سوق السبت|خنيفرة|الرشيدية|ميدلت|أرفود|الريش|ورزازات|زاكورة|تنغير|سطات|برشيد|بن أحمد|تطوان|شفشاون|وزان|المضيق|طنجة|أصيلة|العرائش|القصر الكبير'),
+  ['المحكمة الابتدائية المدنية بالدار البيضاء','المحكمة الابتدائية الاجتماعية بالدار البيضاء','المحكمة الابتدائية الزجرية بالدار البيضاء'],
+  ct('المحكمة التجارية','الدار البيضاء|الرباط|فاس|مراكش|أكادير|طنجة|مكناس|وجدة|العيون|الداخلة|بني ملال'),
+  ct('محكمة الاستئناف التجارية','الدار البيضاء|فاس|مراكش|أكادير|طنجة'),
+  ct('المحكمة الإدارية','الرباط|الدار البيضاء|فاس|مراكش|مكناس|وجدة|أكادير|العيون|الداخلة|طنجة|بني ملال'),
+  ct('محكمة الاستئناف الإدارية','الرباط|مراكش|فاس|أكادير|طنجة'),
+  ['محكمة النقض بالرباط']);
+var CK='zl_courts_v1';
+function customCourts(){try{return JSON.parse(localStorage.getItem(CK)||'[]');}catch(e){return [];}}
+function rememberCourt(n){n=String(n||'').trim();if(!n)return;var k=nz(n);if(COURTS.concat(customCourts()).some(function(c){return nz(c)===k;}))return;var l=customCourts();l.push(n);try{localStorage.setItem(CK,JSON.stringify(l));}catch(e){}}
+function nz(x){return String(x||'').replace(/[\u064B-\u065F\u0670\u0640]/g,'').replace(/[أإآ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه').replace(/ؤ/g,'و').replace(/ئ/g,'ي').toLowerCase().replace(/\s+/g,' ').trim();}
+function courtSug(q){var t=nz(q).split(' ').filter(Boolean);if(!t.length)return [];return COURTS.concat(customCourts()).filter(function(n){var m=nz(n);return t.every(function(w){return m.indexOf(w)>=0;});}).slice(0,8);}
+function showSug(){
+  var b=$('csug'),q=$('mcourt').value;b.textContent='';
+  var l=courtSug(q);if(l.length===1&&nz(l[0])===nz(q))return;
+  l.forEach(function(n){var x=el('button',null,n);x.type='button';x.addEventListener('click',function(){$('mcourt').value=n;b.textContent='';});b.appendChild(x);});
+}
+function hintFor(v,auto){
+  var k=kindInfo(v),h=$('mkindhint');
+  var kd0=$('mkind');
+  if(!k){h.textContent='';if(auto&&kd0.dataset.auto==='1')kd0.value='';return;}
+  if(k.t){
+    h.textContent=(k.ex?'✓ ':'~ ')+k.t+(k.ex?'':' (حسب صنف الرمز)');
+    if(auto){var kd=$('mkind');if(!kd.value||kd.dataset.auto==='1'){kd.value=k.t;kd.dataset.auto='1';}var ty=$('mtype');if(ty.dataset.m!=='1')ty.value=typeOf(k.c);}
+  }else{h.textContent='رمز غير مدرج في الجدول. اكتبوا نوع القضية يدويًا إن شئتم.';if(auto&&kd0.dataset.auto==='1')kd0.value='';}
+}
+function genCode(){var al='ABCDEFGHJKMNPQRSTUVWXYZ23456789',b=crypto.getRandomValues(new Uint8Array(10)),x='';for(var i=0;i<10;i++)x+=al[b[i]%al.length];return x.slice(0,5)+'-'+x.slice(5);}
+var DEF_SITE='https://zoulouti.netlify.app';
+function SITE(){try{var v=localStorage.getItem('zl_site_url');return (v===null?DEF_SITE:v).trim().replace(/\/$/,'');}catch(e){return DEF_SITE;}}
+function matches(x,q){var t=nz(q).split(' ').filter(Boolean);if(!t.length)return true;var m=nz([x.label,x.court,x.no,x.code,x.yr,x.our,x.judge,x.kind,x.note,x.room,x.cli,x.adv,x.tel].join(' '));return t.every(function(w){return m.indexOf(w)>=0;});}
+
+/* ---------- events (every procedure that has a date) ---------- */
+function events(){
+  var out=[];
+  Object.keys(items).forEach(function(id){
+    var f=items[id];
+    (f.acts||[]).forEach(function(a,i){
+      out.push({uid:id+'-'+i+'@zoulouti-app',fid:id,i:i,f:f,a:a,allday:!a.t,start:new Date(a.d+'T'+(a.t||'00:00')+':00')});
+    });
+  });
+  return out;
+}
+function refTime(e){return e.allday?new Date(e.a.d+'T08:00:00'):e.start;}
+function isUp(e){return e.allday?e.a.d>=today():e.start.getTime()>=Date.now();}
+function room(e){return e.a.r||e.f.room||'';}
+function summary(e){return fname(e.f)+' — '+e.a.a;}
+function describe(e){
+  var L=['الملف: '+refLine(e.f)];
+  if(room(e))L.push('القاعة: '+room(e));
+  if(e.f.judge)L.push('القاضي(ة) المقرر(ة): '+e.f.judge);
+  L.push('الإجراء: '+e.a.a);
+  return L.join('\n');
+}
+function place(e){return [e.f.court,room(e)?'القاعة '+room(e):''].filter(Boolean).join(' - ');}
+
+/* ---------- calendar ---------- */
+function icsEsc(s){return String(s||'').replace(/\\/g,'\\\\').replace(/\r?\n/g,'\\n').replace(/,/g,'\\,').replace(/;/g,'\\;');}
+function stamp(d){return d.getUTCFullYear()+pad(d.getUTCMonth()+1)+pad(d.getUTCDate())+'T'+pad(d.getUTCHours())+pad(d.getUTCMinutes())+pad(d.getUTCSeconds())+'Z';}
+function loc8(d){return d.getFullYear()+pad(d.getMonth()+1)+pad(d.getDate());}
+function loc15(d){return loc8(d)+'T'+pad(d.getHours())+pad(d.getMinutes())+'00';}
+function endOf(e){return e.allday?new Date(e.start.getTime()+86400000):new Date(e.start.getTime()+3600000);}
+function alarm(e,trig){return ['BEGIN:VALARM','ACTION:DISPLAY','DESCRIPTION:'+icsEsc('تذكير: '+summary(e)),'TRIGGER:'+trig,'END:VALARM'];}
+function vevent(e){
+  var L=['BEGIN:VEVENT','UID:'+e.uid,'DTSTAMP:'+stamp(new Date())];
+  if(e.allday)L.push('DTSTART;VALUE=DATE:'+loc8(e.start),'DTEND;VALUE=DATE:'+loc8(endOf(e)));
+  else L.push('DTSTART:'+loc15(e.start),'DTEND:'+loc15(endOf(e)));
+  L.push('SUMMARY:'+icsEsc(summary(e)));
+  if(place(e))L.push('LOCATION:'+icsEsc(place(e)));
+  L.push('DESCRIPTION:'+icsEsc(describe(e)));
+  L=L.concat(e.allday?alarm(e,'-PT6H').concat(alarm(e,'PT8H')):alarm(e,'-P1D').concat(alarm(e,'-PT1H')));
+  L.push('END:VEVENT');
+  return L;
+}
+function buildICS(list){
+  var L=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Cabinet Zoulouti//Mes dossiers//AR','CALSCALE:GREGORIAN','METHOD:PUBLISH','X-WR-CALNAME:مواعيد الملفات'];
+  list.forEach(function(e){L=L.concat(vevent(e));});
+  L.push('END:VCALENDAR');
+  return L.join('\r\n')+'\r\n';
+}
+function gcal(e){
+  var dates=e.allday?loc8(e.start)+'/'+loc8(endOf(e)):loc15(e.start)+'/'+loc15(endOf(e));
+  return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(summary(e))+'&dates='+dates+'&details='+encodeURIComponent(describe(e))+'&location='+encodeURIComponent(place(e))+'&ctz=Africa%2FCasablanca';
+}
+function download(name,text,type){
+  var b=new Blob([text],{type:type||'text/calendar;charset=utf-8'}),a=document.createElement('a');
+  a.href=URL.createObjectURL(b);a.download=name;document.body.appendChild(a);a.click();
+  setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},1500);
+}
+
+/* ---------- alerts ---------- */
+function dueList(){
+  var n=Date.now();
+  return events().filter(function(e){var t=refTime(e).getTime();return isUp(e)&&t-n<=24*3600*1000&&t-n>-3600000;}).sort(function(a,b){return a.start-b.start;});
+}
+function cacheUpcoming(){
+  if(NATIVE||!window.caches)return;
+  var list=events().filter(isUp).map(function(e){return {uid:e.uid,t:refTime(e).getTime(),title:summary(e),body:fd(e.a.d)+(e.a.t?' | '+e.a.t:'')+(place(e)?' | '+place(e):'')};});
+  caches.open('zl-data').then(function(c){return c.put('upcoming.json',new Response(JSON.stringify(list),{headers:{'content-type':'application/json'}}));}).catch(function(){});
+}
+function notified(){try{return JSON.parse(localStorage.getItem(NKEY)||'{}');}catch(e){return {};}}
+async function showN(title,body,tag){
+  try{var reg=await navigator.serviceWorker.ready;await reg.showNotification(title,{body:body,tag:tag,lang:'ar',dir:'rtl',icon:'icons/icon-192.png',badge:'icons/icon-192.png',vibrate:[120,60,120],data:{url:'./#agenda'}});}catch(e){}
+}
+function notifyDue(){
+  if(NATIVE||!('Notification' in window)||Notification.permission!=='granted')return;
+  var done=notified(),n=Date.now(),changed=false;
+  events().filter(isUp).forEach(function(e){
+    var d=refTime(e).getTime()-n;
+    [['1',3600000],['24',24*3600000]].forEach(function(k){
+      var key=e.uid+'|'+e.a.d+(e.a.t||'')+'|'+k[0];
+      if(d>0&&d<=k[1]&&!done[key]){done[key]=n;changed=true;showN((k[0]==='1'?'خلال ساعة: ':'خلال 24 ساعة: ')+summary(e),fd(e.a.d)+(e.a.t?' | '+e.a.t:'')+(place(e)?' | '+place(e):''),key);}
+    });
+  });
+  if(changed){Object.keys(done).forEach(function(k){if(n-done[k]>14*86400000)delete done[k];});try{localStorage.setItem(NKEY,JSON.stringify(done));}catch(e){}}
+}
+async function askNotif(){
+  if(NATIVE){
+    if(!LN){mm('amsg','تعذر الوصول إلى تنبيهات الجهاز.');return;}
+    try{
+      var r=await LN.requestPermissions();
+      try{var x=await LN.checkExactNotificationSetting();if(x.exact_alarm!=='granted')await LN.changeExactNotificationSetting();}catch(e){}
+      await scheduleNative();notifUI();
+      if(r.display==='granted'&&!localStorage.getItem('zl_bat_asked')){try{localStorage.setItem('zl_bat_asked','1');}catch(e){}if(nat())nat().askIgnoreBattery().catch(function(){});}
+      mm('amsg',r.display==='granted'?'تم تفعيل التنبيهات.':'لم يُسمح بالتنبيهات. فعّلوها من إعدادات التطبيق في الهاتف.',r.display==='granted');
+    }catch(e){mm('amsg','تعذر تفعيل التنبيهات.');}
+    return;
+  }
+  if(!('Notification' in window)){mm('amsg','هذا المتصفح لا يدعم التنبيهات.');return;}
+  var p=await Notification.requestPermission();
+  notifUI();
+  if(p==='granted'){
+    notifyDue();
+    try{var reg=await navigator.serviceWorker.ready;if('periodicSync' in reg)await reg.periodicSync.register('zl-check',{minInterval:12*3600*1000});}catch(e){}
+  }
+}
+async function notifUI(){
+  var p;
+  if(NATIVE&&LN){try{p=(await LN.checkPermissions()).display;}catch(e){p='unsupported';}}
+  else p=('Notification' in window)?Notification.permission:'unsupported';
+  var t={granted:'التنبيهات مفعّلة.',denied:'التنبيهات محجوبة. فعّلوها من إعدادات التطبيق في الهاتف.',unsupported:'هذا الجهاز لا يدعم التنبيهات.'}[p]||'التنبيهات غير مفعّلة بعد.';
+  $('nstat').textContent=t;
+  [$('notif'),$('notif2')].forEach(function(b){b.hidden=(p==='granted'||p==='unsupported');});
+  $('ntest').hidden=!(NATIVE&&p==='granted');
+  renderDiag();
+}
+function nid(s){var h=0;for(var i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))|0;return (Math.abs(h)%2000000000)+1;}
+var CH='mawaid',plan=[];
+function nat(){return (NATIVE&&window.Capacitor.Plugins)?window.Capacitor.Plugins.CalendarInsert:null;}
+async function ensureChannel(){
+  if(!LN)return;
+  try{await LN.createChannel({id:CH,name:'مواعيد الملفات',description:'تنبيهات المواعيد والإجراءات',importance:5,visibility:1,vibration:true,lights:true});}catch(e){}
+}
+async function scheduleNative(){
+  if(!LN)return;
+  try{
+    var pm=await LN.checkPermissions();if(pm.display!=='granted')return;
+    await ensureChannel();
+    var pend=await LN.getPending();
+    if(pend.notifications&&pend.notifications.length)await LN.cancel({notifications:pend.notifications.map(function(n){return {id:n.id};})});
+    var now=Date.now(),list=[],H=3600000,M=60000;
+    events().filter(isUp).sort(function(x,y){return x.start-y.start;}).forEach(function(e){
+      var t=refTime(e).getTime();
+      var steps=e.allday?[['p',-14*H,'غدًا: '],['d',0,'اليوم: ']]:[['d1',-24*H,'غدًا: '],['h3',-3*H,'خلال 3 ساعات: '],['h1',-H,'خلال ساعة: '],['m15',-15*M,'خلال 15 دقيقة: '],['m0',0,'الآن: ']];
+      steps.forEach(function(k){
+        var at=t+k[1];
+        if(at>now+5000&&list.length<450)list.push({id:nid(e.uid+'|'+k[0]),title:k[2]+summary(e),body:fd(e.a.d)+(e.a.t?' | '+e.a.t:'')+(place(e)?' | '+place(e):''),channelId:CH,schedule:{at:new Date(at),allowWhileIdle:true},extra:{uid:e.uid}});
+      });
+    });
+    plan=list.map(function(n){return n.schedule.at.getTime();}).sort(function(x,y){return x-y;});
+    list.push({id:999999990,title:'تقرير الأسبوع',body:'افتحوا التطبيق لمراجعة مواعيد الأسبوع القادم.',channelId:CH,schedule:{on:{weekday:2,hour:8,minute:0},allowWhileIdle:true}});
+    await LN.schedule({notifications:list});
+    renderDiag();
+  }catch(e){}
+}
+async function testNotif(){
+  if(!LN)return;
+  try{
+    await ensureChannel();
+    await LN.schedule({notifications:[{id:999999991,title:'تنبيه تجريبي',body:'إذا ظهر هذا التنبيه فالتنبيهات تعمل على هاتفك.',channelId:CH,schedule:{at:new Date(Date.now()+15000),allowWhileIdle:true}}]});
+    mm('amsg','سيصلكم تنبيه بعد 15 ثانية. أغلقوا التطبيق (من الأزرار الثلاثة، ثم اسحبوه) للتأكد من وصوله.',true);
+  }catch(e){mm('amsg','تعذر جدولة التنبيه التجريبي.');}
+}
+async function renderDiag(){
+  if(!NATIVE||!LN||!$('diag'))return;
+  $('diag').hidden=false;
+  var L=[];
+  try{var p=await LN.checkPermissions();L.push('إذن الإشعارات: '+(p.display==='granted'?'ممنوح ✓':'غير ممنوح ✗'));}catch(e){}
+  try{var x=await LN.checkExactNotificationSetting();L.push('المنبّه الدقيق: '+(x.exact_alarm==='granted'?'مسموح ✓':'غير مسموح ✗'));}catch(e){}
+  try{var pd=await LN.getPending();L.push('تنبيهات مجدولة: '+pd.notifications.length);}catch(e){}
+  var nx=plan.filter(function(t){return t>Date.now();})[0];
+  if(nx){var D=new Date(nx);L.push('أقرب تنبيه: '+pad(D.getDate())+'/'+pad(D.getMonth()+1)+' '+pad(D.getHours())+':'+pad(D.getMinutes()));}
+  $('dstat').textContent=L.join('\n');
+}
+function callNat(m){var P=nat();if(!P){mm('amsg','هذه الميزة متاحة في تطبيق أندرويد فقط.');return;}P[m]().catch(function(){mm('amsg','تعذر فتح الإعدادات من التطبيق. افتحوها يدويًا من إعدادات الهاتف.');});}
+
+/* ---------- agenda ---------- */
+function dayLabel(d){
+  var t=today(),n=new Date();n.setDate(n.getDate()+1);
+  if(d===t)return 'اليوم';
+  if(d===n.getFullYear()+'-'+pad(n.getMonth()+1)+'-'+pad(n.getDate()))return 'غدًا';
+  try{return new Date(d+'T12:00:00').toLocaleDateString('ar-MA-u-nu-latn',{weekday:'long',day:'numeric',month:'long',year:'numeric'});}catch(e){return fd(d);}
+}
+async function addToCalendar(e){
+  var CI=(NATIVE&&window.Capacitor.Plugins)?window.Capacitor.Plugins.CalendarInsert:null;
+  if(CI){
+    try{
+      var st=e.start.getTime(),en=endOf(e).getTime();
+      if(e.allday){var p=e.a.d.split('-');st=Date.UTC(+p[0],+p[1]-1,+p[2]);en=st+86400000;}
+      await CI.insert({title:summary(e),description:describe(e),location:place(e),start:String(st),end:String(en),allDay:!!e.allday});
+      return;
+    }catch(x){}
+  }
+  window.open(gcal(e),'_blank');
+}
+function calBtns(e,box){
+  var b=el('button','btn sm','أضف إلى الأجندة');
+  b.addEventListener('click',function(){if(NATIVE)addToCalendar(e);else download('rendez-vous-'+e.a.d+'.ics',buildICS([e]));});
+  box.appendChild(b);
+}
+function renderAgenda(){
+  var up=events().filter(isUp).sort(function(a,b){return a.start-b.start;}),box=$('agl'),cur='';
+  box.textContent='';
+  var due=dueList(),soon=$('soon');
+  soon.hidden=!due.length;soon.textContent='';
+  if(due.length){
+    soon.appendChild(el('b',null,'خلال 24 ساعة ('+due.length+')'));
+    due.forEach(function(e){soon.appendChild(el('div','meta',fd(e.a.d)+(e.a.t?' | '+e.a.t:'')+' — '+summary(e)));});
+  }
+  $('exall').hidden=NATIVE||!up.length;
+  if(!up.length){box.appendChild(el('p','meta','لا توجد مواعيد قادمة. سجّلوا إجراءً بتاريخ لاحق داخل أي ملف وسيظهر هنا.'));return;}
+  up.forEach(function(e){
+    if(e.a.d!==cur){cur=e.a.d;box.appendChild(el('div','day',dayLabel(cur)));}
+    var c=el('div','ev'),tm=el('span','tm',e.a.t||'طوال اليوم');
+    c.appendChild(tm);
+    c.appendChild(el('h4',null,fname(e.f)));
+    c.appendChild(el('p','meta',refLine(e.f)));
+    c.appendChild(el('p',null,e.a.a));
+    var det=[room(e)?'القاعة: '+room(e):'',e.f.judge?'القاضي(ة): '+e.f.judge:''].filter(Boolean).join(' | ');
+    if(det)c.appendChild(el('p','meta',det));
+    var r=el('div','row2');calBtns(e,r);c.appendChild(r);box.appendChild(c);
+  });
+}
+
+/* ---------- files ---------- */
+function entryLi(e,upcoming){
+  var li=el('li'),dt=el('span','tm',fd(e.a.d)+(e.a.t?' | '+e.a.t:''));
+  li.appendChild(dt);
+  if(e.a.r)li.appendChild(el('span','meta','القاعة: '+e.a.r));
+  li.appendChild(el('span',null,e.a.a));
+  var xb=el('button','btn sm x','حذف');
+  xb.addEventListener('click',function(){
+    var key=e.uid;
+    if(armed!==key){armed=key;xb.textContent='تأكيد الحذف';setTimeout(function(){if(armed===key){armed=null;xb.textContent='حذف';}},3000);return;}
+    armed=null;items[e.fid].acts.splice(e.i,1);openD[e.fid]=true;persist();
+  });
+  if(upcoming){
+    var cb=el('button','btn sm','أجندة');
+    cb.addEventListener('click',function(){if(NATIVE)addToCalendar(e);else download('rendez-vous-'+e.a.d+'.ics',buildICS([e]));});
+    li.appendChild(cb);
+  }
+  li.appendChild(xb);return li;
+}
+function actions(id,f){
+  var all=events().filter(function(e){return e.fid===id;});
+  var up=all.filter(isUp).sort(function(a,b){return a.start-b.start;});
+  var past=all.filter(function(e){return !isUp(e);}).sort(function(a,b){return b.start-a.start;});
+  var box=el('div','pbox');
+  box.appendChild(el('h5',null,'المواعيد القادمة ('+up.length+')'));
+  if(up.length){var u1=el('ul','al');up.forEach(function(e){u1.appendChild(entryLi(e,true));});box.appendChild(u1);}
+  else box.appendChild(el('p','meta','لا يوجد موعد قادم.'));
+  box.appendChild(el('h5',null,'الإجراءات السابقة ('+past.length+')'));
+  if(past.length){var u2=el('ul','al');past.forEach(function(e){u2.appendChild(entryLi(e,false));});box.appendChild(u2);}
+  else box.appendChild(el('p','meta','لا توجد إجراءات مسجلة بعد.'));
+  var det=el('details');det.appendChild(el('summary',null,'تسجيل إجراء أو موعد'));
+  if(openD[id])det.open=true;
+  det.addEventListener('toggle',function(){openD[id]=det.open;});
+  var g=el('div','trf'),idt=el('input'),itm=el('input'),irm=el('input'),iac=el('input'),add=el('button','btn p sm','إضافة');
+  [idt,itm].forEach(function(i){i.type='text';i.inputMode='numeric';i.autocomplete='off';i.dir='ltr';});
+  idt.placeholder='25/10/2026';idt.maxLength=10;idt.value=fd(today());
+  itm.placeholder='09:30';itm.maxLength=5;
+  idt.addEventListener('input',function(){idt.value=maskDate(idt.value);});
+  itm.addEventListener('input',function(){itm.value=maskTime(itm.value);});
+  irm.value=f.room||'';irm.maxLength=40;iac.maxLength=200;
+  var q=el('div','row2'),em=el('p','msg');
+  [['اليوم',0],['غدًا',1],['بعد أسبوع',7]].forEach(function(k){var b=el('button','btn sm',k[0]);b.addEventListener('click',function(){idt.value=fd(addDays(k[1]));});q.appendChild(b);});
+  [field('التاريخ (أرقام فقط)',idt),field('الساعة (اختياري)',itm),field('القاعة',irm),field('الإجراء أو الموعد',iac),add].forEach(function(x){g.appendChild(x);});
+  add.addEventListener('click',function(){
+    var d=parseDate(idt.value),t=parseTime(itm.value),a=iac.value.trim();
+    if(!d){em.textContent='التاريخ غير صحيح. اكتبوه أرقامًا هكذا: 25102026';return;}
+    if(t===null){em.textContent='الساعة غير صحيحة. اكتبوها هكذا: 0930 أو اتركوها فارغة.';return;}
+    if(!a){em.textContent='اكتبوا نص الإجراء أو الموعد.';return;}
+    (f.acts=f.acts||[]).push({d:d,t:t,r:irm.value.trim(),a:a});f.u=today();openD[id]=true;persist();mm('mmsg','تم التسجيل.',true);
+  });
+  det.appendChild(q);det.appendChild(g);det.appendChild(em);box.appendChild(det);return box;
+}
+function renderFiles(){
+  var flt=$('mflt').value,box=$('mlist'),ids=Object.keys(items);
+  var rem=ids.reduce(function(a,k){var g=items[k],p=(g.pays||[]).reduce(function(t,y){return t+(+y.a||0);},0);return a+Math.max(0,(+g.fee||0)-p);},0);
+  $('mcnt').textContent='عدد الملفات: '+ids.length+(rem?' | المتبقي من الأتعاب: '+money(rem)+' د.م':'');
+  box.textContent='';
+  if(!ids.length)box.appendChild(el('p','meta','لا توجد ملفات بعد. أضيفوا ملفًا من «إضافة ملف جديد» أدناه.'));
+  ids.map(function(k){return Object.assign({id:k},items[k]);}).filter(function(x){return (flt==='0'||String(x.st)===flt)&&matches(x,$('msearch').value);}).sort(function(a,b){return (b.u||'').localeCompare(a.u||'');}).forEach(function(x){
+    var f=items[x.id],c=el('div','fc'),top=el('div','row2'),bar=el('div','row2');
+    c.appendChild(el('h4',null,fname(f)));
+    c.appendChild(el('p','meta',refLine(f)));
+    var m2=[];if(f.kind)m2.push('نوع القضية: '+f.kind);if(f.our)m2.push('مرجعنا: '+f.our);if(m2.length)c.appendChild(el('p','meta',m2.join(' | ')));
+    var m3=[];if(f.cli)m3.push('الموكل: '+f.cli);if(f.adv)m3.push('الخصم: '+f.adv);if(f.tel)m3.push('الهاتف: '+f.tel);if(m3.length)c.appendChild(el('p','meta',m3.join(' | ')));
+    if(f.room||f.judge)c.appendChild(el('p','meta','القاعة: '+(f.room||'—')+' | القاضي(ة) المقرر(ة): '+(f.judge||'—')));
+    if(f.note)c.appendChild(el('p','meta',f.note));
+    top.appendChild(el('span','chip s'+f.st,STN[f.st]));top.appendChild(el('span','meta','آخر تحديث: '+fd(f.u)));c.appendChild(top);
+    var sel=el('select');[1,2,3].forEach(function(i){var o=el('option',null,STN[i]);o.value=i;if(i===f.st)o.selected=true;sel.appendChild(o);});
+    sel.addEventListener('change',function(){f.st=+sel.value;f.u=today();persist();});
+    var bc=el('button','btn sm','نسخ المرجع');
+    bc.addEventListener('click',async function(){try{await navigator.clipboard.writeText(refText(f));mm('mmsg','تم نسخ المرجع.',true);}catch(e){mm('mmsg',refText(f),true);}});
+    var ba=el('a','btn sm','تطبيق محاكم');ba.href=(isAndroid&&!NATIVE)?MK_APP:MK_PLAY;ba.target='_blank';ba.rel='noopener';
+    var bw=el('a','btn sm','mahakim.ma');bw.href=MK_WEB;bw.target='_blank';bw.rel='noopener';
+    var bm=null,bs=null;
+    if(f.cref&&f.ccode&&SITE()){
+      bm=el('button','btn sm','رسالة للموكل');
+      bm.addEventListener('click',async function(){var t='تحية طيبة. يمكنكم تتبع مآل ملفكم عبر موقع المكتب:\n'+SITE()+'#track\nرقم الاطلاع: '+f.cref+'\nرمز الاطلاع: '+f.ccode+'\n(الرمز سري، يرجى عدم مشاركته)';try{await navigator.clipboard.writeText(t);mm('mmsg','تم نسخ الرسالة، الصقوها في واتساب.',true);}catch(e){mm('mmsg',t,true);}});
+      bs=el('a','btn sm','الموقع');bs.href=SITE()+'#track';bs.target='_blank';bs.rel='noopener';
+    }
+    var bt=null,bwa=null;
+    if(f.tel){bt=el('a','btn sm','اتصال');bt.href='tel:'+telN(f.tel);bwa=el('a','btn sm','واتساب');bwa.href='https://wa.me/'+waN(f.tel);bwa.target='_blank';bwa.rel='noopener';}
+    var be=el('button','btn sm','تعديل');
+    be.addEventListener('click',function(){
+      $('mlabel').value=f.label||'';$('mcourt').value=f.court||'';$('mroom').value=f.room||'';$('mjudge').value=f.judge||'';$('mtype').value=f.type;$('mno').value=f.no;$('mcode').value=f.code||'';$('myr').value=f.yr;$('mst').value=String(f.st);$('mnote').value=f.note||'';$('mour').value=f.our||'';$('mkind').value=f.kind||'';$('mkind').dataset.auto='0';$('mtype').dataset.m='1';$('mcref').value=f.cref||'';$('mccode').value=f.ccode||'';$('mcli').value=f.cli||'';$('mtel').value=f.tel||'';$('madv').value=f.adv||'';$('mfee').value=f.fee||'';hintFor(f.code);
+      editId=x.id;$('msave').textContent='حفظ التعديل';$('mcancel').hidden=false;$('madd').open=true;$('madd').scrollIntoView({behavior:'smooth'});
+    });
+    var bd=el('button','btn sm','حذف');
+    bd.addEventListener('click',function(){
+      if(armed!==x.id){armed=x.id;bd.textContent='تأكيد الحذف';setTimeout(function(){if(armed===x.id){armed=null;bd.textContent='حذف';}},3000);return;}
+      armed=null;delete items[x.id];persist();
+    });
+    [sel,bc,ba,bw,bt,bwa,bm,bs,be,bd].filter(Boolean).forEach(function(b){bar.appendChild(b);});
+    c.appendChild(bar);c.appendChild(feesBox(x.id,f));c.appendChild(actions(x.id,f));box.appendChild(c);
+  });
+}
+function clearForm(){['mlabel','mcourt','mroom','mjudge','mour','mno','mcode','myr','mkind','mnote','mcref','mccode','mcli','mtel','madv','mfee'].forEach(function(i){$(i).value='';});$('mtype').selectedIndex=0;$('mtype').dataset.m='';$('mkind').dataset.auto='';$('mkindhint').textContent='';$('csug').textContent='';$('mst').value='1';editId=null;$('msave').textContent='إضافة الملف';$('mcancel').hidden=true;}
+function renderAll(){renderAgenda();renderFiles();notifUI();fillFiles();}
+
+
+/* ---------- helpers: money, phones ---------- */
+var enc=new TextEncoder();
+function h2x(b){return Array.prototype.map.call(new Uint8Array(b),function(x){return ('0'+x.toString(16)).slice(-2);}).join('');}
+function money(n){return (Math.round((+n||0)*100)/100).toLocaleString('en-US');}
+function telN(v){return String(v).replace(/[^\d+]/g,'');}
+function waN(v){var d=String(v).replace(/\D/g,'');if(d.indexOf('00')===0)d=d.slice(2);else if(d.charAt(0)==='0')d='212'+d.slice(1);return d;}
+
+/* ---------- fees ---------- */
+function feesBox(id,f){
+  var pays=f.pays||[],paid=pays.reduce(function(a,p){return a+(+p.a||0);},0),fee=+f.fee||0;
+  var det=el('details');
+  det.appendChild(el('summary',null,fee?('الأتعاب: المتفق '+money(fee)+' | المدفوع '+money(paid)+' | المتبقي '+money(fee-paid)):('الأتعاب: '+(paid?'المدفوع '+money(paid):'غير محددة'))));
+  if(openD['fee'+id])det.open=true;det.addEventListener('toggle',function(){openD['fee'+id]=det.open;});
+  var ul=el('ul','al');
+  pays.forEach(function(p,i){
+    var li=el('li');li.appendChild(el('span','tm',fd(p.d)));li.appendChild(el('span',null,money(p.a)+' د.م'));if(p.n)li.appendChild(el('span','meta',p.n));
+    var x=el('button','btn sm x','حذف');
+    x.addEventListener('click',function(){var key='p'+id+i;if(armed!==key){armed=key;x.textContent='تأكيد الحذف';setTimeout(function(){if(armed===key){armed=null;x.textContent='حذف';}},3000);return;}armed=null;f.pays.splice(i,1);openD['fee'+id]=true;persist();});
+    li.appendChild(x);ul.appendChild(li);
+  });
+  det.appendChild(ul);
+  var g=el('div','trf'),dd=el('input'),am=el('input'),nn=el('input'),ad=el('button','btn p sm','تسجيل دفعة'),em=el('p','msg');
+  dd.value=fd(today());dd.inputMode='numeric';dd.dir='ltr';dd.maxLength=10;dd.autocomplete='off';dd.addEventListener('input',function(){dd.value=maskDate(dd.value);});
+  am.inputMode='decimal';am.dir='ltr';am.maxLength=10;am.autocomplete='off';nn.maxLength=60;
+  [field('تاريخ الدفعة',dd),field('المبلغ (درهم)',am),field('ملاحظة',nn),ad].forEach(function(x){g.appendChild(x);});
+  ad.addEventListener('click',function(){
+    var d=parseDate(dd.value),a=parseFloat(String(am.value).replace(',','.'));
+    if(!d){em.textContent='التاريخ غير صحيح. اكتبوه أرقامًا: 25102026';return;}
+    if(!(a>0)){em.textContent='أدخلوا مبلغًا صحيحًا.';return;}
+    (f.pays=f.pays||[]).push({d:d,a:a,n:nn.value.trim()});f.u=today();openD['fee'+id]=true;persist();
+  });
+  det.appendChild(g);det.appendChild(em);return det;
+}
+
+/* ---------- deadlines portal (Civil Procedure Code, Law 58.25) ---------- */
+var RULES=[
+ {g:'الاستئناف',n:'استئناف حكم صادر عن محكمة الدرجة الأولى',d:30,a:'المادة 204',s:'تاريخ التبليغ',x:'الأجل العام، مع مراعاة الآجال الخاصة.'},
+ {g:'الاستئناف',n:'استئناف الأوامر الاستعجالية',d:15,a:'تحقّقوا من المادة',s:'تاريخ التبليغ',x:'15 يومًا حسب ما نُشر عن القانون 58.25. تحقّقوا من المادة ومن بداية الأجل.'},
+ {g:'الاستئناف',n:'استئناف الأمر المبني على طلب (رفض الطلب) والمعاينات',d:7,a:'المادة 225',s:'تاريخ النطق بالأمر'},
+ {g:'الاستئناف',n:'استئناف الحكم المتعلق بالاختصاص النوعي',d:10,a:'المادة 27',s:'تاريخ التبليغ'},
+ {g:'الاستئناف',n:'استئناف مقررات القضايا الاجتماعية',d:30,a:'المادة 323',s:'تاريخ التبليغ',x:'راجعوا النصوص الخاصة بالمسطرة الاجتماعية.'},
+ {g:'الاستئناف',n:'استئناف مقررات الحالة المدنية',d:15,a:'المادة 279',s:'تاريخ التبليغ'},
+ {g:'الاستئناف',n:'استئناف قرار رفض منح المساعدة القضائية',d:15,a:'المادة 43',s:'تاريخ التبليغ'},
+ {g:'الاستئناف',n:'استئناف الحكم الصادر في التعرض على الأمر بالأداء',d:15,a:'المادة 242',s:'تاريخ التبليغ بالحكم'},
+ {g:'الاستئناف',n:'استئناف رفض الإذن ببيع منقولات المحجور',d:10,a:'المادة 263',s:'تاريخ التبليغ بالأمر'},
+ {g:'الاستئناف',n:'استئناف رفض الإذن ببيع عقار المحجور',d:10,a:'المادة 270',s:'تاريخ التبليغ بالأمر'},
+ {g:'التعرض',n:'التعرض على الحكم الغيابي',d:15,a:'المادة 200 وما بعدها',s:'تاريخ التبليغ'},
+ {g:'التعرض',n:'التعرض على الأمر بالأداء',d:15,a:'المادة 239',s:'تاريخ التبليغ بالأمر'},
+ {g:'التعرض',n:'التعرض الخارج عن الخصومة',m:12,a:'المادة 346',s:'تاريخ صدور المقرر',x:'سنة من صدور المقرر، مع الاستثناءات القانونية.'},
+ {g:'التعرض',n:'التعرض على بيع منقولات المحجور',d:8,a:'المادة 265',s:'تاريخ صدور الأمر بقبول تأجيل البيع'},
+ {g:'النقض والإلغاء',n:'الطعن بالنقض',d:30,a:'المادة 380',s:'تاريخ تبليغ الحكم المطعون فيه',x:'يوقف الأجلَ إيداعُ طلب المساعدة القضائية. والطعن بالنقض يُعدّ تنازلًا عن التعرض.'},
+ {g:'النقض والإلغاء',n:'الطعن بالإلغاء أمام محكمة النقض',d:30,a:'المادة 382',s:'تاريخ النشر أو التبليغ',x:'للتظلم السابق أثر على بداية الأجل.'},
+ {g:'النقض والإلغاء',n:'دعوى الإلغاء بسبب تجاوز السلطة (قرار إداري)',d:60,a:'المادة 47',s:'تاريخ النشر أو التبليغ أو العلم اليقيني',x:'للتظلم الإداري أثر على الأجل. راجعوا المادة.'},
+ {g:'النقض والإلغاء',n:'طلب إلغاء الأحكام الابتدائية والانتهائية',d:15,a:'المادتان 30 و331',s:'تاريخ التبليغ'},
+ {g:'الخبرة والمصاريف',n:'تجريح الخبير',d:10,a:'المادة 126',s:'تاريخ تبليغ المقرر بتعيين الخبير'},
+ {g:'الخبرة والمصاريف',n:'الاعتراض على أتعاب الخبير أو المترجم',d:10,a:'المادة 197',s:'تاريخ التبليغ'},
+ {g:'الخبرة والمصاريف',n:'المنازعة في تقدير مصاريف الشهود',d:10,a:'المادة 199',s:'تاريخ التبليغ بالحكم أو الأمر'},
+ {g:'الخبرة والمصاريف',n:'إيداع تاريخ إجراء التحقيق المأمور به',d:15,a:'المادة 119',s:'تاريخ التبليغ'},
+ {g:'التنفيذ',n:'سقوط الحق في تنفيذ الأمر المبني على طلب',d:30,a:'المادة 230',s:'تاريخ صدور الأمر',x:'لا يمنع من استصدار أمر جديد.'},
+ {g:'أخرى',n:'أجل مخصص (أدخلوا المدة من النص)',custom:1,a:'حسب النص',s:'تاريخ الواقعة المنشئة للأجل',x:'استعملوه للآجال الجنائية وغير المدرجة.'}
+];
+var HK='zl_hol_v1',FIXH=['01-01','01-11','01-14','05-01','07-30','08-14','08-20','08-21','11-06','11-18'];
+function hols(){try{return JSON.parse(localStorage.getItem(HK)||'[]');}catch(e){return [];}}
+function iso(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());}
+function mkD(v){var p=v.split('-');return new Date(+p[0],+p[1]-1,+p[2]);}
+function addD(d,n){return new Date(d.getFullYear(),d.getMonth(),d.getDate()+n);}
+function addM(d,n){var t=new Date(d.getFullYear(),d.getMonth()+n,1),last=new Date(t.getFullYear(),t.getMonth()+1,0).getDate();return new Date(t.getFullYear(),t.getMonth(),Math.min(d.getDate(),last));}
+function isOff(d){var w=d.getDay();if(w===0||w===6)return true;if(FIXH.indexOf(pad(d.getMonth()+1)+'-'+pad(d.getDate()))>=0)return true;var v=iso(d);return hols().some(function(h){return h.d===v;});}
+function nextW(d){while(isOff(d))d=addD(d,1);return d;}
+function prevW(d){while(isOff(d))d=addD(d,-1);return d;}
+var WD=['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+function fdl(d){return WD[d.getDay()]+' '+pad(d.getDate())+'/'+pad(d.getMonth()+1)+'/'+d.getFullYear();}
+var curCalc=null;
+function fillRules(){var sel=$('dr'),g='',og=null;RULES.forEach(function(r,i){if(r.g!==g){g=r.g;og=document.createElement('optgroup');og.label=g;sel.appendChild(og);}var o=document.createElement('option');o.value=i;o.textContent=r.n;og.appendChild(o);});}
+function calc(){
+  var r=RULES[+$('dr').value]||RULES[0],box=$('dres'),inf=[];
+  inf.push(r.custom?'المدة: تُدخلونها يدويًا':'الأجل: '+(r.m?r.m+' شهرًا':r.d+' يومًا'));inf.push('بداية الأجل: '+r.s);inf.push('المرجع: '+r.a);if(r.x)inf.push(r.x);
+  $('dinfo').textContent=inf.join('\n');$('dcustom').hidden=!r.custom;$('dsl').textContent='تاريخ البداية';
+  var st=parseDate($('dd').value);
+  if(!st){box.hidden=true;curCalc=null;return;}
+  var n=r.d||0,m=r.m||0;
+  if(r.custom){var cn=+$('dcn').value||0;if($('dcu').value==='m'){m=cn;n=0;}else{n=cn;m=0;}}
+  if(!n&&!m){box.hidden=true;curCalc=null;return;}
+  if($('dtwice').checked&&n)n=n*2;
+  var raw=m?addM(mkD(st),m):addD(mkD(st),n);raw=addD(raw,Math.max(0,+$('dx').value||0));
+  var safe=prevW(raw),std=nextW(raw),full=nextW(addD(raw,1)),left=Math.round((safe-mkD(today()))/86400000);
+  curCalc={r:r,start:st,safe:safe,std:std,full:full};
+  box.textContent='';
+  function row(t,v,c){var d=el('div','r'+(c?' '+c:''));d.appendChild(el('span',null,t));d.appendChild(el('b','big',v));box.appendChild(d);}
+  row('آخر موعد آمن للإيداع (يُنصح به)',fdl(safe),'main');
+  row('نهاية الأجل بالقاعدة العامة'+(raw.getTime()!==std.getTime()?' (بعد التمديد للعطلة)':''),fdl(std));
+  row('نهاية الأجل إن اعتُبر كاملًا (لا يُحسب اليوم الأخير)',fdl(full));
+  box.appendChild(el('span','pill'+(left<0?' bad':''),left<0?'انقضى الموعد الآمن منذ '+(-left)+' يومًا':(left===0?'اليوم آخر موعد آمن':'المتبقي للموعد الآمن: '+left+' يومًا')));
+  box.hidden=false;
+}
+function fillFiles(){var sel=$('dfile'),keep=sel.value;sel.textContent='';Object.keys(items).forEach(function(k){var o=document.createElement('option');o.value=k;o.textContent=fname(items[k])+' ('+items[k].no+'/'+items[k].yr+')';sel.appendChild(o);});if(keep&&items[keep])sel.value=keep;$('dadd').disabled=!sel.options.length;}
+function renderHols(){var ul=$('hlist');ul.textContent='';hols().forEach(function(h,i){var li=el('li');li.appendChild(el('span','tm',fd(h.d)));li.appendChild(el('span',null,h.n||'عطلة'));var x=el('button','btn sm x','حذف');x.addEventListener('click',function(){var l=hols();l.splice(i,1);try{localStorage.setItem(HK,JSON.stringify(l));}catch(e){}renderHols();calc();});li.appendChild(x);ul.appendChild(li);});}
+
+/* ---------- weekly report ---------- */
+function weekText(){
+  var t0=new Date(),a=new Date(t0.getFullYear(),t0.getMonth(),t0.getDate()),b=addD(a,7),L=['مواعيد الأسبوع القادم (من '+fd(iso(a))+' إلى '+fd(iso(b))+'):'];
+  events().filter(function(e){return isUp(e)&&refTime(e)<b;}).sort(function(x,y){return x.start-y.start;}).forEach(function(e){L.push('- '+fd(e.a.d)+(e.a.t?' '+e.a.t:'')+' | '+fname(e.f)+(place(e)?' | '+place(e):'')+' | '+e.a.a);});
+  if(L.length===1)L.push('لا توجد مواعيد مسجلة.');
+  return L.join('\n');
+}
+
+/* ---------- app lock ---------- */
+var PK='zl_pin_v1',lockedAt=0,tries=0;
+function pinData(){try{return JSON.parse(localStorage.getItem(PK)||'null');}catch(e){return null;}}
+async function pinHash(pin,salt){var km=await crypto.subtle.importKey('raw',enc.encode(pin),'PBKDF2',false,['deriveBits']);return h2x(await crypto.subtle.deriveBits({name:'PBKDF2',salt:enc.encode(salt),iterations:100000,hash:'SHA-256'},km,256));}
+function lockNow(){if(!pinData())return;$('lock').hidden=false;$('lpin').value='';$('lmsg').textContent='';setTimeout(function(){$('lpin').focus();},60);}
+async function tryUnlock(){
+  var d=pinData();if(!d){$('lock').hidden=true;return;}
+  if(++tries>5){$('lmsg').textContent='محاولات كثيرة. انتظروا 30 ثانية.';$('lgo').disabled=true;setTimeout(function(){tries=0;$('lgo').disabled=false;$('lmsg').textContent='';},30000);return;}
+  if(await pinHash($('lpin').value.trim(),d.s)===d.h){tries=0;$('lock').hidden=true;}else{$('lmsg').textContent='الرمز غير صحيح.';$('lpin').value='';}
+}
+
+/* ---------- registry for the website ---------- */
+function normK(v){return String(v||'').toUpperCase().replace(/[\s\-]+/g,'');}
+async function siteKey(ref,code){var km=await crypto.subtle.importKey('raw',enc.encode(normK(ref)+'|'+normK(code)),'PBKDF2',false,['deriveBits']);return h2x(await crypto.subtle.deriveBits({name:'PBKDF2',salt:enc.encode('zoulouti-dossier-v1'),iterations:150000,hash:'SHA-256'},km,256));}
+async function buildRegistry(){
+  var reg={v:1,items:{}},n=0;
+  for(var k in items){var f=items[k];if(f.cref&&f.ccode){reg.items[await siteKey(f.cref,f.ccode)]={s:f.st,d:f.u};n++;}}
+  return {json:JSON.stringify(reg),n:n};
+}
+
+function wireDL(){
+  fillRules();
+  ['dr','dtwice','dcu'].forEach(function(i){$(i).addEventListener('change',calc);});
+  ['dx','dcn'].forEach(function(i){$(i).addEventListener('input',calc);});
+  $('dd').addEventListener('input',function(){this.value=maskDate(this.value);calc();});
+  $('hd').addEventListener('input',function(){this.value=maskDate(this.value);});
+  $('dtoday').addEventListener('click',function(){$('dd').value=fd(today());calc();});
+  $('dadd').addEventListener('click',function(){
+    if(!curCalc){mm('dmsg','أدخلوا تاريخ البداية أولًا.');return;}
+    var f=items[$('dfile').value];if(!f)return;
+    (f.acts=f.acts||[]).push({d:iso(curCalc.safe),t:'',r:'',a:'آخر موعد آمن: '+curCalc.r.n+' ('+curCalc.r.a+') — بداية الأجل '+fd(curCalc.start)});f.u=today();persist();
+    mm('dmsg','أُضيف الأجل إلى الملف وسيظهر في المواعيد مع تنبيهاته.',true);
+  });
+  $('hadd').addEventListener('click',function(){var d=parseDate($('hd').value);if(!d)return;var l=hols();l.push({d:d,n:$('hn').value.trim()});l.sort(function(a,b){return a.d.localeCompare(b.d);});try{localStorage.setItem(HK,JSON.stringify(l));}catch(e){}$('hd').value='';$('hn').value='';renderHols();calc();});
+  $('wk').addEventListener('click',function(){window.open('https://wa.me/?text='+encodeURIComponent(weekText()),'_blank');});
+  $('lgo').addEventListener('click',tryUnlock);$('lpin').addEventListener('keydown',function(e){if(e.key==='Enter')tryUnlock();});
+  $('pinset').addEventListener('click',async function(){
+    var a=$('pin1').value.trim(),b=$('pin2').value.trim();
+    if(!/^\d{4,8}$/.test(a)){mm('pmsg','الرمز من 4 إلى 8 أرقام.');return;}
+    if(a!==b){mm('pmsg','الرمزان غير متطابقين.');return;}
+    var salt=h2x(crypto.getRandomValues(new Uint8Array(12)));
+    try{localStorage.setItem(PK,JSON.stringify({s:salt,h:await pinHash(a,salt)}));}catch(e){mm('pmsg','تعذر الحفظ.');return;}
+    $('pin1').value='';$('pin2').value='';mm('pmsg','تم تفعيل القفل.',true);
+  });
+  $('pinoff').addEventListener('click',async function(){
+    var d=pinData();if(!d){mm('pmsg','القفل غير مفعّل.');return;}
+    if(await pinHash($('pin1').value.trim(),d.s)!==d.h){mm('pmsg','أدخلوا الرمز الحالي في خانة «الرمز».');return;}
+    try{localStorage.removeItem(PK);}catch(e){}$('pin1').value='';$('pin2').value='';mm('pmsg','أُلغي القفل.',true);
+  });
+  $('regbtn').addEventListener('click',async function(){mm('regmsg','جارٍ التوليد…',true);var r=await buildRegistry();$('regout').value=r.json;mm('regmsg',r.n?('تم توليد السجل لـ '+r.n+' ملف.'):'لا توجد ملفات لها رقم ورمز اطلاع.',!!r.n);});
+  $('regcopy').addEventListener('click',async function(){var t=$('regout').value;if(!t){mm('regmsg','ولّدوا السجل أولًا.');return;}try{await navigator.clipboard.writeText(t);mm('regmsg','تم النسخ. الصقوه في ملف باسم registry.json.',true);}catch(e){$('regout').select();mm('regmsg','حدّدوا النص وانسخوه يدويًا.');}});
+  document.addEventListener('visibilitychange',function(){if(document.hidden)lockedAt=Date.now();else if(pinData()&&lockedAt&&Date.now()-lockedAt>30000)lockNow();});
+  calc();renderHols();
+}
+
+var VAULT_SRC=1;
+/* Office vault: AES-GCM data key wrapped per user with ECDH; private keys wrapped by PBKDF2(password). */
+var VAULT=(function(){
+  var enc=new TextEncoder(),dec=new TextDecoder(),IT=400000;
+  function b64(buf){var a=new Uint8Array(buf),s='';for(var i=0;i<a.length;i++)s+=String.fromCharCode(a[i]);return btoa(s);}
+  function ub64(s){var b=atob(s),a=new Uint8Array(b.length);for(var i=0;i<b.length;i++)a[i]=b.charCodeAt(i);return a;}
+  function rnd(n){return crypto.getRandomValues(new Uint8Array(n));}
+  async function idOf(email){var d=await crypto.subtle.digest('SHA-256',enc.encode(String(email).trim().toLowerCase()));return Array.prototype.map.call(new Uint8Array(d),function(x){return ('0'+x.toString(16)).slice(-2);}).join('');}
+  async function pwKey(pw,salt){var km=await crypto.subtle.importKey('raw',enc.encode(pw),'PBKDF2',false,['deriveKey']);return crypto.subtle.deriveKey({name:'PBKDF2',salt:salt,iterations:IT,hash:'SHA-256'},km,{name:'AES-GCM',length:256},false,['encrypt','decrypt']);}
+  async function aes(key,iv,data){return crypto.subtle.encrypt({name:'AES-GCM',iv:iv},key,data);}
+  async function unaes(key,iv,data){return crypto.subtle.decrypt({name:'AES-GCM',iv:iv},key,data);}
+  async function newUser(email,pw){
+    var kp=await crypto.subtle.generateKey({name:'ECDH',namedCurve:'P-256'},true,['deriveKey']);
+    var pub=await crypto.subtle.exportKey('spki',kp.publicKey),pk=await crypto.subtle.exportKey('pkcs8',kp.privateKey),salt=rnd(16),iv=rnd(12);
+    var c=await aes(await pwKey(pw,salt),iv,pk);
+    return {id:await idOf(email),pub:b64(pub),priv:{s:b64(salt),iv:b64(iv),c:b64(c)}};
+  }
+  async function wrapFor(pubB64,rawK){
+    var eph=await crypto.subtle.generateKey({name:'ECDH',namedCurve:'P-256'},true,['deriveKey']);
+    var pub=await crypto.subtle.importKey('spki',ub64(pubB64),{name:'ECDH',namedCurve:'P-256'},false,[]);
+    var kek=await crypto.subtle.deriveKey({name:'ECDH',public:pub},eph.privateKey,{name:'AES-GCM',length:256},false,['encrypt']);
+    var iv=rnd(12),c=await aes(kek,iv,rawK);
+    return {epk:b64(await crypto.subtle.exportKey('spki',eph.publicKey)),iv:b64(iv),c:b64(c)};
+  }
+  async function unwrap(user,pw){
+    var pk=await unaes(await pwKey(pw,ub64(user.priv.s)),ub64(user.priv.iv),ub64(user.priv.c));
+    var priv=await crypto.subtle.importKey('pkcs8',pk,{name:'ECDH',namedCurve:'P-256'},false,['deriveKey']);
+    var epk=await crypto.subtle.importKey('spki',ub64(user.wrap.epk),{name:'ECDH',namedCurve:'P-256'},false,[]);
+    var kek=await crypto.subtle.deriveKey({name:'ECDH',public:epk},priv,{name:'AES-GCM',length:256},false,['decrypt']);
+    return new Uint8Array(await unaes(kek,ub64(user.wrap.iv),ub64(user.wrap.c)));
+  }
+  async function seal(rawK,obj){var key=await crypto.subtle.importKey('raw',rawK,'AES-GCM',false,['encrypt']),iv=rnd(12);return {iv:b64(iv),c:b64(await aes(key,iv,enc.encode(JSON.stringify(obj))))};}
+  async function open(rawK,d){var key=await crypto.subtle.importKey('raw',rawK,'AES-GCM',false,['decrypt']);return JSON.parse(dec.decode(await unaes(key,ub64(d.iv),ub64(d.c))));}
+  return {
+    async create(email,pw,data){var K=rnd(32),u=await newUser(email,pw);u.wrap=await wrapFor(u.pub,K);return {doc:{v:1,users:[u],data:await seal(K,data)},K:K,me:u.id};},
+    async login(doc,email,pw){var id=await idOf(email),u=doc.users.filter(function(x){return x.id===id;})[0];if(!u)throw new Error('user');var K;try{K=await unwrap(u,pw);}catch(e){throw new Error('password');}return {K:K,me:id,data:await open(K,doc.data)};},
+    async save(doc,K,data){return {v:1,users:doc.users,data:await seal(K,data)};},
+    async addUser(doc,K,data,email,pw){var id=await idOf(email);if(doc.users.some(function(x){return x.id===id;}))throw new Error('exists');var u=await newUser(email,pw);u.wrap=await wrapFor(u.pub,K);var users=doc.users.concat([u]);return {v:1,users:users,data:await seal(K,data)};},
+    async removeUser(doc,K,data,id){var users=doc.users.filter(function(x){return x.id!==id;});if(!users.length)throw new Error('last');var K2=rnd(32),out=[];for(var i=0;i<users.length;i++){var u=users[i];out.push({id:u.id,pub:u.pub,priv:u.priv,wrap:await wrapFor(u.pub,K2)});}return {doc:{v:1,users:out,data:await seal(K2,data)},K:K2};},
+    async changePassword(doc,K,me,oldPw,newPw){var u=doc.users.filter(function(x){return x.id===me;})[0];var pk=await unaes(await pwKey(oldPw,ub64(u.priv.s)),ub64(u.priv.iv),ub64(u.priv.c));var salt=rnd(16),iv=rnd(12),c=await aes(await pwKey(newPw,salt),iv,pk);var users=doc.users.map(function(x){return x.id===me?{id:x.id,pub:x.pub,wrap:x.wrap,priv:{s:b64(salt),iv:b64(iv),c:b64(c)}}:x;});return {v:1,users:users,data:doc.data};},
+    openWith:async function(K,doc){return open(K,doc.data);},
+    idOf:idOf
+  };
+})();
+if(typeof module!=='undefined')module.exports=VAULT;
+
+
+/* ===================== office: encrypted vault on GitHub ===================== */
+var GHA=window.ZL_GH_API||'https://api.github.com';
+var office={files:{},tomb:{},users:{},gh:{tok:''}},odoc=null,OK=null,ME=null,baseSha=null,lastReg='',snap={},regCache={},saving=false,again=false,timer=null;
+function repoName(){return (localStorage.getItem('zl_repo')||'').trim();}
+function b64u(t){return btoa(unescape(encodeURIComponent(t)));}
+function ub64u(t){return decodeURIComponent(escape(atob(t.replace(/\s/g,''))));}
+function setSync(t){var e=$('sync');if(e)e.textContent=t;}
+async function ghGet(path){
+  var r=await fetch(GHA+'/repos/'+repoName()+'/contents/'+path+'?t='+Date.now(),{headers:{Accept:'application/vnd.github+json'},cache:'no-store'});
+  if(r.status===404)return null;if(!r.ok)throw new Error('gh'+r.status);
+  var j=await r.json();return {sha:j.sha,json:JSON.parse(ub64u(j.content))};
+}
+async function ghPut(path,obj,sha,msg){
+  var body={message:msg,content:b64u(JSON.stringify(obj))};if(sha)body.sha=sha;
+  var r=await fetch(GHA+'/repos/'+repoName()+'/contents/'+path,{method:'PUT',headers:{Accept:'application/vnd.github+json','Authorization':'Bearer '+office.gh.tok,'Content-Type':'application/json'},body:JSON.stringify(body)});
+  if(r.status===409||r.status===422)throw new Error('conflict');
+  if(r.status===401||r.status===403||r.status===404)throw new Error('auth');
+  if(!r.ok)throw new Error('gh'+r.status);
+  return (await r.json()).content.sha;
+}
+function sigOf(f){return JSON.stringify(Object.assign({},f,{mt:0}));}
+function rebase(){snap={};Object.keys(items).forEach(function(k){snap[k]=sigOf(items[k]);});}
+function stampChanges(){
+  var now=Date.now();
+  Object.keys(items).forEach(function(k){var f=items[k];if(snap[k]!==sigOf(f)){f.mt=now;snap[k]=sigOf(f);}});
+  Object.keys(snap).forEach(function(k){if(!items[k]){office.tomb[k]=now;delete snap[k];}});
+}
+function mergeData(local,remote){
+  var tomb=Object.assign({},remote.tomb||{}),files={},lf=local.files||{},rf=remote.files||{};
+  Object.keys(local.tomb||{}).forEach(function(k){tomb[k]=Math.max(tomb[k]||0,local.tomb[k]);});
+  Object.keys(Object.assign({},rf,lf)).forEach(function(k){var a=lf[k],b=rf[k],f=!a?b:!b?a:((a.mt||0)>=(b.mt||0)?a:b);if(tomb[k]&&tomb[k]>(f.mt||0))return;files[k]=f;});
+  return {files:files,tomb:tomb,users:local.users||remote.users||{},gh:(local.gh&&local.gh.tok)?local.gh:(remote.gh||{tok:''})};
+}
+function cloudSave(){if(!OK)return;clearTimeout(timer);setSync('بانتظار الحفظ…');timer=setTimeout(flush,900);}
+async function pushRegistry(){
+  var reg={v:1,items:{}};
+  for(var k in items){var f=items[k];if(f.cref&&f.ccode){var ck=normK(f.cref)+'|'+normK(f.ccode);if(!regCache[ck])regCache[ck]=await siteKey(f.cref,f.ccode);reg.items[regCache[ck]]={s:f.st,d:f.u};}}
+  var js=JSON.stringify(reg);if(js===lastReg)return;
+  var cur=await ghGet('registry.json');
+  if(!cur||JSON.stringify(cur.json)!==js)await ghPut('registry.json',reg,cur?cur.sha:null,'update client registry');
+  lastReg=js;
+}
+async function flush(){
+  if(saving){again=true;return;}saving=true;setSync('جارٍ الحفظ…');
+  try{
+    for(var i=0;i<3;i++){
+      stampChanges();office.files=items;
+      var cur=await ghGet('office.json'),doc=odoc,data=office;
+      if(cur&&cur.sha!==baseSha){try{data=mergeData(office,await VAULT.openWith(OK,cur.json));doc=cur.json;}catch(e){throw new Error('rotated');}}
+      var nd=await VAULT.save(doc,OK,data);
+      try{baseSha=await ghPut('office.json',nd,cur?cur.sha:null,'update office data');odoc=nd;office=data;items=office.files;rebase();break;}
+      catch(e){if(e.message!=='conflict'||i===2)throw e;}
+    }
+    renderAll();renderUsers();
+    try{await pushRegistry();}catch(e){setSync('حُفظت البيانات وتعذر تحديث سجل الموقع');saving=false;return;}
+    setSync('تم الحفظ ✓');
+  }catch(e){setSync(e.message==='rotated'?'أعيدوا تسجيل الدخول':e.message==='auth'?'مفتاح GitHub غير صالح':'تعذر الحفظ');if(e.message!=='rotated'&&e.message!=='auth')setTimeout(cloudSave,8000);}
+  saving=false;if(again){again=false;flush();}
+}
+async function refreshRemote(){
+  var cur=await ghGet('office.json');
+  if(cur&&cur.sha!==baseSha){var d=await VAULT.openWith(OK,cur.json);office=mergeData(office,d);items=office.files;odoc=cur.json;baseSha=cur.sha;rebase();}
+}
+async function putDoc(nd){
+  for(var i=0;i<2;i++){try{baseSha=await ghPut('office.json',nd,baseSha,'update office users');odoc=nd;return;}catch(e){if(e.message!=='conflict'||i)throw e;await refreshRemote();}}
+}
+function enter(r,cur){
+  odoc=cur.json;baseSha=cur.sha;OK=r.K;ME=r.me;office=r.data;office.tomb=office.tomb||{};office.users=office.users||{};office.gh=office.gh||{tok:''};
+  office.files=office.files||{};items=office.files;rebase();regCache={};lastReg='';
+  $('login').hidden=true;$('lg-pw').value='';$('lg-pw2').value='';$('lg-tok').value='';
+  renderAll();renderUsers();setSync('');
+  ghGet('registry.json').then(function(c){if(c)lastReg=JSON.stringify(c.json);}).catch(function(){});
+}
+function lgMsg(t){$('lg-msg').textContent=t;}
+async function doLogin(){
+  var repo=$('lg-repo').value.trim(),mail=$('lg-mail').value.trim(),pw=$('lg-pw').value,setup=!$('lg-setup').hidden;
+  if(!/^[\w.-]+\/[\w.-]+$/.test(repo)){lgMsg('اكتبوا اسم المستودع بالشكل: حساب/مستودع');return;}
+  if(!mail||!pw){lgMsg('أدخلوا البريد والرمز السري.');return;}
+  try{localStorage.setItem('zl_repo',repo);localStorage.setItem('zl_mail',mail);}catch(e){}
+  $('lg-go').disabled=true;lgMsg('جارٍ التحقق…');
+  try{
+    var cur=await ghGet('office.json');
+    if(!cur&&!setup){$('lg-setup').hidden=false;$('lg-h').textContent='إنشاء فضاء المكتب';$('lg-go').textContent='إنشاء';lgMsg('لا يوجد فضاء في هذا المستودع بعد. أكملوا الحقول لإنشائه.');return;}
+    if(cur){
+      try{enter(await VAULT.login(cur.json,mail,pw),cur);}catch(e){lgMsg(e.message==='user'?'هذا البريد غير مسجل.':'الرمز السري غير صحيح.');}
+      return;
+    }
+    var tok=$('lg-tok').value.trim();
+    if(pw.length<10){lgMsg('الرمز السري 10 أحرف على الأقل.');return;}
+    if(pw!==$('lg-pw2').value){lgMsg('الرمزان غير متطابقين.');return;}
+    if(!tok){lgMsg('أدخلوا مفتاح GitHub.');return;}
+    var data={files:{},tomb:{},users:{},gh:{tok:tok}};data.users[await VAULT.idOf(mail)]={email:mail.toLowerCase()};
+    var c=await VAULT.create(mail,pw,data);office.gh={tok:tok};
+    var sha=await ghPut('office.json',c.doc,null,'create office');
+    await ghPut('registry.json',{v:1,items:{}},null,'create client registry');
+    enter({K:c.K,me:c.me,data:data},{json:c.doc,sha:sha});
+  }catch(e){lgMsg(e.message==='auth'?'مفتاح GitHub غير صالح أو بلا صلاحية على هذا المستودع.':'تعذر الاتصال بالمستودع. تحققوا من الاسم ومن الإنترنت.');}
+  finally{$('lg-go').disabled=false;}
+}
+function renderUsers(){
+  var ul=$('ulist');if(!ul)return;ul.textContent='';
+  $('me').textContent='مسجّل الدخول: '+((office.users[ME]||{}).email||'');
+  Object.keys(office.users).forEach(function(id){
+    var li=el('li');li.appendChild(el('span',null,office.users[id].email+(id===ME?' (أنتم)':'')));
+    if(id!==ME){var x=el('button','btn sm x','حذف');x.addEventListener('click',function(){var key='u'+id;if(armed!==key){armed=key;x.textContent='تأكيد الحذف';setTimeout(function(){if(armed===key){armed=null;x.textContent='حذف';}},3000);return;}armed=null;removeUserUI(id);});li.appendChild(x);}
+    ul.appendChild(li);
+  });
+}
+async function addUserUI(){
+  var e=$('ue').value.trim().toLowerCase(),p=$('up').value;
+  if(!/^\S+@\S+\.\S+$/.test(e)){mm('umsg','بريد غير صحيح.');return;}
+  if(p.length<8){mm('umsg','الرمز المؤقت 8 أحرف على الأقل.');return;}
+  try{
+    await refreshRemote();var id=await VAULT.idOf(e);if(office.users[id]){mm('umsg','هذا المستخدم مسجل.');return;}
+    office.users[id]={email:e};var nd=await VAULT.addUser(odoc,OK,office,e,p);await putDoc(nd);
+    $('ue').value='';$('up').value='';renderUsers();mm('umsg','أُضيف المستخدم. سلّموه البريد والرمز المؤقت، وليغيّر رمزه بعد الدخول.',true);
+  }catch(x){mm('umsg','تعذر إضافة المستخدم.');}
+}
+async function removeUserUI(id){
+  try{await refreshRemote();var gone=office.users[id];delete office.users[id];var r=await VAULT.removeUser(odoc,OK,office,id);await putDoc(r.doc);OK=r.K;renderUsers();mm('umsg','أُلغي وصول '+(gone?gone.email:'المستخدم')+' وجُدّد مفتاح التشفير.',true);}
+  catch(x){mm('umsg',x.message==='last'?'لا يمكن حذف المستخدم الأخير.':'تعذر حذف المستخدم.');}
+}
+async function changePw(){
+  var o=$('op').value,n=$('np').value;if(n.length<10){mm('umsg','الرمز الجديد 10 أحرف على الأقل.');return;}
+  try{await refreshRemote();var nd=await VAULT.changePassword(odoc,OK,ME,o,n);await putDoc(nd);$('op').value='';$('np').value='';mm('umsg','تم تغيير الرمز السري.',true);}
+  catch(x){mm('umsg','الرمز الحالي غير صحيح.');}
+}
+
+/* ===================== help portal ===================== */
+var INH=(function(){
+/* Moroccan Family Code, Book VI (Law 70.03, arts. 321-395): core heirs engine.
+   Supported: husband, wives, father, mother, sons, daughters, full brothers, full sisters, maternal siblings. */
+function gcd(a,b){return b?gcd(b,a%b):Math.abs(a);}
+function F(n,d){d=d||1;if(d<0){n=-n;d=-d;}var g=gcd(n,d)||1;return [n/g,d/g];}
+function fadd(a,b){return F(a[0]*b[1]+b[0]*a[1],a[1]*b[1]);}
+function fsub(a,b){return F(a[0]*b[1]-b[0]*a[1],a[1]*b[1]);}
+function fmul(a,b){return F(a[0]*b[0],a[1]*b[1]);}
+function fdiv(a,b){return F(a[0]*b[1],a[1]*b[0]);}
+function fgt(a,b){return a[0]*b[1]>b[0]*a[1];}
+function fz(a){return a[0]===0;}
+function inherit(h){
+  var N=function(k){return Math.max(0,Math.floor(+h[k]||0));};
+  var H=Math.min(1,N('H')),W=Math.min(4,N('W')),Fa=Math.min(1,N('F')),Mo=Math.min(1,N('M')),S=N('S'),D=N('D'),BF=N('BF'),SF=N('SF'),UM=N('UM');
+  if(H&&W)return {error:'لا يجتمع زوج وزوجة في تركة واحدة.'};
+  if(!(H+W+Fa+Mo+S+D+BF+SF+UM))return {error:'اختاروا وارثًا واحدًا على الأقل.'};
+  var desc=S+D>0,maleDesc=S>0,origSib=BF+SF+UM,bf=BF,sf=SF,um=UM,notes=[],rows=[];
+  if(maleDesc||Fa){bf=0;sf=0;um=0;}
+  if(desc||Fa)um=0;
+  if(Fa&&(BF+SF+UM))notes.push('الأب يحجب الإخوة.');
+  if(maleDesc&&!Fa&&(BF+SF+UM))notes.push('الابن يحجب الإخوة.');
+  var fixed=[],asaba=[];   // fixed: {k,label,share(fraction total for the group),n}
+  function fx(k,label,share,n){fixed.push({k:k,label:label,share:share,n:n});}
+  var spouse=F(0,1);
+  if(H){spouse=desc?F(1,4):F(1,2);fx('H','الزوج',spouse,1);}
+  if(W){spouse=desc?F(1,8):F(1,4);fx('W','الزوجة'+(W>1?' (الزوجات)':''),spouse,W);}
+  var umariyya=false;
+  if(Mo){
+    if(desc||origSib>=2)fx('M','الأم',F(1,6),1);
+    else if(Fa&&(H||W)){umariyya=true;fx('M','الأم',fmul(F(1,3),fsub(F(1),spouse)),1);notes.push('العمريتان: للأم ثلث الباقي بعد فرض الزوج أو الزوجة (المادة 366).');}
+    else fx('M','الأم',F(1,3),1);
+  }
+  var fatherAsaba=false;
+  if(Fa){
+    if(maleDesc)fx('F','الأب',F(1,6),1);
+    else if(D>0){fx('F','الأب',F(1,6),1);fatherAsaba=true;}
+    else fatherAsaba=true;
+  }
+  if(D>0&&S===0)fx('D',D>1?'البنات':'البنت',D===1?F(1,2):F(2,3),D);
+  var sisAsabaWithDaughters=false,sisFixed=false;
+  if(sf>0&&bf===0){
+    if(D>0){sisAsabaWithDaughters=true;}
+    else{fx('SF',sf>1?'الأخوات الشقيقات':'الأخت الشقيقة',sf===1?F(1,2):F(2,3),sf);sisFixed=true;}
+  }
+  if(um>0)fx('UM','الإخوة لأم',um===1?F(1,6):F(1,3),um);
+  var total=fixed.reduce(function(a,x){return fadd(a,x.share);},F(0));
+  var rest=fsub(F(1),total),factor=F(1),mode='';
+  var asabaOn=false;
+  function giveAsaba(label,shares){asabaOn=true;shares.forEach(function(s){asaba.push(s);});}
+  if(!fgt(total,F(1))&&!fz(rest)||fz(rest)){
+    // residuary heirs (by priority)
+    if(S>0){giveAsaba('',[{k:'S',label:'الأبناء',w:2*S,n:S},{k:'D',label:'البنات',w:D,n:D}].filter(function(x){return x.n>0;}));}
+    else if(fatherAsaba){giveAsaba('',[{k:'F',label:'الأب (تعصيبًا)',w:1,n:1}]);}
+    else if(bf>0){giveAsaba('',[{k:'BF',label:'الإخوة الأشقاء',w:2*bf,n:bf},{k:'SF',label:'الأخوات الشقيقات',w:sf,n:sf}].filter(function(x){return x.n>0;}));}
+    else if(sisAsabaWithDaughters){giveAsaba('',[{k:'SF',label:'الأخوات الشقيقات (عصبة مع البنات)',w:1,n:sf}]);notes.push('الأخوات الشقيقات عصبة مع البنات.');}
+  }
+  var R=[];
+  if(fgt(total,F(1))){factor=fdiv(F(1),total);mode='عول';notes.push('عالت الفريضة: لزيادة الفروض على التركة (المادة 368 مثال).');}
+  fixed.forEach(function(x){R.push({k:x.k,label:x.label,share:fmul(x.share,factor),n:x.n});});
+  if(mode!=='عول'&&asabaOn&&!fz(rest)){
+    var wsum=asaba.reduce(function(a,x){return a+x.w;},0);
+    asaba.forEach(function(x){
+      var part=fmul(rest,F(x.w,wsum)),ex=R.filter(function(r){return r.k===x.k;})[0];
+      if(ex)ex.share=fadd(ex.share,part);else R.push({k:x.k,label:x.label,share:part,n:x.n});
+    });
+    if(S>0&&D>0)notes.push('للذكر مثل حظ الأنثيين (المادة 351).');
+  }else if(mode!=='عول'&&!asabaOn&&!fz(rest)&&fixed.length){
+    // radd: the remainder returns to fixed-share heirs in proportion to their shares (art. 349), spouses included
+    var f2=fdiv(F(1),total);R=R.map(function(r){return {k:r.k,label:r.label,share:fmul(r.share,f2),n:r.n};});mode='رد';notes.push('ردّ الباقي على أصحاب الفروض بنسبة فروضهم (المادة 349).');
+  }
+  var sum=R.reduce(function(a,x){return fadd(a,x.share);},F(0));
+  return {rows:R,notes:notes,mode:mode,sum:sum};
+}
+return {inherit:inherit,F:F};
+})();
+if(typeof module!=='undefined')module.exports=INH;
+
+function helpCode(){
+  var q=$('hq').value.trim(),box=$('hqres');box.textContent='';if(!q)return;
+  var qq=q.replace(/[٠-٩]/g,function(d){return '٠١٢٣٤٥٦٧٨٩'.indexOf(d);}),parts=qq.split(/[\/\\-]/).map(function(x){return x.trim();}),code='';
+  if(parts.length===3&&/^\d{4}$/.test(parts[1]))code=parts[1];
+  else{var toks=qq.match(/(?:^|\D)(\d{4})(?!\d)/g)||[];toks=toks.map(function(x){return x.replace(/\D/g,'');});code=toks.filter(function(c){return CODEMAP[c];})[0]||toks[0]||'';}
+  var m=code?[0,code]:null;
+  if(m){
+    var k=kindInfo(m[1]),p=el('div','r');
+    if(k&&k.t){box.appendChild(el('p','kind',(k.ex?'✓ ':'~ ')+k.t));box.appendChild(el('p','meta','الرمز '+k.c+' | نوع الملف المقترح: '+typeOf(k.c)+(k.ex?'':' | الرمز غير مدرج بالتفصيل، والصنف تقريبي')));
+      var lv=/استئناف|مستأنف|مستانف/.test(k.t)||k.c.slice(0,2)==='28'?'استئنافي':'ابتدائي أو حسب الجهة';box.appendChild(el('p','meta','المرحلة: '+lv));}
+    else box.appendChild(el('p','warn','رمز غير مدرج في الجدول.'));
+    return;
+  }
+  var t=nz(q).split(' ').filter(Boolean),n=0;
+  Object.keys(CODEMAP).forEach(function(c){if(n>=14)return;var l=nz(CODEMAP[c]);if(t.every(function(w){return l.indexOf(w)>=0;})){n++;var r=el('p','meta',c+'  |  '+CODEMAP[c]);box.appendChild(r);}});
+  if(!n)box.appendChild(el('p','warn','لا نتيجة.'));
+}
+function fr(a){return a[0]+'/'+a[1];}
+function num(id){return Math.max(0,parseFloat(String($(id).value).replace(',','.'))||0);}
+function calcInherit(){
+  var box=$('ires');box.textContent='';
+  var z=$('iz').value,h={H:z==='H'?1:0,W:z==='W'?Math.max(1,Math.min(4,num('iw'))):0,F:+$('iF').value,M:+$('iM').value,S:num('iS'),D:num('iD'),BF:num('iBF'),SF:num('iSF'),UM:num('iUM')};
+  var r=INH.inherit(h);if(r.error){box.appendChild(el('p','warn',r.error));return;}
+  var est=num('iest'),fu=num('ifu'),de=num('ide'),wi=num('iwi'),after=Math.max(0,est-fu-de),wmax=after/3,wused=Math.min(wi,wmax),net=Math.max(0,after-wused);
+  var L=['قيمة التركة: '+money(est),'ناقص التجهيز والديون: '+money(fu+de)];
+  if(wi>wmax)L.push('الوصية تتجاوز الثلث: اعتُمد الثلث وهو '+money(wmax)+' (ما زاد يتوقف على إجازة الورثة)');else if(wi)L.push('الوصية: '+money(wused));
+  L.push('الصافي القابل للقسمة: '+money(net));box.appendChild(el('p','meta',L.join(' | ')));
+  var tb=document.createElement('table'),hd=document.createElement('tr');['الوارث','العدد','النصيب','المبلغ'].forEach(function(t){var th=document.createElement('th');th.textContent=t;hd.appendChild(th);});tb.appendChild(hd);
+  r.rows.forEach(function(x){var tr=document.createElement('tr');[x.label,x.n,fr(x.share),money(net*x.share[0]/x.share[1])].forEach(function(t){var td=document.createElement('td');td.textContent=t;tr.appendChild(td);});tb.appendChild(tr);
+    if(x.n>1){var each=document.createElement('tr');[('لكل واحد'),'','',money(net*x.share[0]/x.share[1]/x.n)].forEach(function(t){var td=document.createElement('td');td.textContent=t;td.className='meta';each.appendChild(td);});tb.appendChild(each);}});
+  box.appendChild(tb);
+  r.notes.forEach(function(n){box.appendChild(el('p','meta','• '+n));});
+  box.appendChild(el('p','meta','ملاحظة: في الأبناء والبنات يكون للذكر مثل حظ الأنثيين، ومجموع نصيب المجموعة مبين أعلاه.'));
+  if($('ioth').checked)box.appendChild(el('p','warn','وجود وارث غير مدرج قد يغيّر النتيجة كليًّا. هذه القسمة غير نهائية.'));
+  box.appendChild(el('p','note','النتيجة للمساعدة فقط. تحقّقوا من النص (المادة 321 وما بعدها) ومن الحالة بنفسكم.'));
+}
+var MINW={2026:10270,2027:11270,2028:12270,2029:13270,2030:14270};
+function calcComp(){
+  var box=$('cres');box.textContent='';
+  var lia=Math.min(100,num('cl'))/100,y=+$('cy').value,rows=[],sum=0;
+  var days=num('cd'),inc=num('ci'),base=Math.max(inc,MINW[y]),itt=base*days/365*lia;
+  if(days){rows.push(['العجز الكلي المؤقت','('+money(base)+' × '+days+' ÷ 365) × '+Math.round(lia*100)+'%',itt]);sum+=itt;}
+  var cap=num('cc'),ipp=num('cp')/100,b=cap*ipp*lia;
+  if(cap&&ipp){rows.push(['التعويض الأساسي عن العجز الدائم','('+money(cap)+' × '+(ipp*100)+'%) × '+Math.round(lia*100)+'% (المادة 9)',b]);sum+=b;}
+  var pn=+$('cpain').value,mc=num('cm'),pa=mc*pn/100*lia;
+  if(pn&&mc){rows.push(['الألم الجسماني','('+money(mc)+' × '+pn+'%) × '+Math.round(lia*100)+'%',pa]);sum+=pa;}
+  if(!rows.length){box.appendChild(el('p','warn','أدخلوا بيانات بند واحد على الأقل.'));return;}
+  var tb=document.createElement('table'),hd=document.createElement('tr');['البند','الصيغة','المبلغ'].forEach(function(t){var th=document.createElement('th');th.textContent=t;hd.appendChild(th);});tb.appendChild(hd);
+  rows.forEach(function(r){var tr=document.createElement('tr');[r[0],r[1],money(r[2])].forEach(function(t){var td=document.createElement('td');td.textContent=t;tr.appendChild(td);});tb.appendChild(tr);});
+  var tt=document.createElement('tr');tt.className='tot';['المجموع','',money(sum)].forEach(function(t){var td=document.createElement('td');td.textContent=t;tt.appendChild(td);});tb.appendChild(tt);box.appendChild(tb);
+  box.appendChild(el('p','note','لا تشمل النتيجة بنود التعويض الأخرى (المصاريف، والتعويض التكميلي، والأضرار الجمالية والمهنية، وذوي الحقوق). راجعوا النص النافذ بعد القانون 70.24.'));
+}
+function wireOffice(){
+  $('lg-repo').value=localStorage.getItem('zl_repo')||'';$('lg-mail').value=localStorage.getItem('zl_mail')||'';
+  $('lg-go').addEventListener('click',doLogin);['lg-pw','lg-pw2','lg-tok','lg-mail'].forEach(function(i){$(i).addEventListener('keydown',function(e){if(e.key==='Enter')doLogin();});});
+  $('hq').addEventListener('input',helpCode);$('icalc').addEventListener('click',calcInherit);$('ccalc').addEventListener('click',calcComp);
+  $('uadd').addEventListener('click',addUserUI);$('pchg').addEventListener('click',changePw);$('logout').addEventListener('click',function(){location.reload();});
+  $('gtks').addEventListener('click',function(){var t=$('gtk').value.trim();if(!t)return;office.gh.tok=t;$('gtk').value='';cloudSave();mm('umsg','تم تحديث المفتاح وسيُحفظ مشفّرًا.',true);});
+  window.addEventListener('beforeunload',function(e){if(timer&&saving===false&&$('sync').textContent==='بانتظار الحفظ…'){e.preventDefault();e.returnValue='';}});
+}
+wireOffice();
+
+/* ---------- wiring ---------- */
+function show(tab){
+  ['agenda','files','dl','help','set'].forEach(function(t){$('p-'+t).hidden=(t!==tab);});
+  document.querySelectorAll('.tabs button').forEach(function(b){b.setAttribute('aria-selected',b.dataset.tab===tab?'true':'false');});
+  history.replaceState(null,'','#'+tab);window.scrollTo(0,0);
+}
+document.querySelectorAll('.tabs button').forEach(function(b){b.addEventListener('click',function(){show(b.dataset.tab);});});
+$('mflt').addEventListener('change',renderFiles);
+$('mcancel').addEventListener('click',clearForm);
+$('mcourt').addEventListener('input',showSug);$('mcourt').addEventListener('focus',showSug);
+document.addEventListener('click',function(e){if(!e.target.closest('#csug')&&e.target.id!=='mcourt')$('csug').textContent='';});
+$('mcode').addEventListener('input',function(){hintFor(this.value,true);});
+$('mtype').addEventListener('change',function(){this.dataset.m='1';});
+$('mkind').addEventListener('input',function(){this.dataset.auto='0';});
+$('msearch').addEventListener('input',renderFiles);
+$('mcgen').addEventListener('click',function(){$('mccode').value=genCode();});
+$('siteurl').value=SITE();
+$('sitesave').addEventListener('click',function(){var v=$('siteurl').value.trim();if(v&&!/^https?:\/\//i.test(v)){mm('smsg','الرابط يجب أن يبدأ بـ https://');return;}try{localStorage.setItem('zl_site_url',v);}catch(e){}mm('smsg','تم الحفظ.',true);renderFiles();});
+$('msave').addEventListener('click',function(){
+  var o={label:$('mlabel').value.trim(),court:$('mcourt').value.trim(),room:$('mroom').value.trim(),judge:$('mjudge').value.trim(),type:$('mtype').value,no:$('mno').value.trim(),code:$('mcode').value.trim(),yr:$('myr').value.trim(),st:+$('mst').value,note:$('mnote').value.trim(),our:$('mour').value.trim(),kind:$('mkind').value.trim(),cref:$('mcref').value.trim(),ccode:$('mccode').value.trim(),cli:$('mcli').value.trim(),tel:$('mtel').value.trim(),adv:$('madv').value.trim(),fee:$('mfee').value.trim(),u:today(),acts:(editId&&items[editId]&&items[editId].acts)||[],pays:(editId&&items[editId]&&items[editId].pays)||[]};
+  if(!o.no||!o.yr){mm('mmsg','أدخلوا رقم الملف وسنته على الأقل.');return;}
+  rememberCourt(o.court);
+  var k=editId||('f'+Date.now().toString(36)+Math.random().toString(36).slice(2,6));
+  items[k]=o;mm('mmsg',editId?'تم حفظ التعديل.':'تمت إضافة الملف.',true);clearForm();$('madd').open=false;persist();
+});
+$('exall').addEventListener('click',function(){var up=events().filter(isUp).sort(function(a,b){return a.start-b.start;});download('mawaid-malafat.ics',buildICS(up));mm('amsg','تم إنشاء الملف. افتحوه من التنزيلات ليضيفه تطبيق الأجندة.',true);});
+$('notif').addEventListener('click',askNotif);$('notif2').addEventListener('click',askNotif);
+$('bk').addEventListener('click',function(){
+  var txt=JSON.stringify({v:1,items:items});
+  if(NATIVE){navigator.clipboard.writeText(txt).then(function(){mm('bmsg','نُسخت النسخة الاحتياطية إلى الحافظة. الصقوها في ملاحظات أو أرسلوها لأنفسكم.',true);}).catch(function(){mm('bmsg','تعذر النسخ إلى الحافظة.');});return;}
+  download('sauvegarde-dossiers-'+today()+'.json',txt,'application/json');mm('bmsg','تم إنشاء النسخة الاحتياطية.',true);
+});
+if(NATIVE){$('bkta').hidden=false;$('bkpaste').hidden=false;document.querySelector('label[for=bkin]').hidden=true;}
+$('bkpaste').addEventListener('click',function(){
+  try{var d=JSON.parse($('bkta').value);if(!d||typeof d.items!=='object')throw 0;Object.assign(items,d.items);$('bkta').value='';persist();mm('bmsg','تم الاستيراد والدمج.',true);}catch(e){mm('bmsg','النص غير صالح.');}
+});
+$('ntest').addEventListener('click',testNotif);
+$('dtest').addEventListener('click',testNotif);
+$('dbat').addEventListener('click',function(){callNat('askIgnoreBattery');});
+$('dnot').addEventListener('click',function(){callNat('openNotificationSettings');});
+$('dapp').addEventListener('click',function(){callNat('openAppSettings');});
+$('bkin').addEventListener('change',function(){
+  var f=this.files[0];if(!f)return;
+  f.text().then(function(t){var d=JSON.parse(t);if(!d||typeof d.items!=='object')throw 0;Object.assign(items,d.items);persist();mm('bmsg','تم الاستيراد والدمج.',true);}).catch(function(){mm('bmsg','ملف غير صالح.');});
+  this.value='';
+});
+var dp=null;
+window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();dp=e;$('inst').hidden=false;});
+$('inst').addEventListener('click',async function(){if(!dp)return;dp.prompt();await dp.userChoice;dp=null;$('inst').hidden=true;});
+window.addEventListener('appinstalled',function(){$('inst').hidden=true;});
+
+wireDL();renderAll();
+show((location.hash||'#agenda').slice(1).replace(/^(?!agenda$|files$|dl$|help$|set$).*/,'agenda'));
+lockNow();
+if(navigator.storage&&navigator.storage.persist)navigator.storage.persist();
+
+notifyDue();
+setInterval(function(){notifyDue();renderAgenda();},60000);
+document.addEventListener('visibilitychange',function(){if(!document.hidden){notifyDue();scheduleNative();renderAgenda();}});
+</script>
+</body>
+</html>
