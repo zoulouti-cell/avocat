@@ -280,6 +280,12 @@ select,.fc select{border-radius:14px!important;border:1px solid rgba(255,255,255
       <p class="note"><b>هاتف سامسونج (One UI):</b> تُعطِّل ميزةُ «السكون» التنبيهات إن لم تفتحوا التطبيق أيامًا. افعلوا ما يلي مرة واحدة:<br>1) الإعدادات ← التطبيقات ← ملفاتي ← البطارية ← اختاروا «غير مقيَّد» (Unrestricted).<br>2) الإعدادات ← العناية بالبطارية والجهاز ← البطارية ← حدود استخدام الخلفية ← عطّلوا «وضع التطبيقات غير المستخدمة في السكون»، وأضيفوا ملفاتي إلى «التطبيقات التي لا تنام أبدًا».<br>3) الإعدادات ← التطبيقات ← ملفاتي ← عطّلوا «إيقاف نشاط التطبيق إن لم يُستخدم».<br>4) الإعدادات ← التطبيقات ← ملفاتي ← الإشعارات ← تأكدوا أن «مواعيد الملفات» مفعّلة بأهمية عالية. قد تختلف الأسماء قليلًا بحسب الإصدار.</p>
     </div>
     <div class="card">
+      <h3>الأدوات في الصفحة الرئيسية</h3>
+      <p class="note">الأدوات القانونية (حوادث السير والشغل، والإرث، والآجال، والرموز) مخفية عن زوار الموقع. اضغطوا لإظهارها على هذا الجهاز وحده، وأعيدوا الضغط لإخفائها. وتحتاجون إلى ذلك مرة على كل جهاز تستعملونه.</p>
+      <div class="row2"><button class="btn p" id="toolsT">إظهار الأدوات على هذا الجهاز</button></div>
+      <p class="msg" id="toolsM"></p>
+    </div>
+    <div class="card">
       <h3>الحساب والمستخدمون</h3>
       <p class="note" id="me"></p>
       <ul class="al" id="ulist"></ul>
@@ -1488,6 +1494,10 @@ function wireOffice(){
   window.addEventListener('beforeunload',function(e){if(timer&&saving===false&&$('sync').textContent==='بانتظار الحفظ…'){e.preventDefault();e.returnValue='';}});
 }
 wireOffice();
+(function(){var b=document.getElementById('toolsT'),m=document.getElementById('toolsM');if(!b)return;
+  function on(){try{return localStorage.getItem('zl_staff')==='1';}catch(e){return false;}}
+  function paint(){b.textContent=on()?'إخفاء الأدوات على هذا الجهاز':'إظهار الأدوات على هذا الجهاز';m.textContent=on()?'الأدوات ظاهرة لكم في الصفحة الرئيسية على هذا الجهاز.':'الأدوات مخفية على هذا الجهاز.';m.style.color=on()?'#9be3b4':'#ffd0bd';}
+  b.addEventListener('click',function(){try{if(on())localStorage.removeItem('zl_staff');else localStorage.setItem('zl_staff','1');}catch(e){m.textContent='تعذر الحفظ في هذا المتصفح.';return;}paint();});paint();})();
 (function(){var nav=document.querySelector('.tabs');if(!nav)return;var ind=document.createElement('span');ind.className='tind';nav.appendChild(ind);
   function mv(){var b=nav.querySelector('[aria-selected=true]');if(!b)return;ind.style.width=b.offsetWidth+'px';ind.style.left=b.offsetLeft+'px';}
   new MutationObserver(mv).observe(nav,{attributes:true,subtree:true,attributeFilter:['aria-selected']});window.addEventListener('resize',mv);setTimeout(mv,200);setTimeout(mv,900);})();
