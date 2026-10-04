@@ -60,7 +60,7 @@ details>summary{cursor:pointer;font-weight:700;color:var(--gt);padding:.3rem 0}
 .sug{display:flex;flex-direction:column;gap:2px;margin-top:4px}
 .sug button{text-align:start;background:var(--paper);border:1px solid var(--line);padding:.5rem .7rem;font:inherit;font-weight:400;color:var(--fg);cursor:pointer;min-height:44px}
 .kind{margin:.1rem 0 .6rem;font-weight:700;color:var(--gt)}
-.tabs{grid-template-columns:repeat(4,1fr)!important}.tabs button{font-size:.8rem}
+.tabs{grid-template-columns:repeat(5,1fr)!important}.tabs button{font-size:.8rem}
 .bar{background:linear-gradient(135deg,rgba(18,70,61,.96),rgba(11,36,32,.96))}
 #login{position:fixed;inset:0;z-index:120;background:radial-gradient(circle at 20% 10%,#17594d,#0b2420 60%);display:grid;place-items:center;padding:1rem;overflow:auto}
 #login .gl{width:min(100%,420px);padding:1.4rem;border-radius:28px;color:#f6f1e2;background:linear-gradient(135deg,rgba(255,255,255,.2),rgba(255,255,255,.06));border:1px solid rgba(255,255,255,.28);-webkit-backdrop-filter:blur(22px) saturate(1.6);backdrop-filter:blur(22px) saturate(1.6);box-shadow:0 24px 60px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.4);display:grid;gap:.8rem}
@@ -202,6 +202,39 @@ h3{font-family:var(--fh);color:#e6c873}
 #p-agenda>.row2 .btn{flex:1 1 calc(50% - .3rem)}#p-agenda>.row2 .btn.p{flex:1 1 100%}
 .fc .meta,.ev .meta{font-size:.95rem}
 #s3{font-size:1.3rem;line-height:1.25}
+
+.seg{display:flex;gap:.3rem;padding:.3rem;border-radius:999px;margin:.2rem 0 1rem;width:max-content;max-width:100%;overflow-x:auto;scrollbar-width:none;background:rgba(255,255,255,.08);border:1px solid rgba(200,162,74,.5)}
+.seg::-webkit-scrollbar{display:none}
+.seg button{flex:none;white-space:nowrap;border:0;border-radius:999px;padding:.5rem 1.15rem;font:700 .98rem var(--fb);color:#e6c873;background:transparent;cursor:pointer;transition:background .3s,color .3s,transform .3s cubic-bezier(.34,1.56,.64,1)}
+.seg button[aria-selected=true]{background:linear-gradient(145deg,#ffe28f,#c8a24a);color:#0b2420;box-shadow:0 6px 14px rgba(200,162,74,.45)}
+.seg button:active{transform:scale(.94)}
+.lxstat{margin:.1rem 0 .8rem;color:#c8d6cf;font-size:.9rem}
+.lxbar input{width:100%;min-height:56px;padding:.7rem 1.1rem;border-radius:999px!important;font-size:1.1rem;border:1.5px solid rgba(230,200,115,.7)!important;background:rgba(255,255,255,.1)!important;box-shadow:0 10px 24px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.25)}
+.lxex{display:flex;flex-wrap:wrap;gap:.45rem;margin:.6rem 0 1rem}
+.lxchip{border:1px solid rgba(230,200,115,.6);border-radius:999px;padding:.3rem .9rem;background:rgba(255,255,255,.07);color:#f0d68a;font:500 .9rem var(--fb);cursor:pointer;transition:transform .35s cubic-bezier(.34,1.56,.64,1),background .25s}
+.lxchip:hover{background:rgba(200,162,74,.28)}.lxchip:active{transform:scale(.94)}
+.lxc{position:relative;background:linear-gradient(135deg,rgba(255,255,255,.15),rgba(255,255,255,.04) 58%,rgba(255,255,255,.09));border:1px solid rgba(255,255,255,.24);border-radius:24px;padding:.9rem 1rem 1rem;margin-bottom:.8rem;display:grid;gap:.35rem;-webkit-backdrop-filter:blur(20px) saturate(1.6);backdrop-filter:blur(20px) saturate(1.6);box-shadow:0 12px 28px rgba(0,0,0,.26),inset 0 1px 0 rgba(255,255,255,.4);animation:up .5s cubic-bezier(.2,.8,.2,1) both}
+.lxc::before{content:"";position:absolute;inset-block:14px;inset-inline-start:0;width:4px;border-radius:0 4px 4px 0;background:linear-gradient(180deg,#ffe28f,#c8a24a)}
+.lxh{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}.lxh b{font:700 1.25rem var(--fh);color:#fff}
+.lxs{padding:.05rem .8rem;border-radius:999px;background:linear-gradient(145deg,#ffe28f,#c8a24a 60%,#a67e26);color:#0b2420;font-weight:700;font-size:.85rem}
+.lxp{font-style:normal;font-size:.78rem;padding:.05rem .6rem;border-radius:999px;border:1px solid rgba(255,157,128,.8);color:#ffb59e}
+.lxref{margin:0;color:#c8d6cf;font-size:.88rem}.lxsrc{margin:0;color:rgba(200,214,207,.75);font-size:.8rem}
+.lxb{margin:.2rem 0;font-size:1.05rem;line-height:2;white-space:pre-line}.lxpr{color:#f6f1e2}
+mark{background:rgba(255,226,143,.38);color:#fff;border-radius:5px;padding:0 .12em}
+.lxm{justify-self:start;border:0;background:none;color:#e6c873;font:700 .92rem var(--fb);padding:.1rem 0;cursor:pointer;text-decoration:underline dotted}
+.lxa .btn{flex:0 0 auto}.lxn{width:100%;border-radius:16px!important;margin-top:.3rem}
+.lxcount{margin:.2rem 0 .6rem;color:#e6c873;font-weight:700}
+.lxbr{margin:1rem 0 .3rem;color:#e6c873;font:700 1rem var(--fh)}
+.lxbook{display:grid;gap:.1rem;width:100%;text-align:start;padding:.8rem 1rem;margin-bottom:.5rem;border-radius:20px;border:1px solid rgba(255,255,255,.24);background:rgba(255,255,255,.07);color:inherit;cursor:pointer;font-family:inherit;transition:transform .4s cubic-bezier(.34,1.56,.64,1),background .25s}
+.lxbook:hover{background:rgba(200,162,74,.18)}.lxbook:active{transform:scale(.98)}
+.lxbook b{color:#fff;font-size:1.05rem}.lxbook small{color:#c8d6cf}.lxbook i{color:#e6c873;font-style:normal;font-size:.85rem}
+.lxfull{white-space:pre-line;line-height:2;font-size:1.05rem}
+
+.lxok{border-color:rgba(130,215,160,.9)!important;color:#b9f0cb!important}
+.lxhd{color:#e6c873!important;font-weight:700}
+.lxtoc{margin:.5rem 0;border:1px solid rgba(255,255,255,.22);border-radius:18px;padding:.1rem .9rem;background:rgba(255,255,255,.05)}
+.lxtoc summary{cursor:pointer;font-weight:700;padding:.55rem 0;color:#f0d68a;line-height:1.7}
+.lxtoc[open]{padding-bottom:.4rem}
 </style>
 </head>
 <body>
@@ -209,6 +242,7 @@ h3{font-family:var(--fh);color:#e6c873}
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
 <symbol id="i-gav" viewBox="0 0 24 24"><path d="M6 2v6h.01L6 8.01 10 12l-4 4 .01.01H6V22h12v-5.99h-.01L18 16l-4-4 4-3.99-.01-.01H18V2H6zm10 14.5V20H8v-3.5l4-4 4 4zm-4-5l-4-4V4h8v3.5l-4 4z"/></symbol>
 <symbol id="i-help" viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8a4 4 0 0 1 8 0c0 .88-.36 1.68-.93 2.25z"/></symbol>
+<symbol id="i-book" viewBox="0 0 24 24"><path d="M18 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></symbol>
 <symbol id="i-cal" viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 16H5V10h14v10z"/></symbol>
 <symbol id="i-fold" viewBox="0 0 24 24"><path d="M10 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-8l-2-2z"/></symbol>
 <symbol id="i-set" viewBox="0 0 24 24"><path d="M19.4 13a7.5 7.5 0 0 0 0-2l2.1-1.6-2-3.4-2.5 1a7.4 7.4 0 0 0-1.7-1L15 3h-4l-.4 3a7.4 7.4 0 0 0-1.7 1l-2.5-1-2 3.4L6.6 11a7.5 7.5 0 0 0 0 2l-2.1 1.6 2 3.4 2.5-1a7.4 7.4 0 0 0 1.7 1l.4 3h4l.4-3a7.4 7.4 0 0 0 1.7-1l2.5 1 2-3.4zM13 15.5A3.5 3.5 0 1 1 13 8.5a3.5 3.5 0 0 1 0 7z"/></symbol>
@@ -326,7 +360,11 @@ h3{font-family:var(--fh);color:#e6c873}
     </details>
   </section>
 
-    <section id="p-set" hidden>
+    <section id="p-lex" hidden>
+    <h2>المكتبة القانونية</h2>
+  </section>
+
+  <section id="p-set" hidden>
     <h2>الإعدادات</h2>
     <div class="card">
       <h3>التنبيهات</h3>
@@ -400,6 +438,7 @@ h3{font-family:var(--fh);color:#e6c873}
 <nav class="tabs" role="tablist" aria-label="التنقل">
   <button role="tab" data-tab="agenda" aria-selected="true"><svg><use href="#i-cal"/></svg>المواعيد</button>
   <button role="tab" data-tab="files" aria-selected="false"><svg><use href="#i-fold"/></svg>ملفاتي</button>
+  <button role="tab" data-tab="lex" aria-selected="false"><svg><use href="#i-book"/></svg>المكتبة</button>
   <button role="tab" data-tab="dl" aria-selected="false"><svg><use href="#i-gav"/></svg>الآجال</button>
   <button role="tab" data-tab="set" aria-selected="false"><svg><use href="#i-set"/></svg>الإعدادات</button>
 </nav>
@@ -1576,6 +1615,367 @@ function wireOffice(){
   window.addEventListener('beforeunload',function(e){if(timer&&saving===false&&$('sync').textContent==='بانتظار الحفظ…'){e.preventDefault();e.returnValue='';}});
 }
 wireOffice();
+/* ===================== legal library: local database + two search engines ===================== */
+/* ===================== legal library: local database + two search engines ===================== */
+/* ===================== legal library: local database + two search engines ===================== */
+var LEX=(function(){
+var DBN='zl_lex_v1',DB=null,TEXTS=[],ARTS=[],CASES=[],NOTES={},FAV={},SEED_V=1,ARTIDX={},REFMAP={};
+var BR=['أسرة وأحوال شخصية','مدني والتزامات وعقود','عقاري','تجاري وشركات','شغل وضمان اجتماعي','حوادث الشغل والسير والتأمين','مسطرة مدنية','جنائي وإجراءات جنائية','إداري','دستوري وتنظيم قضائي','جبائي ومالي','أخرى'];
+var CH=['الغرفة المدنية','غرفة الأحوال الشخصية والميراث','الغرفة الاجتماعية','الغرفة التجارية','الغرفة الإدارية','الغرفة الجنائية','الغرفة العقارية','الغرف مجتمعة'];
+var STOP=['في','من','علي','الي','عن','ان','او','ما','التي','الذي','هذا','هذه','ذلك','كل','لا','قد','بين','مع','ثم','اذا','هو','هي','كان','يكون'];
+var $=function(i){return document.getElementById(i);};
+function E(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!==undefined)e.textContent=x;return e;}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+/* ---------- text normalisation ---------- */
+function nrm(s){return String(s||'').replace(/[٠-٩]/g,function(d){return '٠١٢٣٤٥٦٧٨٩'.indexOf(d);}).replace(/[\u064B-\u065F\u0670\u0640]/g,'').replace(/[أإآٱ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه').replace(/ؤ/g,'و').replace(/ئ/g,'ي').toLowerCase().replace(/[^\u0621-\u063A\u0641-\u064A0-9a-z\s]/g,' ').replace(/\s+/g,' ').trim();}
+function stem(w){if(/^\d/.test(w))return w;if(w.length>4&&/^(وال|بال|فال|كال)/.test(w))w=w.slice(3);else if(w.length>4&&w.indexOf('لل')===0)w=w.slice(2);else if(w.length>3&&w.indexOf('ال')===0)w=w.slice(2);
+  var sf=['ات','ان','ين','ون','ها','هم','ه','ي','ا'];for(var i=0;i<sf.length;i++){var s=sf[i];if(w.length-s.length>=3&&w.slice(-s.length)===s){w=w.slice(0,-s.length);break;}}return w;}
+function stemText(n){return n.split(' ').map(stem).join(' ');}
+function qtoks(qn){return qn.split(' ').filter(function(w){return w&&STOP.indexOf(w)<0&&(w.length>1||/\d/.test(w));}).map(stem);}
+function hlRe(toks){
+  var map={'ا':'[اأإآٱ]','ي':'[يىئ]','ه':'[هة]','و':'[وؤ]'},dia='[\\u064B-\\u065F\\u0670\\u0640]*';
+  var parts=toks.filter(function(t){return t.length>1;}).map(function(t){return t.split('').map(function(ch){return map[ch]||ch.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}).join(dia);});
+  return parts.length?new RegExp('('+parts.join('|')+')','g'):null;
+}
+function snippet(raw,re,len){
+  if(!re)return raw.length>len?raw.slice(0,len)+'…':raw;
+  re.lastIndex=0;var m=re.exec(raw);if(!m)return raw.length>len?raw.slice(0,len)+'…':raw;
+  var st=Math.max(0,m.index-70),en=Math.min(raw.length,m.index+len-70);return (st?'…':'')+raw.slice(st,en)+(en<raw.length?'…':'');
+}
+function mark(raw,re){var h=esc(raw);if(!re)return h;return h.replace(re,'<mark>$1</mark>');}
+/* ---------- IndexedDB ---------- */
+function openDb(){return new Promise(function(res,rej){var r=indexedDB.open(DBN,1);r.onupgradeneeded=function(){var d=r.result;d.createObjectStore('texts',{keyPath:'id'});d.createObjectStore('arts',{keyPath:'id'}).createIndex('t','tid');d.createObjectStore('cases',{keyPath:'id'});d.createObjectStore('meta',{keyPath:'k'});d.createObjectStore('notes',{keyPath:'k'});};r.onsuccess=function(){DB=r.result;res();};r.onerror=function(){rej(r.error);};});}
+function os(n,m){return DB.transaction(n,m||'readonly').objectStore(n);}
+function getAll(n){return new Promise(function(res,rej){var r=os(n).getAll();r.onsuccess=function(){res(r.result||[]);};r.onerror=function(){rej(r.error);};});}
+function getOne(n,k){return new Promise(function(res){var r=os(n).get(k);r.onsuccess=function(){res(r.result);};r.onerror=function(){res(null);};});}
+function putMany(n,list){return new Promise(function(res,rej){var t=DB.transaction(n,'readwrite'),s=t.objectStore(n);list.forEach(function(v){s.put(v);});t.oncomplete=res;t.onerror=function(){rej(t.error);};});}
+function delKeys(n,keys){return new Promise(function(res,rej){var t=DB.transaction(n,'readwrite'),s=t.objectStore(n);keys.forEach(function(k){s.delete(k);});t.oncomplete=res;t.onerror=function(){rej(t.error);};});}
+function clearAll(){return new Promise(function(res){var t=DB.transaction(['texts','arts','cases','notes','meta'],'readwrite');['texts','arts','cases','notes','meta'].forEach(function(n){t.objectStore(n).clear();});t.oncomplete=res;});}
+async function load(){
+  TEXTS=await getAll('texts');ARTS=await getAll('arts');CASES=await getAll('cases');
+  var nt=await getAll('notes');NOTES={};FAV={};nt.forEach(function(x){if(x.k.indexOf('n:')===0)NOTES[x.k.slice(2)]=x.v;else if(x.k.indexOf('f:')===0)FAV[x.k.slice(2)]=1;});
+  ARTS.forEach(function(a){if(a.nb===undefined)a.nb=stemText(nrm(a.body));if(a.nt===undefined)a.nt=stemText(nrm(a.title||''));});
+  TEXTS.forEach(function(t){t._al=[t.name,t.short].concat(t.aliases||[]).map(nrm).filter(function(a){return a.length>1;}).sort(function(a,b){return b.length-a.length;});});
+  CASES.forEach(function(c){c._nb=stemText(nrm([c.title,c.principle,c.summary,c.body,c.tags,c.refs,c.num,c.fileno].join(' ')));c._nt=stemText(nrm([c.title,c.principle,c.tags].join(' ')));});
+  buildIdx();
+}
+function buildIdx(){
+  ARTIDX={};ARTS.forEach(function(a){ARTIDX[a.tid+'#'+a.n+(a.sfx?'#'+a.sfx:'')]=a;});
+  REFMAP={};CASES.forEach(function(c){String(c.refs||'').split(/[،,؛;\n]+/).forEach(function(p){if(!p.trim())return;resolveRef(p).forEach(function(a){var l=REFMAP[a.id]=REFMAP[a.id]||[];if(l.indexOf(c.id)<0)l.push(c.id);});});});
+}
+function resolveRef(piece){
+  var qn=nrm(piece),ref=parseRef(qn);if(!ref||!ref.n)return [];
+  var padded=' '+ref.rest+' ',hit=[],out=[];
+  TEXTS.forEach(function(t){for(var i=0;i<t._al.length;i++){if(padded.indexOf(' '+t._al[i]+' ')>=0){hit.push(t.id);padded=padded.replace(' '+t._al[i]+' ',' ');break;}}});
+  hit.forEach(function(tid){var a=ARTIDX[tid+'#'+ref.n+(ref.suf?'#'+ref.suf:'')];if(a)out.push(a);});return out;
+}
+function TX(id){for(var i=0;i<TEXTS.length;i++)if(TEXTS[i].id===id)return TEXTS[i];return null;}
+/* ---------- building records ---------- */
+function mkArt(tid,no,body,title){
+  var m=/^(\d{1,4})(?:\s+(.+))?$/.exec(String(no).trim().replace(/[٠-٩]/g,function(d){return '٠١٢٣٤٥٦٧٨٩'.indexOf(d);}));
+  var n=m?+m[1]:0,sfx=m&&m[2]?nrm(m[2]):'';
+  return {id:tid+'#'+String(no).trim(),tid:tid,no:String(no).trim(),n:n,sfx:sfx,title:title||'',body:body,nb:stemText(nrm(body)),nt:stemText(nrm(title||''))};
+}
+async function addText(meta,articles){
+  var id=meta.id||('t'+Date.now()),old=ARTS.filter(function(a){return a.tid===id;}).map(function(a){return a.id;});
+  if(old.length)await delKeys('arts',old);
+  var t={id:id,name:meta.name,short:meta.short||meta.name,aliases:meta.aliases||[],branch:meta.branch||'أخرى',ref:meta.ref||'',source:meta.source||'',partial:!!meta.partial,count:articles.length,ver:meta.ver||1,updated:meta.updated||'',added:new Date().toISOString().slice(0,10)};
+  await putMany('texts',[t]);await putMany('arts',articles.map(function(a){return mkArt(id,a[0],a[1],a[2]);}));return id;
+}
+async function applySeed(seed){
+  var meta=await getOne('meta','seed');if(meta&&meta.v>=seed.v)return false;
+  for(var i=0;i<seed.texts.length;i++){var t=seed.texts[i];await addText(t,t.articles);}
+  await putMany('meta',[{k:'seed',v:seed.v}]);return true;
+}
+/* ---------- article-heading parser for imported texts ---------- */
+var ORD={'الاولي':1,'الثانيه':2,'الثالثه':3,'الرابعه':4,'الخامسه':5,'السادسه':6,'السابعه':7,'الثامنه':8,'التاسعه':9,'العاشره':10};
+function parseArticles(text){
+  var lines=String(text).replace(/\r/g,'').replace(/[\u200e\u200f\u202a-\u202e]/g,'').split('\n'),out=[],cur=null,pre=[],last=0,stack=[],pend=null;
+  var re=/^\s*(?:المادة|الفصل)\s+(\d+|[ء-ي]+)(?:\s+(مكررة|مكرر)(?:\s+(مرتين|ثالثا|رابعا|خامسا|سادسا|سابعا|ثامنا|تاسعا|عاشرا|ثالثًا|رابعًا))?)?\s*(?:([:：.\-–])\s*)?(.*)$/;
+  var HL={'الكتاب':1,'الجزء':1,'القسم الفرعي':5,'القسم':2,'الباب':3,'الفرع':4,'المبحث':4,'المطلب':5};
+  var hre=/^\s*(الكتاب|الجزء|القسم الفرعي|القسم|الباب|الفرع|المبحث|المطلب)\s+(\S.*)$/;
+  lines.forEach(function(raw){
+    var ln=raw.replace(/^\s*#{1,6}\s*/,'');
+    var m=re.exec(ln.replace(/[٠-٩]/g,function(d){return '٠١٢٣٤٥٦٧٨٩'.indexOf(d);})),is=false,no='',rest='';
+    if(m){var nw=/^\d+$/.test(m[1])?+m[1]:ORD[nrm(m[1])];
+      if(nw){rest=(m[5]||'').trim();var seq=(nw===last+1||nw===last||m[2]||nw===1||(nw>last&&nw<=last+3));
+        if(!rest||m[4]||seq){is=true;no=String(nw)+(m[2]?' مكررة'+(m[3]?' '+m[3]:''):'');if(!m[2])last=nw;}}}
+    if(is){pend=null;cur={no:no,lines:rest?[rest]:[],title:stack.map(function(x){return x.t;}).join(' › ')};out.push(cur);return;}
+    var hm=hre.exec(ln),t=ln.trim();
+    if(hm&&t.length<=130&&(t.indexOf(':')>0||t.split(/\s+/).length<=8)){var lv=HL[hm[1]];while(stack.length&&stack[stack.length-1].l>=lv)stack.pop();var h={l:lv,t:t};stack.push(h);pend=t.indexOf(':')>0?null:h;cur=null;return;}
+    if(pend&&t&&t.length<=90&&!/[.؛]$/.test(t)){pend.t+=': '+t;pend=null;return;}
+    pend=null;
+    if(cur){if(t)cur.lines.push(t);}else if(t)pre.push(t);
+  });
+  return {articles:out.map(function(a){return [a.no,a.lines.join('\n'),a.title];}).filter(function(a){return a[1];}),preface:pre.join('\n')};
+}
+/* ---------- file reading (txt, html, docx) ---------- */
+function loadMammoth(){return new Promise(function(res,rej){if(window.mammoth)return res();var sc=document.createElement('script');sc.src='https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js';sc.onload=res;sc.onerror=rej;document.head.appendChild(sc);});}
+function readTextFile(f,cb,err){var n=f.name.toLowerCase();
+  if(/\.docx$/.test(n)){loadMammoth().then(function(){var r=new FileReader();r.onload=function(){mammoth.extractRawText({arrayBuffer:r.result}).then(function(x){cb(x.value);},function(){if(err)err('تعذرت قراءة ملف Word.');});};r.readAsArrayBuffer(f);},function(){if(err)err('تعذر تحميل قارئ Word (يلزم اتصال بالإنترنت).');});return;}
+  var r=new FileReader();r.onload=function(){var t=String(r.result);if(/\.html?$/.test(n)){t=t.replace(/<(br|\/p|\/div|\/li|\/h[1-6]|\/tr)[^>]*>/gi,'\n').replace(/<[^>]+>/g,'');var d=document.createElement('textarea');d.innerHTML=t;t=d.value;}cb(t);};r.readAsText(f,'utf-8');}
+/* ---------- CSV ---------- */
+function parseCsv(t){var rows=[],row=[],f='',q=false;for(var i=0;i<t.length;i++){var c=t[i];if(q){if(c==='"'&&t[i+1]==='"'){f+='"';i++;}else if(c==='"')q=false;else f+=c;}else if(c==='"')q=true;else if(c===','||c==='\t'){row.push(f);f='';}else if(c==='\n'){row.push(f);rows.push(row);row=[];f='';}else if(c!=='\r')f+=c;}if(f||row.length){row.push(f);rows.push(row);}
+  var h=rows.shift().map(function(x){return x.trim();});return rows.filter(function(r){return r.some(function(x){return x.trim();});}).map(function(r){var o={};h.forEach(function(k,i){o[k]=(r[i]||'').trim();});return o;});}
+/* ---------- search: legal texts ---------- */
+function parseRef(qn){
+  var m=/(?:^|\s)(الماده|الفصل|ماده|فصل|م|ف|art|article)\s*(\d{1,4})(?:\s+(مكرره|مكرر|bis)(?:\s+(مرتين|ثالثا|رابعا|خامسا|سادسا|سابعا|ثامنا|تاسعا|عاشرا))?)?(?=\s|$)/.exec(qn);
+  if(m)return {n:+m[2],suf:m[3]?nrm(m[3]+(m[4]?' '+m[4]:'')):'',rest:(qn.slice(0,m.index)+' '+qn.slice(m.index+m[0].length)).replace(/\s+/g,' ').trim()};
+  if(/^\d{1,4}$/.test(qn))return {n:+qn,suf:'',rest:''};
+  return null;
+}
+function count(h,t){var i=0,c=0;while((i=h.indexOf(t,i))>=0){c++;i+=t.length;}return c;}
+function searchTexts(q,f){
+  f=f||{};var qn=nrm(q),ref=parseRef(qn),rest=ref?ref.rest:qn,restrict=null;
+  if(f.no)ref={n:+f.no,suf:'',rest:rest};
+  var padded=' '+rest+' ';
+  var hit=[];TEXTS.forEach(function(t){for(var i=0;i<t._al.length;i++){if(padded.indexOf(' '+t._al[i]+' ')>=0){hit.push(t.id);padded=padded.replace(' '+t._al[i]+' ',' ');break;}}});
+  if(hit.length)restrict=hit;rest=padded.replace(/\s+/g,' ').trim();
+  function ok(a){var t=TX(a.tid);if(!t)return false;if(f.tid&&a.tid!==f.tid)return false;if(f.branch&&t.branch!==f.branch)return false;if(restrict&&!f.tid&&restrict.indexOf(a.tid)<0)return false;return true;}
+  var toks=qtoks(rest),res=[],note='';
+  if(ref){
+    res=ARTS.filter(function(a){return ok(a)&&a.n===ref.n&&(!ref.suf||a.sfx===ref.suf);}).map(function(a){return {a:a,s:1000};});
+    if(!res.length)note='لا توجد المادة '+ref.n+' في النصوص المحمّلة'+(restrict?' من النص المطلوب':'')+'. تحقّقوا من أن النص محمّل كاملًا.';
+    else if(toks.length)res.forEach(function(r){var c=0;toks.forEach(function(t){c+=count(r.a.nb,t);});r.s+=c;});
+  }
+  if(!res.length&&toks.length){
+    ARTS.forEach(function(a){if(!ok(a))return;var s=0,all=true;toks.forEach(function(t){var c=count(a.nb,t),ti=a.nt.indexOf(t)>=0;if(!c&&!ti)all=false;else s+=Math.min(c,6)*2+(ti?6:0);});if(s>0)res.push({a:a,s:s+(all?50:0),all:all});});
+    var strict=res.filter(function(r){return r.all;});if(strict.length)res=strict;else if(toks.length>2)res=res.filter(function(r){return r.s>=toks.length*2;});
+  }
+  if(!res.length&&!toks.length&&!ref&&(f.tid||f.branch||restrict)){res=ARTS.filter(ok).map(function(a){return {a:a,s:0};});}
+  res.sort(function(x,y){return y.s-x.s||(x.a.tid<y.a.tid?-1:x.a.tid>y.a.tid?1:0)||x.a.n-y.a.n;});
+  return {res:res,toks:toks,note:note};
+}
+/* ---------- search: case law ---------- */
+function searchCases(q,f){
+  f=f||{};var qn=nrm(q),toks=qtoks(qn),numq=null,m=/(?:قرار|عدد|رقم)\s*(\d{1,6}(?:\s*\/\s*\d+)?)/.exec(qn);
+  if(m)numq=m[1].replace(/\s+/g,'');else if(/^\d{2,6}(\s*\/\s*\d+)?$/.test(qn))numq=qn.replace(/\s+/g,'');
+  var res=[];
+  CASES.forEach(function(c){
+    if(f.chamber&&c.chamber!==f.chamber)return;if(f.year&&String(c.date||'').slice(0,4)!==String(f.year)&&String(c.date||'').slice(-4)!==String(f.year))return;
+    var s=0,all=true;
+    if(numq&&String(c.num||'').replace(/\s+/g,'').indexOf(numq)>=0)s+=500;else if(numq&&!toks.length)return;
+    toks.filter(function(t){return !(numq&&t===numq);}).forEach(function(t){var cn=count(c._nb,t),ct=c._nt.indexOf(t)>=0;if(!cn&&!ct)all=false;else s+=Math.min(cn,6)*2+(ct?6:0);});
+    if(s>0||(!toks.length&&!numq))res.push({c:c,s:s+(all&&toks.length?50:0),all:all});
+  });
+  var strict=res.filter(function(r){return r.all||r.s>=500;});if(strict.length&&toks.length)res=strict;
+  res.sort(function(a,b){return b.s-a.s||String(b.c.date||'').localeCompare(String(a.c.date||''));});
+  return {res:res,toks:toks};
+}
+/* ---------- UI ---------- */
+var UI={};
+function nart(n){return n===1?'مادة واحدة':n===2?'مادتين':(n<=10?n+' مواد':n+' مادة');}
+function nres(n){return n===1?'نتيجة واحدة':n===2?'نتيجتان':(n<=10?n+' نتائج':n+' نتيجة');}
+function ndec(n){return n===1?'قرار واحد':n===2?'قراران':(n<=10?n+' قرارات':n+' قرارًا');}
+function setNote(key,val){NOTES[key]=val;return val?putMany('notes',[{k:'n:'+key,v:val}]):delKeys('notes',['n:'+key]);}
+function toggleFav(key){if(FAV[key]){delete FAV[key];return delKeys('notes',['f:'+key]);}FAV[key]=1;return putMany('notes',[{k:'f:'+key,v:1}]);}
+function actions(card,key,citation){
+  var row=E('div','row2 lxa'),b1=E('button','btn sm','نسخ مع الإحالة'),b2=E('button','btn sm',FAV[key]?'★ في المفضلة':'☆ مفضلة'),b3=E('button','btn sm',NOTES[key]?'ملاحظتي ✎':'أضف ملاحظة'),nt=E('textarea','lxn');
+  nt.rows=3;nt.placeholder='ملاحظتكم الخاصة (تبقى على هذا الجهاز)';nt.hidden=!NOTES[key];nt.value=NOTES[key]||'';
+  b1.addEventListener('click',function(){var t=citation();try{navigator.clipboard.writeText(t);b1.textContent='تم النسخ ✓';setTimeout(function(){b1.textContent='نسخ مع الإحالة';},1600);}catch(e){window.prompt('انسخوا النص',t);}});
+  b2.addEventListener('click',async function(){await toggleFav(key);b2.textContent=FAV[key]?'★ في المفضلة':'☆ مفضلة';});
+  b3.addEventListener('click',function(){nt.hidden=!nt.hidden;if(!nt.hidden)nt.focus();});
+  nt.addEventListener('blur',function(){setNote(key,nt.value.trim());b3.textContent=nt.value.trim()?'ملاحظتي ✎':'أضف ملاحظة';});
+  row.appendChild(b1);row.appendChild(b2);row.appendChild(b3);card.appendChild(row);card.appendChild(nt);
+}
+function artCard(a,toks,full){
+  var t=TX(a.tid)||{name:'',ref:''},c=E('div','lxc'),re=hlRe(toks||[]);
+  var h=E('div','lxh'),b=E('b',null,'المادة '+a.no),s=E('span','lxs',t.short||t.name);h.appendChild(b);h.appendChild(s);h.appendChild(t.partial?E('em','lxp','مقتطفات'):E('em','lxp lxok','نص كامل'));c.appendChild(h);
+  c.appendChild(E('p','lxref',t.name+(t.ref?' — '+t.ref:'')));if(a.title)c.appendChild(E('p','lxsrc lxhd',a.title));
+  var p=E('p','lxb'),big=a.body.length>320&&!full;p.innerHTML=mark(big?snippet(a.body,re,320):a.body,re);c.appendChild(p);
+  if(big){var more=E('button','lxm','عرض النص كاملًا');more.addEventListener('click',function(){p.innerHTML=mark(a.body,re);more.remove();});c.appendChild(more);}
+  c.appendChild(E('p','lxsrc','المصدر: '+(t.source||'—')));
+  actions(c,'a:'+a.id,function(){return 'المادة '+a.no+' من '+t.name+(t.ref?' ('+t.ref+')':'')+'\n\n'+a.body+'\n\n'+(t.source?'المصدر: '+t.source:'');});
+  var nav=E('div','row2'),ts=ARTS.filter(function(x){return x.tid===a.tid;}).sort(function(x,y){return x.n-y.n||(x.sfx<y.sfx?-1:1);}),i=ts.findIndex(function(x){return x.id===a.id;});
+  if(i>0){var pv=E('button','btn sm','◂ '+ts[i-1].no);pv.addEventListener('click',function(){UI.showArt(ts[i-1]);});nav.appendChild(pv);}
+  if(i<ts.length-1){var nx=E('button','btn sm',ts[i+1].no+' ▸');nx.addEventListener('click',function(){UI.showArt(ts[i+1]);});nav.appendChild(nx);}
+  if(nav.children.length)c.appendChild(nav);
+  var rc=REFMAP[a.id]||[];if(rc.length){var rb=E('button','btn sm','اجتهادات مرتبطة ('+rc.length+')');rb.type='button';rb.addEventListener('click',function(){UI.showCases(rc,'اجتهادات تستند إلى المادة '+a.no+' من '+(t.short||t.name));});c.appendChild(rb);}
+  return c;
+}
+function caseCard(c,toks){
+  var re=hlRe(toks||[]),d=E('div','lxc'),h=E('div','lxh');
+  h.appendChild(E('b',null,'قرار عدد '+(c.num||'—')));h.appendChild(E('span','lxs',[c.date,c.chamber].filter(Boolean).join(' | ')));d.appendChild(h);
+  if(c.title)d.appendChild(E('p','lxref',c.title+(c.fileno?' — ملف عدد '+c.fileno:'')));
+  if(c.principle){var pr=E('p','lxb lxpr');pr.innerHTML='<strong>القاعدة:</strong> '+mark(c.principle,re);d.appendChild(pr);}
+  var body=c.summary||c.body||'',p=E('p','lxb');p.innerHTML=mark(snippet(body,re,300),re);if(body)d.appendChild(p);
+  if(c.body&&c.body!==body||body.length>300){var more=E('button','lxm','عرض النص كاملًا');more.addEventListener('click',function(){var full=E('div','lxfull');full.innerHTML=mark(c.body||c.summary,re).replace(/\n/g,'<br>');d.insertBefore(full,more);more.remove();});d.appendChild(more);}
+  if(c.refs){d.appendChild(E('p','lxsrc','نصوص مستند إليها: '+c.refs));var lk=E('div','lxex');String(c.refs).split(/[،,؛;\n]+/).forEach(function(p){if(p.trim())resolveRef(p).forEach(function(a){var tx=TX(a.tid),b=E('button','lxchip','المادة '+a.no+' — '+(tx?tx.short||tx.name:''));b.type='button';b.addEventListener('click',function(){UI.panel('t');UI.showArt(a);});lk.appendChild(b);});});if(lk.children.length)d.appendChild(lk);}
+  if(c.tags)d.appendChild(E('p','lxsrc','كلمات مفتاحية: '+c.tags));
+  d.appendChild(E('p','lxsrc','المصدر: '+(c.source||'—')));
+  actions(d,'c:'+c.id,function(){return 'قرار محكمة النقض عدد '+(c.num||'—')+(c.date?' بتاريخ '+c.date:'')+(c.chamber?' ('+c.chamber+')':'')+(c.fileno?'، ملف عدد '+c.fileno:'')+'\n'+(c.principle?'القاعدة: '+c.principle+'\n':'')+(c.summary||c.body||'')+(c.source?'\nالمصدر: '+c.source:'');});
+  var row=E('div','row2'),ed=E('button','btn sm','تعديل'),dl=E('button','btn sm x','حذف');
+  ed.addEventListener('click',function(){UI.editCase(c);});
+  var armed=false;dl.addEventListener('click',async function(){if(!armed){armed=true;dl.textContent='تأكيد الحذف';setTimeout(function(){armed=false;dl.textContent='حذف';},3000);return;}await delKeys('cases',[c.id]);await load();UI.runJ();UI.stats();});
+  row.appendChild(ed);row.appendChild(dl);d.appendChild(row);return d;
+}
+function opt(sel,list,first){sel.textContent='';if(first!==undefined){var o=E('option',null,first);o.value='';sel.appendChild(o);}list.forEach(function(x){var o=E('option',null,x.label||x);o.value=x.value!==undefined?x.value:x;sel.appendChild(o);});}
+function mkInput(ph,type){var i=E('input');i.type=type||'search';i.placeholder=ph||'';i.autocomplete='off';return i;}
+function labelled(t,el){var l=E('label');l.appendChild(E('span',null,t));l.appendChild(el);return l;}
+UI.build=function(){
+  var root=$('p-lex');if(!root||root.getAttribute('data-ready'))return;root.setAttribute('data-ready','1');
+  var seg=E('div','seg');[['t','النصوص القانونية'],['j','الاجتهاد القضائي'],['m','إدارة القاعدة']].forEach(function(x,i){var b=E('button',null,x[1]);b.type='button';b.setAttribute('data-p',x[0]);b.setAttribute('aria-selected',i===0?'true':'false');seg.appendChild(b);});
+  root.appendChild(seg);
+  var pt=E('div');pt.id='lx-t';var pj=E('div');pj.id='lx-j';pj.hidden=true;var pm=E('div');pm.id='lx-m';pm.hidden=true;[pt,pj,pm].forEach(function(x){root.appendChild(x);});
+  seg.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;[].slice.call(seg.children).forEach(function(x){x.setAttribute('aria-selected',x===b?'true':'false');});var k=b.getAttribute('data-p');pt.hidden=k!=='t';pj.hidden=k!=='j';pm.hidden=k!=='m';});
+  UI.panel=function(k){var b=[].slice.call(seg.children).filter(function(x){return x.getAttribute('data-p')===k;})[0];if(b)b.click();};
+  /* --- texts panel --- */
+  var stat=E('p','lxstat');stat.id='lxstat';pt.appendChild(stat);
+  var box=E('div','lxbar'),q=mkInput('المادة 354 مدونة الأسرة، أو كلمات مثل: الجد والإخوة');q.id='lxq';box.appendChild(q);pt.appendChild(box);
+  var fl=E('div','trf'),sb=E('select'),st=E('select'),sn=mkInput('رقم المادة أو الفصل','text');sn.inputMode='numeric';sn.maxLength=5;sn.id='lxno';
+  fl.appendChild(labelled('الفرع القانوني',sb));fl.appendChild(labelled('النص',st));fl.appendChild(labelled('رقم المادة أو الفصل',sn));pt.appendChild(fl);
+  var ex=E('div','lxex');['المادة 354 مدونة الأسرة','الجد والإخوة','التعويض اليومي ثلثا الأجر','أجل الاستئناف عشرة أيام','الفصل 400 المسطرة الجنائية'].forEach(function(x){var b=E('button','lxchip',x);b.type='button';b.addEventListener('click',function(){q.value=x;runT();});ex.appendChild(b);});pt.appendChild(ex);
+  var out=E('div','lxout');out.id='lxout';pt.appendChild(out);
+  var lib=E('div');lib.id='lxlib';pt.appendChild(lib);
+  function fillFilters(){var cb=sb.value,ct=st.value;opt(sb,BR.filter(function(b){return TEXTS.some(function(t){return t.branch===b;});}),'كل الفروع');opt(st,TEXTS.filter(function(t){return !sb.value||t.branch===sb.value;}).map(function(t){return {label:t.short||t.name,value:t.id};}),'كل النصوص');sb.value=cb;st.value=ct;}
+  function homeLib(){lib.textContent='';lib.appendChild(E('h3',null,'النصوص المحمّلة'));
+    BR.forEach(function(b){var ts=TEXTS.filter(function(t){return t.branch===b;});if(!ts.length)return;lib.appendChild(E('p','lxbr',b));
+      ts.forEach(function(t){var c=E('button','lxbook');c.type='button';c.innerHTML='<b>'+esc(t.name)+'</b><small>'+esc(t.ref||'')+'</small><i>'+ARTS.filter(function(a){return a.tid===t.id;}).length+' مادة'+(t.partial?' (مقتطفات)':' — نص كامل')+(t.updated?' | تحيين '+t.updated:'')+'</i>';c.addEventListener('click',function(){UI.openText(t.id);});lib.appendChild(c);});});
+    var favs=Object.keys(FAV).filter(function(k){return k.indexOf('a:')===0;}).map(function(k){return ARTS.filter(function(a){return 'a:'+a.id===k;})[0];}).filter(Boolean);
+    if(favs.length){lib.appendChild(E('h3',null,'مفضلتي'));favs.forEach(function(a){lib.appendChild(artCard(a,[],false));});}
+    if(!TEXTS.length)lib.appendChild(E('p','note','لم تُحمَّل نصوص بعد. استعملوا «إدارة القاعدة» لاستيراد نص.'));}
+  function show(list,toks,note,max){out.textContent='';if(note)out.appendChild(E('p','msg',note));
+    if(!list.length&&!note)out.appendChild(E('p','note','لا نتائج. جرّبوا كلمات أخرى أو غيّروا الفرع أو النص.'));
+    else if(list.length)out.appendChild(E('p','lxcount',nres(list.length)));
+    list.slice(0,max||30).forEach(function(r){out.appendChild(artCard(r.a,toks,false));});
+    if(list.length>(max||30)){var m=E('button','btn',' عرض المزيد');m.addEventListener('click',function(){show(list,toks,note,(max||30)+30);});out.appendChild(m);}}
+  var tm;function runT(){clearTimeout(tm);var v=q.value.trim(),f={branch:sb.value,tid:st.value,no:sn.value.replace(/\D/g,'')};lib.hidden=!!(v||f.branch||f.tid||f.no);
+    if(!v&&!f.branch&&!f.tid&&!f.no){out.textContent='';return;}var r=searchTexts(v,f);show(r.res,r.toks,r.note);}
+  q.addEventListener('input',function(){clearTimeout(tm);tm=setTimeout(runT,220);});sn.addEventListener('input',runT);sb.addEventListener('change',function(){st.value='';fillFilters();runT();});st.addEventListener('change',runT);
+  UI.runT=runT;UI.fill=function(){fillFilters();homeLib();};
+  UI.showArt=function(a){lib.hidden=true;out.textContent='';out.appendChild(artCard(a,[],true));out.scrollIntoView({behavior:'smooth',block:'start'});};
+  UI.openText=function(tid){var t=TX(tid),ts=ARTS.filter(function(a){return a.tid===tid;}).sort(function(x,y){return x.n-y.n||(x.sfx<y.sfx?-1:1);});lib.hidden=true;out.textContent='';
+    var h=E('div','lxc');h.appendChild(E('h3',null,t.name));h.appendChild(E('p','lxref',t.ref||''));h.appendChild(E('p','lxsrc','المصدر: '+(t.source||'—')+(t.updated?' | آخر تحيين: '+t.updated:'')+(t.partial?' | تنبيه: النص مقتطفات وليس كاملًا.':'')));
+    var groups=[],gm={};ts.forEach(function(a){var g=(a.title||'').split(' › ')[0];if(!(g in gm)){gm[g]={g:g,items:[]};groups.push(gm[g]);}gm[g].items.push(a);});
+    function chipsOf(items){var c=E('div','lxex');items.forEach(function(a){var b=E('button','lxchip',a.no);b.type='button';b.addEventListener('click',function(){UI.showArt(a);});c.appendChild(b);});return c;}
+    if(groups.length===1&&!groups[0].g)h.appendChild(chipsOf(ts));else groups.forEach(function(G){var dt=E('details','lxtoc');dt.appendChild(E('summary',null,(G.g||'بدون عنوان')+' ('+G.items.length+')'));dt.appendChild(chipsOf(G.items));h.appendChild(dt);});
+    var back=E('button','btn sm','◂ رجوع إلى النصوص');back.addEventListener('click',function(){out.textContent='';lib.hidden=false;});h.appendChild(back);out.appendChild(h);out.scrollIntoView({behavior:'smooth',block:'start'});};
+  /* --- case-law panel --- */
+  var jbox=E('div','lxbar'),jq=mkInput('رقم القرار أو كلمات مثل: التعويض عن الضرر، الإخلاء، النفقة');jq.id='lxjq';jbox.appendChild(jq);pj.appendChild(jbox);
+  var jlk=E('p','lxsrc'),ja=E('a',null,'البحث الرسمي في قرارات محكمة النقض');ja.href='https://juriscassation.cspj.ma';ja.target='_blank';ja.rel='noopener';jlk.appendChild(ja);jlk.appendChild(document.createTextNode(' (ابحثوا هناك ثم الصقوا القرار في «إدارة القاعدة» ليدخل مكتبتكم)'));pj.appendChild(jlk);
+  var jf=E('div','trf'),jc=E('select'),jy=mkInput('السنة','text');jy.inputMode='numeric';jy.maxLength=4;opt(jc,CH,'كل الغرف');jf.appendChild(labelled('الغرفة',jc));jf.appendChild(labelled('السنة',jy));pj.appendChild(jf);
+  var jout=E('div','lxout');jout.id='lxjout';pj.appendChild(jout);
+  var jform=E('details','card');jform.id='lxjform';pj.appendChild(jform);
+  function runJ(){var v=jq.value.trim(),f={chamber:jc.value,year:jy.value.trim()};jout.textContent='';
+    if(!CASES.length){jout.appendChild(E('p','note','لا توجد قرارات في القاعدة بعد. أضيفوا قرارًا من النموذج أدناه، أو استوردوا ملف قرارات من «إدارة القاعدة».'));return;}
+    var r=searchCases(v,f);if(!r.res.length)jout.appendChild(E('p','note','لا نتائج.'));else jout.appendChild(E('p','lxcount',ndec(r.res.length)));
+    r.res.slice(0,40).forEach(function(x){jout.appendChild(caseCard(x.c,r.toks));});}
+  var jt;jq.addEventListener('input',function(){clearTimeout(jt);jt=setTimeout(runJ,220);});jc.addEventListener('change',runJ);jy.addEventListener('input',runJ);UI.runJ=runJ;
+  UI.showCases=function(ids,title){UI.panel('j');jout.textContent='';jout.appendChild(E('p','lxcount',title+' — '+ndec(ids.length)));ids.forEach(function(id){var c=CASES.filter(function(x){return x.id===id;})[0];if(c)jout.appendChild(caseCard(c,[]));});jout.scrollIntoView({behavior:'smooth',block:'start'});};
+  UI.editCase=function(c){buildForm(c);jform.open=true;jform.scrollIntoView({behavior:'smooth'});};
+  function buildForm(c){c=c||{};jform.textContent='';jform.appendChild(E('summary',null,c.id?'تعديل قرار':'إضافة قرار'));var F={},g=E('div','trf');
+    [['num','رقم القرار (مثل 1053/1)'],['date','التاريخ (مثل 05/12/2012)'],['fileno','رقم الملف'],['title','الموضوع'],['refs','النصوص المستند إليها'],['tags','كلمات مفتاحية'],['source','المصدر (موقع أو مجلة)']].forEach(function(x){var i=mkInput(x[1],'text');i.value=c[x[0]]||'';F[x[0]]=i;g.appendChild(labelled(x[1],i));});
+    var chs=E('select');opt(chs,CH,'—');chs.value=c.chamber||'';g.appendChild(labelled('الغرفة',chs));jform.appendChild(g);
+    [['principle','القاعدة القانونية',2],['summary','الملخص',3],['body','النص الكامل للقرار',8]].forEach(function(x){var t=E('textarea');t.rows=x[2];t.value=c[x[0]]||'';F[x[0]]=t;jform.appendChild(labelled(x[1],t));});
+    var row=E('div','row2'),sv=E('button','btn p',c.id?'حفظ التعديل':'حفظ القرار'),msg=E('p','msg');row.appendChild(sv);jform.appendChild(row);jform.appendChild(msg);
+    sv.addEventListener('click',async function(){if(!F.num.value.trim()&&!F.title.value.trim()&&!F.body.value.trim()){msg.textContent='أدخلوا رقم القرار أو موضوعه أو نصه.';return;}
+      var r={id:c.id||('j'+Date.now()),chamber:chs.value};Object.keys(F).forEach(function(k){r[k]=F[k].value.trim();});await putMany('cases',[r]);await load();runJ();UI.stats();buildForm();msg.textContent='تم الحفظ.';});}
+  UI.buildForm=buildForm;buildForm();
+  /* --- management panel --- */
+  UI.manage(pm);
+};
+UI.stats=function(){UI.runJ&&UI.runJ();var s=$('lxstat');if(s)s.textContent=TEXTS.length+' نصًا | '+ARTS.length+' مادة | '+CASES.length+' قرارًا قضائيًا (محلية على هذا الجهاز)';UI.fill&&UI.fill();var m=$('lxm-stat');if(m)m.textContent=TEXTS.length+' نصًا و'+ARTS.length+' مادة و'+CASES.length+' قرارًا. حجم النصوص: '+Math.round(ARTS.reduce(function(a,x){return a+x.body.length;},0)/1024)+' ك.ب';};
+UI.manage=function(pm){
+  pm.appendChild(E('p','note','القاعدة محلية في متصفحكم (IndexedDB) وتعمل دون إنترنت. لا تُرسل أي ملاحظة أو مفضلة إلى الخادم. وتشتمل حاليًا على النص الكامل للقانون 18.12 (حوادث الشغل) ومقتطفات تحققتُ منها من نصوص أخرى، وأربعة مراجع قضائية مسجَّلة بعناوينها فقط. ويمنع موقع بوابة الاجتهادات القضائية لمحكمة النقض الاستخراج الآلي، فتُضاف القرارات بلصقها يدويًا في «إدارة القاعدة». وليست كل التشريع المغربي ولا كل الاجتهاد القضائي. أدخلوا النصوص الكاملة من مصادرها الرسمية (الجريدة الرسمية، والأمانة العامة للحكومة، وبنك المعطيات القانونية، ومحكمة النقض).'));
+  var st=E('p','meta');st.id='lxm-stat';pm.appendChild(st);
+  var d1=E('details','card');d1.appendChild(E('summary',null,'استيراد نص قانوني (قانون أو مدونة أو ظهير)'));
+  var F={};[['name','اسم النص (مثل: مدونة الأسرة)'],['short','الاسم المختصر'],['aliases','أسماء بديلة مفصولة بفاصلة (مثل: 70.03, الأسرة)'],['ref','المرجع (رقم القانون والظهير والجريدة الرسمية)'],['source','المصدر وتاريخ الاطلاع']].forEach(function(x){var i=mkInput(x[1],'text');F[x[0]]=i;d1.appendChild(labelled(x[1],i));});
+  var br=E('select');opt(br,BR);F.branch=br;d1.appendChild(labelled('الفرع القانوني',br));
+  var ta=E('textarea');ta.rows=8;ta.placeholder='الصقوا هنا نص القانون كما هو، بعناوين «المادة 1» أو «الفصل 1» في أول السطر';d1.appendChild(labelled('نص القانون',ta));
+  var fi=E('input');fi.type='file';fi.accept='.txt,.md,.html,.htm,.docx,text/plain';d1.appendChild(labelled('أو اختاروا ملفًا (.txt أو .html أو .docx)',fi));
+  var pc=E('label','chk'),cb=E('input');cb.type='checkbox';pc.appendChild(cb);pc.appendChild(E('span',null,'النص مقتطفات وليس كاملًا'));d1.appendChild(pc);
+  var row=E('div','row2'),pv=E('button','btn','معاينة'),go=E('button','btn p','استيراد'),msg=E('p','msg'),prev=E('div');row.appendChild(pv);row.appendChild(go);d1.appendChild(row);d1.appendChild(msg);d1.appendChild(prev);pm.appendChild(d1);
+  var parsed=null;
+  fi.addEventListener('change',function(){var f=fi.files[0];if(!f)return;readTextFile(f,function(t){ta.value=t;msg.textContent='تم تحميل الملف. اضغطوا «معاينة» للتحقق من التقطيع.';},function(e){msg.textContent=e;});});
+  function doPrev(){parsed=parseArticles(ta.value);prev.textContent='';var a=parsed.articles;if(!a.length){msg.textContent='لم أتعرف على أي مادة. تأكدوا أن كل مادة تبدأ بسطر مثل «المادة 12» أو «الفصل 12».';return false;}
+    var nums=a.map(function(x){return parseInt(x[0],10);}).filter(function(n){return n>0;}),miss=[];for(var i=1;i<a.length&&miss.length<12;i++){var p=parseInt(a[i-1][0],10),n=parseInt(a[i][0],10);if(n>p+1)miss.push((p+1)+(n-p>2?' إلى '+(n-1):''));}
+    msg.style.color='';msg.textContent='تم التعرف على '+nart(a.length)+'، من '+a[0][0]+' إلى '+a[a.length-1][0]+(miss.length?'. أرقام ناقصة أو غير متتالية: '+miss.join('، '):'. التسلسل متصل.');
+    prev.appendChild(E('p','lxref','مثال: المادة '+a[0][0]+' — '+a[0][1].slice(0,140)+(a[0][1].length>140?'…':'')));return true;}
+  pv.addEventListener('click',doPrev);
+  go.addEventListener('click',async function(){if(!F.name.value.trim()){msg.textContent='أدخلوا اسم النص.';return;}if(!doPrev())return;
+    var id='u-'+nrm(F.name.value).replace(/\s+/g,'-').slice(0,40);var n=await addText({id:id,name:F.name.value.trim(),short:F.short.value.trim(),aliases:F.aliases.value.split(/[,،]/).map(function(x){return x.trim();}).filter(Boolean),branch:F.branch.value,ref:F.ref.value.trim(),source:F.source.value.trim(),partial:cb.checked},parsed.articles);
+    await load();UI.stats();msg.textContent='تم استيراد '+nart(parsed.articles.length)+'. النص متاح الآن للبحث.';});
+  var d2=E('details','card');d2.appendChild(E('summary',null,'استيراد اجتهادات قضائية (JSON أو CSV)'));
+  d2.appendChild(E('p','note','الأعمدة المقبولة: num, date, chamber, fileno, title, principle, summary, body, refs, tags, source. في CSV يكون السطر الأول أسماء الأعمدة.'));
+  var jt=E('textarea');jt.rows=6;jt.placeholder='الصقوا هنا مصفوفة JSON أو محتوى CSV';d2.appendChild(labelled('المحتوى',jt));var jf=E('input');jf.type='file';jf.accept='.json,.csv,text/csv,application/json';d2.appendChild(labelled('أو اختاروا ملفًا',jf));
+  var jr=E('div','row2'),jg=E('button','btn p','استيراد القرارات'),jm=E('p','msg');jr.appendChild(jg);d2.appendChild(jr);d2.appendChild(jm);pm.appendChild(d2);
+  jf.addEventListener('change',function(){var f=jf.files[0];if(!f)return;var r=new FileReader();r.onload=function(){jt.value=String(r.result);};r.readAsText(f,'utf-8');});
+  jg.addEventListener('click',async function(){var t=jt.value.trim(),list;try{list=t[0]==='['||t[0]==='{'?JSON.parse(t):parseCsv(t);if(!Array.isArray(list))list=list.cases||[list];}catch(e){jm.textContent='تعذرت قراءة المحتوى.';return;}
+    list=list.filter(function(x){return x&&(x.num||x.title||x.body||x.summary);}).map(function(x,i){return {id:'j'+Date.now()+'-'+i,num:x.num||'',date:x.date||'',chamber:x.chamber||'',fileno:x.fileno||'',title:x.title||'',principle:x.principle||'',summary:x.summary||'',body:x.body||'',refs:x.refs||'',tags:x.tags||'',source:x.source||''};});
+    if(!list.length){jm.textContent='لا قرارات صالحة في المحتوى.';return;}await putMany('cases',list);await load();UI.stats();UI.runJ&&UI.runJ();jm.textContent='تم استيراد '+list.length+' قرارًا.';});
+  var dd=E('details','card');dd.appendChild(E('summary',null,'إضافة قرارات من النص الخام (لصق مباشر)'));
+  dd.appendChild(E('p','note','انسخوا القرار كما هو من بوابة الاجتهادات القضائية أو من مجلة محكمة النقض أو من ملف Word والصقوه هنا. يستخرج الموقع رقم القرار وتاريخه ورقم الملف والغرفة والنصوص المستند إليها. وللصق عدة قرارات افصلوا بينها بسطر من الشرطات ---- أو علامات = ====. تتحققون من المعاينة قبل الحفظ، وتُعدَّل أي خانة ناقصة من زر «تعديل» في بطاقة القرار.'));
+  var rt=E('textarea');rt.rows=9;rt.placeholder='القرار عدد 1299 الصادر بتاريخ 28 ماي 2015 في الملف الاجتماعي عدد 388/5/1/2014 …';dd.appendChild(labelled('نص القرار أو القرارات',rt));
+  var rsrc=mkInput('المصدر (مثل: بوابة الاجتهادات القضائية لمحكمة النقض، مجلة قضاء محكمة النقض عدد …)','text');dd.appendChild(labelled('المصدر',rsrc));
+  var rfile=E('input');rfile.type='file';rfile.accept='.txt,.html,.htm,.docx,text/plain';dd.appendChild(labelled('أو اختاروا ملفًا (.txt أو .html أو .docx)',rfile));
+  var rrow=E('div','row2'),rpv=E('button','btn','معاينة الاستخراج'),rgo=E('button','btn p','حفظ القرارات'),rmsg=E('p','msg'),rprev=E('div');rrow.appendChild(rpv);rrow.appendChild(rgo);dd.appendChild(rrow);dd.appendChild(rmsg);dd.appendChild(rprev);pm.appendChild(dd);
+  rfile.addEventListener('change',function(){var f=rfile.files[0];if(!f)return;readTextFile(f,function(x){rt.value=x;rmsg.textContent='تم تحميل الملف. اضغطوا «معاينة الاستخراج».';},function(e){rmsg.textContent=e;});});
+  var rlist=[];
+  function rprevw(){rlist=splitDecisions(rt.value).map(parseDecision);rprev.textContent='';if(!rlist.length){rmsg.textContent='لا نص قرار في المحتوى.';return false;}
+    var miss=rlist.filter(function(x){return !x.num||!x.date;}).length;rmsg.style.color='';rmsg.textContent='تم التعرف على '+ndec(rlist.length)+(miss?'. '+miss+' منها ينقصه الرقم أو التاريخ، فراجعوه بعد الحفظ.':'.');
+    rlist.slice(0,6).forEach(function(x,i){rprev.appendChild(E('p','lxref',(i+1)+') عدد '+(x.num||'؟')+' | '+(x.date||'تاريخ؟')+' | '+(x.chamber||'غرفة؟')+' | ملف '+(x.fileno||'؟')+(x.refs?' | يستند إلى: '+x.refs:'')));});return true;}
+  rpv.addEventListener('click',rprevw);
+  rgo.addEventListener('click',async function(){if(!rprevw())return;var ts=Date.now();rlist.forEach(function(x,i){x.id='j'+ts+'-'+i;x.source=rsrc.value.trim()||'لصق مباشر';});await putMany('cases',rlist);await load();UI.stats();UI.runJ&&UI.runJ();rmsg.textContent='تم حفظ '+ndec(rlist.length)+'.';rt.value='';rprev.textContent='';});
+  var dp=E('details','card');dp.appendChild(E('summary',null,'استيراد حزمة (.json) وتحديث المكتبة'));
+  dp.appendChild(E('p','note','الحزمة ملف JSON فيه texts (لكل نص: id وname وbranch وarticles = مصفوفة من [الرقم، النص، العنوان]) و/أو cases. لا تمحو الحزمة ما في القاعدة، وتستبدل فقط النص الذي له المعرّف نفسه. وتُنشر حزم المكتب الجاهزة في مجلد data/lex بالموقع، ويحمّلها الزر أدناه.'));
+  var pf=E('input');pf.type='file';pf.accept='.json,application/json';dp.appendChild(labelled('ملف الحزمة',pf));
+  var pr=E('div','row2'),pu=E('button','btn p','التحقق من تحديثات المكتبة'),pm2=E('p','msg');pr.appendChild(pu);dp.appendChild(pr);dp.appendChild(pm2);pm.appendChild(dp);
+  pf.addEventListener('change',function(){var f=pf.files[0];if(!f)return;var r=new FileReader();r.onload=async function(){try{var x=await importPack(JSON.parse(String(r.result)));UI.stats();pm2.textContent='تم: '+x.nt+' نصًا و'+x.nc+' قرارًا.';}catch(e){pm2.textContent='تعذرت قراءة الحزمة.';}};r.readAsText(f,'utf-8');});
+  pu.addEventListener('click',async function(){pm2.textContent='جارٍ التحقق…';var rs=await applyRemote();await load();UI.stats();pm2.textContent=rs.net?(rs.added?'تم تحميل '+rs.added+' عنصرًا جديدًا أو محدَّثًا.':'المكتبة محدَّثة، ولا جديد.'):'تعذر الاتصال بملفات المكتبة على الموقع.';});
+  var d3=E('details','card');d3.appendChild(E('summary',null,'نسخة احتياطية واسترجاع'));
+  var r3=E('div','row2'),ex=E('button','btn p','تصدير القاعدة (.json)'),im=E('label','btn'),imi=E('input'),m3=E('p','msg');imi.type='file';imi.accept='.json';imi.hidden=true;im.appendChild(E('span',null,'استرجاع من نسخة'));im.appendChild(imi);r3.appendChild(ex);r3.appendChild(im);d3.appendChild(r3);d3.appendChild(m3);pm.appendChild(d3);
+  ex.addEventListener('click',function(){var blob=new Blob([JSON.stringify({v:1,texts:TEXTS.map(function(t){var o=Object.assign({},t);delete o._al;return o;}),arts:ARTS,cases:CASES.map(function(c){var o=Object.assign({},c);delete o._nb;delete o._nt;return o;}),notes:NOTES,favs:Object.keys(FAV)})],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='bibliotheque-juridique-'+new Date().toISOString().slice(0,10)+'.json';a.click();m3.textContent='تم التصدير.';});
+  imi.addEventListener('change',function(){var f=imi.files[0];if(!f)return;var r=new FileReader();r.onload=async function(){try{var d=JSON.parse(String(r.result));await clearAll();await putMany('texts',d.texts||[]);await putMany('arts',d.arts||[]);await putMany('cases',d.cases||[]);var nn=[];Object.keys(d.notes||{}).forEach(function(k){nn.push({k:'n:'+k,v:d.notes[k]});});(d.favs||[]).forEach(function(k){nn.push({k:'f:'+k,v:1});});await putMany('notes',nn);await putMany('meta',[{k:'seed',v:SEED_V}]);await load();UI.stats();m3.textContent='تم الاسترجاع.';}catch(e){m3.textContent='ملف غير صالح.';}};r.readAsText(f,'utf-8');});
+  var d4=E('details','card');d4.appendChild(E('summary',null,'مصادر رسمية لاستكمال القاعدة'));var ul=E('ul','al');
+  [['بوابة الاجتهادات القضائية لمحكمة النقض (البحث فيها يدوي، ويمنع الموقع الاستخراج الآلي)','https://juriscassation.cspj.ma'],['محكمة النقض: مآل ملف (بالرقم والغرفة والسنة)','https://greffe.courdecassation.ma/RechercheDossierCC/InfoDosCC.aspx'],['محكمة النقض: المكتبة الرقمية','http://www.biblio.courdecassation.ma'],['الأمانة العامة للحكومة: الجريدة الرسمية','https://www.sgg.gov.ma'],['بنك المعطيات القانونية (وزارة الانتقال الرقمي)','https://bdj.mmsp.gov.ma'],['بوابة عدالة (وزارة العدل)','https://adala.justice.gov.ma'],['وزارة العدل','https://www.justice.gov.ma']].forEach(function(x){var li=E('li'),a=E('a',null,x[0]);a.href=x[1];a.target='_blank';a.rel='noopener';li.appendChild(a);ul.appendChild(li);});d4.appendChild(ul);pm.appendChild(d4);
+  var d5=E('details','card');d5.appendChild(E('summary',null,'مسح القاعدة المحلية'));var rs=E('button','btn x','مسح كل شيء من هذا الجهاز'),m5=E('p','msg'),arm=false;d5.appendChild(E('p','note','يمسح النصوص والقرارات والملاحظات والمفضلة من هذا الجهاز فقط. أنشئوا نسخة احتياطية قبل ذلك.'));d5.appendChild(rs);d5.appendChild(m5);pm.appendChild(d5);
+  rs.addEventListener('click',async function(){if(!arm){arm=true;rs.textContent='تأكيد المسح';setTimeout(function(){arm=false;rs.textContent='مسح كل شيء من هذا الجهاز';},3000);return;}await clearAll();await load();UI.stats();m5.textContent='تم المسح. أعيدوا فتح الصفحة لتحميل المقتطفات الأولية.';});
+};
+var MON={'يناير':1,'فبراير':2,'مارس':3,'ابريل':4,'ماي':5,'مايو':5,'يونيو':6,'يونيه':6,'يوليوز':7,'يوليو':7,'غشت':8,'اغسطس':8,'شتنبر':9,'سبتمبر':9,'اكتوبر':10,'نونبر':11,'نوفمبر':11,'دجنبر':12,'ديسمبر':12};
+var CHC={'1':'الغرفة المدنية','2':'غرفة الأحوال الشخصية والميراث','3':'الغرفة التجارية','4':'الغرفة الإدارية','5':'الغرفة الاجتماعية','6':'الغرفة الجنائية','7':'الغرفة العقارية'};
+var CHW={'اجتماعي':'5','مدني':'1','تجاري':'3','اداري':'4','جنائي':'6','عقاري':'7'};
+function p2(n){return ('0'+n).slice(-2);}
+function parseDecision(raw){
+  var t=String(raw).replace(/\r/g,'').replace(/[\u200e\u200f]/g,'').trim(),tn=t.replace(/[٠-٩]/g,function(c){return '٠١٢٣٤٥٦٧٨٩'.indexOf(c);}),d={num:'',date:'',chamber:'',fileno:'',title:'',principle:'',summary:'',body:t,refs:'',tags:'',source:''},m;
+  m=/قرار(?:\s+(?:محكمة\s+النقض|المجلس\s+الأعلى|المجلس\s+الاعلى))?\s*(?:عدد|رقم)\s*[:：]?\s*(\d+(?:\s*[\/\-]\s*\d+)*)/.exec(tn)||/(?:عدد|رقم)\s*[:：]?\s*(\d+(?:\s*[\/\-]\s*\d+)*)\s*(?:الصادر|المؤرخ)/.exec(tn);
+  if(m)d.num=m[1].replace(/\s+/g,'').replace(/-/g,'/');
+  m=/(?:بتاريخ|المؤرخ\s+في|مؤرخ\s+في)\s*[:：]?\s*(\d{1,2})\s*[\/\-.]\s*(\d{1,2})\s*[\/\-.]\s*(\d{4})/.exec(tn);
+  if(m)d.date=p2(m[1])+'/'+p2(m[2])+'/'+m[3];
+  else{m=/(?:بتاريخ|المؤرخ\s+في|مؤرخ\s+في)\s*[:：]?\s*(\d{1,2})\s+([ء-ي]+)\s+(\d{4})/.exec(tn);if(m&&MON[nrm(m[2])])d.date=p2(m[1])+'/'+p2(MON[nrm(m[2])])+'/'+m[3];}
+  m=/(?:الملف|ملف)(?:\s+[ء-ي]+)?\s*(?:عدد|رقم)\s*[:：]?\s*(\d+(?:\s*[\/\-]\s*\d+){1,4})/.exec(tn);
+  if(m)d.fileno=m[1].replace(/\s+/g,'').replace(/-/g,'/');
+  var hn=nrm(tn.slice(0,1800)),code='';
+  if(/الاحوال الشخصيه|قسم قضاء الاسره/.test(hn))code='2';
+  else{m=/(?:الغرفه|غرفه|الملف|ملف)\s+(?:ال)?(اجتماعي|مدني|تجاري|اداري|جنائي|عقاري)/.exec(hn);if(m)code=CHW[m[1]];}
+  if(!code&&d.fileno){var f=d.fileno.split('/');if(f.length===4){if(/^\d{4}$/.test(f[3])&&/^[1-7]$/.test(f[1]))code=f[1];else if(/^\d{4}$/.test(f[0])&&/^[1-7]$/.test(f[2]))code=f[2];}}
+  if(code)d.chamber=CHC[code]||'';
+  m=/(?:القاعدة|المبدأ)\s*[:：]\s*([^\n]{10,500})/.exec(t);if(m)d.principle=m[1].trim();
+  m=/الموضوع\s*[:：]\s*([^\n]{5,240})/.exec(t);if(m)d.title=m[1].trim();
+  var rf=[],re=/(الفصل|الفصلين|المادة|المواد)\s+(\d{1,4})(?:\s*(?:و|،|,)\s*\d{1,4})*\s+من\s+((?:ال)?(?:ظهير|قانون|مدونة|مرسوم|الدستور|المسطرة)(?:\s+(?!وكذا|وكذلك|كذا|حيث|والمادة|والفصل|وبالمادة|وبالفصل|بالمادة|بالفصل|المادة|الفصل|فإن|فان|وأن|وان|لأن|لان|لكون)[^\s.،:؛()]+){0,7})/g,x;
+  while((x=re.exec(tn))){var nm=x[3].replace(/\s+(?:وكذا|وكذلك|كذا|حيث|وأن|وان|فإن|فان|الذي|التي|والمادة|والفصل|المادة|الفصل|ولما|وبما|لكون|لأن|لان)(?:\s.*)?$/,'').trim();var r=(x[1].indexOf('فصل')>=0?'الفصل ':'المادة ')+x[2]+' من '+nm;if(rf.indexOf(r)<0)rf.push(r);}
+  d.refs=rf.slice(0,12).join('، ');
+  return d;
+}
+function splitDecisions(raw){return String(raw).split(/^\s*[=\-_*]{4,}\s*$/m).map(function(x){return x.trim();}).filter(function(x){return x.length>40;});}
+async function importPack(d){var nt=0,nc=0,i;
+  for(i=0;i<(d.texts||[]).length;i++){var t=d.texts[i];if(!t||!t.id||!t.name||!Array.isArray(t.articles))continue;await addText(t,t.articles);nt++;}
+  var cs=(d.cases||[]).filter(function(x){return x&&(x.num||x.title||x.body||x.summary);}).map(function(x,k){return Object.assign({id:'j'+Date.now()+'-'+k},x);});
+  if(cs.length){await putMany('cases',cs);nc=cs.length;}
+  await load();return {nt:nt,nc:nc};}
+async function applyRemote(){var rs={net:false,added:0};
+  try{var r=await fetch('data/lex/manifest.json',{cache:'no-store'});if(!r.ok)return rs;var m=await r.json();rs.net=true;
+    for(var i=0;i<(m.texts||[]).length;i++){var e=m.texts[i],cur=await getOne('texts',e.id);if(cur&&(cur.ver||1)>=e.v)continue;var rr=await fetch('data/lex/'+e.file,{cache:'no-store'});if(!rr.ok)continue;var d=await rr.json();await addText(Object.assign({},d,{ver:e.v}),d.articles);rs.added++;}
+    for(var j=0;j<(m.cases||[]).length;j++){var ce=m.cases[j],mk=await getOne('meta','cases:'+ce.file);if(mk&&mk.v>=ce.v)continue;var cr=await fetch('data/lex/'+ce.file,{cache:'no-store'});if(!cr.ok)continue;var cd=await cr.json();var list=(cd.cases||cd).map(function(x,k){return Object.assign({id:ce.file+'#'+k},x);});await putMany('cases',list);await putMany('meta',[{k:'cases:'+ce.file,v:ce.v}]);rs.added++;}
+  }catch(e){}
+  return rs;}
+async function init(seed){
+  try{await openDb();await applySeed(seed);await load();UI.build();UI.stats();applyRemote().then(async function(rs){if(rs.added){await load();UI.stats();}}).catch(function(){});}catch(e){var r=$('p-lex');if(r)r.appendChild(E('p','msg','تعذر فتح قاعدة البيانات المحلية في هذا المتصفح.'));}
+}
+return {init:init,_t:{parseDecision:parseDecision,splitDecisions:splitDecisions,resolveRef:resolveRef,applyRemote:applyRemote,importPack:importPack,nrm:nrm,stem:stem,parseArticles:parseArticles,parseCsv:parseCsv,searchTexts:searchTexts,searchCases:searchCases,state:function(){return {TEXTS:TEXTS,ARTS:ARTS,CASES:CASES};},addText:addText,load:load,putMany:putMany}};
+})();
+
+var LEX_SEED={"v":1,"texts":[{"id":"mudawana-70-03","name":"مدونة الأسرة","short":"مدونة الأسرة","aliases":["الأسرة","70.03","القانون 70.03","مدونة الاسرة","الارث","الميراث"],"branch":"أسرة وأحوال شخصية","ref":"القانون رقم 70.03 بمثابة مدونة الأسرة، الكتاب السادس: الميراث","source":"نقل من موقع fiscamaroc.com ومن ويكي مصدر، اطُّلع عليه في 4 أكتوبر 2026","partial":true,"articles":[["334","الورثة أربعة أصناف: وارث بالفرض فقط ووارث بالتعصيب فقط ووارث بهما جمعا ووارث بهما انفرادا."],["335","الفرض سهم مقدر للوارث في التركة ويبدأ في التوريث بأصحاب الفروض.\nالتعصيب أخذ الوارث جميع التركة أو ما بقي عن ذوي الفروض."],["336","إذا لم يوجد أحد من ذوي الفروض أو وجد ولم تستغرق الفروض التركة، كانت التركة أو ما بقي منها للعصبة بعد أخذ ذوي الفروض فروضهم."],["337","الوارث بالفرض فقط، ستة: الأم والجدة والزوج والزوجة والأخ للأم والأخت للأم."],["338","الوارث بالتعصيب فقط، ثمانية: الابن، وابنه وإن سفل، والأخ الشقيق والأخ للأب وابنهما وإن سفل، والعم الشقيق والعم للأب وابنهما وإن سفل."],["339","الوارث بالفرض والتعصيب جمعا اثنان: الأب والجد."],["340","الوارث بالفرض أو التعصيب ولا يجمع بينهما أربعة: البنت، وبنت الابن، والأخت الشقيقة، والأخت للأب."],["348","العصبة ثلاثة أنواع:\nعصبة بالنفس.\nعصبة بالغير.\nعصبة مع الغير."],["349","للعصبة بالنفس جهات مقدم بعضها على بعض في الإرث على الترتيب الآتي:\n1 - البنوة وتشمل الأبناء وأبناء الإبن وإن سفل.\n2 – الأبوة.\n3 - الجد العصبي وإن علا والإخوة وتشمل الأشقاء والإخوة للأب.\n4 - أبناء الإخوة وإن سفلوا.\n5 - العمومة وتشمل أعمام الميت لأبوين أو لأب وأعمام أبيه كذلك وأعمام جده العصبي وإن علا وأبناء من ذكروا وإن سفلوا.\n6 - بيت المال إذا لم يكن هناك وارث، حيث تتولى السلطة المكلفة بأملاك الدولة حيازة الميراث. فإذا وجد وارث واحد بالفرض رد عليه الباقي، وإذا تعدد الورثة بالفرض، ولم تستغرق الفروض التركة رد عليهم الباقي حسب نسبهم في الإرث."],["350","1 - إذا اتحدت العصبة بالنفس في الجهة كان المستحق للإرث أقربهم درجة إلى الميت.\n2 - إذا اتحدوا في الجهة والدرجة كان التقديم بقوة القرابة فمن كانت قرابته من الأبوين قدم على من كانت قرابته من الأب فقط.\n3 - إذا اتحدوا في الجهة والدرجة والقوة كان الإرث بينهم على السواء."],["351","العصبات بالغير:\n1 - البنت مع الابن.\n2 - بنت الإبن وإن نزل مع إبن الإبن وإن نزل، إذا كان في درجتها مطلقا، أو كان أنزل منها إذا لم ترث بغير ذلك.\n3 - الأخوات لأبوين مع الإخوة لأبوين والأخوات لأب مع الإخوة لأب ويكون الإرث بينهم في هذه الأحوال للذكر مثل حظ الأنثيين."],["352","العصبة مع الغير: الأخوات لأبوين أو لأب مع البنت أو بنت الإبن وإن نزل ويكون لها الباقي من التركة بعد الفروض.\nتعتبر في هذه الحالة الأخوات لأبوين كالإخوة لأبوين وتعتبر الأخوات لأب كالإخوة لأب ويأخذن أحكامهم بالنسبة لباقي العصبات في التقديم بالجهة والدرجة والقوة."],["353","إذا اجتمع الأب أو الجد مع البنت أو بنت الابن وإن نزل استحق السدس فرضا والباقي بطريق التعصيب."],["354","1 - إذا اجتمع الجد العصبي مع الإخوة الأشقاء خاصة أو مع الإخوة للأب كذلك ذكورا أو إناثا أو مختلطين فله الأفضل من ثلث جميع المال أو المقاسمة.\n2 - إذا اجتمع مع مجموع الصنفين الإخوة الأشقاء والإخوة للأب فله الأفضل من ثلث جميع المال أو المقاسمة مع المعادة.\n3 - إذا اجتمع مع الإخوة وذوي الفروض فله الأفضل من ثلاثة: سدس جميع المال أو ثلث ما بقي بعد ذوي الفروض أو مقاسمة الإخوة كذكر منهم مع المعادة."],["358","يحجب حجب إسقاط:\n1- إبن الإبن يحجبه الإبن خاصة والقريب من ذكور الحفدة يحجب البعيد منهم.\n2- بنت الإبن يحجبها الإبن فوقها مطلقا، أو بنتان فوقها إلا أن يكون معها إبن في درجتها أو أسفل منها فيعصبها.\n3- الجد يحجبه الأب خاصة والجد القريب يحجب الجد البعيد.\n4- الأخ الشقيق والشقيقة يحجبهما الأب والإبن وابن الإبن.\n5- الأخ للأب والأخت للأب يحجبهما الشقيق ومن حجبه ولا تحجبهما الشقيقة.\n6- الأخت للأب تحجبها الشقيقتان إلا إذا وجد معها أخ للأب."],["360","مسألة المعادة\nإذا كان مع الإخوة الأشقاء إخوة للأب عاد الإخوة الأشقاء الجد بالإخوة للأب فمنعوه بهم كثرة الميراث ثم يأخذ الأشقاء إن كانوا أكثر من أخت حسب الإخوة للأب وإن كانت شقيقة واحدة استكملت فرضها وكان الباقي بين الإخوة للأب للذكر مثل حظ الأنثيين."],["364","مسألة الخرقاء\nإذا اجتمعت أم وجد وأخت شقيقة أو لأب فرض للأم الثلث وما بقي يقسمه الجد والأخت، للذكر مثل حظ الأنثيين."],["365","مسألة المشتركة\nيأخذ الذكر من الإخوة كالأنثى في المشتركة وهي زوج وأم أو جدة وأخوان لأم فأكثر وأخ شقيق فأكثر فيشتركان في الثلث الإخوة للأم والإخوة الأشقاء الذكور والإناث في ذلك سواء على عدد رؤوسهم لأن جميعهم من أم واحدة."],["366","إذا اجتمعت زوجة وأبوان فللزوجة الربع وللأم ثلث ما بقي وهو الربع وللأب ما بقي فإذا اجتمع زوج وأبوان فللزوج النصف وللأم ثلث ما بقي وهو السدس وما بقي للأب."],["367","إذا اجتمع زوج وأم وأخت شقيقة أو لأب كان للزوج النصف وللأخت النصف وللأم الثلث أصلها من ستة وتعول إلى ثمانية للزوج ثلاثة وللأخت ثلاثة وللأم اثنان."],["369","من توفي وله أولاد ابن أو أولاد بنت ومات الإبن أو البنت قبله أو معه وجب لأحفاده هؤلاء في ثلث تركته وصية بالمقدار والشروط الآتية."],["370","الوصية الواجبة لهؤلاء الأحفاد تكون بمقدار حصتهم مما يرثه أبوهم أو أمهم عن أصله المتوفى على فرض موت موروثهم إثر وفاة أصله المذكور على أن لا يتجاوز ذلك ثلث التركة."],["371","لا يستحق هؤلاء الأحفاد وصية، إذا كانوا وارثين لأصل موروثهم جدا كان أو جدة، أو كان قد أوصى لهم أو أعطاهم في حياته بلا عوض مقدار ما يستحقون بهذه الوصية الواجبة، فإن أوصى لهم بأقل من ذلك، وجبت تكملته، وإن أوصى بأكثر، كان الزائد متوقفا على إجازة الورثة، وإن أوصى لبعضهم فقط، وجبت الوصية للآخر بقدر نصيبه على نهج ما ذكر."],["372","تكون هذه الوصية لأولاد الإبن وأولاد البنت ولأولاد ابن الإبن وإن نزل، واحدا كانوا أو أكثر، للذكر مثل حظ الأنثيين، يحجب فيها كل أصل فرعه دون فرع غيره ويأخذ كل فرع نصيب أصله فقط."]]},{"id":"loi-18-12","name":"القانون رقم 18.12 المتعلق بالتعويض عن حوادث الشغل","short":"قانون حوادث الشغل","aliases":["18.12","القانون 18.12","حوادث الشغل","التعويض عن حوادث الشغل","ظهير 1.14.190"],"branch":"حوادث الشغل والسير والتأمين","ref":"الظهير الشريف رقم 1.14.190 بتاريخ 6 ربيع الأول 1436 (29 ديسمبر 2014)، الجريدة الرسمية عدد 6328 بتاريخ 22 يناير 2015","source":"بنك المعطيات القانونية لوزارة الانتقال الرقمي وإصلاح الإدارة (bdj.mmsp.gov.ma)، اطُّلع عليه في 4 أكتوبر 2026، ولم يسجل عليه أي تعديل","partial":true,"articles":[["3","تعتبر حادثة شغل كل حادثة ، كيفما كان سببها يترتب عنها ضرر ، للمستفيد من أحكام هذا القانون ، سواء كان أجيرا أو يعمل بأية صفة تبعية كانت وفي أي محل كان إما لحساب مشغل واحد أو عدة مشغلين ، وذلك بمناسبة أو بسبب الشغل أو عند القيام به ، ولو كانت هذه الحادثة ناتجة عن قوة قاهرة أو كانت ظروف الشغل قد تسببت في مفعول هذه القوة أو زادت في خطورتها إلا إذا أثبت المشغل أو مؤمنه طبقا للقواعد العامة للقانون أن مرض المصاب كان سببا مباشرا في وقوع الحادثة.\nويقصد بالضرر في مفهوم هذا القانون كل إصابة جسدية أو نفسية تسببت فيها حادثة الشغل وأسفرت عن عجز جزئي أو كلي ، مؤقت أو دائم ، للمستفيد من أحكامه."],["22","إذا خلفت الحادثة عجزا دائما للمصاب ، يحدد الطبيب المعالج ، باتفاق مشترك مع الطبيب الخبير المنتدب من قبل المقاولة المؤمنة للمشغل ، نسبة العجز اعتمادا على الجدول المتعلق بالعجز المحدد بقرار مشترك للسلطتين الحكوميتين المكلفتين بالتشغيل وبالصحة.\nفي حالة عدم توصل الطرفين إلى اتفاق مشترك بخصوص تحديد نسبة العجز ، يمكن للمقاولة المؤمنة للمشغل تعيين طبيب خبير مختص بناء على اقتراح من الطبيب المعالج للمصاب ، وفي هذه الحالة ، يتعين على الطبيب الخبير المختص تقديم تقرير طبي داخل أجل أقصاه شهر يبتدئ من تاريخ التعيين.\nوتطبق أحكام المادة 20 أعلاه فيما يخص تحرير وإيداع التقرير الطبي أو الشهادة الطبية المتعلقة بتحديد نسبة العجز."],["37","يتحمل المشغل أو مؤمنه المصاريف الآتي بيانها سواء انقطع المصاب بالحادثة عن العمل أم لا :\n1- مصاريف التشخيص والعلاجات الطبية والجراحية والصيدلية ومصاريف الاستشفاء ومصاريف التحليلات والفحوصات والمصاريف الواجب أداؤها للأطباء وللمساعدين الطبيين ، وبوجه عام جميع المصاريف التي يستوجبها علاج المصاب ؛\n2- مصاريف المستلزمات الطبية التي تفرضها الحادثة بما فيها المصاريف التي تفرضها الحادثة والمتعلقة بنيل أجهزة استبدال أو تقويم الأعضاء أو بإصلاحها أو بتجديدها ؛\n3- مصاريف نقل المصاب إلى محل إقامته الاعتيادي أو إلى مؤسسة عمومية أو خصوصية للاستشفاء والعلاج الأقرب من مكان وقوع الحادثة ؛\n4- في حالة الوفاة ، مصاريف الجنازة ومصاريف نقل الجثمان إلى مكان الدفن."],["60","يخول التعويض عن الضرر للمصاب أو لذوي حقوقه الحق في ما يلي :\n1- تعويض يومي طيلة مدة العجز المؤقت ؛\n2- تعويض على شكل إيراد في حالة العجز الدائم ؛\n3- تعويض على شكل إيراد لذوي حقوق المصاب في حالة الوفاة."],["61","يتحمل المشغل أو مؤمنه التعويض اليومي المستحق للمصاب ابتداء من اليوم الموالي لتاريخ وقوع الحادثة وطيلة مدة العجز المؤقت إلى غاية يوم الشفاء أو يوم الوفاة، وذلك دون تمييز بين أيام العمل وأيام الراحة الأسبوعية وأيام العطل الرسمية أو الأعياد.\nويتحمل المشغل الأجرة الكاملة ليوم وقوع الحادثة أيا كانت طريقة أدائها.\nيساوي التعويض اليومي ، طيلة مدة العجز المؤقت عن العمل ، ثلثي الأجر اليومي كما هو محدد في الفرع الثاني من هذا الباب."],["65","تشتمل الأجرة المعتبرة في تقدير التعويض اليومي على الأجرة اليومية من جهة ، وعلى المبلغ اليومي للمنافع الإضافية العينية أو النقدية من جهة أخرى.\nولا تعتبر ضمن مكونات الأجرة اليومية الامتيازات الاجتماعية التي يتقاضاها المصاب وخصوصا التعويضات العائلية."],["66","إذا كانت الأجرة اليومية أجرة قارة ، فإنها تعادل الأجرة الأسبوعية مقسومة على ستة أو الأجرة الشهرية مقسومة على ستة وعشرين إذا كان المصاب يتقاضى أجرته بالشهر. ولا تؤخذ بعين الاعتبار إلا الأجرة التي يستحقها المصاب لو لم يضطر إلى التوقف عن عمله أثناء الأسبوع أو الشهر الذي وقعت فيه الحادثة ، كما لا تؤخذ بعين الاعتبار تغيبات المصاب بالحادثة أثناء الأسبوع أو أثناء الشهر الذي أصيب فيه إن كان يتقاضى أجرة شهرية."],["68","إذا كانت الأجرة اليومية المشار إليها في المادة 65 أعلاه أجرة غير قارة أو كان العمل غير متواصل ، فإن الأجرة المذكورة تساوي المعدل اليومي للأجرة التي تقاضاها المصاب عن الستة والعشرين يوما من الشغل الفعلي السابق لتاريخ الحادثة.\nغير أنه إذا كان العمل غير متواصل ، وكان المصاب يتقاضى أجرته بالساعة ، فإن الأجرة اليومية تعادل سدس (6/1) الأجرة الأسبوعية المقدرة على أساس حد أدنى يبلغ أربعة وأربعين ساعة من الشغل والتي تقاضاها المصاب طيلة الستة أيام من الشغل الفعلي السابق لتاريخ الحادثة."],["72","إذا أنجز المصاب ، في جميع الحالات ، خلال الفترة المعتبرة لتقدير الأجرة اليومية عددا من ساعات الشغل يقل عن العدد العادي ، فإن الأجرة اليومية تحدد في ما يجب أداؤه كما لو تم إنجاز عدد عادي من ساعات الشغل.\nوعلاوة على ذلك ، يجب أن تقدر الأجرة اليومية على أساس مبلغ لا يمكن أن يقل عن الحد الأدنى للأجر القانوني الجاري به العمل."],["80","تحدد نسبة العجز الدائم حسب نوع عاهة المصاب وحالته الصحية العامة وسنه وقدراته الجسدية والعقلية والنفسية ، وكذا حسب أهليته واختصاصه المهني اعتمادا على الجدول المتعلق بالعجز المشار إليه في المادة 22 أعلاه.\nوتعتبر نسبة العجز ، في جميع الحالات ، بمثابة انخفاض القدرة المهنية الناتجة عن الحادثة والمحددة بالنسبة للقدرة التي كانت للمصاب مباشرة قبل وقوع الحادثة."],["82","يساوي الإيراد الممنوح للمصاب بعجز دائم عن العمل الأجرة السنوية مضروبة في نسب العجز المحددة كما يلي :\n- نصف نسبة العجز الدائم عن العمل عندما لا يتعدى هذا العجز ثلاثين في المائة (%30) ؛\n- خمسة عشرة في المائة (%15) زائد الجزء الذي يتعدى ثلاثين في المائة (%30) مضاف إليه نصف هذا الجزء بالنسبة للعجز الدائم عن العمل ما بين ثلاثين في المائة (%30) وخمسين في المائة (%50) ؛\n- خمسة وأربعين في المائة (%45) زائد الجزء الذي يتعدى خمسين في المائة (%50) بالنسبة للعجز الدائم عن العمل الذي يتجاوز خمسين في المائة (%50)."],["83","إذا كانت نسبة عجز المصاب تقل عن عشرة في المائة (%10) وكان المصاب بالغا سن الرشد القانوني ، منح رأسمالا بدلا من الإيراد الذي يكون له الحق فيه.\nوإذا كان المصاب قد منح إيرادا وهو قاصر ، فإن الرأسمال يمنح بحكم القانون بدلا من الإيراد المذكور في التاريخ الذي يبلغ فيه سن الرشد القانوني.\nويقدر الرأسمال في كلتا الحالتين طبقا للتعريفة المشار إليها في المادة 42 أعلاه."],["86","يتم الرفع من مبلغ الإيراد ، المقدر طبقا لأحكام المادة 82 أعلاه ، إذا كان العجز الدائم عجزا تاما وكان يضطر معه المصاب للاستعانة بشخص آخر للقيام بأعمال الحياة العادية.\nويحدد مبلغ هذه الزيادة وكيفيات وشروط الاستفادة منها بمرسوم يتخذ باقتراح من السلطة الحكومية المكلفة بالتشغيل."],["87","يمنح إيراد عمري إلى الزوج المتوفى عنه غير المطلق بشرط أن يكون الزواج قد انعقد قبل وقوع الحادثة."],["88","يحدد مقدار الإيراد المبين في المادة السابقة في خمسين في المائة (%50) من أجرة المصاب السنوية."],["92","إذا توفي المصاب عن عدة أرامل ، فإن الإيراد العمري البالغ خمسين في المائة (%50) المنصوص عليه في المادة 88 أعلاه يقسم بالتساوي بينهن بصفة نهائية أيا كان عددهن."],["95","يخول الحق في الإيراد لليتامى الذين فقدوا الأب أو الأم ، البالغ سنهم أقل من ست عشرة سنة أو إحدى وعشرين سنة إذا كانوا يتابعون تدريبا مهنيا طبق الشروط والكيفيات المقررة في النصوص التشريعية والتنظيمية الجاري بها العمل أو ستة وعشرين سنة إذا كانوا يتابعون دراستهم بالمغرب أو بالخارج ودون حد للسن بالنسبة لليتامى في وضعية إعاقة إذا كانوا ، عند وفاة المصاب بالحادثة ، يستوفون الشروط المنصوص عليها في المادتين 2 و21 من القانون رقم 92-07 المتعلق بالرعاية الاجتماعية للأشخاص المعاقين الصادر بتنفيذه الظهير الشريف رقم 30-92-1 بتاريخ 22 من ربيع الأول 1414 (10 ديسمبر 1993) ، شريطة أن يكتسب الأيتام صفة إعاقة قبل بلوغهم حدود السن القانونية المنصوص عليها في هذه المادة."],["96","يقدر الإيراد الممنوح لليتامى على أساس أجرة الهالك السنوية كما يلي :\n- نسبة عشرين في المائة (%20) إذا تعلق الأمر بولد واحد ؛\n- نسبة ثلاثين في المائة (%30) إذا تعلق الأمر بولدين ؛\n- نسبة أربعين في المائة (%40) إذا تعلق الأمر بثلاثة أولاد.\nوتضاف نسبة عشرة في المائة (%10) في الإيراد عن كل ولد إضافي يستوفي الشروط المنصوص عليها في المادة السابقة.\nويرفع الإيراد إلى ثلاثين في المائة (%30) من الأجرة المذكورة عن كل يتيم أصبح فاقد الأم والأب على إثر الحادثة أو أصبح يتيما بعدها قبل بلوغه حد السن القانونية التي تخول له حق الاستفادة من الإيراد."],["103","يمنح لكل واحد من الأصول أو الكافلين ، يكون وقت وقوع الحادثة في كفالة الهالك ، أو يثبت إمكانية حصوله على نفقة من الهالك ، إيراد عمري يساوي خمسة عشرة في المائة (%15) من أجرة المصاب السنوية حتى ولو كان لهذا الأخير زوج أو ولد طبقا لأحكام المواد من 87 إلى 102 من هذا القانون."],["104","لا يمكن أن تفوق مجموع الإيرادات الممنوحة للأصول والكافلين تطبيقا لأحكام المادة السابقة ثلاثين في المائة (%30) من الأجرة السنوية للمصاب، وإذا تجاوزت هذا المقدار ، فإن إيراد كل واحد من الأصول والكافلين يخفض تبعا لنسبته في الإيرادات."],["105","يقدر الإيراد الواجب منحه للمصاب بعجز دائم عن العمل طبقا لأحكام المادة 82 أعلاه أو لذوي حقوقه في حالة الوفاة على أساس الأجرة السنوية للمصاب.\nويقصد بالأجرة السنوية المتخذة أساسا لاحتساب الإيراد الأجر الفعلي الذي تقاضاه المصاب خلال الإثني عشر شهرا السابقة لتاريخ وقوع الحادثة ، شريطة ألا يقل هذا الأجر عن الحد الأدنى القانوني للأجر الجاري به العمل."],["106","لا تدخل الأجرة السنوية المشار إليها في المادة السابقة برمتها في الحساب لتقدير الإيراد إلا إذا لم تتجاوز الحد المعين بنص تنظيمي للسلطة الحكومية المكلفة بالتشغيل ، وتخفض الأجرة التي تفوق هذا الحد على أساس قواعد تحدد في هذا النص."],["107","تحتسب الأجرة السنوية المتخذة أساسا لتحديد الإيراد على أساس ما تقاضاه المصاب خلال الاثني عشر شهرا السابقة لتاريخ وقوع الحادثة ، باستثناء التعويضات العائلية.\nغير أنه إذا اشتغل المصاب لأقل من اثني عشر شهرا ، فإن الأجرة السنوية المتخذة أساسا لتحديد الإيراد تقدر على أساس متوسط ما تقاضاه وما كان سيتقاضاه لإتمام هذه المدة."],["108","تحتسب الأجرة السنوية المتخذة أساسا لتحديد الإيراد ، إذا كان الشغل غير متواصل أو إذا كان عدد أيام الشغل يقل عن ثلاثمائة يوم خلال الإثني عشر شهرا السابقة لتاريخ وقوع الحادثة ، على أساس متوسط ما تقاضاه المصاب وما كان سيتقاضاه لإتمام فترة الثلاثمائة يوم."],["110","لا يمكن بأي حال من الأحوال أن يتجاوز مجموع الإيرادات الممنوحة لمختلف ذوي حقوق المصاب خمسة وثمانين في المائة (%85) من مبلغ مجموع الأجر السنوي الفعلي للهالك ، وفي حالة تجاوز هذه النسبة المائوية تكون الإيرادات المستحقة لكل صنف من أصناف ذوي الحقوق موضوع تخفيض نسبي."],["113","ينتفع بالمبالغ المترتبة عن الإيرادات ابتداء من اليوم الموالي لتاريخ شفاء المصاب المثبت في شهادة الشفاء أو اليوم الذي وقعت فيه الوفاة دون أن تضم إلى مبلغ التعويض اليومي."],["114","تؤدى الإيرادات في محل إقامة المصاب أو ذوي حقوقه عند حلول الأجل في فاتح يناير وفاتح أبريل وفاتح يوليو وفاتح أكتوبر من كل سنة.\nتؤدى المبالغ المترتبة عن الإيراد والمنفذة ابتداء من تاريخ الانتفاع داخل أجل الثلاثين يوما الموالية لتاريخ التوقيع على محضر الصلح أو تاريخ تبليغ الأمر القضائي بالتصالح أو الحكم أو القرار القضائي الممنوح بموجبه الإيراد."],["145","يمكن طلب مراجعة مبلغ الإيراد الممنوح للمصاب على أساس تفاقم أو انخفاض عاهته داخل أجل الخمس سنوات الموالية لتاريخ الشفاء.\nويتعين على المصاب ، في حالة تفاقم عاهته ، تقديم طلب المراجعة مباشرة إلى المقاولة المؤمنة للمشغل قصد اتباع مسطرة الصلح المنصوص عليها في المواد من 132 إلى 139 من هذا القانون أو إقامة دعوى لدى المحكمة الابتدائية المختصة.\nويمكن للمشغل أو مؤمنة إقامة دعوى لدى المحكمة الابتدائية المختصة من أجل مراجعة الإيراد الممنوح للمصاب ، وذلك على أساس انخفاض العاهة مع ضرورة طلب عرضه على خبرة طبية.\nويجب أن يتضمن محضر الصلح أو الأمر القضائي بالتصالح أو الحكم أو القرار القضائي الجديد مبلغ الإيرادات المراجعة مع ضرورة الإشارة إلى تفاقم أو انخفاض عاهة المصاب حسب الحالة.\nكما يمكن لذوي الحقوق المشار إليهم في المواد 87 و89 و95 و101 و103 من هذا القانون أن يطالبوا ، طبق نفس الشروط ، بمراجعة التعويضات الممنوحة إذا توفي المصاب على إثر الحادثة وبسببها خلال الخمس سنوات الموالية لتاريخ وقوعها."],["180","يتقادم الحق في المطالبة بالمصاريف والتعويضات والإيرادات المنصوص عليها في هذا القانون بعد مضي خمس سنوات الموالية لتاريخ وقوع الحادثة.\nويرفع طلب الاستفادة من المصاريف والتعويضات مباشرة إلى المقاولة المؤمنة للمشغل قصد اتباع مسطرة الصلح المنصوص عليها في المواد من 132 إلى 139 من هذا القانون ، أو يرفع الطلب إلى المحكمة الابتدائية المختصة طبقا لأحكام المادة 141 من هذا القانون في حالة عدم إبرام المشغل لعقد التأمين أو عدم خضوعه لإجبارية التأمين ، على أن تراعى في ذلك الحالات المنصوص عليها في المادة 142 المتعلقة بالحفظ المؤقت للقضية."],["195","تطبق أحكام هذا القانون على الحوادث الواقعة ابتداء من تاريخ نشره في الجريدة الرسمية."]]},{"id":"dahir-1984-70-24","name":"ظهير 2 أكتوبر 1984 المتعلق بتعويض المصابين في حوادث تسببت فيها مركبات برية ذات محرك","short":"ظهير 1984 حوادث السير","aliases":["ظهير 1984","ظهير 02 أكتوبر 1984","1.84.177","حوادث السير","القانون 70.24","70.24","التعويض عن حوادث السير"],"branch":"حوادث الشغل والسير والتأمين","ref":"الظهير الشريف رقم 1.84.177 بتاريخ 6 محرم 1405 (2 أكتوبر 1984) كما غيّره وتمّمه القانون رقم 70.24 (الجريدة الرسمية عدد 7478 بتاريخ 29 يناير 2026)","source":"المكتبة القانونية العربية (bibliotdroit.com)، اطُّلع عليه في 4 أكتوبر 2026، ولم يرد منه سوى المادتين الأولى والأولى مكررة","partial":true,"articles":[["1","بالرغم من جميع الأحكام التشريعية المخالفة لما هو منصوص عليه في ظهيرنا الشريف هذا المعتبر بمثابة قانون، ومع مراعاة الاتفاقيات الدولية المصادق عليها من لدن المملكة المغربية والمنشورة بالجريدة الرسمية، تعوض ضمن الحدود ووفقا للقواعد والإجراءات المقررة فيه وفي النصوص المتخذة لتطبيقه، الأضرار البدنية التي تتسبب فيها للغير مركبة برية ذات محرك خاضعة للتأمين الإجباري، بموجب القانون رقم 17.99 المتعلق بمدونة التأمينات الصادر بتنفيذه الظهير الشريف رقم 1.02.238 المؤرخ في 25 من رجب 1423 (3 أكتوبر 2002) كما تم تغييره وتتميمه، أو التي تتسبب فيها مركبات متصلة بسكة حديدية، أو التي تسببت فيها مركبة برية بمحرك كهربائي."],["1 مكررة","يراد بما يلي في مدلول ظهيرنا الشريف هذا المعتبر بمثابة قانون:\n- الأجر: الأجر الصافي من الضريبة الذي تقاضاه المصاب من مشغله مقابل ما يقوم به من عمل خلال الإثني عشر شهرا السابقة لتاريخ وقوع الحادثة، شريطة ألا يقل هذا الأجر عن الحد الأدنى المحدد في الجدول المشار إليه في المادة الخامسة أدناه. ويدخل في مفهوم الأجر معاش التقاعد.\n- الكسب المهني: الكسب الذي تحصل عليه المصاب صافيا من الضريبة مقابل مزاولته لنشاط أو مهنة حرة، خلال الإثني عشر شهرا السابقة لتاريخ وقوع الحادثة شريطة ألا يقل هذا الكسب عن الحد الأدنى المحدد في الجدول المشار إليه في المادة الخامسة أدناه. ويدخل في مفهوم الكسب المهني الدخل الذي يتحصل عليه المصاب الذي يتولى بنفسه إدارة أو استغلال أمواله حسب الشروط المحددة في المادة السابعة.\nغير أنه إذا اشتغل المصاب لأقل من اثني عشر شهرا، فإن الأجر أو الكسب المهني السنوي يقدر على أساس متوسط ما تقاضاه وما كان سيتقاضاه لإتمام هذه المدة.\nإذا استفاد المصاب من زيادة في الأجر أو الكسب المهني خلال الإثني عشر شهرا السابقة لتاريخ وقوع الحادثة، فيقدر الأجر أو الكسب المهني السنوي باعتبار أن المصاب قد تقاضي أجره الجديد خلال الإثني عشر شهرا السابقة لتاريخ وقوع الحادثة."]]},{"id":"cpp-22-01","name":"قانون المسطرة الجنائية (القانون رقم 22.01)","short":"المسطرة الجنائية","aliases":["ق.م.ج","قانون المسطرة الجنائية","المسطرة الجنائية","22.01","03.23","القانون 03.23"],"branch":"جنائي وإجراءات جنائية","ref":"القانون رقم 22.01 المتعلق بالمسطرة الجنائية كما غيّره وتمّمه القانون رقم 03.23 (الجريدة الرسمية عدد 7437 بتاريخ 8 شتنبر 2025، نافذ منذ 8 دجنبر 2025)","source":"الوثيقة المنشورة على موقع وزارة العدل (cameknes.ma/legislation)، اطُّلع عليها في 4 أكتوبر 2026. تحقّقوا من الصيغة النافذة بعد التعديل 03.23.","partial":true,"articles":[["391","يبلغ منطوق الحكم الصادر غيابيا إلى علم الطرف المتغيب طبق الكيفيات المنصوص عليها في الفصول 37 و38 و39 من قانون المسطرة المدنية، وينص في التبليغ على أن أجل التعرض هو عشرة أيام."],["393","يجوز التعرض على الحكم الغيابي بتصريح يقدمه المحكوم عليه أو دفاعه لكتابة الضبط في ظرف العشرة أيام التي تلي التبليغ.\nلا يقبل تعرض المحكوم عليه بعقوبة قبل تبليغه الحكم الصادر في حقه طبقا لما هو منصوص عليه في المادة 391 أعلاه، ويتعين الإدلاء بما يفيد التبليغ عند التصريح بالتعرض."],["400","يحدد أجل الاستئناف في عشرة أيام تبتدئ من تاريخ النطق بالحكم، إذا صدر بعد مناقشات حضورية في الجلسة بحضور الطرف أو من يمثله أو إذا وقع إشعار أحدهما بيوم النطق به.\nتسري على آجال الطعن بالاستئناف وآثاره مقتضيات المواد 400 و 401 و 403 و 404 و 406 و 408 و 409 و 410 و 411 و 412 من هذا القانون."]]},{"id":"code-travail-65-99","name":"مدونة الشغل (القانون رقم 65.99)","short":"مدونة الشغل","aliases":["مدونة الشغل","65.99","القانون 65.99"],"branch":"شغل وضمان اجتماعي","ref":"القانون رقم 65.99 المتعلق بمدونة الشغل (الظهير الشريف رقم 1.03.194 بتاريخ 11 سبتمبر 2003)","source":"ويكي مصدر (ar.wikisource.org)، اطُّلع عليه في 4 أكتوبر 2026","partial":true,"articles":[["358","يحتسب الحد الأدنى القانوني للأجر:\n- في النشاطات غير الفلاحية، على أساس أجر ساعة شغل.\n- في النشاطات الفلاحية، الأجر المؤدى عن يوم شغل."],["359","يحق للأجير الذي يتقاضى أجره على أساس القطعة، أو الشغل المؤدى، أو المردودية، أن يتقاضى على الأقل الحد الأدنى القانوني للأجر، ما لم يحدث نقص في حجم الشغل المنجز، لا يمكن أن ينسب إلى سبب خارج عن الشغل"]]}],"cases":[]};
+LEX.init(LEX_SEED);
 
 (function(){
   var _ra=renderAll;
@@ -1604,7 +2004,7 @@ wireOffice();
 
 /* ---------- wiring ---------- */
 function show(tab){
-  ['agenda','files','dl','set'].forEach(function(t){$('p-'+t).hidden=(t!==tab);});
+  ['agenda','files','dl','lex','set'].forEach(function(t){$('p-'+t).hidden=(t!==tab);});
   document.querySelectorAll('.tabs button').forEach(function(b){b.setAttribute('aria-selected',b.dataset.tab===tab?'true':'false');});
   history.replaceState(null,'','#'+tab);window.scrollTo(0,0);
 }
@@ -1654,7 +2054,7 @@ $('inst').addEventListener('click',async function(){if(!dp)return;dp.prompt();aw
 window.addEventListener('appinstalled',function(){$('inst').hidden=true;});
 
 wireDL();renderAll();
-show((location.hash||'#agenda').slice(1).replace(/^(?!agenda$|files$|dl$|set$).*/,'agenda'));
+show((location.hash||'#agenda').slice(1).replace(/^(?!agenda$|files$|dl$|lex$|set$).*/,'agenda'));
 lockNow();
 if(navigator.storage&&navigator.storage.persist)navigator.storage.persist();
 
