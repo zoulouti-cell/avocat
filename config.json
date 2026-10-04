@@ -1,1 +1,9 @@
-{"repo":"zoulouti-cell/zoulouti-data"}
+{
+ "repo": "zoulouti-cell/zoulouti-data",
+ "links": {
+  "mahakim": "https://www.mahakim.ma",
+  "justice": "https://www.justice.gov.ma",
+  "cassation": "https://www.courdecassation.ma",
+  "avocat": "https://www.justice.gov.ma"
+ }
+}
