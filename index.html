@@ -93,7 +93,7 @@ h1{font:600 clamp(1.05rem,3.6vw,1.6rem)/1.3 "Playfair Display",Georgia,serif;let
 @keyframes bob{0%,100%{translate:0 0}50%{translate:0 -5px}}
 .pti b{font-size:1.12rem;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.25)}
 .pti small{color:rgba(246,241,226,.8);line-height:1.5;font-weight:400}
-.pt.wide{grid-column:1/-1}.pt.wide .pti{display:flex;align-items:center;gap:1rem;padding:.9rem 1.1rem}.pt.wide .tx{display:grid;gap:.15rem}
+.pt.wide{grid-column:1/-1}@media(min-width:860px){.pt.wide{grid-column:span 2}}.pt.wide .pti{display:flex;align-items:center;gap:1rem;padding:.9rem 1.1rem}.pt.wide .tx{display:grid;gap:.15rem}
 .rip{position:absolute;width:18px;height:18px;margin:-9px 0 0 -9px;border-radius:50%;background:rgba(255,255,255,.5);pointer-events:none;animation:rip .8s ease-out forwards}
 @keyframes rip{to{transform:scale(16);opacity:0}}
 .js .portals .pt.rv{opacity:0;transform:translateY(30px) scale(.9);filter:blur(10px);transition:opacity .9s ease,transform 1s cubic-bezier(.34,1.45,.64,1),filter .9s ease}
@@ -211,6 +211,46 @@ footer{background:var(--green);color:#9fb0a7;text-align:center;font-size:.9rem;p
 @media(max-width:479px){.call span{display:none}.call{padding:.4rem .7rem}}
 @media(min-width:860px){.hero{min-height:calc(min(46vw,560px)*1.25 + 1rem);display:flex;align-items:center;padding-top:2rem}.hin{width:100%}.txt{max-width:54%;margin:0 auto 0 0;padding-bottom:4.2rem}.fig{position:absolute;right:0;bottom:0;margin:0;width:min(46vw,560px)}.cards,.hgrid{grid-template-columns:1fr 1fr}.fin .sec{grid-template-columns:.8fr 1.2fr}}
 @media(prefers-reduced-motion:reduce){*,::before,::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}.js .rv{opacity:1;transform:none}.js h2::after{transform:none}}
+
+.inh{--ia:var(--gold,#c8a24a)}
+.inh details{border:1px solid rgba(150,140,110,.38);border-radius:20px;margin:.7rem 0;padding:.15rem 1rem;background:rgba(150,150,130,.07);transition:background .3s}
+.inh details[open]{background:rgba(150,150,130,.11)}
+.inh summary{cursor:pointer;font-weight:700;padding:.75rem 0;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--gt,#7a5a12)}
+.inh summary::-webkit-details-marker{display:none}
+.inh summary::after{content:"+";font:700 1.4rem/1 sans-serif;color:var(--ia);transition:transform .3s}
+.inh details[open] summary::after{content:"−"}
+.inh .rw{display:flex;align-items:center;justify-content:space-between;gap:.6rem;padding:.4rem 0;border-top:1px dashed rgba(150,140,110,.3)}
+.inh .st{display:flex;align-items:center;gap:.5rem;direction:ltr}
+.inh .st button{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--ia);background:transparent;color:inherit;font:700 1.3rem/1 sans-serif;cursor:pointer;transition:transform .25s cubic-bezier(.34,1.56,.64,1),background .25s}
+.inh .st button:active{transform:scale(.88);background:var(--ia);color:#0b2420}
+.inh .st output{min-width:2.2ch;text-align:center;font:700 1.15rem sans-serif}
+.inh label{display:grid;gap:.25rem;font-weight:700;font-size:.93rem;margin:.5rem 0}
+.inh input{width:100%;min-height:46px;padding:.5rem .8rem;border-radius:14px;border:1px solid rgba(150,140,110,.55);background:rgba(255,255,255,.08);color:inherit;font:inherit}
+.inh-bar{display:flex;gap:.6rem;flex-wrap:wrap;margin:.8rem 0}
+.inh-go{border:0;border-radius:999px;padding:.65rem 1.4rem;font-weight:700;cursor:pointer;color:#0b2420;background:linear-gradient(145deg,#ffe28f,#c8a24a 60%,#a67e26);box-shadow:0 6px 16px rgba(200,162,74,.4)}
+.inh-ghost{border:1.5px solid var(--ia);border-radius:999px;padding:.6rem 1.2rem;font-weight:700;cursor:pointer;background:transparent;color:inherit}
+.inh-out{display:grid;gap:.5rem;margin-top:.6rem}
+.inh-out table{width:100%;border-collapse:collapse;font-size:.95rem}
+.inh-out th,.inh-out td{padding:.45rem .4rem;border-bottom:1px solid rgba(150,140,110,.3);text-align:start;vertical-align:top}
+.inh-out th{color:var(--gt,#7a5a12);font-size:.85rem}
+.inh-sum{font-weight:700;margin:0}.inh-note{margin:0;font-size:.92rem;opacity:.9}.inh-h{margin:.6rem 0 0;font-weight:700;color:var(--gt,#7a5a12)}
+.inh-badge{display:inline-block;justify-self:start;padding:.1rem .9rem;border-radius:999px;border:1.5px solid var(--ia);font-weight:700}
+.inh-warn{margin:.4rem 0 0;font-size:.88rem;color:var(--terra,#a8452a);font-weight:700}
+
+
+.dl-info{background:rgba(150,150,130,.1);border:1px solid rgba(150,140,110,.35);border-radius:16px;padding:.6rem .9rem;margin:.6rem 0;font-size:.95rem;white-space:pre-line}
+.dl-two{display:grid;gap:.7rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr));margin:.5rem 0}
+.dl-chk{display:flex!important;gap:.6rem;align-items:center;font-weight:500!important;margin:.7rem 0}
+.dl-row{display:flex;justify-content:space-between;align-items:center;gap:.8rem;flex-wrap:wrap;padding:.6rem .9rem;border:1px solid rgba(150,140,110,.4);border-radius:16px;background:rgba(150,150,130,.08)}
+.dl-row.main{border:2px solid var(--gold,#c8a24a)}.dl-row b{font-size:1.05rem}
+.dl-ul{list-style:none;margin:.5rem 0;padding:0;display:grid;gap:.4rem}.dl-ul li{display:flex;justify-content:space-between;align-items:center;gap:.5rem;border:1px solid rgba(150,140,110,.3);border-radius:14px;padding:.3rem .8rem}
+.inh select{width:100%;min-height:46px;padding:.5rem .8rem;border-radius:14px;border:1px solid rgba(150,140,110,.55);background:rgba(255,255,255,.08);color:inherit;font:inherit}
+.inh select option,.inh select optgroup{color:#14211e;background:#fff}
+.seg{display:flex;gap:.3rem;padding:.3rem;border-radius:999px;margin:.2rem 0 1rem;width:max-content;max-width:100%;background:rgba(150,150,130,.12);border:1px solid rgba(200,162,74,.5)}
+.seg button{border:0;border-radius:999px;padding:.5rem 1.2rem;font:700 .98rem inherit;font-family:inherit;color:var(--gt,#7a5a12);background:transparent;cursor:pointer;transition:background .3s,color .3s,transform .3s cubic-bezier(.34,1.56,.64,1)}
+.seg button[aria-selected=true]{background:linear-gradient(145deg,#ffe28f,#c8a24a);color:#0b2420;box-shadow:0 6px 14px rgba(200,162,74,.45)}
+.seg button:active{transform:scale(.94)}
+
 </style>
 </head>
 <body>
@@ -225,6 +265,7 @@ footer{background:var(--green);color:#9fb0a7;text-align:center;font-size:.9rem;p
 <symbol id="i-bld" viewBox="0 0 24 24"><path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/></symbol>
 <symbol id="i-trk" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></symbol>
 <symbol id="i-lock" viewBox="0 0 24 24"><path d="M18 8h-1V6a5 5 0 0 0-10 0v2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2zm-6 9a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm3.1-9H8.9V6a3.1 3.1 0 0 1 6.2 0v2z"/></symbol>
+<symbol id="i-calc" viewBox="0 0 24 24"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zM7.5 18a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm0-4.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm4.5 4.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm0-4.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zM16.5 18a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm0-4.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zM18 9H6V6h12v3z"/></symbol>
 <symbol id="i-cal" viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 16H5V10h14v10z"/></symbol>
 </svg>
 
@@ -264,6 +305,7 @@ footer{background:var(--green);color:#9fb0a7;text-align:center;font-size:.9rem;p
     <a href="#track" class="pt"><span class="pti"><span class="ic"><svg><use href="#i-trk"/></svg></span><b data-t="pt2">متابعة الملف</b><small data-t="pt2s">اطّلعوا على مرحلة ملفكم</small></span></a>
     <a href="#hours" class="pt"><span class="pti"><span class="ic"><svg><use href="#i-clock"/></svg></span><b data-t="pt3">المواعيد</b><small data-t="pt3s">أوقات العمل والاستقبال</small></span></a>
     <a href="#contact" class="pt"><span class="pti"><span class="ic"><svg><use href="#i-tel"/></svg></span><b data-t="pt4">التواصل</b><small data-t="pt4s">الهاتف والواتساب والعنوان</small></span></a>
+    <a href="#help" class="pt wide"><span class="pti"><span class="ic"><svg><use href="#i-calc"/></svg></span><span class="tx"><b data-t="pt6">بوابة المساعدة</b><small data-t="pt6s">حاسبة الإرث وآجال الطعن</small></span></span></a>
     <a href="office.html" class="pt wide"><span class="pti"><span class="ic"><svg><use href="#i-lock"/></svg></span><span class="tx"><b data-t="pt5">فضاء المكتب</b><small data-t="pt5s">دخول فريق المكتب: الملفات والآجال والمساعدة</small></span></span></a>
   </nav>
 </div>
@@ -271,6 +313,7 @@ footer{background:var(--green);color:#9fb0a7;text-align:center;font-size:.9rem;p
   <span class="ind" id="cind"></span>
   <a href="#about" data-sp="about" aria-current="false" data-t="pt1">المكتب</a>
   <a href="#track" data-sp="track" aria-current="false" data-t="pt2">متابعة الملف</a>
+  <a href="#help" data-sp="help" aria-current="false" data-t="pt6">المساعدة</a>
   <a href="#hours" data-sp="hours" aria-current="false" data-t="pt3">المواعيد</a>
   <a href="#contact" data-sp="contact" aria-current="false" data-t="pt4">التواصل</a>
 </nav>
@@ -280,12 +323,12 @@ footer{background:var(--green);color:#9fb0a7;text-align:center;font-size:.9rem;p
     <article class="card">
       <h2 data-t="w_h">مكتب الزلوطي للمحاماة</h2>
       <p data-t="w_p1">يقدّم المكتب الاستشارات القانونية وينوب عن موكليه أمام المحاكم في جميع القضايا، في إطار احترام قواعد المهنة والحفاظ على سرية ما يُعهد إليه من معلومات.</p>
-      <p data-t="w_p2">ويحرص على وضوح التواصل مع موكليه والشفافية في مختلف مراحل الملف. وللاستفسار أو لتحديد موعد، يمكنكم التواصل مع المكتب عبر وسائل الاتصال المبيّنة أدناه.</p>
+      <p data-t="w_p2">ويضم المكتب فريقًا قانونيًا كفءًا لمواكبتكم في مختلف مراحل ملفاتكم. ويحرص على وضوح التواصل مع موكليه والشفافية في كل مرحلة. وللاستفسار أو لتحديد موعد، يمكنكم التواصل مع المكتب عبر وسائل الاتصال المبيّنة أدناه.</p>
     </article>
     <article class="card">
       <h2 data-t="b_h">الأستاذ عبد الحكيم الزلوطي</h2>
-      <p class="sub" data-t="b_sub">محامٍ، الدار البيضاء</p>
-      <p data-t="b_p1">درس الأستاذ عبد الحكيم الزلوطي الحقوق في المغرب وفرنسا، ويمارس المحاماة بالدار البيضاء. ويتابع في عمله مستجدات القانون الوطني والدولي.</p>
+      <p class="sub" data-t="b_sub">محامٍ بهيئة الدار البيضاء</p>
+      <p data-t="b_p1">الأستاذ عبد الحكيم الزلوطي محامٍ بهيئة الدار البيضاء. درس الحقوق في المغرب وفرنسا، ويتابع في عمله مستجدات القانون الوطني والدولي.</p>
       <p data-t="b_p2">يقوم عمله على احترام قواعد المهنة والتواصل الواضح مع موكليه.</p>
     </article>
   </div>
@@ -362,6 +405,17 @@ footer{background:var(--green);color:#9fb0a7;text-align:center;font-size:.9rem;p
 </section>
 
 <div class="alt">
+<section class="sec" id="help">
+  <h2 class="rv" data-t="hp_h">بوابة المساعدة: الإرث وآجال الطعن</h2>
+  <div class="card rv">
+    <p class="lead" data-t="hp_p">أداتان للإرشاد: حاسبة الإرث وفق مدونة الأسرة المغربية (الكتاب السادس) بما فيها الحجب والعول والرد والأجداد والإخوة والوصية الواجبة للأحفاد، وحاسبة آجال الطعن وفق قانون المسطرة المدنية رقم 58.25.</p>
+    <div class="seg" role="tablist"><button type="button" role="tab" aria-selected="true" data-tool="inh" data-t="seg1">حاسبة الإرث</button><button type="button" role="tab" aria-selected="false" data-tool="dl" data-t="seg2">آجال الطعن</button></div>
+    <div id="inhbox"></div>
+    <div id="dlbox" hidden></div>
+    <p class="note" data-t="hp_note">الأدوات بالعربية وللإرشاد فقط، ولا تغني عن عقد الإراثة ولا عن النص القانوني ولا عن استشارة المحامي. وللاستفسار أو لتتبّع آجال ملفكم تواصلوا مع المكتب.</p>
+  </div>
+</section>
+
 <section class="sec" id="hours">
   <h2 class="rv" data-t="h_h">أوقات العمل والاستقبال</h2>
   <div class="week stagger">
@@ -401,13 +455,314 @@ footer{background:var(--green);color:#9fb0a7;text-align:center;font-size:.9rem;p
 </template>
 <script type="application/json" id="reg">{"v":1,"items":{}}</script>
 <script id="app">
+/* Moroccan Family Code (Law 70.03), Book VI: inheritance engine covering arts. 337-372.
+   Heirs: H W F M GF GMm GMp S D SS SD BF SF BP SP UM NF NP AU AP CU CP (counts). */
+var INH2=(function(){
+function gcd(a,b){return b?gcd(b,a%b):Math.abs(a);}
+function F(n,d){d=d===undefined?1:d;if(d<0){n=-n;d=-d;}var g=gcd(n,d)||1;return [n/g,d/g];}
+function add(a,b){return F(a[0]*b[1]+b[0]*a[1],a[1]*b[1]);}
+function sub(a,b){return F(a[0]*b[1]-b[0]*a[1],a[1]*b[1]);}
+function mul(a,b){return F(a[0]*b[0],a[1]*b[1]);}
+function div(a,b){return F(a[0]*b[1],a[1]*b[0]);}
+function cmp(a,b){return a[0]*b[1]-b[0]*a[1];}
+function mx(a,b){return cmp(a,b)>=0?a:b;}
+var ZERO=F(0),ONE=F(1);
+var LBL={H:'الزوج',W:'الزوجة',F:'الأب',M:'الأم',GF:'الجد للأب',GM:'الجدة',S:'الأبناء',D:'البنات',SS:'أبناء الابن',SD:'بنات الابن',BF:'الإخوة الأشقاء',SF:'الأخوات الشقيقات',BP:'الإخوة للأب',SP:'الأخوات للأب',UM:'الإخوة والأخوات للأم',NF:'أبناء الإخوة الأشقاء',NP:'أبناء الإخوة للأب',AU:'الأعمام الأشقاء',AP:'الأعمام للأب',CU:'أبناء الأعمام الأشقاء',CP:'أبناء الأعمام للأب'};
+var KEYS=['H','W','F','M','GF','GMm','GMp','S','D','SS','SD','BF','SF','BP','SP','UM','NF','NP','AU','AP','CU','CP'];
+function inherit(h){
+  var c={};KEYS.forEach(function(k){var v=Math.max(0,Math.floor(+h[k]||0));c[k]=(k==='H'||k==='F'||k==='M'||k==='GF'||k==='GMm'||k==='GMp')?Math.min(1,v):(k==='W'?Math.min(4,v):v);});
+  if(c.H&&c.W)return {error:'لا يجتمع زوج وزوجة في تركة واحدة.'};
+  if(!KEYS.some(function(k){return c[k]>0;}))return {error:'اختاروا وارثًا واحدًا على الأقل.'};
+  var notes=[],rows=[],blocked=[];
+  function only(keys){return KEYS.every(function(k){return keys.indexOf(k)>=0||c[k]===0;});}
+  function R(k,label,n,share,art){rows.push({k:k,label:label,n:n,share:share,art:art||''});}
+  function done(mode){var sum=rows.reduce(function(a,x){return add(a,x.share);},ZERO);return {rows:rows,notes:notes,mode:mode||'',sum:sum,blocked:blocked};}
+  var gm=c.GMm+c.GMp,anyM=c.M||gm;
+  /* ---- special cases named in the Code (arts. 360-368) ---- */
+  if(only(['H','M','GF','SF','SP'])&&c.H&&c.M&&c.GF&&c.SF+c.SP===1){
+    R('H',LBL.H,1,F(9,27),'م361');R('M',LBL.M,1,F(6,27),'م361');R('GF',LBL.GF,1,F(8,27),'م361');R(c.SF?'SF':'SP',c.SF?'الأخت الشقيقة':'الأخت للأب',1,F(4,27),'م361');
+    notes.push('الأكدرية (المادة 361): فُرض للأخت النصف وللجد السدس فعالت الفريضة إلى تسعة، ثم قُسم نصيب الجد والأخت بينهما للذكر مثل حظ الأنثيين فصحّت من 27.');return done('الأكدرية');}
+  if(only(['M','GF','SF','SP'])&&c.M&&c.GF&&c.SF+c.SP===1){
+    R('M',LBL.M,1,F(1,3),'م364');R('GF',LBL.GF,1,F(4,9),'م364');R(c.SF?'SF':'SP',c.SF?'الأخت الشقيقة':'الأخت للأب',1,F(2,9),'م364');
+    notes.push('الخرقاء (المادة 364): للأم الثلث وما بقي بين الجد والأخت للذكر مثل حظ الأنثيين.');return done('الخرقاء');}
+  if(c.H&&anyM&&c.GF&&only(['H','M','GMm','GMp','GF','BP','UM'])&&c.BP>=1&&c.UM>=2){
+    R('H',LBL.H,1,F(1,2),'م362');if(c.M)R('M',LBL.M,1,F(1,6),'م362');else R('GM',gm>1?'الجدتان':'الجدة',gm,F(1,6),'م362');R('GF',LBL.GF,1,F(1,3),'م362');
+    notes.push('المالكية (المادة 362): للجد ما بقي بعد الفروض، ولا شيء للإخوة للأب ولا للإخوة للأم.');return done('المالكية');}
+  if(c.H&&anyM&&c.GF&&only(['H','M','GMm','GMp','GF','BF','UM'])&&c.BF>=1&&c.UM>=2){
+    R('H',LBL.H,1,F(1,2),'م363');if(c.M)R('M',LBL.M,1,F(1,6),'م363');else R('GM',gm>1?'الجدتان':'الجدة',gm,F(1,6),'م363');R('GF',LBL.GF,1,F(1,3),'م363');
+    notes.push('شبه المالكية (المادة 363): للجد ما بقي بعد الفروض دون الإخوة.');return done('شبه المالكية');}
+  if(c.H&&anyM&&c.UM>=2&&c.BF>=1&&only(['H','M','GMm','GMp','UM','BF','SF'])){
+    var heads=c.UM+c.BF+c.SF;
+    R('H',LBL.H,1,F(1,2),'م365');if(c.M)R('M',LBL.M,1,F(1,6),'م365');else R('GM',gm>1?'الجدتان':'الجدة',gm,F(1,6),'م365');
+    R('UM',LBL.UM,c.UM,F(c.UM,3*heads),'م365');R('BF',LBL.BF,c.BF,F(c.BF,3*heads),'م365');if(c.SF)R('SF',LBL.SF,c.SF,F(c.SF,3*heads),'م365');
+    notes.push('المشتركة (المادة 365): يشترك الإخوة للأم والإخوة الأشقاء ذكورًا وإناثًا في الثلث بالتساوي على عدد الرؤوس.');return done('المشتركة');}
+  /* ---- blocking (art. 358) ---- */
+  var Fa=c.F,S=c.S,D=c.D,SSe=S?0:c.SS,SDe=S?0:((D>=2&&SSe===0)?0:c.SD);
+  var maleDesc=S>0||SSe>0,anyDesc=maleDesc||D>0||SDe>0,GFe=Fa?0:c.GF;
+  var GMme=c.M?0:c.GMm,GMpe=(c.M||Fa)?0:c.GMp;
+  var sibAll=c.BF+c.SF+c.BP+c.SP+c.UM,BF=c.BF,SF=c.SF,BP=c.BP,SP=c.SP,UM=c.UM,BPraw=c.BP,SPraw=c.SP;
+  if(Fa||maleDesc){BF=SF=BP=SP=UM=0;BPraw=SPraw=0;}else if(anyDesc||GFe)UM=0;
+  /* ---- fixed shares ---- */
+  var fixed=[];function fx(k,label,n,share,art){fixed.push({k:k,label:label,n:n,share:share,art:art});}
+  var spouse=ZERO;
+  if(c.H){spouse=anyDesc?F(1,4):F(1,2);fx('H',LBL.H,1,spouse,anyDesc?'م343':'م342');}
+  if(c.W){spouse=anyDesc?F(1,8):F(1,4);fx('W',c.W>1?'الزوجات':'الزوجة',c.W,spouse,anyDesc?'م344':'م343');}
+  if(c.M){
+    if(anyDesc||sibAll>=2)fx('M',LBL.M,1,F(1,6),'م347');
+    else if(Fa&&(c.H||c.W)){fx('M',LBL.M,1,mul(F(1,3),sub(ONE,spouse)),'م366');notes.push('العمريتان (المادة 366): للأم ثلث ما بقي بعد فرض أحد الزوجين.');}
+    else fx('M',LBL.M,1,F(1,3),'م346');
+  }else if(GMme+GMpe>0)fx('GM',GMme+GMpe>1?'الجدتان':'الجدة',GMme+GMpe,F(1,6),'م347');
+  var fatherAsaba=false,gfAsaba=false,gfSib=false;
+  if(Fa){if(maleDesc)fx('F',LBL.F,1,F(1,6),'م347');else if(D>0||SDe>0){fx('F',LBL.F,1,F(1,6),'م353');fatherAsaba=true;}else fatherAsaba=true;}
+  if(S===0&&D>0)fx('D',D>1?'البنات':'البنت',D,D===1?F(1,2):F(2,3),D===1?'م342':'م345');
+  if(S===0&&SSe===0&&SDe>0){if(D===0)fx('SD',SDe>1?'بنات الابن':'بنت الابن',SDe,SDe===1?F(1,2):F(2,3),SDe===1?'م342':'م345');else if(D===1)fx('SD','بنات الابن',SDe,F(1,6),'م347');}
+  var SFasaba=false,SPasaba=false;
+  if(!GFe){
+    if(BF>0){BP=0;SP=0;}
+    else if(SF>0&&(D>0||SDe>0)){SFasaba=true;BP=0;SP=0;}
+    else{
+      if(SF>0)fx('SF',SF>1?LBL.SF:'الأخت الشقيقة',SF,SF===1?F(1,2):F(2,3),SF===1?'م342':'م345');
+      if(BP===0&&SP>0){if(SF>=2)SP=0;else if(SF===1)fx('SP','الأخوات للأب',SP,F(1,6),'م347');else if(D>0||SDe>0)SPasaba=true;else fx('SP',SP>1?LBL.SP:'الأخت للأب',SP,SP===1?F(1,2):F(2,3),SP===1?'م342':'م345');}
+    }
+    if(UM>0)fx('UM',LBL.UM,UM,UM===1?F(1,6):F(1,3),UM===1?'م347':'م346');
+  }else{
+    if(BF+SF+BPraw+SPraw===0){if(maleDesc)fx('GF',LBL.GF,1,F(1,6),'م347');else if(D>0||SDe>0){fx('GF',LBL.GF,1,F(1,6),'م353');gfAsaba=true;}else gfAsaba=true;}
+    else gfSib=true;
+  }
+  var total=fixed.reduce(function(a,x){return add(a,x.share);},ZERO);
+  fixed.forEach(function(x){R(x.k,x.label,x.n,x.share,x.art);});
+  /* ---- grandfather with siblings (arts. 354 and 360) ---- */
+  if(gfSib){
+    var Rm=sub(ONE,total),wFull=2*BF+SF,wPat=2*BPraw+SPraw,muq=mul(Rm,F(2,2+wFull+wPat)),o1=F(1,6),o2=div(Rm,F(3)),gs=mx(o1,mx(o2,muq));
+    var how=cmp(gs,muq)===0?'المقاسمة':(cmp(gs,o2)===0?'ثلث الباقي':'سدس جميع المال');
+    if(!rows.length&&cmp(gs,o2)===0)how='ثلث جميع المال';
+    R('GF',LBL.GF,1,gs,'م354');notes.push('الجد مع الإخوة (المادة 354): أُخذ الأفضل له وهو «'+how+'»'+(BF+SF>0&&BPraw+SPraw>0?' مع المعادّة (المادة 360)':'')+'.');
+    var pool=sub(Rm,gs);if(pool[0]<0)pool=ZERO;
+    function split(pool,list){var w=list.reduce(function(a,x){return a+x.w;},0);list.forEach(function(x){if(x.n>0&&w>0)R(x.k,x.label,x.n,mul(pool,F(x.w,w)),'م354');});}
+    if(BF+SF>0){
+      if(BF===0&&SF===1&&BPraw+SPraw>0){var own=cmp(pool,F(1,2))<0?pool:F(1,2);R('SF','الأخت الشقيقة',1,own,'م360');var rest2=sub(pool,own);if(rest2[0]>0)split(rest2,[{k:'BP',label:LBL.BP,n:BPraw,w:2*BPraw},{k:'SP',label:LBL.SP,n:SPraw,w:SPraw}]);notes.push('المعادّة (المادة 360): استكملت الأخت الشقيقة فرضها والباقي بين الإخوة للأب للذكر مثل حظ الأنثيين.');}
+      else split(pool,[{k:'BF',label:LBL.BF,n:BF,w:2*BF},{k:'SF',label:LBL.SF,n:SF,w:SF}]);
+    }else split(pool,[{k:'BP',label:LBL.BP,n:BPraw,w:2*BPraw},{k:'SP',label:LBL.SP,n:SPraw,w:SPraw}]);
+    total=rows.reduce(function(a,x){return add(a,x.share);},ZERO);
+  }
+  /* ---- residuary heirs (arts. 348-352) ---- */
+  var rest=sub(ONE,total),groups=null,mode='';
+  if(!gfSib&&rest[0]>0){
+    if(S>0)groups=[{k:'S',label:LBL.S,n:S,w:2*S},{k:'D',label:LBL.D,n:D,w:D}];
+    else if(SSe>0)groups=[{k:'SS',label:LBL.SS,n:SSe,w:2*SSe},{k:'SD',label:LBL.SD,n:SDe,w:SDe}];
+    else if(fatherAsaba)groups=[{k:'F',label:LBL.F,n:1,w:1}];
+    else if(gfAsaba)groups=[{k:'GF',label:LBL.GF,n:1,w:1}];
+    else if(BF>0)groups=[{k:'BF',label:LBL.BF,n:BF,w:2*BF},{k:'SF',label:LBL.SF,n:SF,w:SF}];
+    else if(SFasaba){groups=[{k:'SF',label:LBL.SF,n:SF,w:SF}];notes.push('الأخوات الشقيقات عصبة مع البنات (المادة 352).');}
+    else if(BP>0)groups=[{k:'BP',label:LBL.BP,n:BP,w:2*BP},{k:'SP',label:LBL.SP,n:SP,w:SP}];
+    else if(SPasaba){groups=[{k:'SP',label:LBL.SP,n:SP,w:SP}];notes.push('الأخوات للأب عصبة مع البنات (المادة 352).');}
+    else if(c.NF>0)groups=[{k:'NF',label:LBL.NF,n:c.NF,w:c.NF}];
+    else if(c.NP>0)groups=[{k:'NP',label:LBL.NP,n:c.NP,w:c.NP}];
+    else if(c.AU>0)groups=[{k:'AU',label:LBL.AU,n:c.AU,w:c.AU}];
+    else if(c.AP>0)groups=[{k:'AP',label:LBL.AP,n:c.AP,w:c.AP}];
+    else if(c.CU>0)groups=[{k:'CU',label:LBL.CU,n:c.CU,w:c.CU}];
+    else if(c.CP>0)groups=[{k:'CP',label:LBL.CP,n:c.CP,w:c.CP}];
+    if(groups){
+      groups=groups.filter(function(g){return g.n>0;});var w=groups.reduce(function(a,g){return a+g.w;},0);
+      groups.forEach(function(g){var part=mul(rest,F(g.w,w)),ex=rows.filter(function(r){return r.k===g.k;})[0];if(ex)ex.share=add(ex.share,part);else R(g.k,g.label,g.n,part,'م349');});
+      if(S>0&&D>0||SSe>0&&SDe>0||BF>0&&SF>0||BP>0&&SP>0)notes.push('للذكر مثل حظ الأنثيين (المادة 351).');
+    }
+  }
+  total=rows.reduce(function(a,x){return add(a,x.share);},ZERO);
+  if(total[0]>total[1]){var f=div(ONE,total);rows.forEach(function(r){r.share=mul(r.share,f);});mode='عول';notes.push('عالت الفريضة لزيادة الفروض على التركة (المادتان 367 و368 مثالان)، فنُقص كل نصيب بنسبة واحدة.');}
+  else if(total[0]<total[1]){
+    if(rows.length){var f2=div(ONE,total);rows.forEach(function(r){r.share=mul(r.share,f2);});mode='رد';notes.push('لم تستغرق الفروض التركة ولا عاصب، فرُدّ الباقي على أصحاب الفروض بنسبة فروضهم، والزوجان داخلان (المادة 349).');}
+    else{return {error:'',bayt:true,rows:[],notes:['لا وارث بالفرض ولا بالتعصيب: تؤول التركة إلى بيت المال بحيازة السلطة المكلفة بأملاك الدولة (المادة 349)، أو إلى ذوي الأرحام عند وجودهم، ولا تدعمهم الحاسبة.'],mode:'بيت المال',sum:ZERO,blocked:blocked};}
+  }
+  var present={};rows.forEach(function(r){present[r.k]=1;if(r.k==='GM'){present.GMm=1;present.GMp=1;}});
+  KEYS.forEach(function(k){if(c[k]>0&&!present[k])blocked.push(LBL[k]||k);});
+  if(blocked.length)notes.push('لا يرث أو لا يبقى له شيء: '+blocked.join('، ')+' (الحجب: المواد 355 إلى 359، وترتيب العصبة: المادة 349).');
+  return {rows:rows,notes:notes,mode:mode,sum:rows.reduce(function(a,x){return add(a,x.share);},ZERO),blocked:blocked};
+}
+/* obligatory bequest (tanzil), arts. 369-372 */
+function tanzil(h,g){
+  var Am=Math.max(0,Math.floor(+g.Am||0)),Af=Math.max(0,Math.floor(+g.Af||0)),Bm=Math.max(0,Math.floor(+g.Bm||0)),Bf=Math.max(0,Math.floor(+g.Bf||0));
+  var out={notes:[],h:Object.assign({},h),wasiya:ZERO,parts:[]};
+  var hasA=Am+Af>0,hasB=Bm+Bf>0;if(!hasA&&!hasB)return out;
+  var S=+h.S||0,D=+h.D||0;
+  var aInherit=hasA&&S===0&&(Am>0||(Af>0&&D<2));
+  if(aInherit){out.h.SS=(+h.SS||0)+Am;out.h.SD=(+h.SD||0)+Af;out.notes.push('أبناء الابن المتوفى يرثون بأنفسهم لعدم وجود ابن للميت، فلا وصية واجبة لهم (المادة 371).');}
+  var aW=hasA&&!aInherit,hs=Object.assign({},h);if(aW)hs.S=S+1;if(hasB)hs.D=D+1;
+  var r=inherit(hs);if(r.error||!r.rows)return out;
+  function per(k){var x=r.rows.filter(function(y){return y.k===k;})[0];return x?div(x.share,F(x.n)):ZERO;}
+  var fA=aW?per('S'):ZERO,fB=hasB?per('D'):ZERO,tot=add(fA,fB),third=F(1,3);
+  var scale=cmp(tot,third)>0?div(third,tot):ONE;
+  if(cmp(tot,third)>0)out.notes.push('جاوزت الوصية الواجبة ثلث التركة فاقتصرت عليه (المادة 370).');
+  if(aW)out.parts.push({label:'أولاد الابن المتوفى',share:mul(fA,scale),m:Am,f:Af});
+  if(hasB)out.parts.push({label:'أولاد البنت المتوفاة',share:mul(fB,scale),m:Bm,f:Bf});
+  out.wasiya=out.parts.reduce(function(a,p){return add(a,p.share);},ZERO);
+  out.notes.push('الوصية الواجبة (المواد 369 إلى 372): بمقدار حصة الأب أو الأم لو كان حيًّا في حدود الثلث، للذكر مثل حظ الأنثيين، ويأخذ كل فرع نصيب أصله فقط. وتُنفَّذ بالإضافة إلى قسمة الورثة الحاليين.');
+  return out;
+}
+return {inherit:inherit,tanzil:tanzil,F:F,LBL:LBL,KEYS:KEYS,mul:mul,div:div};
+})();
+
+
+/* Shared inheritance calculator UI (Arabic). Needs INH2. Usage: INHUI(containerElement) */
+function INHUI(root){
+  if(!root||root.getAttribute('data-ready'))return;root.setAttribute('data-ready','1');root.classList.add('inh');
+  var E=function(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!==undefined)e.textContent=x;return e;};
+  var V={};
+  var G=[
+    {t:'الزوجية والوالدان',o:1,r:[['H','الزوج',1],['W','الزوجات',4],['F','الأب',1],['M','الأم',1]]},
+    {t:'الأبناء وأبناء الابن',o:1,r:[['S','الأبناء',30],['D','البنات',30],['SS','أبناء الابن',30],['SD','بنات الابن',30]]},
+    {t:'الإخوة والأخوات',r:[['BF','الإخوة الأشقاء',30],['SF','الأخوات الشقيقات',30],['BP','الإخوة للأب',30],['SP','الأخوات للأب',30],['UM','الإخوة والأخوات للأم',30]]},
+    {t:'الأجداد والجدات',r:[['GF','الجد للأب',1],['GMm','الجدة لأم (أم الأم)',1],['GMp','الجدة لأب (أم الأب)',1]]},
+    {t:'العصبة الأبعد',r:[['NF','أبناء الإخوة الأشقاء',30],['NP','أبناء الإخوة للأب',30],['AU','الأعمام الأشقاء',30],['AP','الأعمام للأب',30],['CU','أبناء الأعمام الأشقاء',30],['CP','أبناء الأعمام للأب',30]]},
+    {t:'أحفاد ابن أو بنت توفي قبل المورث (التنزيل)',r:[['Am','أبناء ذكور لابن متوفى',30],['Af','بنات لابن متوفى',30],['Bm','أبناء ذكور لبنت متوفاة',30],['Bf','بنات لبنت متوفاة',30]]}
+  ];
+  var out=E('div','inh-out');
+  function money(n){return (Math.round((+n||0)*100)/100).toLocaleString('en-US',{maximumFractionDigits:2});}
+  function fr(a){return a[0]+'/'+a[1];}
+  function setV(k,v,max,el){v=Math.max(0,Math.min(max,v));V[k]=v;el.textContent=v;
+    if(k==='H'&&v>0&&V.W){V.W=0;root.querySelector('[data-k=W]').textContent=0;}
+    if(k==='W'&&v>0&&V.H){V.H=0;root.querySelector('[data-k=H]').textContent=0;}
+    calc();}
+  G.forEach(function(g){
+    var d=E('details');if(g.o)d.open=true;d.appendChild(E('summary',null,g.t));
+    g.r.forEach(function(r){
+      var k=r[0],row=E('div','rw'),lab=E('span',null,r[1]),st=E('div','st'),m=E('button',null,'−'),o=E('output',null,'0'),p=E('button',null,'+');
+      o.setAttribute('data-k',k);V[k]=0;m.type=p.type='button';m.setAttribute('aria-label','إنقاص');p.setAttribute('aria-label','زيادة');
+      m.addEventListener('click',function(){setV(k,V[k]-1,r[2],o);});p.addEventListener('click',function(){setV(k,V[k]+1,r[2],o);});
+      st.appendChild(m);st.appendChild(o);st.appendChild(p);row.appendChild(lab);row.appendChild(st);d.appendChild(row);
+    });
+    root.appendChild(d);
+  });
+  var est=E('details');est.open=true;est.appendChild(E('summary',null,'التركة'));
+  var F2={};
+  [['est','قيمة التركة (درهم)'],['fu','مصاريف التجهيز'],['de','الديون'],['wi','الوصية الاختيارية (حتى الثلث)']].forEach(function(f){
+    var l=E('label'),i=E('input');i.setAttribute('inputmode','decimal');i.dir='ltr';i.maxLength=14;i.autocomplete='off';i.placeholder=f[0]==='est'?'1000000':'0';
+    l.appendChild(E('span',null,f[1]));l.appendChild(i);est.appendChild(l);F2[f[0]]=i;i.addEventListener('input',calc);
+  });
+  root.appendChild(est);
+  var bar=E('div','inh-bar'),cp=E('button','inh-go','نسخ النتيجة'),rs=E('button','inh-ghost','مسح');cp.type=rs.type='button';bar.appendChild(cp);bar.appendChild(rs);root.appendChild(bar);root.appendChild(out);
+  var lastText='';
+  cp.addEventListener('click',function(){if(!lastText)return;try{navigator.clipboard.writeText(lastText);cp.textContent='تم النسخ ✓';setTimeout(function(){cp.textContent='نسخ النتيجة';},1800);}catch(e){}});
+  rs.addEventListener('click',function(){Object.keys(V).forEach(function(k){V[k]=0;var o=root.querySelector('[data-k='+k+']');if(o)o.textContent=0;});Object.keys(F2).forEach(function(k){F2[k].value='';});calc();});
+  function num(k){return Math.max(0,parseFloat(String(F2[k].value).replace(/,/g,'').replace('،','.'))||0);}
+  function tbl(head,rows){var t=E('table'),h=E('tr');head.forEach(function(x){h.appendChild(E('th',null,x));});t.appendChild(h);rows.forEach(function(r){var tr=E('tr',r.cls||'');r.c.forEach(function(x){tr.appendChild(E('td',null,x));});t.appendChild(tr);});return t;}
+  function calc(){
+    out.textContent='';lastText='';
+    var h={};Object.keys(V).forEach(function(k){h[k]=V[k];});
+    if(!Object.keys(h).some(function(k){return h[k]>0;}))return;
+    var tz=INH2.tanzil(h,{Am:V.Am,Af:V.Af,Bm:V.Bm,Bf:V.Bf}),r=INH2.inherit(tz.h);
+    if(r.error&&!r.bayt){out.appendChild(E('p','inh-warn',r.error));return;}
+    var est=num('est'),fu=num('fu'),de=num('de'),wi=num('wi'),after=Math.max(0,est-fu-de);
+    var W=after*tz.wasiya[0]/tz.wasiya[1],cap=Math.max(0,after/3-W),wv=Math.min(wi,cap),net=Math.max(0,after-W-wv);
+    var L=[],T=['نتيجة قسمة التركة'];
+    if(est){L.push('التركة '+money(est));if(fu+de)L.push('بعد التجهيز والديون '+money(after));if(W)L.push('الوصية الواجبة '+money(W));if(wv)L.push('الوصية الاختيارية '+money(wv));if(wi>cap)L.push('الوصية الاختيارية تتجاوز الثلث، فاقتُصر على '+money(wv)+' والزائد يتوقف على إجازة الورثة');L.push('الصافي للورثة '+money(net));out.appendChild(E('p','inh-sum',L.join(' | ')));T.push(L.join(' | '));}
+    if(r.bayt){r.notes.forEach(function(n){out.appendChild(E('p','inh-note','• '+n));});return;}
+    if(r.mode)out.appendChild(E('p','inh-badge','الحالة: '+r.mode));
+    var head=['الوارث','العدد','النصيب'];if(est){head.push('المبلغ');head.push('للفرد');}
+    var rows=r.rows.map(function(x){var c=[x.label,String(x.n),fr(x.share)+(x.art?'  ('+x.art+')':'')];if(est){var amt=net*x.share[0]/x.share[1];c.push(money(amt));c.push(x.n>1?money(amt/x.n):'—');}T.push(x.label+' ('+x.n+'): '+fr(x.share)+(est?' = '+money(net*x.share[0]/x.share[1]):''));return {c:c};});
+    out.appendChild(tbl(head,rows));
+    if(tz.parts.length){out.appendChild(E('p','inh-h','الوصية الواجبة للأحفاد (التنزيل)'));
+      var pr=[];tz.parts.forEach(function(p){var m=p.m,f=p.f,w=2*m+f,amt=W*(tz.wasiya[0]?(p.share[0]/p.share[1])/(tz.wasiya[0]/tz.wasiya[1]):0);pr.push({c:[p.label,(m+f)+' ('+m+' ذكور، '+f+' إناث)',fr(p.share),est?money(amt):'—',est&&w?(m&&f?money(amt*2/w)+' للذكر وكل أنثى '+money(amt/w):(m?'لكل ابن '+money(amt/m):'لكل بنت '+money(amt/f))):'—']});});
+      out.appendChild(tbl(['الفرع','العدد','من التركة','المبلغ','التقسيم'],pr));}
+    r.notes.concat(tz.notes).forEach(function(n){out.appendChild(E('p','inh-note','• '+n));T.push('- '+n);});
+    var oth=['GF','GMm','GMp'].some(function(k){return false;});
+    out.appendChild(E('p','inh-warn','هذه الحاسبة مبنية على المواد 337 إلى 372 من مدونة الأسرة (القانون 70.03). لا تدعم: الخنثى والمفقود والحمل وموانع الإرث (القتل واختلاف الدين، المادة 332)، ولا الأجداد الأبعد ولا أعمام الأب. وهي للإرشاد ولا تغني عن عقد الإراثة ولا عن استشارة المحامي.'));
+    lastText=T.join('\n');
+  }
+  calc();
+}
+
+var RULES=[
+ {g:'الاستئناف',n:'استئناف حكم صادر عن محكمة الدرجة الأولى',d:30,a:'المادة 204',s:'تاريخ التبليغ',x:'الأجل العام، مع مراعاة الآجال الخاصة.'},
+ {g:'الاستئناف',n:'استئناف الأوامر الاستعجالية',d:15,a:'تحقّقوا من المادة',s:'تاريخ التبليغ',x:'15 يومًا حسب ما نُشر عن القانون 58.25. تحقّقوا من المادة ومن بداية الأجل.'},
+ {g:'الاستئناف',n:'استئناف الأمر المبني على طلب (رفض الطلب) والمعاينات',d:7,a:'المادة 225',s:'تاريخ النطق بالأمر'},
+ {g:'الاستئناف',n:'استئناف الحكم المتعلق بالاختصاص النوعي',d:10,a:'المادة 27',s:'تاريخ التبليغ'},
+ {g:'الاستئناف',n:'استئناف مقررات القضايا الاجتماعية',d:30,a:'المادة 323',s:'تاريخ التبليغ',x:'راجعوا النصوص الخاصة بالمسطرة الاجتماعية.'},
+ {g:'الاستئناف',n:'استئناف مقررات الحالة المدنية',d:15,a:'المادة 279',s:'تاريخ التبليغ'},
+ {g:'الاستئناف',n:'استئناف قرار رفض منح المساعدة القضائية',d:15,a:'المادة 43',s:'تاريخ التبليغ'},
+ {g:'الاستئناف',n:'استئناف الحكم الصادر في التعرض على الأمر بالأداء',d:15,a:'المادة 242',s:'تاريخ التبليغ بالحكم'},
+ {g:'الاستئناف',n:'استئناف رفض الإذن ببيع منقولات المحجور',d:10,a:'المادة 263',s:'تاريخ التبليغ بالأمر'},
+ {g:'الاستئناف',n:'استئناف رفض الإذن ببيع عقار المحجور',d:10,a:'المادة 270',s:'تاريخ التبليغ بالأمر'},
+ {g:'التعرض',n:'التعرض على الحكم الغيابي',d:15,a:'المادة 200 وما بعدها',s:'تاريخ التبليغ'},
+ {g:'التعرض',n:'التعرض على الأمر بالأداء',d:15,a:'المادة 239',s:'تاريخ التبليغ بالأمر'},
+ {g:'التعرض',n:'التعرض الخارج عن الخصومة',m:12,a:'المادة 346',s:'تاريخ صدور المقرر',x:'سنة من صدور المقرر، مع الاستثناءات القانونية.'},
+ {g:'التعرض',n:'التعرض على بيع منقولات المحجور',d:8,a:'المادة 265',s:'تاريخ صدور الأمر بقبول تأجيل البيع'},
+ {g:'النقض والإلغاء',n:'الطعن بالنقض',d:30,a:'المادة 380',s:'تاريخ تبليغ الحكم المطعون فيه',x:'يوقف الأجلَ إيداعُ طلب المساعدة القضائية. والطعن بالنقض يُعدّ تنازلًا عن التعرض.'},
+ {g:'النقض والإلغاء',n:'الطعن بالإلغاء أمام محكمة النقض',d:30,a:'المادة 382',s:'تاريخ النشر أو التبليغ',x:'للتظلم السابق أثر على بداية الأجل.'},
+ {g:'النقض والإلغاء',n:'دعوى الإلغاء بسبب تجاوز السلطة (قرار إداري)',d:60,a:'المادة 47',s:'تاريخ النشر أو التبليغ أو العلم اليقيني',x:'للتظلم الإداري أثر على الأجل. راجعوا المادة.'},
+ {g:'النقض والإلغاء',n:'طلب إلغاء الأحكام الابتدائية والانتهائية',d:15,a:'المادتان 30 و331',s:'تاريخ التبليغ'},
+ {g:'الخبرة والمصاريف',n:'تجريح الخبير',d:10,a:'المادة 126',s:'تاريخ تبليغ المقرر بتعيين الخبير'},
+ {g:'الخبرة والمصاريف',n:'الاعتراض على أتعاب الخبير أو المترجم',d:10,a:'المادة 197',s:'تاريخ التبليغ'},
+ {g:'الخبرة والمصاريف',n:'المنازعة في تقدير مصاريف الشهود',d:10,a:'المادة 199',s:'تاريخ التبليغ بالحكم أو الأمر'},
+ {g:'الخبرة والمصاريف',n:'إيداع تاريخ إجراء التحقيق المأمور به',d:15,a:'المادة 119',s:'تاريخ التبليغ'},
+ {g:'التنفيذ',n:'سقوط الحق في تنفيذ الأمر المبني على طلب',d:30,a:'المادة 230',s:'تاريخ صدور الأمر',x:'لا يمنع من استصدار أمر جديد.'},
+ {g:'أخرى',n:'أجل مخصص (أدخلوا المدة من النص)',custom:1,a:'حسب النص',s:'تاريخ الواقعة المنشئة للأجل',x:'استعملوه للآجال الجنائية وغير المدرجة.'}
+];
+var DLUI=(function(){
+  var FIXH=['01-01','01-11','01-14','05-01','07-30','08-14','08-20','08-21','11-06','11-18'],HK='zl_site_hol_v1',WD=['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+  function pad(n){return ('0'+n).slice(-2);}
+  function iso(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());}
+  function mk(v){var p=v.split('-');return new Date(+p[0],+p[1]-1,+p[2]);}
+  function addD(d,n){return new Date(d.getFullYear(),d.getMonth(),d.getDate()+n);}
+  function addM(d,n){var t=new Date(d.getFullYear(),d.getMonth()+n,1),l=new Date(t.getFullYear(),t.getMonth()+1,0).getDate();return new Date(t.getFullYear(),t.getMonth(),Math.min(d.getDate(),l));}
+  function hols(){try{return JSON.parse(localStorage.getItem(HK)||'[]');}catch(e){return [];}}
+  function isOff(d){var w=d.getDay();if(w===0||w===6)return true;if(FIXH.indexOf(pad(d.getMonth()+1)+'-'+pad(d.getDate()))>=0)return true;var v=iso(d);return hols().some(function(h){return h.d===v;});}
+  function nextW(d){while(isOff(d))d=addD(d,1);return d;}
+  function prevW(d){while(isOff(d))d=addD(d,-1);return d;}
+  function fdl(d){return WD[d.getDay()]+' '+pad(d.getDate())+'/'+pad(d.getMonth()+1)+'/'+d.getFullYear();}
+  function mask(v){var d=String(v).replace(/[٠-٩]/g,function(x){return '٠١٢٣٤٥٦٧٨٩'.indexOf(x);}).replace(/\D/g,'').slice(0,8),o=d.slice(0,2);if(d.length>2)o+='/'+d.slice(2,4);if(d.length>4)o+='/'+d.slice(4);return o;}
+  function parse(v){var m=/^(\d{2})\/(\d{2})\/(\d{4})$/.exec(v);if(!m)return null;var d=new Date(+m[3],+m[2]-1,+m[1]);return (d.getFullYear()==+m[3]&&d.getMonth()==+m[2]-1&&d.getDate()==+m[1])?d:null;}
+  function today(){var t=new Date();return new Date(t.getFullYear(),t.getMonth(),t.getDate());}
+  return function(root){
+    if(!root||root.getAttribute('data-ready'))return;root.setAttribute('data-ready','1');root.classList.add('inh');
+    var E=function(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!==undefined)e.textContent=x;return e;};
+    function lab(t,el){var l=E('label');l.appendChild(E('span',null,t));l.appendChild(el);return l;}
+    var sel=E('select'),g='',og=null;RULES.forEach(function(r,i){if(r.g!==g){g=r.g;og=E('optgroup');og.label=g;sel.appendChild(og);}var o=E('option',null,r.n);o.value=i;og.appendChild(o);});
+    var info=E('div','dl-info'),dd=E('input'),dx=E('input'),dc=E('input'),du=E('select'),tw=E('input'),bt=E('button','inh-ghost','اليوم'),out=E('div','inh-out');
+    dd.dir='ltr';dd.inputMode='numeric';dd.maxLength=10;dd.placeholder='25/10/2026';dd.autocomplete='off';
+    dx.dir='ltr';dx.inputMode='numeric';dx.maxLength=3;dx.value='0';dc.dir='ltr';dc.inputMode='numeric';dc.maxLength=3;
+    [['d','أيام'],['m','أشهر']].forEach(function(o){var x=E('option',null,o[1]);x.value=o[0];du.appendChild(x);});
+    tw.type='checkbox';tw.style.cssText='width:24px;height:24px;min-height:0';bt.type='button';
+    var cust=E('div','dl-two');cust.hidden=true;cust.appendChild(lab('المدة',dc));cust.appendChild(lab('الوحدة',du));
+    var tr=E('label','dl-chk');tr.appendChild(tw);tr.appendChild(E('span',null,'مضاعفة الأجل لمن لا موطن له بالمغرب (المادة 209، تحقّقوا من النص)'));
+    var two=E('div','dl-two');two.appendChild(lab('تاريخ بداية الأجل',dd));two.appendChild(lab('أيام إضافية (مسافة أو تمديد)',dx));
+    [lab('الإجراء',sel),info,two,cust,bt,tr,out].forEach(function(x){root.appendChild(x);});
+    var det=E('details');det.appendChild(E('summary',null,'العطل المعتمدة في الحساب'));
+    det.appendChild(E('p','inh-note','تُعدّ السبت والأحد والعطل الوطنية الثابتة (1 و11 و14 يناير، 1 ماي، 30 يوليوز، 14 و20 و21 غشت، 6 و18 نونبر) غير أيام عمل. أما الأعياد الدينية فتتغير سنويًا، فأضيفوها هنا.'));
+    var hd=E('input'),hn=E('input'),hb=E('button','inh-ghost','إضافة'),hl=E('ul','dl-ul');hd.dir='ltr';hd.inputMode='numeric';hd.maxLength=10;hd.placeholder='25/10/2026';hn.maxLength=40;hn.placeholder='مثال: عيد المولد';hb.type='button';
+    var two2=E('div','dl-two');two2.appendChild(lab('التاريخ',hd));two2.appendChild(lab('الاسم',hn));det.appendChild(two2);det.appendChild(hb);det.appendChild(hl);root.appendChild(det);
+    root.appendChild(E('p','inh-warn','تنبيه: هذه الأداة للإرشاد فقط، والقواعد فيها وفق قانون المسطرة المدنية رقم 58.25 (نافذ منذ 24 غشت 2026). الخطأ في الأجل قد يُسقط الحق، فلا تعتمدوها وحدها ولا تنتظروا آخر يوم، وتواصلوا مع المحامي. ولا تشمل الآجال الجنائية ولا الخاصة.'));
+    function calc(){
+      out.textContent='';var r=RULES[+sel.value]||RULES[0],L=[];
+      L.push(r.custom?'المدة: أدخلوها يدويًا':'الأجل: '+(r.m?r.m+' شهرًا':r.d+' يومًا'));L.push('بداية الأجل: '+r.s);L.push('المرجع: '+r.a);if(r.x)L.push(r.x);
+      info.textContent=L.join('\n');cust.hidden=!r.custom;
+      var st=parse(dd.value);if(!st)return;
+      var n=r.d||0,m=r.m||0;if(r.custom){var cn=+dc.value||0;if(du.value==='m'){m=cn;n=0;}else{n=cn;m=0;}}
+      if(!n&&!m)return;if(tw.checked&&n)n*=2;
+      var raw=m?addM(st,m):addD(st,n);raw=addD(raw,Math.max(0,+dx.value||0));
+      var safe=prevW(raw),std=nextW(raw),full=nextW(addD(raw,1)),left=Math.round((safe-today())/86400000);
+      function row(t,v,c){var d=E('div','dl-row'+(c?' main':''));d.appendChild(E('span',null,t));d.appendChild(E('b',null,v));out.appendChild(d);}
+      row('آخر موعد آمن للإيداع (يُنصح به)',fdl(safe),1);
+      row('نهاية الأجل بالقاعدة العامة'+(raw.getTime()!==std.getTime()?' (بعد التمديد للعطلة)':''),fdl(std));
+      row('نهاية الأجل إن اعتُبر كاملًا (لا يُحسب اليوم الأخير)',fdl(full));
+      out.appendChild(E('span','inh-badge',left<0?'انقضى الموعد الآمن منذ '+(-left)+' يومًا':(left===0?'اليوم آخر موعد آمن':'المتبقي للموعد الآمن: '+left+' يومًا')));
+    }
+    function paint(){hl.textContent='';hols().forEach(function(h,i){var li=E('li');li.appendChild(E('span',null,h.d.split('-').reverse().join('/')+'  '+(h.n||'عطلة')));var x=E('button','inh-ghost','حذف');x.type='button';x.addEventListener('click',function(){var l=hols();l.splice(i,1);try{localStorage.setItem(HK,JSON.stringify(l));}catch(e){}paint();calc();});li.appendChild(x);hl.appendChild(li);});}
+    sel.addEventListener('change',calc);dx.addEventListener('input',calc);dc.addEventListener('input',calc);du.addEventListener('change',calc);tw.addEventListener('change',calc);
+    dd.addEventListener('input',function(){dd.value=mask(dd.value);calc();});hd.addEventListener('input',function(){hd.value=mask(hd.value);});
+    bt.addEventListener('click',function(){var t=today();dd.value=pad(t.getDate())+'/'+pad(t.getMonth()+1)+'/'+t.getFullYear();calc();});
+    hb.addEventListener('click',function(){var d=parse(hd.value);if(!d)return;var l=hols();l.push({d:iso(d),n:hn.value.trim()});l.sort(function(a,b){return a.d.localeCompare(b.d);});try{localStorage.setItem(HK,JSON.stringify(l));}catch(e){}hd.value='';hn.value='';paint();calc();});
+    paint();calc();
+  };
+})();
+
 (function(){
 var REG_URL='';   // optional: public address of registry.json (leave empty to use the file next to index.html)
 var tp=document.getElementById('tpl');document.body.insertBefore(tp.content.cloneNode(true),tp);document.documentElement.classList.add('js');
 var HEAD="<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, viewport-fit=cover\">\n<title>مكتب الزلوطي للمحاماة | الأستاذ عبد الحكيم الزلوطي، الدار البيضاء<\/title>\n<meta name=\"description\" content=\"مكتب الزلوطي للمحاماة، 72 شارع محمد الزرقطوني، الدار البيضاء.\">\n<meta name=\"theme-color\" content=\"#0b2420\">\n<meta property=\"og:type\" content=\"website\">\n<meta property=\"og:title\" content=\"مكتب الزلوطي للمحاماة | الأستاذ عبد الحكيم الزلوطي، الدار البيضاء\">\n<meta property=\"og:description\" content=\"مكتب الزلوطي للمحاماة، 72 شارع محمد الزرقطوني، الدار البيضاء.\">\n<link rel=\"icon\" href=\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E⚖️%3C/text%3E%3C/svg%3E\">\n<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Playfair+Display:wght@600;700&family=Reem+Kufi:wght@500;700&family=Tajawal:wght@400;500;700&display=swap\">\n";
 var T={
-fr:{pt1:"Le cabinet",pt1s:"Présentation du cabinet et de l'avocat",pt2:"Suivi de dossier",pt2s:"Consultez l'étape de votre dossier",pt3:"Horaires",pt3s:"Horaires de travail et de réception",pt4:"Contact",pt4s:"Téléphone, WhatsApp et adresse",pt5:"Espace du cabinet",pt5s:"Accès de l'équipe : dossiers, délais et aide",firm:"Cabinet d'avocats Zoulouti",tr_h:"Suivi de votre dossier",tr_p:"Saisissez le numéro de dossier et le code d'accès remis par le cabinet.",tr_ref:"N° de dossier",tr_code:"Code d'accès",tr_go:"Consulter",tr_nf:"Aucun dossier correspondant. Vérifiez le numéro et le code, ou contactez le cabinet.",tr_up:"Dernière mise à jour",tr_note:"Seule l'étape du dossier est affichée ici ; pour le détail, veuillez contacter le cabinet.",st1:"En cours d'étude",st2:"Procédure en cours",st3:"Dossier clos",wel:"Bienvenue sur le site du cabinet",call:"Appeler",qa_c:"Appeler",qa_d:"Localisation",hb:"Réception le mardi et le jeudi dès 15 h",w_h:"Cabinet d'avocats Zoulouti",w_p1:"Le cabinet fournit des consultations juridiques et représente ses clients devant les juridictions dans toutes les affaires, dans le respect des règles de la profession et du secret professionnel.",w_p2:"Il veille à une communication claire et à la transparence à chaque étape du dossier. Pour toute demande de renseignements ou de rendez-vous, vous pouvez contacter le cabinet par les moyens indiqués ci-dessous.",b_h:"Maître Abdelhakim Zoulouti",b_sub:"Avocat, Casablanca",b_p1:"Maître Abdelhakim Zoulouti a étudié le droit au Maroc et en France et exerce à Casablanca. Il suit dans son travail les évolutions du droit national et international.",b_p2:"Son travail repose sur le respect des règles de la profession et une communication claire avec ses clients.",h_h:"Horaires de travail et de réception",d1:"Lun",d2:"Mar",d3:"Mer",d4:"Jeu",d5:"Ven",h1_l:"Horaires de travail",h1_d:"Du lundi au vendredi",h2_l:"Réception",h2_d:"Le mardi et le jeudi",h2_t:"À partir de",c_h:"Nous contacter",l_tel:"Téléphone",l_mail:"E-mail",l_addr:"Adresse",addr:"72 Boulevard Mohamed Zerktouni, 8e étage, n° 23, Casablanca",m_g:"Google Maps",m_a:"Apple Maps",foot:"© 2026 Cabinet d'avocats Zoulouti"},
-en:{pt1:"The firm",pt1s:"About the firm and the lawyer",pt2:"Track your file",pt2s:"Check the stage of your file",pt3:"Hours",pt3s:"Working and reception hours",pt4:"Contact",pt4s:"Phone, WhatsApp and address",pt5:"Firm workspace",pt5s:"Team access: files, deadlines and help",firm:"Zoulouti Law Firm",tr_h:"Track your file",tr_p:"Enter the file number and the access code given to you by the firm.",tr_ref:"File number",tr_code:"Access code",tr_go:"Check",tr_nf:"No matching file. Check the number and code, or contact the firm.",tr_up:"Last update",tr_note:"Only the stage of the file is shown here; please contact the firm for details.",st1:"Under study",st2:"Procedure ongoing",st3:"File closed",wel:"Welcome to the firm's website",call:"Call us",qa_c:"Call",qa_d:"Location",hb:"Reception Tuesday and Thursday from 3 p.m.",w_h:"Zoulouti Law Firm",w_p1:"The firm provides legal advice and represents its clients before the courts in all types of cases, in accordance with the rules of the profession and with respect for professional confidentiality.",w_p2:"It is committed to clear communication and transparency at every stage of a case. For enquiries or to arrange an appointment, please use the contact details below.",b_h:"Abdelhakim Zoulouti",b_sub:"Lawyer, Casablanca",b_p1:"Abdelhakim Zoulouti studied law in Morocco and France and practises in Casablanca. His work follows developments in national and international law.",b_p2:"His work is based on respect for the rules of the profession and clear communication with clients.",h_h:"Working and reception hours",d1:"Mon",d2:"Tue",d3:"Wed",d4:"Thu",d5:"Fri",h1_l:"Working hours",h1_d:"Monday to Friday",h2_l:"Reception",h2_d:"Tuesday and Thursday",h2_t:"From",c_h:"Contact us",l_tel:"Phone",l_mail:"Email",l_addr:"Address",addr:"72 Boulevard Mohamed Zerktouni, 8th floor, No. 23, Casablanca",m_g:"Google Maps",m_a:"Apple Maps",foot:"© 2026 Zoulouti Law Firm"}
+fr:{pt1:"Le cabinet",pt1s:"Présentation du cabinet et de l'avocat",pt2:"Suivi de dossier",pt2s:"Consultez l'étape de votre dossier",pt3:"Horaires",pt3s:"Horaires de travail et de réception",pt4:"Contact",pt4s:"Téléphone, WhatsApp et adresse",pt6:"Aide juridique",pt6s:"Succession et délais de recours",seg1:"Succession",seg2:"Délais de recours",hp_h:"Aide juridique : succession et délais de recours",hp_p:"Saisissez les héritiers et la valeur de la succession pour connaître la part de chacun selon le Code de la famille marocain (Livre VI) : exclusions, aoul, radd, grands-parents, frères et sœurs, legs obligatoire des petits-enfants. Un second outil calcule les délais de recours selon la loi 58.25 sur la procédure civile.",h_note:"Les outils sont en arabe et donnés à titre indicatif ; ils ne remplacent ni l\'acte d\'hérédité, ni le texte de loi, ni l\'avis d\'un avocat. Un délai erroné peut faire perdre un droit. Contactez le cabinet pour toute question.",pt5:"Espace du cabinet",pt5s:"Accès de l'équipe : dossiers, délais et aide",firm:"Cabinet d'avocats Zoulouti",tr_h:"Suivi de votre dossier",tr_p:"Saisissez le numéro de dossier et le code d'accès remis par le cabinet.",tr_ref:"N° de dossier",tr_code:"Code d'accès",tr_go:"Consulter",tr_nf:"Aucun dossier correspondant. Vérifiez le numéro et le code, ou contactez le cabinet.",tr_up:"Dernière mise à jour",tr_note:"Seule l'étape du dossier est affichée ici ; pour le détail, veuillez contacter le cabinet.",st1:"En cours d'étude",st2:"Procédure en cours",st3:"Dossier clos",wel:"Bienvenue sur le site du cabinet",call:"Appeler",qa_c:"Appeler",qa_d:"Localisation",hb:"Réception le mardi et le jeudi dès 15 h",w_h:"Cabinet d'avocats Zoulouti",w_p1:"Le cabinet fournit des consultations juridiques et représente ses clients devant les juridictions dans toutes les affaires, dans le respect des règles de la profession et du secret professionnel.",w_p2:"Le cabinet s'appuie sur une équipe juridique compétente pour vous accompagner à chaque étape de vos dossiers. Il veille à une communication claire et à la transparence à chaque étape du dossier. Pour toute demande de renseignements ou de rendez-vous, vous pouvez contacter le cabinet par les moyens indiqués ci-dessous.",b_h:"Maître Abdelhakim Zoulouti",b_sub:"Avocat au Barreau de Casablanca",b_p1:"Maître Abdelhakim Zoulouti est avocat au Barreau de Casablanca. Il a étudié le droit au Maroc et en France et suit dans son travail les évolutions du droit national et international.",b_p2:"Son travail repose sur le respect des règles de la profession et une communication claire avec ses clients.",h_h:"Horaires de travail et de réception",d1:"Lun",d2:"Mar",d3:"Mer",d4:"Jeu",d5:"Ven",h1_l:"Horaires de travail",h1_d:"Du lundi au vendredi",h2_l:"Réception",h2_d:"Le mardi et le jeudi",h2_t:"À partir de",c_h:"Nous contacter",l_tel:"Téléphone",l_mail:"E-mail",l_addr:"Adresse",addr:"72 Boulevard Mohamed Zerktouni, 8e étage, n° 23, Casablanca",m_g:"Google Maps",m_a:"Apple Maps",foot:"© 2026 Cabinet d'avocats Zoulouti"},
+en:{pt1:"The firm",pt1s:"About the firm and the lawyer",pt2:"Track your file",pt2s:"Check the stage of your file",pt3:"Hours",pt3s:"Working and reception hours",pt4:"Contact",pt4s:"Phone, WhatsApp and address",pt6:"Legal help",pt6s:"Inheritance and appeal deadlines",seg1:"Inheritance",seg2:"Appeal deadlines",hp_h:"Legal help: inheritance and appeal deadlines",hp_p:"Enter the heirs and the value of the estate to see each heir\'s share under the Moroccan Family Code (Book VI): exclusion, awl, radd, grandparents, siblings and the obligatory bequest for grandchildren. A second tool computes appeal deadlines under Civil Procedure Code Law 58.25.",hp_note:"The tools are in Arabic and indicative only; they do not replace a certificate of inheritance, the legal text or a lawyer\'s advice. A wrong deadline can forfeit a right. Please contact the firm with any question.",pt5:"Firm workspace",pt5s:"Team access: files, deadlines and help",firm:"Zoulouti Law Firm",tr_h:"Track your file",tr_p:"Enter the file number and the access code given to you by the firm.",tr_ref:"File number",tr_code:"Access code",tr_go:"Check",tr_nf:"No matching file. Check the number and code, or contact the firm.",tr_up:"Last update",tr_note:"Only the stage of the file is shown here; please contact the firm for details.",st1:"Under study",st2:"Procedure ongoing",st3:"File closed",wel:"Welcome to the firm's website",call:"Call us",qa_c:"Call",qa_d:"Location",hb:"Reception Tuesday and Thursday from 3 p.m.",w_h:"Zoulouti Law Firm",w_p1:"The firm provides legal advice and represents its clients before the courts in all types of cases, in accordance with the rules of the profession and with respect for professional confidentiality.",w_p2:"The firm has a competent legal team to support you at every stage of your cases. It is committed to clear communication and transparency at every stage of a case. For enquiries or to arrange an appointment, please use the contact details below.",b_h:"Abdelhakim Zoulouti",b_sub:"Member of the Casablanca Bar",b_p1:"Abdelhakim Zoulouti is a lawyer at the Casablanca Bar. He studied law in Morocco and France, and his work follows developments in national and international law.",b_p2:"His work is based on respect for the rules of the profession and clear communication with clients.",h_h:"Working and reception hours",d1:"Mon",d2:"Tue",d3:"Wed",d4:"Thu",d5:"Fri",h1_l:"Working hours",h1_d:"Monday to Friday",h2_l:"Reception",h2_d:"Tuesday and Thursday",h2_t:"From",c_h:"Contact us",l_tel:"Phone",l_mail:"Email",l_addr:"Address",addr:"72 Boulevard Mohamed Zerktouni, 8th floor, No. 23, Casablanca",m_g:"Google Maps",m_a:"Apple Maps",foot:"© 2026 Zoulouti Law Firm"}
 };
 var TT={ar:document.title,fr:"Cabinet d'avocats Zoulouti | Maître Abdelhakim Zoulouti, Casablanca",en:"Zoulouti Law Firm | Abdelhakim Zoulouti, Casablanca"};
 var els=document.querySelectorAll('[data-t]'),btns=document.querySelectorAll('[data-lang]'),h=document.documentElement;
@@ -606,7 +961,8 @@ function buildHtml(next){
 })();
 
 (function(){
-  var prog=$('prog'),dock=$('dock'),ind=$('cind'),calm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  INHUI($('inhbox'));DLUI($('dlbox'));
+  [].slice.call(document.querySelectorAll('.seg button')).forEach(function(b){b.addEventListener('click',function(){var t=b.getAttribute('data-tool');[].slice.call(document.querySelectorAll('.seg button')).forEach(function(x){x.setAttribute('aria-selected',x===b?'true':'false');});$('inhbox').hidden=t!=='inh';$('dlbox').hidden=t!=='dl';});});var prog=$('prog'),dock=$('dock'),ind=$('cind'),calm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
   var chips=[].slice.call(document.querySelectorAll('#chips a'));
   function moveInd(){var on=chips.filter(function(c){return c.getAttribute('aria-current')==='true';})[0];if(!on){ind.style.width='0px';return;}ind.style.left=on.offsetLeft+'px';ind.style.width=on.offsetWidth+'px';}
   function onScroll(){var h=document.documentElement,m=h.scrollHeight-h.clientHeight;prog.style.width=(m>0?Math.min(100,h.scrollTop/m*100):0)+'%';if(dock&&!calm)dock.style.setProperty('--sy',Math.min(60,h.scrollTop*.06)+'px');}
@@ -616,7 +972,7 @@ function buildHtml(next){
   var lm=$('lmenu');if(lm)lm.addEventListener('click',function(){setTimeout(moveInd,120);});
   if('IntersectionObserver' in window){
     var spy=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){chips.forEach(function(c){c.setAttribute('aria-current',c.getAttribute('data-sp')===e.target.id?'true':'false');});moveInd();}});},{rootMargin:'-35% 0px -60% 0px'});
-    ['about','track','hours','contact'].forEach(function(id){var s=$(id);if(s)spy.observe(s);});
+    ['about','track','help','hours','contact'].forEach(function(id){var s=$(id);if(s)spy.observe(s);});
   }
   if(!calm)document.querySelectorAll('.pt').forEach(function(a){var i=a.querySelector('.pti');
     a.addEventListener('pointermove',function(e){if(e.pointerType==='touch')return;var r=i.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;i.style.setProperty('--ry',(x*12).toFixed(1)+'deg');i.style.setProperty('--rx',(-y*12).toFixed(1)+'deg');i.style.setProperty('--mx',(e.clientX-r.left)+'px');i.style.setProperty('--my',(e.clientY-r.top)+'px');});
