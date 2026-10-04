@@ -292,6 +292,11 @@ mark{background:rgba(255,226,143,.38);color:#fff;border-radius:5px;padding:0 .12
           <button class="btn" id="wk">تقرير الأسبوع (واتساب)</button>
         </div>
         <p class="msg" id="amsg"></p>
+        <div class="card" id="rpbox"><h3>طباعة المواعيد الإجرائية وتواريخ الجلسات</h3>
+          <div class="trf"><label><span>المطلوب</span><select id="rprange"><option value="day">يوم محدد</option><option value="week">أسبوع محدد (من الاثنين إلى الأحد)</option></select></label>
+          <label><span>التاريخ</span><input id="rpdate" type="date"></label></div>
+          <p class="meta" id="rpinfo"></p>
+          <div class="row2"><button class="btn p" id="rpprint" type="button">طباعة</button></div></div>
         <div id="agl"></div>
       </div>
       <div id="dpane-misc" hidden>
@@ -1288,12 +1293,13 @@ function renderFiles(){
       $('mlabel').value=f.label||'';$('mcourt').value=f.court||'';$('mroom').value=f.room||'';$('mjudge').value=f.judge||'';$('mtype').value=f.type;$('mno').value=f.no;$('mcode').value=f.code||'';$('myr').value=f.yr;$('mst').value=String(f.st);$('mnote').value=f.note||'';$('mour').value=f.our||'';$('mkind').value=f.kind||'';$('mkind').dataset.auto='0';$('mtype').dataset.m='1';$('mcref').value=f.cref||'';$('mccode').value=f.ccode||'';$('mcli').value=f.cli||'';$('mtel').value=f.tel||'';$('madv').value=f.adv||'';$('madvl').value=f.advl||'';$('mfee').value=f.fee||'';hintFor(f.code);
       editId=x.id;$('msave').textContent='حفظ التعديل';$('mcancel').hidden=false;$('madd').open=true;$('madd').scrollIntoView({behavior:'smooth'});
     });
+    var bp=el('button','btn sm','طباعة');bp.addEventListener('click',function(){RPT.file(x.id,'print');});
     var bd=el('button','btn sm','حذف');
     bd.addEventListener('click',function(){
       if(armed!==x.id){armed=x.id;bd.textContent='تأكيد الحذف';setTimeout(function(){if(armed===x.id){armed=null;bd.textContent='حذف';}},3000);return;}
       armed=null;delete items[x.id];persist();
     });
-    [sel,bc,ba,bw,bt,bwa,bm,bs,be,bd].filter(Boolean).forEach(function(b){bar.appendChild(b);});
+    [sel,bc,ba,bw,bt,bwa,bm,bs,bp,be,bd].filter(Boolean).forEach(function(b){bar.appendChild(b);});
     c.appendChild(bar);c.appendChild(feesBox(x.id,f));c.appendChild(actions(x.id,f));box.appendChild(c);
   });
 }
@@ -1656,6 +1662,7 @@ wireOffice();
 /* ===================== legal library: local database + two search engines ===================== */
 /* ===================== legal library: local database + two search engines ===================== */
 /* ===================== legal library: local database + two search engines ===================== */
+/* ===================== legal library: local database + two search engines ===================== */
 var LEX=(function(){
 var DBN='zl_lex_v1',DB=null,TEXTS=[],ARTS=[],CASES=[],NOTES={},FAV={},SEED_V=1,ARTIDX={},REFMAP={},DOCS=[];
 var BR=['أسرة وأحوال شخصية','مدني والتزامات وعقود','عقاري','تجاري وشركات','شغل وضمان اجتماعي','حوادث الشغل والسير والتأمين','مسطرة مدنية','جنائي وإجراءات جنائية','إداري','دستوري وتنظيم قضائي','جبائي ومالي','أخرى'];
@@ -1823,14 +1830,21 @@ function nres(n){return n===1?'نتيجة واحدة':n===2?'نتيجتان':(n<
 function ndec(n){return n===1?'قرار واحد':n===2?'قراران':(n<=10?n+' قرارات':n+' قرارًا');}
 function setNote(key,val){NOTES[key]=val;return val?putMany('notes',[{k:'n:'+key,v:val}]):delKeys('notes',['n:'+key]);}
 function toggleFav(key){if(FAV[key]){delete FAV[key];return delKeys('notes',['f:'+key]);}FAV[key]=1;return putMany('notes',[{k:'f:'+key,v:1}]);}
-function actions(card,key,citation){
+function pEsc(x){return String(x==null?'':x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function pItem(title,meta,body){return '<div class="it"><div class="t">'+pEsc(title)+'</div>'+(meta?'<div class="m">'+pEsc(meta)+'</div>':'')+'<div class="b">'+pEsc(body)+'</div></div>';}
+function pArt(a){var t=TX(a.tid)||{};return pItem('المادة '+a.no+' — '+(t.short||t.name||''),[t.name,t.ref,a.title].filter(Boolean).join(' | '),a.body);}
+function pCase(c){return pItem('قرار عدد '+(c.num||'—')+(c.date?' بتاريخ '+c.date:''),[c.chamber,c.fileno?'ملف عدد '+c.fileno:'',c.title,c.source].filter(Boolean).join(' | '),[c.principle?'القاعدة: '+c.principle:'',c.summary||'',c.body||''].filter(Boolean).join('\n\n')+(c.refs?'\n\nنصوص مستند إليها: '+c.refs:''));}
+function pDoc(d){return pItem(d.title,[d.type,d.author,d.date,d.subject].filter(Boolean).join(' | '),d.body||'');}
+function printItems(title,htmls){if(!window.RPT){window.print();return;}RPT.printFlow(title,htmls.join(''));}
+function printBtn(label,fn){var b=E('button','btn sm',label);b.type='button';b.addEventListener('click',fn);return b;}
+function actions(card,key,citation,printFn){
   var row=E('div','row2 lxa'),b1=E('button','btn sm','نسخ مع الإحالة'),b2=E('button','btn sm',FAV[key]?'★ في المفضلة':'☆ مفضلة'),b3=E('button','btn sm',NOTES[key]?'ملاحظتي ✎':'أضف ملاحظة'),nt=E('textarea','lxn');
   nt.rows=3;nt.placeholder='ملاحظتكم الخاصة (تبقى على هذا الجهاز)';nt.hidden=!NOTES[key];nt.value=NOTES[key]||'';
   b1.addEventListener('click',function(){var t=citation();try{navigator.clipboard.writeText(t);b1.textContent='تم النسخ ✓';setTimeout(function(){b1.textContent='نسخ مع الإحالة';},1600);}catch(e){window.prompt('انسخوا النص',t);}});
   b2.addEventListener('click',async function(){await toggleFav(key);b2.textContent=FAV[key]?'★ في المفضلة':'☆ مفضلة';});
   b3.addEventListener('click',function(){nt.hidden=!nt.hidden;if(!nt.hidden)nt.focus();});
   nt.addEventListener('blur',function(){setNote(key,nt.value.trim());b3.textContent=nt.value.trim()?'ملاحظتي ✎':'أضف ملاحظة';});
-  row.appendChild(b1);row.appendChild(b2);row.appendChild(b3);card.appendChild(row);card.appendChild(nt);
+  row.appendChild(b1);row.appendChild(b2);row.appendChild(b3);if(printFn)row.appendChild(printBtn('طباعة',printFn));card.appendChild(row);card.appendChild(nt);
 }
 function artCard(a,toks,full){
   var t=TX(a.tid)||{name:'',ref:''},c=E('div','lxc'),re=hlRe(toks||[]);
@@ -1839,7 +1853,7 @@ function artCard(a,toks,full){
   var p=E('p','lxb'),big=a.body.length>320&&!full;p.innerHTML=mark(big?snippet(a.body,re,320):a.body,re);c.appendChild(p);
   if(big){var more=E('button','lxm','عرض النص كاملًا');more.addEventListener('click',function(){p.innerHTML=mark(a.body,re);more.remove();});c.appendChild(more);}
   c.appendChild(E('p','lxsrc','المصدر: '+(t.source||'—')));
-  actions(c,'a:'+a.id,function(){return 'المادة '+a.no+' من '+t.name+(t.ref?' ('+t.ref+')':'')+'\n\n'+a.body+'\n\n'+(t.source?'المصدر: '+t.source:'');});
+  actions(c,'a:'+a.id,function(){return 'المادة '+a.no+' من '+t.name+(t.ref?' ('+t.ref+')':'')+'\n\n'+a.body+'\n\n'+(t.source?'المصدر: '+t.source:'');},function(){printItems('المادة '+a.no+' — '+(t.short||t.name),[pArt(a)]);});
   var nav=E('div','row2'),ts=ARTS.filter(function(x){return x.tid===a.tid;}).sort(function(x,y){return x.n-y.n||(x.sfx<y.sfx?-1:1);}),i=ts.findIndex(function(x){return x.id===a.id;});
   if(i>0){var pv=E('button','btn sm','◂ '+ts[i-1].no);pv.addEventListener('click',function(){UI.showArt(ts[i-1]);});nav.appendChild(pv);}
   if(i<ts.length-1){var nx=E('button','btn sm',ts[i+1].no+' ▸');nx.addEventListener('click',function(){UI.showArt(ts[i+1]);});nav.appendChild(nx);}
@@ -1857,7 +1871,7 @@ function caseCard(c,toks){
   if(c.refs){d.appendChild(E('p','lxsrc','نصوص مستند إليها: '+c.refs));var lk=E('div','lxex');String(c.refs).split(/[،,؛;\n]+/).forEach(function(p){if(p.trim())resolveRef(p).forEach(function(a){var tx=TX(a.tid),b=E('button','lxchip','المادة '+a.no+' — '+(tx?tx.short||tx.name:''));b.type='button';b.addEventListener('click',function(){UI.panel('t');UI.showArt(a);});lk.appendChild(b);});});if(lk.children.length)d.appendChild(lk);}
   if(c.tags)d.appendChild(E('p','lxsrc','كلمات مفتاحية: '+c.tags));
   d.appendChild(E('p','lxsrc','المصدر: '+(c.source||'—')));
-  actions(d,'c:'+c.id,function(){return 'قرار محكمة النقض عدد '+(c.num||'—')+(c.date?' بتاريخ '+c.date:'')+(c.chamber?' ('+c.chamber+')':'')+(c.fileno?'، ملف عدد '+c.fileno:'')+'\n'+(c.principle?'القاعدة: '+c.principle+'\n':'')+(c.summary||c.body||'')+(c.source?'\nالمصدر: '+c.source:'');});
+  actions(d,'c:'+c.id,function(){return 'قرار محكمة النقض عدد '+(c.num||'—')+(c.date?' بتاريخ '+c.date:'')+(c.chamber?' ('+c.chamber+')':'')+(c.fileno?'، ملف عدد '+c.fileno:'')+'\n'+(c.principle?'القاعدة: '+c.principle+'\n':'')+(c.summary||c.body||'')+(c.source?'\nالمصدر: '+c.source:'');},function(){printItems('قرار عدد '+(c.num||''),[pCase(c)]);});
   var row=E('div','row2'),ed=E('button','btn sm','تعديل'),dl=E('button','btn sm x','حذف');
   ed.addEventListener('click',function(){UI.editCase(c);});
   var armed=false;dl.addEventListener('click',async function(){if(!armed){armed=true;dl.textContent='تأكيد الحذف';setTimeout(function(){armed=false;dl.textContent='حذف';},3000);return;}await delKeys('cases',[c.id]);await load();UI.runJ();UI.stats();});
@@ -1890,7 +1904,7 @@ UI.build=function(){
     if(!TEXTS.length)lib.appendChild(E('p','note','لم تُحمَّل نصوص بعد. استعملوا «إدارة القاعدة» لاستيراد نص.'));}
   function show(list,toks,note,max){out.textContent='';if(note)out.appendChild(E('p','msg',note));
     if(!list.length&&!note)out.appendChild(E('p','note','لا نتائج. جرّبوا كلمات أخرى أو غيّروا الفرع أو النص.'));
-    else if(list.length)out.appendChild(E('p','lxcount',nres(list.length)));
+    else if(list.length){out.appendChild(E('p','lxcount',nres(list.length)));out.appendChild(printBtn('طباعة النتائج ('+Math.min(list.length,200)+')',function(){printItems('نتائج البحث في النصوص القانونية',list.slice(0,200).map(function(r){return pArt(r.a);}));}));}
     list.slice(0,max||30).forEach(function(r){out.appendChild(artCard(r.a,toks,false));});
     if(list.length>(max||30)){var m=E('button','btn',' عرض المزيد');m.addEventListener('click',function(){show(list,toks,note,(max||30)+30);});out.appendChild(m);}}
   var tm;function runT(){clearTimeout(tm);var v=q.value.trim(),f={branch:sb.value,tid:st.value,no:sn.value.replace(/\D/g,'')};lib.hidden=!!(v||f.branch||f.tid||f.no);
@@ -1903,7 +1917,7 @@ UI.build=function(){
     var groups=[],gm={};ts.forEach(function(a){var g=(a.title||'').split(' › ')[0];if(!(g in gm)){gm[g]={g:g,items:[]};groups.push(gm[g]);}gm[g].items.push(a);});
     function chipsOf(items){var c=E('div','lxex');items.forEach(function(a){var b=E('button','lxchip',a.no);b.type='button';b.addEventListener('click',function(){UI.showArt(a);});c.appendChild(b);});return c;}
     if(groups.length===1&&!groups[0].g)h.appendChild(chipsOf(ts));else groups.forEach(function(G){var dt=E('details','lxtoc');dt.appendChild(E('summary',null,(G.g||'بدون عنوان')+' ('+G.items.length+')'));dt.appendChild(chipsOf(G.items));h.appendChild(dt);});
-    var back=E('button','btn sm','◂ رجوع إلى النصوص');back.addEventListener('click',function(){out.textContent='';lib.hidden=false;});h.appendChild(back);out.appendChild(h);out.scrollIntoView({behavior:'smooth',block:'start'});};
+    var back=E('button','btn sm','◂ رجوع إلى النصوص');back.addEventListener('click',function(){out.textContent='';lib.hidden=false;});h.appendChild(back);h.appendChild(printBtn('طباعة النص كاملًا',function(){printItems(t.name,[pItem(t.name,[t.ref,t.source].filter(Boolean).join(' | '),'')].concat(ts.map(pArt)));}));out.appendChild(h);out.scrollIntoView({behavior:'smooth',block:'start'});};
   /* --- case-law panel --- */
   var jbox=E('div','lxbar'),jq=mkInput('رقم القرار أو كلمات مثل: التعويض عن الضرر، الإخلاء، النفقة');jq.id='lxjq';jbox.appendChild(jq);pj.appendChild(jbox);
   var jlk=E('p','lxsrc'),ja=E('a',null,'البحث الرسمي في قرارات محكمة النقض');ja.href='https://juriscassation.cspj.ma';ja.target='_blank';ja.rel='noopener';jlk.appendChild(ja);jlk.appendChild(document.createTextNode(' (ابحثوا هناك ثم الصقوا القرار في «إدارة القاعدة» ليدخل مكتبتكم)'));pj.appendChild(jlk);
@@ -1912,7 +1926,7 @@ UI.build=function(){
   var jform=E('details','card');jform.id='lxjform';pj.appendChild(jform);
   function runJ(){var v=jq.value.trim(),f={chamber:jc.value,year:jy.value.trim()};jout.textContent='';
     if(!CASES.length){jout.appendChild(E('p','note','لا توجد قرارات في القاعدة بعد. أضيفوا قرارًا من النموذج أدناه، أو استوردوا ملف قرارات من «إدارة القاعدة».'));return;}
-    var r=searchCases(v,f);if(!r.res.length)jout.appendChild(E('p','note','لا نتائج.'));else jout.appendChild(E('p','lxcount',ndec(r.res.length)));
+    var r=searchCases(v,f);if(!r.res.length)jout.appendChild(E('p','note','لا نتائج.'));else{jout.appendChild(E('p','lxcount',ndec(r.res.length)));jout.appendChild(printBtn('طباعة النتائج ('+Math.min(r.res.length,100)+')',function(){printItems('نتائج البحث في الاجتهاد القضائي',r.res.slice(0,100).map(function(x){return pCase(x.c);}));}));}
     r.res.slice(0,40).forEach(function(x){jout.appendChild(caseCard(x.c,r.toks));});}
   var jt;jq.addEventListener('input',function(){clearTimeout(jt);jt=setTimeout(runJ,220);});jc.addEventListener('change',runJ);jy.addEventListener('input',runJ);UI.runJ=runJ;
   UI.showCases=function(ids,title){UI.panel('j');jout.textContent='';jout.appendChild(E('p','lxcount',title+' — '+ndec(ids.length)));ids.forEach(function(id){var c=CASES.filter(function(x){return x.id===id;})[0];if(c)jout.appendChild(caseCard(c,[]));});jout.scrollIntoView({behavior:'smooth',block:'start'});};
@@ -1929,7 +1943,7 @@ UI.build=function(){
     var body=d.body||'',p=E('p','lxb');p.innerHTML=mark(snippet(body,re,320),re);if(body)c.appendChild(p);
     if(body.length>320){var more=E('button','lxm','عرض النص كاملًا');more.type='button';more.addEventListener('click',function(){var full=E('div','lxfull');full.innerHTML=mark(body,re).replace(/\n/g,'<br>');c.insertBefore(full,more);more.remove();});c.appendChild(more);}
     if(d.tags)c.appendChild(E('p','lxsrc','كلمات مفتاحية: '+d.tags));
-    actions(c,'d:'+d.id,function(){return d.title+(d.author?' — '+d.author:'')+(d.date?' ('+d.date+')':'');});
+    actions(c,'d:'+d.id,function(){return d.title+(d.author?' — '+d.author:'')+(d.date?' ('+d.date+')':'');},function(){printItems(d.title,[pDoc(d)]);});
     var row=E('div','row2'),be=E('button','btn sm','تعديل'),bd=E('button','btn sm','حذف'),arm=false;be.type=bd.type='button';
     be.addEventListener('click',function(){buildDForm(d);dform.open=true;dform.scrollIntoView({behavior:'smooth'});});
     bd.addEventListener('click',async function(){if(!arm){arm=true;bd.textContent='تأكيد الحذف';setTimeout(function(){arm=false;bd.textContent='حذف';},3000);return;}await delDoc(d.id);await load();UI.stats();});
@@ -1937,7 +1951,7 @@ UI.build=function(){
   }
   function runD(){var r=searchDocs(dq.value.trim(),{type:dsel.value});dout.textContent='';
     if(!DOCS.length){dout.appendChild(E('p','note','لا توجد مقالات أو مذكرات بعد. أضيفوا أول وثيقة من النموذج أدناه، أو الصقوا نصها أو ارفعوا ملفها.'));return;}
-    if(!r.res.length)dout.appendChild(E('p','note','لا نتائج.'));else dout.appendChild(E('p','lxcount',r.res.length+(r.res.length===1?' وثيقة':' وثائق')));
+    if(!r.res.length)dout.appendChild(E('p','note','لا نتائج.'));else{dout.appendChild(E('p','lxcount',r.res.length+(r.res.length===1?' وثيقة':' وثائق')));dout.appendChild(printBtn('طباعة النتائج ('+Math.min(r.res.length,100)+')',function(){printItems('المقالات والمذكرات',r.res.slice(0,100).map(function(x){return pDoc(x.d);}));}));}
     r.res.slice(0,40).forEach(function(x){dout.appendChild(docCard(x.d,r.toks));});}
   var dtm;dq.addEventListener('input',function(){clearTimeout(dtm);dtm=setTimeout(runD,220);});dsel.addEventListener('change',runD);UI.runD=runD;
   function buildDForm(d){d=d||{};dform.textContent='';dform.appendChild(E('summary',null,d.id?'تعديل وثيقة':'إضافة مقال أو مذكرة'));var F={},g=E('div','trf');
@@ -2198,6 +2212,124 @@ function showDiaryPane(k){
   $('dpane-proc').hidden=k!=='proc';$('dpane-misc').hidden=k!=='misc';
 }
 
+/* ===== reports: PDF and print, shared by the office page and the app ===== */
+var RPT=(function(){
+  var CFG={firm:'مكتب الزلوطي للمحاماة',lawyer:'الأستاذ عبد الحكيم الزلوطي',tel:'0661410274'};
+  var W=794,H=1123,SC=1.7,CAP=12;
+  var FONT="'Noto Naskh Arabic','Noto Sans Arabic','Tajawal',Tahoma,'Segoe UI',Arial,sans-serif";
+  function two(n){return ('0'+n).slice(-2);}
+  function E(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  function nl(s){return E(s).replace(/\n/g,'<br/>');}
+  function addDays(iso,n){var p=iso.split('-'),x=new Date(+p[0],+p[1]-1,+p[2]+n);return x.getFullYear()+'-'+two(x.getMonth()+1)+'-'+two(x.getDate());}
+  function longDate(iso){var p=iso.split('-'),d=new Date(+p[0],+p[1]-1,+p[2]);try{return d.toLocaleDateString('ar-MA',{weekday:'long',day:'numeric',month:'long',year:'numeric'});}catch(e){return iso;}}
+  function mondayOf(iso){var p=iso.split('-'),d=new Date(+p[0],+p[1]-1,+p[2]),k=(d.getDay()+6)%7;return addDays(iso,-k);}
+  function rangeOf(range,iso){iso=iso||today();return range==='day'?{from:iso,to:iso}:{from:mondayOf(iso),to:addDays(mondayOf(iso),6)};}
+  function rangeLabel(range,iso){var r=rangeOf(range,iso);return range==='day'?longDate(r.from):'من الاثنين '+fd(r.from)+' إلى الأحد '+fd(r.to);}
+  function nowText(){var d=new Date();return two(d.getDate())+'/'+two(d.getMonth()+1)+'/'+d.getFullYear()+' '+two(d.getHours())+':'+two(d.getMinutes());}
+  function toast(t){try{var d=document.createElement('div');d.textContent=t;d.style.cssText='position:fixed;z-index:9999;left:50%;bottom:110px;transform:translateX(-50%);max-width:88vw;padding:.65rem 1.1rem;border-radius:999px;background:rgba(11,36,32,.92);color:#f6f1e2;border:1px solid rgba(230,200,115,.7);font:600 .95rem sans-serif;text-align:center;box-shadow:0 12px 30px rgba(0,0,0,.45)';document.body.appendChild(d);setTimeout(function(){d.remove();},3600);}catch(e){}}
+  var CSS='<style>.pg,.fl{background:#fff;color:#14211e;font-family:'+FONT+';direction:rtl;font-size:13.5px;line-height:1.55}.pg{width:'+W+'px;height:'+H+'px;padding:40px 46px;position:relative;overflow:hidden;box-sizing:border-box}.fl{padding:10mm 12mm}'
+   +'.hd{display:flex;align-items:flex-end;justify-content:space-between;border-bottom:3px solid #c8a24a;padding-bottom:10px;margin-bottom:14px}.firm{font-size:22px;font-weight:700;color:#0b2420}.lw{font-size:13px;color:#6b5a1f}.dt{font-size:11.5px;color:#555}'
+   +'h1{font-size:21px;margin:6px 0 2px;color:#0b2420}.sub{font-size:12.5px;color:#555;margin-bottom:12px}table{width:100%;border-collapse:collapse;margin:6px 0 12px}th{background:#0b2420;color:#f0d68a;font-size:12.5px;text-align:right;padding:6px 8px}'
+   +'td{border-bottom:1px solid #d9d2b6;padding:6px 8px;vertical-align:top;text-align:right}tr.day td{background:#f3ecd6;color:#0b2420;font-weight:700;border-top:2px solid #c8a24a}.tm{width:64px;font-weight:700;white-space:nowrap}.rf{font-size:11.5px;color:#666}'
+   +'h2{font-size:15px;color:#0b2420;border-right:4px solid #c8a24a;padding-right:8px;margin:14px 0 6px}.kv td{border:0;padding:2px 8px}.kv td:first-child{width:130px;color:#6b5a1f;font-weight:700}'
+   +'.ft{position:absolute;left:46px;right:46px;bottom:22px;border-top:1px solid #d9d2b6;padding-top:6px;font-size:11px;color:#777;display:flex;justify-content:space-between}.empty{padding:40px 0;text-align:center;color:#777;font-size:15px}'
+   +'.it{page-break-inside:avoid;border:1px solid #d9d2b6;border-right:4px solid #c8a24a;border-radius:6px;padding:8px 12px;margin:0 0 10px}.it .t{font-weight:700;color:#0b2420}.it .m{font-size:11.5px;color:#666;margin:2px 0 4px}.it .b{white-space:pre-wrap}.ft2{margin-top:14px;border-top:1px solid #d9d2b6;padding-top:6px;font-size:11px;color:#777;text-align:center}</style>';
+  function head(title,sub){return '<div class="hd"><div><div class="firm">'+E(CFG.firm)+'</div><div class="lw">'+E(CFG.lawyer)+'</div></div><div class="dt">'+E(nowText())+'</div></div><h1>'+E(title)+'</h1>'+(sub?'<div class="sub">'+E(sub)+'</div>':'');}
+  function foot(n,t){return '<div class="ft"><span>'+E(CFG.firm)+' — '+E(CFG.tel)+'</span><span>صفحة '+n+' من '+t+'</span></div>';}
+  function fixed(inner,n,t){return CSS+'<div class="pg">'+inner+foot(n,t)+'</div>';}
+  function flow(inner){return CSS+'<div class="fl">'+inner+'<div class="ft2">'+E(CFG.firm)+' — '+E(CFG.tel)+'</div></div>';}
+  /* ---------- procedural appointments ---------- */
+  function agendaData(range,iso){
+    var r=rangeOf(range,iso);
+    var ev=events().filter(function(e){return !(e.f&&e.f.diary)&&e.a.d>=r.from&&e.a.d<=r.to;}).sort(function(a,b){return a.start-b.start;});
+    return {ev:ev,from:r.from,to:r.to};
+  }
+  function evRow(e){var f=e.f;return '<tr><td class="tm">'+E(e.a.t||'—')+'</td><td><b>'+E(fname(f))+'</b><div class="rf">'+E(refLine(f))+'</div></td><td>'+E(place(e))+'</td><td>'+E(e.a.a||'')+'</td></tr>';}
+  function agendaUnits(ev){var u=[],cur='';ev.forEach(function(e){if(e.a.d!==cur){cur=e.a.d;u.push({h:'<tr class="day"><td colspan="4">'+E(longDate(cur))+'</td></tr>',c:.6});}u.push({h:evRow(e),c:((e.a.a||'').length+(refLine(e.f)||'').length>110)?1.6:1});});return u;}
+  var THEAD='<tr><th>الساعة</th><th>الملف</th><th>المحكمة والقاعة</th><th>الإجراء</th></tr>';
+  function agendaTitle(range,d){return range==='day'?'المواعيد الإجرائية ليوم '+longDate(d.from):'المواعيد الإجرائية للأسبوع';}
+  function agendaSub(range,d){return (range==='day'?'':'من الاثنين '+fd(d.from)+' إلى الأحد '+fd(d.to)+' | ')+(d.ev.length?d.ev.length+(d.ev.length===1?' موعد':' مواعيد'):'لا مواعيد')+' (جلسات وآجال)';}
+  function agendaFixed(range,iso){
+    var d=agendaData(range,iso),title=agendaTitle(range,d),sub=agendaSub(range,d),u=agendaUnits(d.ev),pages=[],cur=[],cost=0;
+    u.forEach(function(x){if(cost+x.c>CAP&&cur.length){pages.push(cur);cur=[];cost=0;}cur.push(x);cost+=x.c;});if(cur.length||!pages.length)pages.push(cur);
+    var html=pages.map(function(p,i){return fixed(head(title,sub)+(d.ev.length?'<table>'+THEAD+p.map(function(x){return x.h;}).join('')+'</table>':'<div class="empty">لا توجد مواعيد إجرائية في هذه الفترة.</div>'),i+1,pages.length);});
+    return {pages:html,name:(range==='day'?'مواعيد-يوم-':'مواعيد-أسبوع-')+d.from+'.pdf'};
+  }
+  function agendaFlow(range,iso){var d=agendaData(range,iso),u=agendaUnits(d.ev);return flow(head(agendaTitle(range,d),agendaSub(range,d))+(d.ev.length?'<table>'+THEAD+u.map(function(x){return x.h;}).join('')+'</table>':'<div class="empty">لا توجد مواعيد إجرائية في هذه الفترة.</div>'));}
+  /* ---------- file sheet ---------- */
+  function fileInner(f){
+    var kv=function(k,v){return v?'<tr><td>'+E(k)+'</td><td>'+E(v)+'</td></tr>':'';};
+    var h='<h1>'+E(fname(f))+'</h1><div class="sub">'+E(refLine(f))+'</div>';
+    h+='<h2>بيانات الملف</h2><table class="kv">'+kv('المحكمة',f.court)+kv('نوع القضية',f.kind)+kv('مرجعنا',f.our)+kv('الحالة',(typeof STN!=='undefined'&&STN[f.st])||'')+kv('القاعة',f.room)+kv('القاضي(ة) المقرر(ة)',f.judge)+kv('آخر تحديث',f.u?fd(f.u):'')+kv('ملاحظات',f.note)+'</table>';
+    h+='<h2>الأطراف</h2><table class="kv">'+kv('الموكل',f.cli)+kv('هاتف الموكل',f.tel)+kv('الخصم',f.adv)+kv('ينوب عنه',f.advl)+'</table>';
+    var acts=(f.acts||[]).slice().sort(function(a,b){return (a.d+(a.t||'')).localeCompare(b.d+(b.t||''));});
+    h+='<h2>الإجراءات والجلسات</h2>'+(acts.length?'<table><tr><th>التاريخ</th><th>الساعة</th><th>القاعة</th><th>الإجراء</th></tr>'+acts.map(function(a){return '<tr><td>'+E(fd(a.d))+'</td><td>'+E(a.t||'—')+'</td><td>'+E(a.r||'')+'</td><td>'+E(a.a||'')+'</td></tr>';}).join('')+'</table>':'<div class="rf">لا إجراءات مسجلة.</div>');
+    var paid=(f.pays||[]).reduce(function(s,y){return s+(+y.a||0);},0),fee=+f.fee||0;
+    if(fee||paid){h+='<h2>الأتعاب</h2><table class="kv">'+kv('المتفق عليه',money(fee)+' د.م')+kv('المدفوع',money(paid)+' د.م')+kv('المتبقي',money(Math.max(0,fee-paid))+' د.م')+'</table>';
+      if((f.pays||[]).length)h+='<table><tr><th>التاريخ</th><th>المبلغ</th><th>ملاحظة</th></tr>'+f.pays.map(function(y){return '<tr><td>'+E(fd(y.d))+'</td><td>'+E(money(y.a))+' د.م</td><td>'+E(y.n||'')+'</td></tr>';}).join('')+'</table>';}
+    return h;
+  }
+  function fileFixedPages(f){var inner=fileInner(f);return {pages:[fixed(head('بطاقة ملف','')+inner,1,1)],name:'ملف-'+String(f.no||'')+'-'+String(f.yr||'')+'.pdf'};}
+  function fileFlow(f){return flow(head('بطاقة ملف','')+fileInner(f));}
+  /* ---------- rendering ---------- */
+  function toCanvas(html){return new Promise(function(res,rej){
+    var xml='<svg xmlns="http://www.w3.org/2000/svg" width="'+W+'" height="'+H+'"><foreignObject x="0" y="0" width="'+W+'" height="'+H+'"><div xmlns="http://www.w3.org/1999/xhtml">'+html+'</div></foreignObject></svg>';
+    var img=new Image();img.onload=function(){var c=document.createElement('canvas');c.width=Math.round(W*SC);c.height=Math.round(H*SC);var g=c.getContext('2d');g.fillStyle='#fff';g.fillRect(0,0,c.width,c.height);g.drawImage(img,0,0,c.width,c.height);res(c);};img.onerror=function(){rej(new Error('render'));};
+    img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(xml);});}
+  function S(s){var u=new Uint8Array(s.length);for(var i=0;i<s.length;i++)u[i]=s.charCodeAt(i)&255;return u;}
+  function jpeg(c){var b=atob(c.toDataURL('image/jpeg',0.84).split(',')[1]),u=new Uint8Array(b.length);for(var i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u;}
+  function buildPDF(canvases){
+    var ch=[],off=[],len=0,n=canvases.length,N=2+3*n;function add(u){ch.push(u);len+=u.length;}
+    function obj(k,dict,stream){off[k]=len;add(S(k+' 0 obj\n'+dict+'\n'));if(stream){add(S('stream\n'));add(stream);add(S('\nendstream\n'));}add(S('endobj\n'));}
+    add(S('%PDF-1.4\n'));
+    obj(1,'<< /Type /Catalog /Pages 2 0 R >>');
+    var kids=[];for(var i=0;i<n;i++)kids.push((5+3*i)+' 0 R');
+    obj(2,'<< /Type /Pages /Kids ['+kids.join(' ')+'] /Count '+n+' >>');
+    for(var j=0;j<n;j++){
+      var jb=jpeg(canvases[j]),w=canvases[j].width,h=canvases[j].height,im=3+3*j,ct=4+3*j,pg=5+3*j,cs='q 595.28 0 0 841.89 0 0 cm /Im0 Do Q';
+      obj(im,'<< /Type /XObject /Subtype /Image /Width '+w+' /Height '+h+' /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length '+jb.length+' >>',jb);
+      obj(ct,'<< /Length '+cs.length+' >>',S(cs));
+      obj(pg,'<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Resources << /XObject << /Im0 '+im+' 0 R >> >> /Contents '+ct+' 0 R >>');
+    }
+    var x=len,s='xref\n0 '+(N+1)+'\n0000000000 65535 f \n';for(var k=1;k<=N;k++)s+=('0000000000'+off[k]).slice(-10)+' 00000 n \n';
+    add(S(s+'trailer\n<< /Size '+(N+1)+' /Root 1 0 R >>\nstartxref\n'+x+'\n%%EOF'));
+    return new Blob(ch,{type:'application/pdf'});
+  }
+  function makePDF(pages){var seq=Promise.resolve([]);pages.forEach(function(h){seq=seq.then(function(a){return toCanvas(h).then(function(c){a.push(c);return a;});});});return seq.then(buildPDF);}
+  function b64(blob){return new Promise(function(res){var r=new FileReader();r.onload=function(){res(String(r.result).split(',')[1]);};r.readAsDataURL(blob);});}
+  function save(blob,name){
+    var FS=(window.Capacitor&&window.Capacitor.Plugins)?window.Capacitor.Plugins.FileSaver:null;
+    if(FS){return b64(blob).then(function(d){return FS.savePdf({name:name,data:d});}).then(function(){toast('تم الحفظ في مجلد التنزيلات وفتح الملف');}).catch(function(){toast('تعذر حفظ الملف. حدّثوا التطبيق بآخر إصدار.');});}
+    var u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();setTimeout(function(){a.remove();URL.revokeObjectURL(u);},4000);toast('تم إنشاء الملف');return Promise.resolve();
+  }
+  function printHTML(html,title){
+    var f=document.createElement('iframe');f.style.cssText='position:fixed;right:0;bottom:0;width:0;height:0;border:0;visibility:hidden';document.body.appendChild(f);
+    var d=f.contentWindow.document;d.open();d.write('<!doctype html><html dir="rtl" lang="ar"><head><meta charset="utf-8"><title>'+E(title||'طباعة')+'</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap"><style>@page{size:A4;margin:0}body{margin:0;background:#fff}.pg{page-break-after:always}</style></head><body>'+html+'</body></html>');d.close();
+    setTimeout(function(){try{f.contentWindow.focus();f.contentWindow.print();}catch(e){}setTimeout(function(){f.remove();},2500);},700);
+  }
+  function preview(html){var o=document.createElement('div');o.style.cssText='position:fixed;left:0;top:0;right:0;bottom:0;z-index:9998;background:#e9e6dc;overflow:auto;padding:12px';
+    var x=document.createElement('button');x.textContent='إغلاق المعاينة';x.style.cssText='position:sticky;top:0;display:block;margin:0 0 10px auto;padding:.6rem 1.2rem;border-radius:999px;border:0;background:#0b2420;color:#f0d68a;font:700 1rem sans-serif';x.onclick=function(){o.remove();};
+    var box=document.createElement('div');box.style.cssText='background:#fff;max-width:820px;margin:0 auto;overflow-x:auto';box.innerHTML=html;o.appendChild(x);o.appendChild(box);document.body.appendChild(o);}
+  var busy=false;
+  function run(spec,mode,flowHtml){
+    if(busy)return;
+    var nat=!!(window.Capacitor&&typeof window.Capacitor.isNativePlatform==='function'&&window.Capacitor.isNativePlatform()),hasFS=!!(window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.FileSaver);
+    if(nat&&!hasFS){preview(flowHtml);toast('الطباعة المباشرة تتطلب تحديث التطبيق. هذه معاينة للقراءة.');return;}
+    if(mode==='print'&&!hasFS){printHTML(flowHtml,spec.name);return;}
+    busy=true;toast('جارٍ إنشاء ملف PDF …');
+    makePDF(spec.pages).then(function(b){return save(b,spec.name);}).catch(function(){toast('تعذر إنشاء الملف');}).then(function(){busy=false;});
+  }
+  return {
+    cfg:CFG,toast:toast,
+    agenda:function(range,mode,iso){run(agendaFixed(range,iso),mode,agendaFlow(range,iso));},
+    rangeLabel:rangeLabel,
+    file:function(fid,mode){var f=items[fid];if(!f)return;run(fileFixedPages(f),mode,fileFlow(f));},
+    printFlow:function(title,inner){printHTML(flow(head(title,'')+inner),title);},
+    flowCss:CSS,esc:E,nl:nl,
+    _t:{agendaFixed:agendaFixed,fileFixedPages:fileFixedPages,makePDF:makePDF,toCanvas:toCanvas}
+  };
+})();
+
 /* ---------- wiring ---------- */
 function show(tab){
   ['agenda','files','dl','lex','set'].forEach(function(t){$('p-'+t).hidden=(t!==tab);});
@@ -2206,6 +2338,7 @@ function show(tab){
 }
 document.querySelectorAll('.tabs button').forEach(function(b){b.addEventListener('click',function(){show(b.dataset.tab);});});
 $('mflt').addEventListener('change',renderFiles);
+  (function(){var r=$('rprange'),d=$('rpdate'),i=$('rpinfo');d.value=today();function u(){i.textContent=RPT.rangeLabel(r.value,d.value||today());}r.addEventListener('change',u);d.addEventListener('change',u);u();$('rpprint').addEventListener('click',function(){RPT.agenda(r.value,'print',d.value||today());});})();
   $('dsave').addEventListener('click',saveDiary);$('dcancel').addEventListener('click',clearDForm);clearDForm();
   [].slice.call(document.querySelectorAll('#dseg button')).forEach(function(b){b.addEventListener('click',function(){showDiaryPane(b.getAttribute('data-d'));});});
 $('mcancel').addEventListener('click',clearForm);
