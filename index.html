@@ -93,6 +93,9 @@ h1{font:600 clamp(1.05rem,3.6vw,1.6rem)/1.3 "Playfair Display",Georgia,serif;let
 @keyframes bob{0%,100%{translate:0 0}50%{translate:0 -5px}}
 .pti b{font-size:1.12rem;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.25)}
 .pti small{color:rgba(246,241,226,.8);line-height:1.5;font-weight:400}
+.pgh{grid-column:1/-1;margin:.5rem .2rem 0;color:#e6c873;font-weight:700;display:flex;align-items:center;gap:.7rem}.pgh::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,rgba(230,200,115,.7),transparent)}
+.pt.tool .pti{padding:.8rem .9rem;gap:.25rem}.pt.tool .ic{width:42px;height:42px}.pt.tool b{font-size:1rem}.pt.tool small{font-size:.82rem}
+.seg{overflow-x:auto;scrollbar-width:none}.seg::-webkit-scrollbar{display:none}.seg button{white-space:nowrap;flex:none}
 .pt.wide{grid-column:1/-1}@media(min-width:860px){.pt.wide{grid-column:span 2}}.pt.wide .pti{display:flex;align-items:center;gap:1rem;padding:.9rem 1.1rem}.pt.wide .tx{display:grid;gap:.15rem}
 .rip{position:absolute;width:18px;height:18px;margin:-9px 0 0 -9px;border-radius:50%;background:rgba(255,255,255,.5);pointer-events:none;animation:rip .8s ease-out forwards}
 @keyframes rip{to{transform:scale(16);opacity:0}}
@@ -266,6 +269,10 @@ footer{background:var(--green);color:#9fb0a7;text-align:center;font-size:.9rem;p
 <symbol id="i-trk" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></symbol>
 <symbol id="i-lock" viewBox="0 0 24 24"><path d="M18 8h-1V6a5 5 0 0 0-10 0v2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2zm-6 9a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm3.1-9H8.9V6a3.1 3.1 0 0 1 6.2 0v2z"/></symbol>
 <symbol id="i-calc" viewBox="0 0 24 24"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zM7.5 18a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm0-4.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm4.5 4.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm0-4.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zM16.5 18a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm0-4.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zM18 9H6V6h12v3z"/></symbol>
+<symbol id="i-fam" viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></symbol>
+<symbol id="i-gav" viewBox="0 0 24 24"><path d="M6 2v6h.01L6 8.01 10 12l-4 4 .01.01H6V22h12v-5.99h-.01L18 16l-4-4 4-3.99-.01-.01H18V2H6zm10 14.5V20H8v-3.5l4-4 4 4zm-4-5l-4-4V4h8v3.5l-4 4z"/></symbol>
+<symbol id="i-hash" viewBox="0 0 24 24"><path d="M20 10V8h-4V4h-2v4h-4V4H8v4H4v2h4v4H4v2h4v4h2v-4h4v4h2v-4h4v-2h-4v-4h4zm-6 4h-4v-4h4v4z"/></symbol>
+<symbol id="i-car" viewBox="0 0 24 24"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></symbol>
 <symbol id="i-cal" viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 16H5V10h14v10z"/></symbol>
 </svg>
 
@@ -305,7 +312,11 @@ footer{background:var(--green);color:#9fb0a7;text-align:center;font-size:.9rem;p
     <a href="#track" class="pt"><span class="pti"><span class="ic"><svg><use href="#i-trk"/></svg></span><b data-t="pt2">متابعة الملف</b><small data-t="pt2s">اطّلعوا على مرحلة ملفكم</small></span></a>
     <a href="#hours" class="pt"><span class="pti"><span class="ic"><svg><use href="#i-clock"/></svg></span><b data-t="pt3">المواعيد</b><small data-t="pt3s">أوقات العمل والاستقبال</small></span></a>
     <a href="#contact" class="pt"><span class="pti"><span class="ic"><svg><use href="#i-tel"/></svg></span><b data-t="pt4">التواصل</b><small data-t="pt4s">الهاتف والواتساب والعنوان</small></span></a>
-    <a href="#help" class="pt wide"><span class="pti"><span class="ic"><svg><use href="#i-calc"/></svg></span><span class="tx"><b data-t="pt6">بوابة المساعدة</b><small data-t="pt6s">حاسبة الإرث وآجال الطعن</small></span></span></a>
+    <p class="pgh" data-t="pgh">أدوات قانونية</p>
+    <a href="#help" class="pt tool" data-tool="inh"><span class="pti"><span class="ic"><svg><use href="#i-fam"/></svg></span><b data-t="tl1">حاسبة الإرث</b><small data-t="tl1s">وفق مدونة الأسرة</small></span></a>
+    <a href="#help" class="pt tool" data-tool="dl"><span class="pti"><span class="ic"><svg><use href="#i-gav"/></svg></span><b data-t="tl2">آجال الطعن</b><small data-t="tl2s">مدنيًا وجنائيًا</small></span></a>
+    <a href="#help" class="pt tool" data-tool="cd"><span class="pti"><span class="ic"><svg><use href="#i-hash"/></svg></span><b data-t="tl3">القضية من الرمز</b><small data-t="tl3s">نوع الملف ومرحلته</small></span></a>
+    <a href="#help" class="pt tool" data-tool="cp"><span class="pti"><span class="ic"><svg><use href="#i-car"/></svg></span><b data-t="tl4">حوادث السير</b><small data-t="tl4s">التعويض وفق القانون 70.24</small></span></a>
     <a href="office.html" class="pt wide"><span class="pti"><span class="ic"><svg><use href="#i-lock"/></svg></span><span class="tx"><b data-t="pt5">فضاء المكتب</b><small data-t="pt5s">دخول فريق المكتب: الملفات والآجال والمساعدة</small></span></span></a>
   </nav>
 </div>
@@ -406,13 +417,15 @@ footer{background:var(--green);color:#9fb0a7;text-align:center;font-size:.9rem;p
 
 <div class="alt">
 <section class="sec" id="help">
-  <h2 class="rv" data-t="hp_h">بوابة المساعدة: الإرث وآجال الطعن</h2>
+  <h2 class="rv" data-t="hp_h">بوابة المساعدة: أدوات قانونية</h2>
   <div class="card rv">
-    <p class="lead" data-t="hp_p">أداتان للإرشاد: حاسبة الإرث وفق مدونة الأسرة المغربية (الكتاب السادس) بما فيها الحجب والعول والرد والأجداد والإخوة والوصية الواجبة للأحفاد، وحاسبة آجال الطعن وفق قانون المسطرة المدنية رقم 58.25.</p>
-    <div class="seg" role="tablist"><button type="button" role="tab" aria-selected="true" data-tool="inh" data-t="seg1">حاسبة الإرث</button><button type="button" role="tab" aria-selected="false" data-tool="dl" data-t="seg2">آجال الطعن</button></div>
+    <p class="lead" data-t="hp_p">أربع أدوات للإرشاد: حاسبة الإرث وفق مدونة الأسرة، وحاسبة آجال الطعن وفق المسطرة المدنية (القانون 58.25) والمسطرة الجنائية، ومعرفة نوع القضية من رمزها، والتعويض عن حوادث السير وفق ظهير 1984 كما عدّله القانون 70.24.</p>
+    <div class="seg" role="tablist"><button type="button" role="tab" aria-selected="true" data-tool="inh" data-t="seg1">حاسبة الإرث</button><button type="button" role="tab" aria-selected="false" data-tool="dl" data-t="seg2">آجال الطعن</button><button type="button" role="tab" aria-selected="false" data-tool="cd" data-t="seg3">القضية من الرمز</button><button type="button" role="tab" aria-selected="false" data-tool="cp" data-t="seg4">حوادث السير</button></div>
     <div id="inhbox"></div>
     <div id="dlbox" hidden></div>
-    <p class="note" data-t="hp_note">الأدوات بالعربية وللإرشاد فقط، ولا تغني عن عقد الإراثة ولا عن النص القانوني ولا عن استشارة المحامي. وللاستفسار أو لتتبّع آجال ملفكم تواصلوا مع المكتب.</p>
+    <div id="cdbox" hidden></div>
+    <div id="cpbox" hidden></div>
+    <p class="note" data-t="hp_note">الأدوات بالعربية وللإرشاد فقط، ولا تغني عن النص القانوني ولا عن عقد الإراثة ولا عن استشارة المحامي. والخطأ في الأجل قد يُسقط الحق. وللاستفسار تواصلوا مع المكتب.</p>
   </div>
 </section>
 
@@ -759,13 +772,516 @@ var DLUI=(function(){
   };
 })();
 
+var CODE_TXT=`1101|الاستعجالي
+1102|الأمر بالأداء
+1103|الحجز التحفظي
+1104|الحجز لدى الغير
+1105|التقييد الاحتياطي
+1106|الإنذار العقاري
+1107|الإنذار بأداء الكراء
+1108|الإحالة
+1109|باقي الأوامر المبنية على الطلب
+1110|تبليغ إنذار ظ.ش 64-99
+1111|المصادقة على الإنذار ظ.ش 64-99
+1112|المصادقة على الحجز لدى الغير
+1113|الإلغاء (قضاء القرب)
+1114|طلبات الاستفادة من صندوق التكافل العائلي
+1115|محاولة الصلح (ظهير 24 ماي 1955)
+1118|استرجاع الناقلة
+1120|الطعن ضد مقررات تحديد الأتعاب الصادرة عن نقيب المحامين
+1121|صعوبة التنفيذ
+1122|أداء اليمين المهنية
+1123|إيقاف التنفيذ
+1124|الطعون ضد مقررات مجلس الهيئة ونزاعات المحامين
+1125|مخالفات العدول المهنية
+1126|مخالفات المفوضين القضائيين المهنية
+1127|مخالفات الموثقين المهنية
+1128|تجريح القضاة
+1154|المصادقة على الحجز لدى الغير المستأنفة
+1201|المدني المتنوع
+1202|المسؤولية التقصيرية
+1203|التجاري
+1204|الإداري
+1205|المدني النهائي
+1206|المدني مقاطعات
+1207|تذييل بالصيغة التنفيذية
+1208|المسطرة التأديبية
+1209|قضايا المشورة مدني
+1210|مدني عبري
+1211|المنازعات الانتخابية
+1220|الأوامر بالأداء المستأنفة
+1221|القضايا الاستعجالية المستأنفة
+1251|المدني المتنوع المستأنف
+1252|المسؤولية التقصيرية المستأنفة
+1253|التجاري المستأنف
+1254|الإداري المستأنف
+1255|المدني النهائي المستأنف
+1256|المدني مقاطعات المستأنف
+1257|غرفة المشورة للقضايا المدنية المستأنفة
+1258|مدني عبري مستأنف
+1301|أداء واجبات الكراء
+1302|الإفراغ
+1303|الأداء والإفراغ
+1304|مراجعة السومة الكرائية
+1305|قضايا المشورة أكرية
+1351|أداء واجبات الكراء المستأنف
+1352|مراجعة السومة الكرائية المستأنفة
+1353|غرفة المشورة لقضايا الأكرية المستأنفة
+1401|العقار العادي
+1402|العقار المحفظ
+1403|العقار في طور التحفيظ
+1404|القضايا العقارية العينية المختلطة
+1405|قضايا المشورة عقار
+1406|العقار العبري
+1451|العقار العادي المستأنف
+1452|العقار المحفظ المستأنف
+1453|العقار في طور التحفيظ المستأنف
+1454|القضايا العقارية العينية المختلطة المستأنف
+1455|قضايا المشورة عقار المستأنف
+1456|العقار العبري المستأنف
+1501|نزاعات الشغل
+1502|حوادث الشغل
+1503|الأمراض المهنية
+1504|قضايا المشورة نزاعات الشغل
+1505|قضايا المشورة حوادث الشغل
+1551|نزاعات الشغل المستأنفة
+1552|حوادث الشغل المستأنفة
+1553|الأمراض المهنية المستأنفة
+1554|غرفة المشورة لنزاعات الشغل المستأنفة
+1555|غرفة المشورة لحوادث الشغل المستأنفة
+1601|الإصلاح والتغيير
+1602|تسجيل الولادة
+1603|تسجيل الوفاة
+1604|إضافة بيانات
+1605|الزواج عادي
+1606|النفقة
+1607|التطليق
+1608|الطلاق (الإذن بالطلاق والمقرر النهائي)
+1609|الحضانة
+1610|الرجوع لبيت الزوجية
+1611|ثبوت الزوجية
+1612|صلة الرحم
+1613|النسب
+1614|التذييل بالصيغة التنفيذية (أسرة)
+1615|الميراث
+1616|زواج القاصرين
+1617|كفالة الأطفال المهملين
+1618|الإذن بالتعدد
+1619|النيابة الشرعية
+1620|قضايا الأحوال الشخصية الأخرى
+1621|غرفة المشورة لقضايا الأسرة
+1622|مراجعة لوازم الطلاق
+1623|التحجير
+1624|الزواج المختلط
+1625|التصريح بالإهمال
+1626|التطليق للشقاق
+1627|التطليق للضرر
+1628|التطليق لعدم الإنفاق
+1629|التطليق للغيبة
+1630|التطليق للعيب
+1631|التطليق بسبب الإيلاء والهجر
+1632|التطليق لإخلال الزوج بشرط من شروط العقد
+1633|الطلاق قبل البناء
+1634|الطلاق المملك
+1635|الطلاق الاتفاقي
+1636|الطلاق بالخلع
+1637|فسخ عقد زواج
+1638|بطلان الزواج
+1639|الأحوال الشخصية العبرية المغربية
+1640|الأحوال الشخصية للأجانب
+1641|دعاوى الجنسية
+1642|كفالة الأطفال غير المهملين
+1643|النيابة القانونية
+1651|النفقة المستأنفة
+1652|غرفة المشورة لقضايا الأسرة المستأنفة
+1653|مراجعة لوازم الطلاق المستأنفة
+1701|طلب الأداء (قضاء القرب)
+1702|الحجز لدى الغير (قضاء القرب)
+1703|الإنذار بأداء الكراء
+1707|المدني المتنوع (قضاء القرب)
+1708|المسؤولية التقصيرية (قضاء القرب)
+1709|التجاري (قضاء القرب)
+1710|أداء واجبات الكراء (قضاء القرب)
+1711|مراجعة السومة الكرائية (قضاء القرب)
+6101|البيوعات العقارية
+6102|الحجز التحفظي على عقار
+6103|بيع الأصول التجارية
+6104|التصفية القضائية
+6105|الإنذارات العقارية
+6106|التركات الشاغرة
+6107|الحجز التنفيذي على عقار
+6108|تحقيق الرهن على عقار
+6109|الحجز التحفظي على أصل تجاري
+6110|تحقيق الرهن على أصل تجاري
+6111|الحجز التحفظي على سفينة
+6112|الحجز التنفيذي على سفينة
+6150|تنفيذ الأمر بالأداء
+6151|تنفيذ الأوامر المختلفة
+6152|تنفيذ الأوامر الاستعجالية
+6153|مختلف تنفيذات مؤسسة الرئيس
+6201|مختلف قضايا التنفيذ المدني
+6202|الحجز التحفظي على منقول
+6203|الحجز لدى الغير
+6204|الإفراغات
+6205|الحجز التنفيذي على منقول
+6206|تنفيذ الأداءات
+6207|تنفيذ الاسترجاعات
+6208|تنفيذات المسؤولية المدنية
+6209|تنفيذات حوادث السير (الدعوى المدنية)
+6210|تنفيذات منازعات الشغل
+6211|تنفيذات حوادث الشغل
+6212|تنفيذ أحكام قضاء القرب
+6213|التنفيذ التلقائي
+6250|تنفيذ النفقة
+6251|تنفيذ الرجوع لبيت الزوجية
+6252|تنفيذ مستحقات الطلاق
+6253|تنفيذ مستحقات التطليق
+6254|تنفيذ الأحوال الشخصية المختلفة
+6255|تنفيذات أخرى لقضاء الأسرة
+2101|جنحي عادي تأديبي
+2102|جنحي عادي ضبطي
+2103|جنحي تلبسي تأديبي اعتقال
+2104|جنحي تلبسي تأديبي سراح
+2105|جنحي تلبسي ضبطي اعتقال
+2106|جنحي تلبسي ضبطي سراح
+2107|جنحي غابة
+2108|جنحي بناء بدون رخصة
+2109|جنحي قمع الغش
+2110|جنحي مقاطعات
+2111|التصديق على مسطرة الصلح
+2112|غرفة المشورة قضايا جنحي
+2113|العنف ضد الأطفال ضبطي
+2114|العنف ضد الأطفال تأديبي
+2115|العنف ضد النساء ضبطي
+2116|العنف ضد النساء تأديبي
+2117|العنف ضد الأطفال ضبطي تلبسي
+2118|العنف ضد الأطفال تأديبي تلبسي
+2119|العنف ضد النساء ضبطي تلبسي
+2120|العنف ضد النساء تأديبي تلبسي
+2121|جنحي بيئة
+2201|جنحي أحداث ضبطي سراح
+2202|جنحي أحداث ضبطي اعتقال
+2203|جنحي أحداث تأديبي سراح
+2204|جنحي أحداث تأديبي اعتقال
+2205|جنح السير أحداث عادي
+2206|جنح السير تلبسي أحداث
+2207|حوادث السير أحداث عادي
+2208|حوادث السير تلبسي أحداث
+2301|التحقيق (رشداء)
+2302|التحقيق (أحداث)
+2303|إنابة محلية واردة (تحقيق)
+2304|إنابة دولية واردة (تحقيق)
+2305|قضايا التحقيق العنف ضد النساء
+2306|قضايا التحقيق العنف ضد الأطفال
+2307|التحقيق في حادثة سير مميتة
+2401|حوادث السير عادي تأديبي
+2402|حوادث السير عادي ضبطي
+2403|حوادث السير تلبسي تأديبي اعتقال
+2404|حوادث السير تلبسي تأديبي سراح
+2405|حوادث السير تلبسي ضبطي اعتقال
+2406|حوادث السير تلبسي ضبطي سراح
+2407|جنح السير (الأمر القضائي)
+2408|جنح السير تلبسي
+2409|جنح السير عادي (القواعد العامة)
+2410|مخالفات السير عادي (القواعد العامة)
+2411|مخالفات السير (السند التنفيذي)
+2412|غرفة المشورة قضايا السير
+2413|مخالفات قضاء القرب محلي
+2414|مخالفات قضاء القرب تنقلية
+2415|إلغاءات مخالفات قضاء القرب
+2416|جرائم غسل الأموال
+2417|مخالفات السير (الرادار الثابت)
+2418|جنح السير (الرادار الثابت)
+2801|جنحي عادي استئنافي
+2802|جنحي تلبسي استئنافي اعتقال
+2803|جنحي تلبسي استئنافي سراح
+2804|العنف ضد الأطفال عادي استئنافي
+2805|العنف ضد النساء عادي استئنافي
+2806|جنحي أحداث استئنافي سراح
+2807|جنحي أحداث استئنافي اعتقال
+2808|حوادث السير عادي استئنافي
+2809|حوادث السير تلبسي استئنافي اعتقال
+2810|حوادث السير تلبسي استئنافي سراح
+2811|جنح السير تلبسي استئنافي سراح
+2812|جنح السير تلبسي استئنافي اعتقال
+2813|جنح السير عادي استئنافي
+2814|مخالفات السير استئنافي
+2815|جنح السير أحداث استئنافي عادي
+2816|جنح السير تلبسي استئنافي أحداث
+2817|حوادث السير أحداث استئنافي عادي
+2818|حوادث السير تلبسي استئنافي أحداث
+2819|جنحي غابة استئنافي
+2820|جنحي بناء بدون رخصة استئنافي
+2821|جنحي قمع الغش استئنافي
+2822|جنحي بيئة استئنافي
+2823|العنف ضد الأطفال تلبس استئنافي
+2824|العنف ضد النساء تلبس استئنافي
+2901|شكاية مباشرة أمام المحكمة (قضايا الصحافة)
+2902|شكاية مباشرة أمام المحكمة (قضايا مختلفة)
+3101|شكاية عادية
+3102|شكاية إهمال الأسرة
+3103|شكاية العنف ضد الأطفال
+3104|شكاية العنف ضد النساء
+3105|شكاية الرجوع إلى بيت الزوجية (ف 53 م أ)
+3106|شكاية شيك بدون مؤونة
+3107|شكاية المعتقلين
+3108|شكاية الجالية المغربية
+3110|شكاية استثنائية
+3114|شكاية ضد المفوضين القضائيين
+3117|شكاية العنف ضد الزوج
+3119|شكاية خرق قانون الانتخابات
+3120|شكاية مباشرة أمام قاضي التحقيق
+3121|شكاية مباشرة أمام المحكمة
+3122|شكاية قضاء الأسرة (ف 54 م أ)
+3123|شكاية الجرائم المالية
+3125|شكاية البيئة
+3126|شكاية خلية حقوق الإنسان
+3201|محضر عادي
+3202|محضر تلبسي
+3203|محضر تلبسي جنح السير
+3204|محضر تلبسي حوادث السير
+3205|محضر حوادث السير
+3206|محضر جنح السير
+3207|محضر مخالفات السير
+3208|محضر قمع الغش
+3209|محضر الغش في الأسعار
+3210|محضر مخالفات الغابة
+3211|محضر بناء بدون رخصة
+3212|محضر محاربة التهريب
+3213|محضر محاربة المخدرات
+3214|محضر قضايا الأسرة
+3215|محضر تلبسي أحداث
+3216|محضر العنف ضد النساء
+3217|محضر العنف ضد القاصرين
+3218|محضر الإكراه البدني
+3219|محضر البحث عن متغيب
+3220|محضر تنفيذ العقوبة الحبسية
+3226|محضر مخالفات التعمير
+3227|محضر عادي أحداث
+3228|محضر البيئة
+3229|محضر المقالع
+3230|محضر العنف ضد النساء تلبس
+3234|محضر العنف ضد القاصرين تلبس
+3235|محضر حقوق الإنسان
+3236|محضر حقوق الطفل
+3237|محضر حماية الأحداث ضحايا العنف
+3238|محضر الأحداث في وضعية صعبة
+3239|محضر مخالفات السير (الرادار الثابت)
+3240|محضر جنح السير (الرادار الثابت)
+3241|محضر مخالفة قانون الانتخابات
+4101|تنفيذ الغرامات المالية
+4102|تنفيذ العقوبات السالبة للحرية
+4103|إنابة واردة مالية
+7101|القضايا الاستعجالية (إداري)
+7102|الأوامر المبنية على طلب (إداري)
+7103|المصادقة على الحجز (إداري)
+7104|المعاشات المدنية والعسكرية
+7105|الوضعية الفردية
+7106|إيقاف التنفيذ (إداري)
+7107|المنازعات الانتخابية
+7108|نزع الملكية
+7109|تحصيل ديون الخزينة
+7110|قضاء الإلغاء
+7111|فحص الشرعية
+7112|المسؤولية الإدارية
+7113|المنازعات الضريبية
+7114|العقود الإدارية والصفقات
+7115|المختلفة (إداري)
+7116|المساعدة القضائية (إداري)
+7129|الوضعية الفردية (المادة 11 من ظهير 10-09-1993)
+7130|المنازعات (المادة 11 من ظهير 10-09-1993)
+7201|الاستعجالي (اختصاص الرئيس الأول، إداري)
+7202|الاستعجالي المستأنف (إداري)
+7203|غرفة المشورة (إداري)
+7204|المساعدة القضائية (استئناف إداري)
+7205|قضاء الإلغاء (استئناف إداري)
+7206|المسؤولية الإدارية (استئناف إداري)
+7207|العقود الإدارية والصفقات (استئناف إداري)
+7208|الوضعية الفردية (استئناف إداري)
+7209|المنازعات الضريبية (استئناف إداري)
+7210|المعاشات المدنية والعسكرية (استئناف إداري)
+7211|نزع الملكية (استئناف إداري)
+7212|المنازعات الانتخابية (استئناف إداري)
+7213|تحصيل ديون الخزينة (استئناف إداري)
+7214|إيقاف تنفيذ القرارات الإدارية
+7215|فحص الشرعية (استئناف إداري)
+8101|الاستعجالي (تجاري)
+8102|الأمر بالأداء (تجاري)
+8103|الأوامر المبنية على طلب (تجاري)
+8104|استرجاع السيارات
+8105|الحجز لدى الغير (تجاري)
+8106|الحجز التحفظي (تجاري)
+8107|رفع الحجز
+8108|مسطرة التوفيق (ظهير 24 ماي 1955)
+8109|إيقاف التنفيذ (تجاري)
+8110|صعوبة التنفيذ (تجاري)
+8111|التوزيع الودي
+8112|التسوية الودية
+8116|استرجاع حيازة محل مهجور
+8201|العقود التجارية
+8202|المنازعات بين التجار بشأن أعمال تجارية
+8203|الأوراق التجارية
+8204|منازعات الشركاء في شركة تجارية
+8205|الأصول التجارية
+8206|منازعات ظهير 24 ماي 1955
+8207|أكرية المحلات التجارية
+8208|تصحيح الحجز
+8209|معاملات مؤسسات التمويل
+8210|المعاملات البنكية والقروض
+8211|المنافسة غير المشروعة والتقليد
+8212|مشورة متنوعة (تجاري)
+8213|ما يتعلق بالتنفيذ (تجاري)
+8214|منازعات السجل التجاري
+8215|غرامات السجل التجاري
+8216|التعرض على أمر بالأداء
+8217|إيقاف تنفيذ أمر بالأداء
+8218|قضايا التأمين
+8220|المسؤولية البنكية
+8221|المعاملات البنكية
+8222|القروض البنكية
+8223|الأوامر بالأداء المستأنفة (تجاري)
+8224|الأوامر المبنية على طلب المستأنفة (تجاري)
+8225|الأوامر الاستعجالية المستأنفة (تجاري)
+8226|الحجز لدى الغير المستأنف (تجاري)
+8227|الاختصاص (تجاري)
+8228|المنازعات بين الشركات التجارية
+8229|الطعن في مقررات مكتب الملكية الصناعية
+8230|الطعن بالبطلان في الأحكام التحكيمية
+8231|إصلاح خطأ مادي
+8232|قضايا أخرى (تجاري)
+8301|صعوبات المقاولة
+8302|التسوية القضائية
+8303|التصفية القضائية
+8304|الطلبات الأخرى المعروضة على القاضي المنتدب
+8305|تمديد فترة إعداد الحل
+8306|إعداد الحل
+8307|تحديد الأتعاب (صعوبات المقاولة)
+8308|فسخ المخطط
+8309|متابعة تنفيذ المخطط
+8310|العقوبات (صعوبات المقاولة)
+8311|الاستبدال
+8312|قفل المسطرة
+8313|طلبات تحقيق الدين المعروضة على القاضي المنتدب
+8314|تمديد فترة الاستغلال
+8316|حصر مخطط الاستمرارية
+8317|اختيار عرض التفويت
+8318|تحويل التسوية إلى تصفية
+8319|طلبات أخرى في صعوبات المقاولة
+8320|تمديد التسوية القضائية
+8321|تمديد التصفية القضائية
+8322|قفل مسطرة التسوية القضائية
+8323|قفل مسطرة التصفية القضائية
+8401|تبليغ الأحكام والأوامر والقرارات (محلي)
+8402|تبليغ الأحكام والأوامر والقرارات (إنابة)
+8403|تبليغ أوامر القاضي المنتدب (محلي)
+8404|تبليغ أوامر القاضي المنتدب (إنابة)
+8405|تبليغ أحكام غرفة المشورة
+8406|تبليغ تلقائي (تجاري)
+8407|تبليغات أخرى (تجاري)
+8408|تبليغ الأوامر الاستعجالية
+8409|تبليغ الأوامر بالأداء
+8410|تبليغ الإنذارات
+8411|تبليغ أحكام الموضوع
+8412|تبليغ أحكام صعوبات المقاولة`;
+var CODEMAP={};CODE_TXT.split('\n').forEach(function(l){var p=l.split('|');if(p.length===2)CODEMAP[p[0].trim()]=p[1].trim();});
+var FAM={'11':'مؤسسة الرئيس وغرفة المشورة','12':'مدني','13':'أكرية','14':'عقار','15':'اجتماعي','16':'أحوال شخصية / أسرة','17':'قضاء القرب','21':'جنحي عادي وتلبسي','22':'جنحي أحداث','23':'تحقيق','24':'جنح وحوادث السير','28':'جنحي استئنافي','29':'شكاية مباشرة','31':'شكايات','32':'محاضر','41':'تنفيذ زجري','61':'تنفيذات','62':'تنفيذات مدنية','63':'تنفيذات (إنابات)','65':'تبليغات','66':'تبليغات وتنفيذ زجري','67':'تبليغات','68':'تبليغات (إنابات واردة)','71':'محكمة إدارية','72':'محكمة استئناف إدارية','73':'تبليغ (إداري)','74':'تنفيذ (إداري)','75':'تبليغ (إداري)','76':'تنفيذ (إداري)','81':'تجاري: مؤسسة الرئيس','82':'تجاري: شعبة الموضوع','83':'صعوبات المقاولة','84':'تبليغات تجارية','85':'تنفيذات تجارية'};
+function typeOf(c){var p=c.slice(0,2);if(['21','22','23','24','28','29'].indexOf(p)>=0)return 'جنحي';if(p==='31')return 'شكاية';if(p==='32')return 'محضر';if(['41','61','62','63','74','76','85'].indexOf(p)>=0)return 'تنفيذ';if(['65','66','67','68','73','75','84'].indexOf(p)>=0)return 'تبليغ';return 'عادي';}
+function kindInfo(v){var c=String(v||'').replace(/\D/g,'');if(c.length<4)return null;c=c.slice(0,4);if(CODEMAP[c])return {t:CODEMAP[c],ex:1,c:c};return {t:FAM[c.slice(0,2)]||'',ex:0,c:c};}
+function nz(x){return String(x||'').replace(/[\u064B-\u065F\u0670\u0640]/g,'').replace(/[أإآ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه').replace(/ؤ/g,'و').replace(/ئ/g,'ي').toLowerCase().replace(/\s+/g,' ').trim();}
+
+/* ---------- case type from its code ---------- */
+function CDUI(root){
+  if(!root||root.getAttribute('data-ready'))return;root.setAttribute('data-ready','1');root.classList.add('inh');
+  var E=function(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!==undefined)e.textContent=x;return e;};
+  var l=E('label');l.appendChild(E('span',null,'اكتبوا رقم الملف كاملًا (مثل 2026/1201/55) أو الرمز وحده (4 أرقام) أو كلمة من نوع القضية'));
+  var q=E('input');q.dir='auto';q.autocomplete='off';q.placeholder='1201 أو نفقة أو شيك';l.appendChild(q);root.appendChild(l);
+  var out=E('div','inh-out');root.appendChild(out);
+  root.appendChild(E('p','inh-note','الجدول مستخرج من جداول رموز القضايا لوزارة العدل (آخر تحديث نشرته الوزارة في شتنبر 2025). وإن لم يرد الرمز بالتفصيل عُرض صنف القضية التقريبي حسب أول رقمين.'));
+  function levelOf(c,t){return (/استئناف|مستأنف|مستانف/.test(t)||c.slice(0,2)==='28'||c.slice(0,2)==='72')?'درجة الاستئناف':'الدرجة الأولى أو حسب الجهة';}
+  function run(){
+    out.textContent='';var v=q.value.trim();if(!v)return;
+    var s=v.replace(/[٠-٩]/g,function(d){return '٠١٢٣٤٥٦٧٨٩'.indexOf(d);}),parts=s.split(/[\/\\-]/).map(function(x){return x.trim();}),code='';
+    if(parts.length===3&&/^\d{4}$/.test(parts[1]))code=parts[1];
+    else{var toks=(s.match(/(?:^|\D)(\d{4})(?!\d)/g)||[]).map(function(x){return x.replace(/\D/g,'');});code=toks.filter(function(c){return CODEMAP[c];})[0]||toks[0]||'';}
+    if(code){
+      var k=kindInfo(code);
+      if(k&&k.t){out.appendChild(E('p','inh-sum',(k.ex?'':'تقريبًا: ')+k.t));
+        out.appendChild(E('p','inh-note','الرمز '+k.c+' | الصنف: '+typeOf(k.c)+' | '+levelOf(k.c,k.t)));
+        if(parts.length===3){var y0=/^(19|20)\d{2}$/.test(parts[0]),yr=y0?parts[0]:parts[2],no=y0?parts[2]:parts[0];out.appendChild(E('p','inh-note','رقم الملف '+no+' | السنة '+yr));}
+        if(!k.ex)out.appendChild(E('p','inh-warn','هذا الرمز غير مدرج بالتفصيل في الجدول، فالصنف أعلاه تقريبي بحسب فئة الرمز.'));}
+      else out.appendChild(E('p','inh-warn','رمز غير مدرج في الجدول.'));
+      return;
+    }
+    var t=nz(v).split(' ').filter(Boolean),n=0;
+    Object.keys(CODEMAP).forEach(function(c){if(n>=14)return;var lb=nz(CODEMAP[c]);if(t.every(function(w){return lb.indexOf(w)>=0;})){n++;out.appendChild(E('p','inh-note',c+'  |  '+CODEMAP[c]));}});
+    if(!n)out.appendChild(E('p','inh-warn','لا نتيجة. جرّبوا كلمة أخرى أو الرمز المكوّن من 4 أرقام.'));
+  }
+  q.addEventListener('input',run);
+}
+/* ---------- road accident compensation (Dahir of 2 Oct 1984 as amended by Law 70.24) ---------- */
+function CPUI(root){
+  if(!root||root.getAttribute('data-ready'))return;root.setAttribute('data-ready','1');root.classList.add('inh');
+  var E=function(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!==undefined)e.textContent=x;return e;};
+  function pad(n){return ('0'+n).slice(-2);}
+  function money(n){return (Math.round((+n||0)*100)/100).toLocaleString('en-US',{maximumFractionDigits:2});}
+  function parse(v){var m=/^(\d{2})\/(\d{2})\/(\d{4})$/.exec(v);if(!m)return null;var d=new Date(+m[3],+m[2]-1,+m[1]);return (d.getFullYear()==+m[3]&&d.getMonth()==+m[2]-1&&d.getDate()==+m[1])?d:null;}
+  function mask(v){var d=String(v).replace(/\D/g,'').slice(0,8),o=d.slice(0,2);if(d.length>2)o+='/'+d.slice(2,4);if(d.length>4)o+='/'+d.slice(4);return o;}
+  var F={};
+  function inp(key,label,ph,ml){var l=E('label'),i=E('input');i.dir='ltr';i.inputMode='decimal';i.maxLength=ml||12;i.autocomplete='off';if(ph)i.placeholder=ph;l.appendChild(E('span',null,label));l.appendChild(i);F[key]=i;i.addEventListener('input',calc);return l;}
+  function sel(key,label,opts){var l=E('label'),s=E('select');opts.forEach(function(o){var x=E('option',null,o[1]);x.value=o[0];s.appendChild(x);});l.appendChild(E('span',null,label));l.appendChild(s);F[key]=s;s.addEventListener('change',calc);return l;}
+  function det(title,open){var d=E('details');d.open=!!open;d.appendChild(E('summary',null,title));root.appendChild(d);return d;}
+  root.appendChild(E('p','inh-note','يطبّق الحاسبة ظهير 2 أكتوبر 1984 كما غيّره وتمّمه القانون 70.24 (الجريدة الرسمية عدد 7478 بتاريخ 29 يناير 2026). نافذ منذ 29 يناير 2026 ولا يسري إلا على الحوادث الواقعة بعد هذا التاريخ.'));
+  var d1=det('بيانات الحادثة والمصاب',true);
+  var dt=inp('date','تاريخ الحادثة','25/10/2026',10);F.date.addEventListener('input',function(){F.date.value=mask(F.date.value);calc();});
+  [dt,inp('wage','الأجر أو الكسب المهني السنوي المثبت (درهم، 0 إن لم يثبت)','0'),sel('lvl','المصاب تلميذ أو طالب',[['1','لا'],['1.5','مستوى البكالوريا (ثلاثة أنصاف الأجر الأدنى)'],['2','الإجازة (ضعف الأجر الأدنى)'],['3','الماستر أو الدكتوراه (ثلاثة أمثال الأجر الأدنى)']]),inp('lia','قسط مسؤولية المتسبب في الحادثة (%)','100',5)].forEach(function(x){d1.appendChild(x);});
+  F.lia.value='100';
+  var info=E('p','inh-note');d1.appendChild(info);
+  var d2=det('العجز الكلي المؤقت');[inp('days','عدد أيام العجز','0',4)].forEach(function(x){d2.appendChild(x);});
+  var d3=det('العجز البدني الدائم (المادتان 5 و9)');
+  d3.appendChild(E('p','inh-note','رأس المال المعتمد يؤخذ من الجدول الملحق بالظهير بحسب سن المصاب وأجره. وإذا لم يرد أجره في الجدول فيُحسب بالاستيفاء بين سطرين: رأس المال 1 + (أجر المصاب − الأجر 1) ÷ (الأجر 2 − الأجر 1) × (رأس المال 2 − رأس المال 1). أدخلوا السطرين من الجدول ليُحسب لكم، أو أدخلوا رأس المال مباشرة.'));
+  [inp('cap','رأس المال المعتمد (مباشرة)','0'),inp('w1','الأجر 1 (من الجدول)','0'),inp('c1','رأس المال 1','0'),inp('w2','الأجر 2 (من الجدول)','0'),inp('c2','رأس المال 2','0'),inp('ipp','نسبة العجز (%)','0',5)].forEach(function(x){d3.appendChild(x);});
+  var d4=det('التعويضات التكميلية (المادة 10)');
+  d4.appendChild(E('p','inh-note','تُحسب بضرب النسبة التي تقرؤونها في المادة 10 في رأس المال المطابق لسن المصاب وللأجر الأدنى بالجدول. أدخلوا النسبة لكل بند يستحقه المصاب.'));
+  d4.appendChild(inp('cmin','رأس المال المطابق للأجر الأدنى (من الجدول)','0'));
+  [['p1','الألم الجسماني (%)'],['p2','الضرر الجمالي (%)'],['p3','الأضرار المهنية وغيرها (%)']].forEach(function(r){d4.appendChild(inp(r[0],r[1],'0',5));});
+  var d5=det('الوفاة وبنود لا تُطبَّق عليها قسمة المسؤولية');
+  d5.appendChild(E('p','inh-note','ينص القانون 70.24 على استثناء التعويض عن الألم المعنوي الناتج عن الوفاة ومصاريف الجنازة ومصاريف نقل الجثمان من قسمة المسؤولية. أدخلوا مبالغها كما تُقدَّر.'));
+  [inp('moral','الألم المعنوي الناتج عن الوفاة (درهم)','0'),inp('fun','مصاريف الجنازة (درهم)','0'),inp('rep','مصاريف نقل الجثمان (درهم)','0'),inp('ccap','رأس المال المعتمد للمتوفى (لتعويض الأصول)','0'),sel('par','الأصول الفاقدون لمورد العيش',[['0','لا يوجد'],['30','أحد الأبوين عاجز عن سد حاجاته: 30%'],['50','الأبوان عاجزان معًا: 25% لكل واحد'],])].forEach(function(x){d5.appendChild(x);});
+  var out=E('div','inh-out');root.appendChild(out);root.appendChild(E('p','inh-warn','للإرشاد فقط. لا تشمل الحاسبة كل بنود التعويض ولا ذوي الحقوق في الوفاة، ولا الحوادث الواقعة قبل 29 يناير 2026 (يسري عليها ظهير 1984 قبل التعديل). الجدول الرسمي للرساميل لا أعرضه هنا فتُدخلونه من النص. راجعوا الجريدة الرسمية عدد 7478 قبل أي اعتماد.'));
+  var MIN={2026:10270,2027:11270,2028:12270,2029:13270,2030:14270};
+  function n(k){return Math.max(0,parseFloat(String(F[k].value).replace(/,/g,'').replace('،','.'))||0);}
+  function tbl(head,rows){var t=E('table'),h=E('tr');head.forEach(function(x){h.appendChild(E('th',null,x));});t.appendChild(h);rows.forEach(function(r){var tr=E('tr',r[3]||'');r.slice(0,3).forEach(function(x){tr.appendChild(E('td',null,x));});t.appendChild(tr);});return t;}
+  function calc(){
+    out.textContent='';var d=parse(F.date.value),lia=Math.min(100,n('lia'))/100,notes=[];
+    var min=null;if(d){var y=d.getFullYear();if(d<new Date(2026,0,29)){info.textContent='الحادثة سابقة لـ29 يناير 2026: لا يسري عليها القانون 70.24، والحد الأدنى السابق 9,270 درهمًا. هذه الحاسبة مخصصة للحوادث اللاحقة.';min=9270;}
+      else{min=MIN[Math.min(2030,Math.max(2026,y))];info.textContent='الحد الأدنى للأجر أو الكسب المهني السنوي في سنة الحادثة: '+money(min)+' درهمًا (يرتفع 1,000 درهم كل سنة إلى 14,270 سنة 2030).';}}
+    else info.textContent='أدخلوا تاريخ الحادثة لمعرفة الحد الأدنى للأجر.';
+    var rows=[],sum=0,free=0;
+    var lv=+F.lvl.value,wage=n('wage'),base=min?(wage?Math.max(wage,min):min*lv):wage;
+    if(wage&&min&&wage<min)notes.push('الأجر المثبت دون الحد الأدنى فاعتُمد الحد الأدنى (المادة الأولى مكررة).');
+    var days=n('days');if(days&&base){var v=base*days/365*lia;rows.push(['العجز الكلي المؤقت','('+money(base)+' × '+days+' ÷ 365) × '+Math.round(lia*100)+'%',money(v)]);sum+=v;}
+    var cap=n('cap'),w1=n('w1'),c1=n('c1'),w2=n('w2'),c2=n('c2');
+    if(!cap&&w1&&w2&&w2!==w1&&base){cap=c1+(base-w1)/(w2-w1)*(c2-c1);notes.push('رأس المال المعتمد بالاستيفاء: '+money(cap));}
+    var ipp=n('ipp')/100;if(cap&&ipp){var b=cap*ipp*lia;rows.push(['التعويض الأساسي عن العجز الدائم','('+money(cap)+' × '+(+(ipp*100).toFixed(2))+'%) × '+Math.round(lia*100)+'% (المادة 9)',money(b)]);sum+=b;}
+    var cm=n('cmin');[['p1','الألم الجسماني'],['p2','الضرر الجمالي'],['p3','الأضرار المهنية وغيرها']].forEach(function(r){var p=n(r[0])/100;if(cm&&p){var v2=cm*p*lia;rows.push([r[1],'('+money(cm)+' × '+(+(p*100).toFixed(2))+'%) × '+Math.round(lia*100)+'%',money(v2)]);sum+=v2;}});
+    var par=+F.par.value,cc=n('ccap');if(par&&cc){var share=par===30?0.30:0.50,v3=cc*share*lia;rows.push(['تعويض الأصول عن فقدان مورد العيش',money(cc)+' × '+(par===30?'30%':'2 × 25%')+' × '+Math.round(lia*100)+'%',money(v3)]);sum+=v3;}
+    [['moral','الألم المعنوي الناتج عن الوفاة'],['fun','مصاريف الجنازة'],['rep','مصاريف نقل الجثمان']].forEach(function(r){var v4=n(r[0]);if(v4){rows.push([r[1],'دون قسمة المسؤولية',money(v4)]);free+=v4;}});
+    if(!rows.length){if(d)out.appendChild(E('p','inh-note','أدخلوا بيانات بند واحد على الأقل.'));return;}
+    var all=sum+free;rows.push(['المجموع','',money(all),'tot']);
+    out.appendChild(tbl(['البند','الصيغة','المبلغ (درهم)'],rows));
+    notes.forEach(function(x){out.appendChild(E('p','inh-note','• '+x));});
+    if(lia<1)out.appendChild(E('p','inh-note','• قسط المسؤولية '+Math.round(lia*100)+'% طُبّق على كل البنود ما عدا البنود المستثناة بنص القانون.'));
+  }
+  calc();
+}
+
 (function(){
 var REG_URL='';   // optional: public address of registry.json (leave empty to use the file next to index.html)
 var tp=document.getElementById('tpl');document.body.insertBefore(tp.content.cloneNode(true),tp);document.documentElement.classList.add('js');
 var HEAD="<meta charset=\"utf-8\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, viewport-fit=cover\">\n<title>مكتب الزلوطي للمحاماة | الأستاذ عبد الحكيم الزلوطي، الدار البيضاء<\/title>\n<meta name=\"description\" content=\"مكتب الزلوطي للمحاماة، 72 شارع محمد الزرقطوني، الدار البيضاء.\">\n<meta name=\"theme-color\" content=\"#0b2420\">\n<meta property=\"og:type\" content=\"website\">\n<meta property=\"og:title\" content=\"مكتب الزلوطي للمحاماة | الأستاذ عبد الحكيم الزلوطي، الدار البيضاء\">\n<meta property=\"og:description\" content=\"مكتب الزلوطي للمحاماة، 72 شارع محمد الزرقطوني، الدار البيضاء.\">\n<link rel=\"icon\" href=\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E⚖️%3C/text%3E%3C/svg%3E\">\n<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Playfair+Display:wght@600;700&family=Reem+Kufi:wght@500;700&family=Tajawal:wght@400;500;700&display=swap\">\n";
 var T={
-fr:{pt1:"Le cabinet",pt1s:"Présentation du cabinet et de l'avocat",pt2:"Suivi de dossier",pt2s:"Consultez l'étape de votre dossier",pt3:"Horaires",pt3s:"Horaires de travail et de réception",pt4:"Contact",pt4s:"Téléphone, WhatsApp et adresse",pt6:"Aide juridique",pt6s:"Succession et délais de recours",seg1:"Succession",seg2:"Délais de recours",hp_h:"Aide juridique : succession et délais de recours",hp_p:"Saisissez les héritiers et la valeur de la succession pour connaître la part de chacun selon le Code de la famille marocain (Livre VI) : exclusions, aoul, radd, grands-parents, frères et sœurs, legs obligatoire des petits-enfants. Un second outil calcule les délais de recours selon la loi 58.25 sur la procédure civile.",h_note:"Les outils sont en arabe et donnés à titre indicatif ; ils ne remplacent ni l\'acte d\'hérédité, ni le texte de loi, ni l\'avis d\'un avocat. Un délai erroné peut faire perdre un droit. Contactez le cabinet pour toute question.",pt5:"Espace du cabinet",pt5s:"Accès de l'équipe : dossiers, délais et aide",firm:"Cabinet d'avocats Zoulouti",tr_h:"Suivi de votre dossier",tr_p:"Saisissez le numéro de dossier et le code d'accès remis par le cabinet.",tr_ref:"N° de dossier",tr_code:"Code d'accès",tr_go:"Consulter",tr_nf:"Aucun dossier correspondant. Vérifiez le numéro et le code, ou contactez le cabinet.",tr_up:"Dernière mise à jour",tr_note:"Seule l'étape du dossier est affichée ici ; pour le détail, veuillez contacter le cabinet.",st1:"En cours d'étude",st2:"Procédure en cours",st3:"Dossier clos",wel:"Bienvenue sur le site du cabinet",call:"Appeler",qa_c:"Appeler",qa_d:"Localisation",hb:"Réception le mardi et le jeudi dès 15 h",w_h:"Cabinet d'avocats Zoulouti",w_p1:"Le cabinet fournit des consultations juridiques et représente ses clients devant les juridictions dans toutes les affaires, dans le respect des règles de la profession et du secret professionnel.",w_p2:"Le cabinet s'appuie sur une équipe juridique compétente pour vous accompagner à chaque étape de vos dossiers. Il veille à une communication claire et à la transparence à chaque étape du dossier. Pour toute demande de renseignements ou de rendez-vous, vous pouvez contacter le cabinet par les moyens indiqués ci-dessous.",b_h:"Maître Abdelhakim Zoulouti",b_sub:"Avocat au Barreau de Casablanca",b_p1:"Maître Abdelhakim Zoulouti est avocat au Barreau de Casablanca. Il a étudié le droit au Maroc et en France et suit dans son travail les évolutions du droit national et international.",b_p2:"Son travail repose sur le respect des règles de la profession et une communication claire avec ses clients.",h_h:"Horaires de travail et de réception",d1:"Lun",d2:"Mar",d3:"Mer",d4:"Jeu",d5:"Ven",h1_l:"Horaires de travail",h1_d:"Du lundi au vendredi",h2_l:"Réception",h2_d:"Le mardi et le jeudi",h2_t:"À partir de",c_h:"Nous contacter",l_tel:"Téléphone",l_mail:"E-mail",l_addr:"Adresse",addr:"72 Boulevard Mohamed Zerktouni, 8e étage, n° 23, Casablanca",m_g:"Google Maps",m_a:"Apple Maps",foot:"© 2026 Cabinet d'avocats Zoulouti"},
-en:{pt1:"The firm",pt1s:"About the firm and the lawyer",pt2:"Track your file",pt2s:"Check the stage of your file",pt3:"Hours",pt3s:"Working and reception hours",pt4:"Contact",pt4s:"Phone, WhatsApp and address",pt6:"Legal help",pt6s:"Inheritance and appeal deadlines",seg1:"Inheritance",seg2:"Appeal deadlines",hp_h:"Legal help: inheritance and appeal deadlines",hp_p:"Enter the heirs and the value of the estate to see each heir\'s share under the Moroccan Family Code (Book VI): exclusion, awl, radd, grandparents, siblings and the obligatory bequest for grandchildren. A second tool computes appeal deadlines under Civil Procedure Code Law 58.25.",hp_note:"The tools are in Arabic and indicative only; they do not replace a certificate of inheritance, the legal text or a lawyer\'s advice. A wrong deadline can forfeit a right. Please contact the firm with any question.",pt5:"Firm workspace",pt5s:"Team access: files, deadlines and help",firm:"Zoulouti Law Firm",tr_h:"Track your file",tr_p:"Enter the file number and the access code given to you by the firm.",tr_ref:"File number",tr_code:"Access code",tr_go:"Check",tr_nf:"No matching file. Check the number and code, or contact the firm.",tr_up:"Last update",tr_note:"Only the stage of the file is shown here; please contact the firm for details.",st1:"Under study",st2:"Procedure ongoing",st3:"File closed",wel:"Welcome to the firm's website",call:"Call us",qa_c:"Call",qa_d:"Location",hb:"Reception Tuesday and Thursday from 3 p.m.",w_h:"Zoulouti Law Firm",w_p1:"The firm provides legal advice and represents its clients before the courts in all types of cases, in accordance with the rules of the profession and with respect for professional confidentiality.",w_p2:"The firm has a competent legal team to support you at every stage of your cases. It is committed to clear communication and transparency at every stage of a case. For enquiries or to arrange an appointment, please use the contact details below.",b_h:"Abdelhakim Zoulouti",b_sub:"Member of the Casablanca Bar",b_p1:"Abdelhakim Zoulouti is a lawyer at the Casablanca Bar. He studied law in Morocco and France, and his work follows developments in national and international law.",b_p2:"His work is based on respect for the rules of the profession and clear communication with clients.",h_h:"Working and reception hours",d1:"Mon",d2:"Tue",d3:"Wed",d4:"Thu",d5:"Fri",h1_l:"Working hours",h1_d:"Monday to Friday",h2_l:"Reception",h2_d:"Tuesday and Thursday",h2_t:"From",c_h:"Contact us",l_tel:"Phone",l_mail:"Email",l_addr:"Address",addr:"72 Boulevard Mohamed Zerktouni, 8th floor, No. 23, Casablanca",m_g:"Google Maps",m_a:"Apple Maps",foot:"© 2026 Zoulouti Law Firm"}
+fr:{seg4:"Accidents de la route",seg3:"Affaire par code",tl4s:"Indemnisation, loi 70.24",tl4:"Accidents de la route",tl3s:"Type et stade du dossier",tl3:"Affaire par son code",tl2s:"Civil et pénal",tl2:"Délais de recours",tl1s:"Selon le Code de la famille",tl1:"Succession",pgh:"Outils juridiques",pt1:"Le cabinet",pt1s:"Présentation du cabinet et de l'avocat",pt2:"Suivi de dossier",pt2s:"Consultez l'étape de votre dossier",pt3:"Horaires",pt3s:"Horaires de travail et de réception",pt4:"Contact",pt4s:"Téléphone, WhatsApp et adresse",pt6:"Aide juridique",pt6s:"Succession et délais de recours",seg1:"Succession",seg2:"Délais de recours",hp_h:"Aide juridique : outils",hp_p:"Quatre outils indicatifs : succession (Code de la famille), délais de recours (procédure civile, loi 58.25, et pénale), type d\'affaire selon son code, et indemnisation des accidents de la route selon le dahir de 1984 modifié par la loi 70.24.",h_note:"Les outils sont en arabe et donnés à titre indicatif ; ils ne remplacent ni l\'acte d\'hérédité, ni le texte de loi, ni l\'avis d\'un avocat. Un délai erroné peut faire perdre un droit. Contactez le cabinet pour toute question.",pt5:"Espace du cabinet",pt5s:"Accès de l'équipe : dossiers, délais et aide",firm:"Cabinet d'avocats Zoulouti",tr_h:"Suivi de votre dossier",tr_p:"Saisissez le numéro de dossier et le code d'accès remis par le cabinet.",tr_ref:"N° de dossier",tr_code:"Code d'accès",tr_go:"Consulter",tr_nf:"Aucun dossier correspondant. Vérifiez le numéro et le code, ou contactez le cabinet.",tr_up:"Dernière mise à jour",tr_note:"Seule l'étape du dossier est affichée ici ; pour le détail, veuillez contacter le cabinet.",st1:"En cours d'étude",st2:"Procédure en cours",st3:"Dossier clos",wel:"Bienvenue sur le site du cabinet",call:"Appeler",qa_c:"Appeler",qa_d:"Localisation",hb:"Réception le mardi et le jeudi dès 15 h",w_h:"Cabinet d'avocats Zoulouti",w_p1:"Le cabinet fournit des consultations juridiques et représente ses clients devant les juridictions dans toutes les affaires, dans le respect des règles de la profession et du secret professionnel.",w_p2:"Le cabinet s'appuie sur une équipe juridique compétente pour vous accompagner à chaque étape de vos dossiers. Il veille à une communication claire et à la transparence à chaque étape du dossier. Pour toute demande de renseignements ou de rendez-vous, vous pouvez contacter le cabinet par les moyens indiqués ci-dessous.",b_h:"Maître Abdelhakim Zoulouti",b_sub:"Avocat au Barreau de Casablanca",b_p1:"Maître Abdelhakim Zoulouti est avocat au Barreau de Casablanca. Il a étudié le droit au Maroc et en France et suit dans son travail les évolutions du droit national et international.",b_p2:"Son travail repose sur le respect des règles de la profession et une communication claire avec ses clients.",h_h:"Horaires de travail et de réception",d1:"Lun",d2:"Mar",d3:"Mer",d4:"Jeu",d5:"Ven",h1_l:"Horaires de travail",h1_d:"Du lundi au vendredi",h2_l:"Réception",h2_d:"Le mardi et le jeudi",h2_t:"À partir de",c_h:"Nous contacter",l_tel:"Téléphone",l_mail:"E-mail",l_addr:"Adresse",addr:"72 Boulevard Mohamed Zerktouni, 8e étage, n° 23, Casablanca",m_g:"Google Maps",m_a:"Apple Maps",foot:"© 2026 Cabinet d'avocats Zoulouti"},
+en:{seg4:"Road accidents",seg3:"Case by code",tl4s:"Compensation, Law 70.24",tl4:"Road accidents",tl3s:"Type and stage of the file",tl3:"Case by its code",tl2s:"Civil and criminal",tl2:"Appeal deadlines",tl1s:"Under the Family Code",tl1:"Inheritance",pgh:"Legal tools",pt1:"The firm",pt1s:"About the firm and the lawyer",pt2:"Track your file",pt2s:"Check the stage of your file",pt3:"Hours",pt3s:"Working and reception hours",pt4:"Contact",pt4s:"Phone, WhatsApp and address",pt6:"Legal help",pt6s:"Inheritance and appeal deadlines",seg1:"Inheritance",seg2:"Appeal deadlines",hp_h:"Legal help: tools",hp_p:"Four indicative tools: inheritance (Family Code), appeal deadlines (civil procedure, Law 58.25, and criminal), case type from its code, and road accident compensation under the 1984 dahir as amended by Law 70.24.",hp_note:"The tools are in Arabic and indicative only; they do not replace the legal text, a certificate of inheritance or a lawyer\'s advice. A wrong deadline can forfeit a right. Please contact the firm with any question.",pt5:"Firm workspace",pt5s:"Team access: files, deadlines and help",firm:"Zoulouti Law Firm",tr_h:"Track your file",tr_p:"Enter the file number and the access code given to you by the firm.",tr_ref:"File number",tr_code:"Access code",tr_go:"Check",tr_nf:"No matching file. Check the number and code, or contact the firm.",tr_up:"Last update",tr_note:"Only the stage of the file is shown here; please contact the firm for details.",st1:"Under study",st2:"Procedure ongoing",st3:"File closed",wel:"Welcome to the firm's website",call:"Call us",qa_c:"Call",qa_d:"Location",hb:"Reception Tuesday and Thursday from 3 p.m.",w_h:"Zoulouti Law Firm",w_p1:"The firm provides legal advice and represents its clients before the courts in all types of cases, in accordance with the rules of the profession and with respect for professional confidentiality.",w_p2:"The firm has a competent legal team to support you at every stage of your cases. It is committed to clear communication and transparency at every stage of a case. For enquiries or to arrange an appointment, please use the contact details below.",b_h:"Abdelhakim Zoulouti",b_sub:"Member of the Casablanca Bar",b_p1:"Abdelhakim Zoulouti is a lawyer at the Casablanca Bar. He studied law in Morocco and France, and his work follows developments in national and international law.",b_p2:"His work is based on respect for the rules of the profession and clear communication with clients.",h_h:"Working and reception hours",d1:"Mon",d2:"Tue",d3:"Wed",d4:"Thu",d5:"Fri",h1_l:"Working hours",h1_d:"Monday to Friday",h2_l:"Reception",h2_d:"Tuesday and Thursday",h2_t:"From",c_h:"Contact us",l_tel:"Phone",l_mail:"Email",l_addr:"Address",addr:"72 Boulevard Mohamed Zerktouni, 8th floor, No. 23, Casablanca",m_g:"Google Maps",m_a:"Apple Maps",foot:"© 2026 Zoulouti Law Firm"}
 };
 var TT={ar:document.title,fr:"Cabinet d'avocats Zoulouti | Maître Abdelhakim Zoulouti, Casablanca",en:"Zoulouti Law Firm | Abdelhakim Zoulouti, Casablanca"};
 var els=document.querySelectorAll('[data-t]'),btns=document.querySelectorAll('[data-lang]'),h=document.documentElement;
@@ -964,8 +1480,11 @@ function buildHtml(next){
 })();
 
 (function(){
-  INHUI($('inhbox'));DLUI($('dlbox'));
-  [].slice.call(document.querySelectorAll('.seg button')).forEach(function(b){b.addEventListener('click',function(){var t=b.getAttribute('data-tool');[].slice.call(document.querySelectorAll('.seg button')).forEach(function(x){x.setAttribute('aria-selected',x===b?'true':'false');});$('inhbox').hidden=t!=='inh';$('dlbox').hidden=t!=='dl';});});var prog=$('prog'),dock=$('dock'),ind=$('cind'),calm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  INHUI($('inhbox'));DLUI($('dlbox'));CDUI($('cdbox'));CPUI($('cpbox'));
+  function showTool(t){[].slice.call(document.querySelectorAll('.seg button')).forEach(function(x){x.setAttribute('aria-selected',x.getAttribute('data-tool')===t?'true':'false');});['inh','dl','cd','cp'].forEach(function(k){var e=$(k+'box');if(e)e.hidden=(k!==t);});}
+  [].slice.call(document.querySelectorAll('.seg button')).forEach(function(b){b.addEventListener('click',function(){showTool(b.getAttribute('data-tool'));});});
+  [].slice.call(document.querySelectorAll('.pt.tool')).forEach(function(a){a.addEventListener('click',function(){showTool(a.getAttribute('data-tool'));});});
+  var prog=$('prog'),dock=$('dock'),ind=$('cind'),calm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
   var chips=[].slice.call(document.querySelectorAll('#chips a'));
   function moveInd(){var on=chips.filter(function(c){return c.getAttribute('aria-current')==='true';})[0];if(!on){ind.style.width='0px';return;}ind.style.left=on.offsetLeft+'px';ind.style.width=on.offsetWidth+'px';}
   function onScroll(){var h=document.documentElement,m=h.scrollHeight-h.clientHeight;prog.style.width=(m>0?Math.min(100,h.scrollTop/m*100):0)+'%';if(dock&&!calm)dock.style.setProperty('--sy',Math.min(60,h.scrollTop*.06)+'px');}
