@@ -1,12 +1,6 @@
 {
- "v": 4,
- "texts": [
-  {
-   "id": "loi-18-12",
-   "file": "loi-18-12.json",
-   "v": 3
-  }
- ],
+ "v": 6,
+ "texts": [],
  "cases": [
   {
    "file": "jur-refs.json",
