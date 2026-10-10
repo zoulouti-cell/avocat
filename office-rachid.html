@@ -477,6 +477,21 @@ details.fcfees>summary{color:#f0d68a;font-weight:700;padding:.2rem 0}
 .cdc{font:700 1.05rem "Jost",ui-monospace,Menlo,monospace;direction:ltr;color:var(--gt,#7a5a12)}
 td.cdc{white-space:nowrap;font-size:.95rem}
 .cdall{margin-top:1rem!important}
+/* ---- letterhead: request about a judgment, moving the blocks of the page ---- */
+.trf>[hidden],.trf[hidden],.lxsc [hidden]{display:none!important}
+.lxsc .trf.lhjud{grid-template-columns:minmax(96px,.7fr) 1fr 1.2fr}
+.lhmv{margin:.8rem 0 .4rem}.lhmv>.btn{width:100%}
+.lhmvp{margin:.5rem 0 0;padding:.6rem .8rem;border-radius:16px;border:1px solid rgba(230,200,115,.45);background:rgba(230,200,115,.06)}
+.lhmvp .note{margin:.1rem 0 .5rem;font-size:.88rem}
+.lhmvr{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr));gap:.45rem;margin-bottom:.55rem}
+.lhmvc{display:grid;grid-template-columns:minmax(0,1fr) 34px 5.2rem 34px;align-items:center;gap:.3rem;padding:.3rem .6rem;border-radius:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14)}
+.lhmvc b{font-size:.88rem;color:#f0d68a;white-space:nowrap}
+.lhmvb{width:34px;height:34px;border-radius:50%;border:1px solid rgba(230,200,115,.6);background:rgba(230,200,115,.1);color:#f0d68a;font:inherit;font-size:.8rem;cursor:pointer;padding:0}
+.lhmvb:active{transform:scale(.9)}
+.lhmvo{min-width:0;text-align:center;border:0;background:none;color:#d7e3dd;font:inherit;font-size:.8rem;cursor:pointer;padding:0 .1rem;direction:rtl}
+.lhpv.mvon{outline:2px solid rgba(230,200,115,.6);outline-offset:2px}
+.lhpv.mvon [data-mv]:not([data-mv=sig]){outline:3px dashed rgba(184,140,40,.95);outline-offset:4px;background:rgba(255,232,160,.28);cursor:ns-resize;touch-action:none;-webkit-user-select:none;user-select:none}
+.lhpv.mvon [data-mv].mvdrag{outline-style:solid!important;background:rgba(255,220,120,.45)!important;z-index:5}
 </style>
 </head>
 <body>
@@ -562,7 +577,7 @@ td.cdc{white-space:nowrap;font-size:.95rem}
       <div class="trf">
         <label><span>عنوان الملف (اختياري)</span><input id="mlabel" maxlength="60"></label>
         <label><span>المحكمة</span><input id="mcourt" maxlength="80" autocomplete="off" placeholder="اكتبوا جزءًا من الاسم، أو اسمًا غير مدرج"><div class="sug" id="csug"></div></label>
-        <label><span>نوع الملف</span><select id="mtype"><option value="شكاية">ملف شكاية</option><option value="محضر">ملف محضر</option><option value="تحقيق">ملف تحقيق</option><option value="جنحي">ملف جنحي</option><option value="مدني" selected>ملف مدني</option><option value="عقاري">ملف عقاري</option><option value="أسرة">ملف أسرة</option><option value="إداري">ملف إداري</option><option value="تجاري">ملف تجاري</option><option value="اجتماعي">ملف اجتماعي</option><option value="كراء">ملف كراء</option><option value="تنفيذ">ملف تنفيذ</option><option value="تبليغ">ملف تبليغ</option></select></label>
+        <label><span>نوع الملف</span><select id="mtype"><option value="شكاية">شكاية</option><option value="محضر">محضر</option><option value="تحقيق">ملف تحقيق</option><option value="جنحي">ملف جنحي</option><option value="مدني" selected>ملف مدني</option><option value="عقاري">ملف عقاري</option><option value="أسرة">ملف أسرة</option><option value="إداري">ملف إداري</option><option value="تجاري">ملف تجاري</option><option value="اجتماعي">ملف اجتماعي</option><option value="كراء">ملف كراء</option><option value="تنفيذ">ملف تنفيذ</option><option value="تبليغ">ملف تبليغ</option></select></label>
       </div>
       <div class="trf">
         <label><span>القاعة</span><input id="mroom" maxlength="40"></label>
@@ -3469,7 +3484,7 @@ var LH_FONTS={"a7": "data:font/woff;base64,d09GRgABAAAAAF0wAA4AAAAA5RQAAQABAAAAA
 var CODES_TBL=[["شكاية", "عادية", "3101", "شكاية عامة معروضة على وكيل الملك أو الوكيل العام للملك", 0], ["شكاية", "إهمال الأسرة", "3102", "التملص من واجبات النفقة أو ترك بيت الزوجية", 0], ["شكاية", "عنف ضد الأطفال", "3103", "شكايات العنف وإساءة معاملة القاصرين", 0], ["شكاية", "عنف ضد النساء", "3104", "العنف الجسدي أو النفسي ضد الزوجة أو المرأة", 0], ["شكاية", "رجوع إلى بيت الزوجية", "3105", "شكايات الامتناع عن الرجوع للبيت (ف 53 مدونة الأسرة)", 0], ["شكاية", "شيك بدون مؤونة", "3106", "إصدار أو قبول شيك بدون رصيد", 0], ["شكاية", "معتقلين", "3107", "الشكايات الموجهة من داخل المؤسسات السجنية", 0], ["شكاية", "جالية مغربية", "3108", "الشكايات الخاصة بالمغاربة المقيمين بالخارج", 0], ["شكاية", "استثنائية", "3110", "شكايات ذات طبيعة خاصة ومستعجلة", 0], ["شكاية", "ضد مفوضين قضائيين", "3114", "خروقات ومخالفات أعوان ومساعدي القضاء", 0], ["شكاية", "عنف ضد الزوج", "3117", "الاعتداء الموجه ضد الزوج", 0], ["شكاية", "خرق قانون الانتخابات", "3119", "الجرائم والتجاوزات في العمليات الانتخابية", 0], ["شكاية", "مباشرة أمام قاضي التحقيق", "3120", "المطالبة بالحق المدني والتحريك المباشر أمام قاضي التحقيق", 0], ["شكاية", "مباشرة أمام المحكمة", "3121", "الاستدعاء المباشر للمحكمة مع أداء الضمانة", 0], ["شكاية", "قضاء الأسرة", "3122", "خروقات ومنازعات زجرية أسرية (ف 54 مدونة الأسرة)", 0], ["شكاية", "جرائم مالية", "3123", "اختلاس وتبديد المال العام والرشوة", 0], ["شكاية", "بيئة", "3125", "شكايات الجرائم البيئية والصحية", 0], ["شكاية", "خلية حقوق الإنسان", "3126", "شكايات الانتهاكات المعروضة على الخلايا المختصة", 0], ["شكاية", "مباشرة أمام المحكمة (صحافة)", "2901", "قضايا القذف والسب عبر وسائل النشر والإعلام", 0], ["شكاية", "مباشرة أمام المحكمة (قضايا مختلفة)", "2902", "شكايات قضايا الشيك والجرائم الخاصة المباشرة", 0], ["محضر", "عادي", "3201", "محاضر الضابطة القضائية العادية (سراح/بحث)", 0], ["محضر", "تلبسي", "3202", "المحاضر في حالة التلبس بالجرم", 0], ["محضر", "تلبسي جنحي سير", "3203", "حوادث ومخالفات السير التلبسية", 0], ["محضر", "تلبسي حوادث سير", "3204", "حوادث سير بدنية في حالة تلبس/اعتقال", 0], ["محضر", "حوادث سير", "3205", "حوادث سير بدنية/عادية", 0], ["محضر", "جنح سير", "3206", "جنح قانون السير والسلامة الطرقية", 0], ["محضر", "مخالفات سير", "3207", "المخالفات الغرامية والمرورية", 0], ["محضر", "قمع غش", "3208", "زجر الغش في البضائع والمنتجات", 0], ["محضر", "غش في أسعار", "3209", "مخالفات الأسعار وقانون المنافسة", 0], ["محضر", "مخالفات غابة", "3210", "محاضر المياه والغابات والتعدي على الملك الغابوي", 0], ["محضر", "بناء بدون رخصة", "3211", "مخالفات قوانين التعمير للبناء غير المرخص", 0], ["محضر", "محاربة تهريب", "3212", "محاضر الجمارك ومحاربة تهريب البضائع", 0], ["محضر", "محاربة مخدرات", "3213", "حيازة، اتجار، أو استهلاك المخدرات", 0], ["محضر", "قضايا أسرة", "3214", "محاضر تتعلق بالحضانة والنفقة وإهمال الأسرة", 0], ["محضر", "تلبسي أحداث", "3215", "محاضر قاصرين وأحداث في حالة تلبس", 0], ["محضر", "عنف ضد النساء", "3216", "محاضر اعتداء وعنف موجه ضد النساء", 0], ["محضر", "عنف ضد القاصرين", "3217", "محاضر عنف واعتداء على الأطفال", 0], ["محضر", "إكراه بدني", "3218", "مساطر تطبيق الإكراه البدني لتنفيذ الديون الغرامية", 0], ["محضر", "بحث عن متغيب", "3219", "مساطر اختفاء الأشخاص والبحث للوصول إلى الفائدة", 0], ["محضر", "تنفيذ عقوبة حبسية", "3220", "محاضر ضبط وإلقاء القبض لتنفيذ العقوبات", 0], ["محضر", "مخالفات تعمير", "3226", "خروقات ضوابط وشروط البناء والتجزئات", 0], ["محضر", "عادي أحداث", "3227", "محاضر قضايا جنح الأحداث في حالة سراح", 0], ["محضر", "بيئة", "3228", "مخالفات البيئة والتلوث البيئي", 0], ["محضر", "مقالع", "3229", "استغلال المقالع العشوائي دون ترخيص", 0], ["محضر", "عنف ضد النساء تلبس", "3230", "الاعتداء الفوري/التلبسي على النساء", 0], ["محضر", "حقوق إنسان", "3235", "محاضر الشكايات والممارسات الماسة بالحقوق", 0], ["محضر", "حقوق طفل", "3236", "حماية الأطفال من الانتهاكات والمعاملة السيئة", 0], ["محضر", "حماية أحداث ضحايا عنف", "3237", "مساطر وقائية للأحداث الضحايا", 0], ["محضر", "أحداث في وضعية صعبة", "3238", "مساطر حماية الأطفال المتشردين وفي وضعية صعبة", 0], ["محضر", "مخالفات سير (رادار ثابت)", "3239", "المخالفات الملتقطة بالرادارات الثابتة", 0], ["محضر", "جنح سير (رادار ثابت)", "3240", "السرعة المفرطة المشكلة لجنحة بالرادار الثابت", 0], ["محضر", "مخالفة قانون انتخابات", "3241", "الخروقات والمخالفات الانتخابية", 0], ["تحقيق", "جنحي عادي (سراح)", "2201", "فتح تحقيق إعدادي في الجنح للأشخاص في حالة سراح", 1], ["تحقيق", "جنحي تلبسي (اعتقال)", "2202", "التحقيق الإعدادي الجنحي في حالة الاعتقال الاحتياطي", 1], ["تحقيق", "أحداث", "2208", "التحقيق في القضايا والجرائم المنسوبة للأحداث والقاصرين", 1], ["تحقيق", "في إنابة محلية واردة", "2303", "تنفيذ إنابة قضائية داخلية صادرة عن قاضي تحقيق آخر", 0], ["تحقيق", "في إنابة دولية واردة", "2304", "تنفيذ الإنابات القضائية الصادرة عن سلطات أجنبية", 0], ["تحقيق", "عنف ضد النساء", "2305", "التحقيق الإعدادي في جرائم العنف الجسيم ضد المرأة", 0], ["تحقيق", "عنف ضد الأطفال", "2306", "التحقيق في جرائم الاستغلال والعنف ضد الأطفال", 0], ["تحقيق", "في حادثة سير مميتة", "2307", "التحقيق الإعدادي في حوادث السير المقترنة بظروف تشديد", 0], ["تحقيق", "جنائي إعدادي", "2602", "التحقيق في الجنايات (قتل، سرقة موصوفة، إرهاب...) أمام محاكم الاستئناف", 0], ["جنحي", "جنحي عادي", "2102", "القضايا الجنحية العادية في حالة سراح/استدعاء مباشر", 0], ["جنحي", "جنحي تلبس", "2103", "القضايا الجنحية المتابعة في حالة اعتقال أو تلبس", 0], ["جنحي", "حوادث سير", "2402", "قضايا حوادث السير والتعويضات الجنحية", 0], ["جنحي", "جنايات", "2601", "القضايا الجنائية الابتدائية/الاستئنافية", 0], ["جنحي", "جنح أحداث", "2201", "القضايا الجنحية الخاصة بالأحداث", 0], ["جنحي", "مخالفات سير", "2402", "ملفات المخالفات والغرامات", 1], ["جنحي", "عنف ضد النساء", "2104", "قضايا العنف والاستغلال الموجه ضد النساء", 1], ["جنحي", "عنف ضد الأطفال", "2104", "قضايا الاعتداء والعنف ضد القاصرين والأطفال", 1], ["جنحي", "جنايات ابتدائية لجرائم مالية", "2624", "قضايا الجرائم المالية والاختلاس بمحاكم الاستئناف", 1], ["مدني", "مدني متنوع", "1201", "الدعوى المدنية العامة والطلبات المختلفة", 0], ["مدني", "مسؤولية", "1202", "دعاوى التعويض عن المسؤولية تقصيرية/عقدية", 0], ["مدني", "أداء", "1203", "دعاوى المطالبة بالمبالغ المالية والديون المدنية", 1], ["مدني", "إثبات حالة مدنية", "1601", "التصريح القضائي وتعديل وتصحيح رسم الولادة/الوفاة", 0], ["مدني", "أوامر بالأداء", "1101", "الأوامر المبنية على طلب واستيفاء الديون المستحقة", 1], ["عقاري", "تحفيظ عقاري", "1402", "القضايا المتعلقة بالتعرضات على التحفيظ", 0], ["عقاري", "نزاع على عقار غير محفظ", "1401", "دعاوى الملكية والاستحقاق والنزاعات العقارية غير المحفظة", 0], ["عقاري", "قسمة عقارية", "1404", "دعاوى قسمة الشياع والخروج من الشياع", 0], ["عقاري", "حيازة", "1404", "دعاوى حماية وحفظ الحيازة العقارية", 0], ["عقاري", "استحقاق", "1401", "دعاوى إثبات الملكية وتحديد المالك", 0], ["أسرة", "طلاق", "1608", "طلبات الإذن بالتطليق والطلاق الاتفاقي والرجعي", 0], ["أسرة", "تطليق", "1626", "دعاوى التطليق للشقاق، العيب، أو عدم الإنفاق", 0], ["أسرة", "نفقة", "1645", "دعاوى واجبات النفقة والسكنى والأجرة", 0], ["أسرة", "حضانة", "1609", "دعاوى إسقاط أو إسناد أو تعديل الحضانة", 0], ["أسرة", "صلة رحم", "1612", "دعاوى تنظيم وزيارة المحضون", 0], ["أسرة", "ميراث وتركات", "1615", "دعاوى تصفية التركات وتوزيع الميراث", 0], ["أسرة", "ثبوت زوجية", "1611", "دعاوى ثبوت الزوجية وسماع دعوى الزوجية", 0], ["أسرة", "زواج قاصر", "1616", "طلبات الإذن بالتزويج لمن دون سن الأهلية", 0], ["أسرة", "إذن بالتعدد", "1618", "طلبات الإذن بالتعدد وتوافر الشروط الشرعية", 0], ["أسرة", "تحجير", "1621", "طلبات التحجير أو رفعه للسفه أو العاهة العقلية", 1], ["إداري", "إلغاء قرارات إدارية", "7110", "دعاوى إلغاء القرارات الإدارية للشطط في استعمال السلطة", 0], ["إداري", "قضاء شامل", "7112", "دعاوى المسؤولية الإدارية والتعويضات عن أضرار الإدارة", 0], ["إداري", "نزاعات موظفين", "7113", "نزاعات الوظيفة العمومية والوضعية النظامية للموظف", 1], ["إداري", "نزاع ضريبي", "7114", "المنازعات الضريبية والتحصيل والمستحقات", 1], ["إداري", "نزع ملكية", "7115", "دعاوى نقل الملكية وتحديد التعويض عن نزع الملكية للمنفعة العامة", 1], ["تجاري", "نزاع بين تجار", "8201", "المعاملات والتزامات التجار والأعمال التجارية", 0], ["تجاري", "شركات ومقاولات", "8207", "منازعات الشركاء، التسيير، وحل الشركات", 1], ["تجاري", "صعوبات مقاولة", "8301", "مساطر الوقاية والإنقاذ والتسوية أو التصفية القضائية", 0], ["تجاري", "شيك وكمبيالة تجارية", "8101", "منازعات السندات والأوراق التجارية والكمبيالات", 1], ["تجاري", "ملكية صناعية", "8201", "نزاعات العلامات التجارية وبراءات الاختراع", 1], ["اجتماعي", "نزاعات شغل", "1501", "الخلافات الفردية والجماعية الناتجة عن عقود الشغل", 0], ["اجتماعي", "فصل تعسفي", "1501", "دعاوى التعويض عن الفصل التعسفي والإعفاء", 0], ["اجتماعي", "مطالبات بالأجور", "1501", "دعاوى استيفاء الأجور والملحقات والعطل السنوية", 0], ["اجتماعي", "حوادث شغل", "1502", "التعويضات الناجمة عن الأضرار وحوادث الشغل", 0], ["اجتماعي", "أمراض مهنية", "1503", "التعويض عن الأضرار الناتجة عن الأمراض المهنية", 0], ["كراء", "إفراغ محلات سكنية", "1301", "دعاوى الإفراغ للمحلات المعدة للسكنى أو الاستعمال المهني", 1], ["كراء", "إفراغ محلات تجارية", "1302", "دعاوى إفراغ المحلات التجارية والصناعية", 0], ["كراء", "أداء كراء", "1303", "دعاوى استيفاء الوجيبة الكرائية والمستحقات", 0], ["كراء", "مراجعة سومة كراء", "1304", "دعاوى الزيادة أو التخفيض في السومة الكرائية", 0]];
 /* ---------- file types, sections (الشعبة) or procedures (الإجراء) and their codes: the office's table first, completed by the Ministry of Justice table (CODEMAP) ---------- */
 var CTBL=(function(){
-  var TYPES=[['شكاية','ملف شكاية'],['محضر','ملف محضر'],['تحقيق','ملف تحقيق'],['جنحي','ملف جنحي'],['مدني','ملف مدني'],['عقاري','ملف عقاري'],['أسرة','ملف أسرة'],['إداري','ملف إداري'],['تجاري','ملف تجاري'],['اجتماعي','ملف اجتماعي'],['كراء','ملف كراء'],['تنفيذ','ملف تنفيذ'],['تبليغ','ملف تبليغ']];
+  var TYPES=[['شكاية','شكاية'],['محضر','محضر'],['تحقيق','ملف تحقيق'],['جنحي','ملف جنحي'],['مدني','ملف مدني'],['عقاري','ملف عقاري'],['أسرة','ملف أسرة'],['إداري','ملف إداري'],['تجاري','ملف تجاري'],['اجتماعي','ملف اجتماعي'],['كراء','ملف كراء'],['تنفيذ','ملف تنفيذ'],['تبليغ','ملف تبليغ']];
   var PROC={'شكاية':1,'محضر':1,'تحقيق':1,'تنفيذ':1,'تبليغ':1};
   var FAMS={'شكاية':['31','29'],'محضر':['32'],'تحقيق':['23'],'جنحي':['21','22','24','26','28'],'مدني':['11','12','17'],'عقاري':['14'],'أسرة':['16'],'إداري':['71','72'],'تجاري':['81','82','83'],'اجتماعي':['15'],'كراء':['13'],'تنفيذ':['61','62','41'],'تبليغ':['84']};
   var ROWS=(typeof CODES_TBL!=='undefined'?CODES_TBL:[]).map(function(r){return {ty:r[0],sh:r[1],c:r[2],d:r[3],x:r[4],src:'t'};});
@@ -3877,7 +3892,7 @@ var LH=(function(){
     var c=[];
     function cell(lbl,val){if(val)c.push('<div><b>'+X(lbl)+' :</b> <span>'+X(val)+'</span></div>');else if(d.blanks)c.push('<div><b>'+X(lbl)+' :</b> '+DOTS+'</div>');}
     var rt=[d.room?(/^(القاعة|قاعة|الغرفة|غرفة)/.test(d.room)?d.room:'القاعة '+d.room):'',d.time?'الساعة '+d.time:''].filter(Boolean).join(' — ');
-    cell('رقم الملف',d.no);cell(d.jl||'القاضي(ة) المقرر(ة)',d.judge);cell('تاريخ الجلسة',d.hd?ymd(d.hd):'');cell('القاعة والساعة',rt);
+    cell('رقم الملف',d.no);if(d.jd){cell((d.dk||'حكم')+' عدد',d.dn);cell('صادر بتاريخ',d.dd?ymd(d.dd):'');}cell(d.jl||'القاضي(ة) المقرر(ة)',d.judge);cell('تاريخ الجلسة',d.hd?ymd(d.hd):'');cell('القاعة والساعة',rt);
     return {html:c.join(''),rows:Math.ceil(c.length/2)};
   }
   function wt(v,def){return (v==null?def:v)?700:400;}
@@ -3931,13 +3946,15 @@ var LH=(function(){
   var P1_BOTTOM=776,PN_TOP=56,PN_BOTTOM=800;
   function build(d,opt){
     opt=opt||{};var b=Object.assign({},window.BRAND?BRAND.get():{},opt.brand||{}),logo=b.logo||(typeof LH_LOGO==='string'?LH_LOGO:''),plain=d.plain;
-    var info=infoRows(d),title=String(d.type||'').trim(),y=title?150:156,L={};
-    if(title){L.title=y;y+=measureBlock(titleHtml(d),b,TITLE_W)+14;}
-    if(info.rows){L.info=y;y+=measureBlock('<div class="lh-info">'+info.html+'</div>',b,503.3)+20;}
-    var th=toHtml(d);if(th){L.to=y;y+=measureBlock(th,b,503.3)+10;}
-    var ph=partiesHtml(d);if(ph){L.par=y;y+=measureBlock(ph,b,479.3)+12;}
-    var oh=opHtml(d);if(oh){L.op=y;y+=measureBlock(oh,b,479.3)+6;}
-    var bodyTop=y+4,FOOT=plain?812:772,body=String(d.body||'').replace(/\s+$/,''),sh=sigH(b,d),pages=[];
+    var info=infoRows(d),title=String(d.type||'').trim(),y=title?150:156,L={},M=d.mv||{},EF={},prev=146;
+    function place(k,h,gap){var nat=y,top=Math.min(690,Math.max(prev+2,nat+(+M[k]||0)));EF[k]=Math.round(top-nat);L[k]=top;prev=top+h;y=prev+gap;}
+    if(title){L.title=y;var tth=measureBlock(titleHtml(d),b,TITLE_W);prev=y+tth;y+=tth+14;}
+    if(info.rows)place('info',measureBlock('<div class="lh-info">'+info.html+'</div>',b,503.3),20);
+    var th=toHtml(d);if(th)place('to',measureBlock(th,b,503.3),10);
+    var ph=partiesHtml(d);if(ph)place('par',measureBlock(ph,b,479.3),12);
+    var oh=opHtml(d);if(oh)place('op',measureBlock(oh,b,479.3),6);
+    var nb=y+4,bodyTop=Math.min(690,Math.max(prev+2,nb+(+M.body||0)));EF.body=Math.round(bodyTop-nb);
+    var FOOT=plain?812:772,body=String(d.body||'').replace(/\s+$/,''),sh=sigH(b,d),pages=[];
     if(!body.trim()){pages.push({text:'',sig:Math.max(bodyTop+10,Math.min(678,(plain?PN_BOTTOM:P1_BOTTOM)-sh))});}
     else{
       paginate(body,b,d,FOOT-bodyTop,PN_BOTTOM-10-PN_TOP).forEach(function(c,i){pages.push({text:c,top:i?PN_TOP:bodyTop});});
@@ -3951,23 +3968,24 @@ var LH=(function(){
       }
     }
     var C=css(b);
-    return pages.map(function(p,i){
+    var outp=pages.map(function(p,i){
       var h='<div class="lhp">';
       if(i===0){
         if(!plain)h+=header(b,logo);
         h+=dateLine(b,d);
         if(L.title!=null)h+=titleHtml(d,L.title);
-        if(L.info!=null)h+='<div class="lh-info" style="top:'+L.info+'pt">'+info.html+'</div>';
-        if(L.to!=null)h+=th.replace('class="lh-to" style="','class="lh-to" style="top:'+L.to+'pt;');
-        if(L.par!=null)h+=ph.replace('class="lh-par"','class="lh-par" style="top:'+L.par+'pt"');
-        if(L.op!=null)h+=oh.replace('class="lh-op" style="','class="lh-op" style="top:'+L.op+'pt;');
+        if(L.info!=null)h+='<div class="lh-info" data-mv="info" style="top:'+L.info+'pt">'+info.html+'</div>';
+        if(L.to!=null)h+=th.replace('class="lh-to" style="','class="lh-to" data-mv="to" style="top:'+L.to+'pt;');
+        if(L.par!=null)h+=ph.replace('class="lh-par"','class="lh-par" data-mv="par" style="top:'+L.par+'pt"');
+        if(L.op!=null)h+=oh.replace('class="lh-op" style="','class="lh-op" data-mv="op" style="top:'+L.op+'pt;');
       }
-      if(p.text)h+='<div class="lh-body" style="top:'+p.top+'pt;'+bodyStyle(d)+'">'+X(p.text)+'</div>';
-      if(p.sig!=null)h+=signBlock(b,d,p.sig);
+      if(p.text)h+='<div class="lh-body"'+(i===0?' data-mv="body"':'')+' style="top:'+p.top+'pt;'+bodyStyle(d)+'">'+X(p.text)+'</div>';
+      if(p.sig!=null)h+=(i===0?signBlock(b,d,p.sig).replace(/class="lh-(sign|att)"/g,'class="lh-$1" data-mv="sig"'):signBlock(b,d,p.sig));
       if(i===0&&!plain)h+=footer(b);
       if(i>0)h+='<div class="lh-pn">'+(i+1)+'</div>';
       return C+h+'</div>';
     });
+    outp.mv=EF;return outp;
   }
   /* ---------- output ---------- */
   function isNat(){return !!(window.Capacitor&&typeof window.Capacitor.isNativePlatform==='function'&&window.Capacitor.isNativePlatform());}
@@ -4002,10 +4020,9 @@ var LH=(function(){
     return {no:[f.no,f.code,f.yr].filter(Boolean).join('/'),our:f.our||'',judge:f.judge||'',jl:f.jrole||'',hd:h?h.d:'',room:(h&&h.r)||f.room||'',time:(h&&h.t)||'',
       toP:'إلى',to:toLine(f.court),pr:'لفائدة',pfor:f.cli||'',r1t:cr?'يؤازره':'ينوب عنه',r1:f.cli?(b.lawyer||''):'',vt:cr?'ضد':'في مواجهة',vs:f.adv||'',r2t:cr?'يؤازره':'ينوب عنه',r2:lawyer(f.advl)};
   }
-  var TYPES=['مذكرة جوابية','مذكرة تعقيبية','مذكرة بعد الخبرة','مذكرة بعد النقض والإحالة','مذكرة دفاعية','مستنتجات','مقال افتتاحي','مقال استئنافي','مقال إصلاحي','مقال من أجل الطعن بالنقض','طلب','طلب تأجيل','طلب إدخال الغير في الدعوى','طلب إجراء خبرة','طلب الاطلاع على الملف','طلب نسخة','طلب السراح المؤقت','طلب تسجيل النيابة والتنصب كطرف مدني','شكاية','إنذار','رسالة'];
+  var TYPES=['مذكرة جوابية','مذكرة تعقيبية','مذكرة بعد الخبرة','مذكرة بعد النقض والإحالة','مذكرة دفاعية','مستنتجات','مقال افتتاحي','مقال استئنافي','مقال إصلاحي','مقال من أجل الطعن بالنقض','طلب','طلب تأجيل','طلب إدخال الغير في الدعوى','طلب إجراء خبرة','طلب الاطلاع على الملف','طلب تصوير وثائق','طلب نسخة','طلب السراح المؤقت','طلب تسجيل النيابة والتنصب كطرف مدني','طلب تسجيل مؤازرة','شكاية','إنذار','رسالة'];
   var ROLES=['لفائدة','لفائدة المتهم','لفائدة المتهمة','لفائدة المشتكي','لفائدة المشتكية'];
   var REPS=['ينوب عنه','ينوب عنها','ينوب عنهما','ينوب عنهم','يؤازره','يؤازرها','يؤازرهما','يؤازرهم','تنوب عنه','تنوب عنها','تؤازره','تؤازرها'];
-  var OPENERS=['سيدي الرئيس المحترم','السيد الرئيس المحترم\nالسادة المستشارين\nالسيد الوكيل العام المحترم','السيد الرئيس المحترم\nالسادة المستشارين المحترمين','السيد قاضي التحقيق المحترم','السيد وكيل الملك المحترم'];
   /* ---------- the sheet ---------- */
   function E(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e;}
   function field(lbl,inp){var l=E('label');l.appendChild(E('span',null,lbl));l.appendChild(inp);return l;}
@@ -4058,13 +4075,15 @@ var LH=(function(){
     var dm=sel([['auto','تاريخ يوم الطباعة (تلقائي)'],['pick','تاريخ آخر'],['blank','فارغ للملء باليد']]);
     var dt=inp('date');dt.value=todayIso();dt.hidden=true;
     var dbox=E('label');dbox.appendChild(E('span',null,'التاريخ'));dbox.appendChild(dm);dbox.appendChild(dt);
-    g1.appendChild(field('نوع الطلب',type));g1.appendChild(dbox);card.appendChild(g1);
+    var cpk=sel([['','نسخة فقط'],['تنفيذية','نسخة تنفيذية'],['تبليغية','نسخة تبليغية'],['عادية','نسخة عادية']]),cpf=field('النسخة المطلوبة',cpk);cpf.hidden=true;
+    g1.appendChild(field('نوع الطلب',type));g1.appendChild(cpf);g1.appendChild(dbox);card.appendChild(g1);
     var bx=E('div','lhops');function ck(t,v,host){var l=E('label','lhck'),c=E('input');c.type='checkbox';c.checked=!!v;l.appendChild(c);l.appendChild(E('span',null,t));(host||bx).appendChild(l);return c;}
     /* size and weight of each part of the letterhead; the last choice is kept on this device */
     function styleRow(lbl,sz,checks){var g=E('div','trf lhsty');g.appendChild(field(lbl,sz));var h=E('div','lhops');checks.forEach(function(c){h.appendChild(c.parentNode);});g.appendChild(h);card.appendChild(g);}
     var tS=sizes(14,26,18),tB=ck('مضغوط (غامق)',true,E('div'));styleRow('حجم خط نوع الطلب',tS,[tB]);
     card.appendChild(E('h4','lhsec','إطار معلومات الملف'));
     var g2=E('div','trf'),no=inp('text','رقم/رمز/سنة','ltr'),our=inp('text','','ltr');g2.appendChild(field('رقم الملف',no));g2.appendChild(field('مرجع المكتب للملف',our));card.appendChild(g2);
+    var gj=E('div','trf lhjud'),dk=sel(['حكم','قرار','أمر']),dn=inp('text','','ltr'),ddt=inp('date');gj.appendChild(field('المقرر',dk));gj.appendChild(field('عدد',dn));gj.appendChild(field('صادر بتاريخ',ddt));gj.hidden=true;card.appendChild(gj);
     var g3=E('div','trf lhpair'),jl=sel(['القاضي(ة) المقرر(ة)','القاضي(ة) المكلف(ة)','المستشار(ة) المقرر(ة)','قاضي التحقيق']),judge=inp('text','');g3.appendChild(field('الصفة',jl));g3.appendChild(field('الاسم',judge));card.appendChild(g3);
     var g4=E('div','trf'),hdt=inp('date'),room=inp('text',''),tm=inp('time');g4.appendChild(field('تاريخ الجلسة',hdt));g4.appendChild(field('القاعة',room));g4.appendChild(field('الساعة',tm));card.appendChild(g4);
     card.appendChild(E('h4','lhsec','الجهة'));
@@ -4078,9 +4097,7 @@ var LH=(function(){
     var g8=E('div','trf lhpair'),r2t=sel(REPS),r2=inp('text','الأستاذ ...');g8.appendChild(field('ينوب أو يؤازر',r2t));g8.appendChild(field('محامي الطرف الآخر',r2));card.appendChild(g8);
     var pS=sizes(11,20,14),pLB=ck('الصفات مضغوطة',true,E('div')),pNB=ck('الأسماء مضغوطة',false,E('div'));styleRow('حجم خط الأطراف',pS,[pLB,pNB]);
     card.appendChild(E('h4','lhsec','النص'));
-    var op=ta(2,'مثال: سيدي الرئيس المحترم'),opc=E('div','lhkit');opc.appendChild(E('span','lhkh','صيغ جاهزة:'));
-    OPENERS.forEach(function(t){var lab=t.split('\n').join(' / ');var bt=E('button','lxchip',lab.length>46?lab.slice(0,44)+'…':lab);bt.type='button';bt.addEventListener('click',function(){op.value=t;refresh();});opc.appendChild(bt);});
-    card.appendChild(field('مستهل النص',op));card.appendChild(opc);
+    var op=ta(2,'مثال: سيدي الرئيس المحترم');card.appendChild(field('مستهل النص',op));
     var opS=sizes(12,22,14),opB=ck('مضغوط (غامق)',true,E('div'));styleRow('حجم خط المستهل',opS,[opB]);
     var body=ta(8,'اكتبوا نص المذكرة أو الطلب هنا ليُطبع على الرأسية، أو اتركوه فارغًا لطباعة رأسية للكتابة عليها.');card.appendChild(field('متن النص',body));
     card.appendChild(aiRow(body,function(){var f=all[fs.value]||{};return [[pfor.value,'[الموكل]'],[f.cli,'[الموكل]'],[vs.value,'[الطرف الآخر]'],[f.adv,'[الطرف الآخر]'],[r2.value,'[محامي الطرف الآخر]'],[f.advl,'[محامي الطرف الآخر]']];},function(){refresh();}));
@@ -4092,21 +4109,48 @@ var LH=(function(){
     var pro=inp('text','','ltr');pro.value=b.pro||'';pro.readOnly=true;pro.title='يُعدَّل من «هوية المكتب» في الإعدادات';
     g11.appendChild(field('توقيع المذكرة'+(b.stamp?'':' (لا طابع في الهوية)'),sg));g11.appendChild(field('الرقم الوطني',pro));card.appendChild(g11);
     var ops=E('div','lhops'),cpro=ck('إظهار الرقم الوطني',!!b.pro,ops),blanks=ck('إظهار الحقول الفارغة سطورًا للملء باليد',false,ops),plain=ck('دون الرأسية والتذييل (للطباعة على ورق المكتب المطبوع)',false,ops);card.appendChild(ops);
+    /* positions: drag a block in the preview (or use the arrows); the blocks below follow it */
+    var MVK=['info','to','par','op','body'],MVL={info:'إطار الملف',to:'الجهة',par:'الأطراف',op:'المستهل',body:'المتن'},MK='zl_lhmv:'+location.pathname,MV={},SC=1;
+    try{MV=JSON.parse(localStorage.getItem(MK)||'{}')||{};}catch(e){MV={};}
+    var mvw=E('div','lhmv'),mvt=E('button','btn sm lhmvt','تحريك العناصر في الصفحة');mvt.type='button';mvw.appendChild(mvt);
+    var mvp=E('div','lhmvp');mvp.hidden=true;mvp.appendChild(E('p','note','اسحبوا الإطار أو الجهة أو الأطراف أو المستهل أو المتن في المعاينة إلى الأعلى أو الأسفل، أو استعملوا الأسهم. ما تحت العنصر يتبعه، ولا يتراكب عنصر على آخر. تُحفظ المواضع في هذا الجهاز.'));
+    var mvr=E('div','lhmvr'),OUT={};mvp.appendChild(mvr);mvw.appendChild(mvp);
+    function nv(v){v=Math.round(+v||0);return (v>0?'+':'')+v+' نقطة';}
+    MVK.forEach(function(k){var c=E('div','lhmvc'),u=E('button','lhmvb','▲'),dn2=E('button','lhmvb','▼'),o=E('button','lhmvo',nv(MV[k]));u.type=dn2.type=o.type='button';u.setAttribute('aria-label',MVL[k]+' إلى الأعلى');dn2.setAttribute('aria-label',MVL[k]+' إلى الأسفل');o.title='إرجاع إلى الموضع الأصلي';
+      c.appendChild(E('b',null,MVL[k]));c.appendChild(u);c.appendChild(o);c.appendChild(dn2);mvr.appendChild(c);OUT[k]=o;
+      u.addEventListener('click',function(){mvSet(k,(+MV[k]||0)-6);});dn2.addEventListener('click',function(){mvSet(k,(+MV[k]||0)+6);});o.addEventListener('click',function(){mvSet(k,0);});});
+    var mvx=E('button','btn sm','إرجاع كل المواضع');mvx.type='button';mvp.appendChild(mvx);mvx.addEventListener('click',function(){MV={};mvSave();refresh();});
+    function mvSave(){try{localStorage.setItem(MK,JSON.stringify(MV));}catch(e){}MVK.forEach(function(k){OUT[k].textContent=nv(MV[k]);});}
+    function mvSet(k,v){v=Math.max(-240,Math.min(480,Math.round(v)));if(v)MV[k]=v;else delete MV[k];mvSave();refresh();}
+    mvt.addEventListener('click',function(){var on=!pv.classList.contains('mvon');pv.classList.toggle('mvon',on);mvp.hidden=!on;mvt.textContent=on?'إنهاء التحريك':'تحريك العناصر في الصفحة';mvt.classList.toggle('p',on);if(on)pv.scrollIntoView({behavior:'smooth',block:'nearest'});});
+    card.appendChild(mvw);
     var pv=E('div','lhpv');card.appendChild(pv);
+    var drag=null,ORD=MVK.concat(['sig']);
+    pv.addEventListener('pointerdown',function(e){if(!pv.classList.contains('mvon'))return;var t=e.target.closest&&e.target.closest('[data-mv]');if(!t)return;var k=t.getAttribute('data-mv');if(k==='sig')return;var pg=t.closest('.lhp');if(!pg)return;
+      var i=ORD.indexOf(k),els=[].slice.call(pg.querySelectorAll('[data-mv]')).filter(function(x){return ORD.indexOf(x.getAttribute('data-mv'))>=i;});
+      drag={k:k,y0:e.clientY,d:0,base:+MV[k]||0,els:els,t:t};try{t.setPointerCapture(e.pointerId);}catch(x){}t.classList.add('mvdrag');e.preventDefault();});
+    pv.addEventListener('pointermove',function(e){if(!drag)return;var d=Math.round((e.clientY-drag.y0)/(SC*96/72)/2)*2;drag.d=d;drag.els.forEach(function(x){x.style.transform='translateY('+d+'pt)';});OUT[drag.k].textContent=nv(drag.base+d);e.preventDefault();});
+    function dragEnd(){if(!drag)return;var k=drag.k,v=drag.base+drag.d,moved=drag.d!==0;drag.t.classList.remove('mvdrag');drag=null;if(moved)mvSet(k,v);}
+    pv.addEventListener('pointerup',dragEnd);pv.addEventListener('pointercancel',dragEnd);
     var row=E('div','row2'),pb=E('button','btn p',hasFS()?'إنشاء PDF للطباعة':'طباعة'),cx=E('button','btn','إغلاق');pb.type=cx.type='button';row.appendChild(pb);row.appendChild(cx);card.appendChild(row);
-    function data(){var m=dm.value;return {type:type.value.trim(),dateMode:m,date:m==='pick'?dt.value:todayIso(),no:no.value.trim(),our:our.value.trim(),jl:jl.value,judge:judge.value.trim(),hd:hdt.value,room:room.value.trim(),time:tm.value,
+    var JUD=/نسخة|استئناف|نقض|إصلاح|تنفيذ|تبليغ|تعرض|إعادة النظر|تفسير/;
+    function jOn(){return JUD.test(type.value);}
+    function syncType(){var t=type.value,cp=/^\s*طلب\s+(?:الحصول\s+على\s+)?نسخة/.test(t);cpf.hidden=!cp;if(cp){var m=/نسخة\s+(تنفيذية|تبليغية|عادية)/.exec(t);cpk.value=m?m[1]:'';}gj.hidden=!jOn();}
+    cpk.addEventListener('change',function(){type.value='طلب نسخة'+(cpk.value?' '+cpk.value:'');syncType();refresh();});
+    type.addEventListener('input',syncType);type.addEventListener('change',syncType);
+    function data(){var m=dm.value,jd=jOn();return {jd:jd,dk:dk.value,dn:jd?dn.value.trim():'',dd:jd?ddt.value:'',mv:MV,type:type.value.trim(),dateMode:m,date:m==='pick'?dt.value:todayIso(),no:no.value.trim(),our:our.value.trim(),jl:jl.value,judge:judge.value.trim(),hd:hdt.value,room:room.value.trim(),time:tm.value,
       toP:toP.value,to:to.value,pr:pr.value.trim()||'لفائدة',pfor:pfor.value.trim(),r1t:r1t.value,r1:r1.value.trim(),vt:vt.value,vs:vs.value.trim(),r2t:r2t.value,r2:r2.value.trim(),
       op:op.value,opS:+opS.value,opB:opB.checked,body:body.value,bS:+bS.value,bB:bB.checked,att:att.value,
       tS:+tS.value,tB:tB.checked,toS:+toS.value,toB:toB.checked,pS:+pS.value,pLB:pLB.checked,pNB:pNB.checked,sig:sg.value,showPro:cpro.checked,blanks:blanks.checked,plain:plain.checked};}
-    var pt=null;function refresh(){clearTimeout(pt);pt=setTimeout(function(){ensureFonts().then(function(){var pg=build(data());pv.textContent='';pg.forEach(function(h){var w=E('div','lhpw');w.innerHTML=h;pv.appendChild(w);});fit();});},220);}
-    function fit(){var w=pv.clientWidth||300,s=Math.min(1,(w-2)/793.7);[].slice.call(pv.querySelectorAll('.lhpw')).forEach(function(x){x.style.height=(1122.5*s)+'px';var p=x.querySelector('.lhp');if(p){p.style.transform='scale('+s+')';p.style.transformOrigin='top right';}});}
+    var pt=null;function refresh(){clearTimeout(pt);pt=setTimeout(function(){ensureFonts().then(function(){var pg=build(data()),ef=pg.mv||{},ch=false;MVK.forEach(function(k){if(MV[k]!=null&&ef[k]!=null&&ef[k]!==MV[k]){if(ef[k])MV[k]=ef[k];else delete MV[k];ch=true;}});if(ch)mvSave();pv.textContent='';pg.forEach(function(h){var w=E('div','lhpw');w.innerHTML=h;pv.appendChild(w);});fit();});},220);}
+    function fit(){var w=pv.clientWidth||300,s=Math.min(1,(w-2)/793.7);SC=s;[].slice.call(pv.querySelectorAll('.lhpw')).forEach(function(x){x.style.height=(1122.5*s)+'px';var p=x.querySelector('.lhp');if(p){p.style.transform='scale('+s+')';p.style.transformOrigin='top right';}});}
     function kit(fid){kitBox.textContent='';var f=all[fid],k=(f&&f.kit)||[];if(!k.length||!window.KIT)return;kitBox.appendChild(E('span','lhkh','إدراج نص من مواد الملف:'));
       k.forEach(function(it){var a=KIT.art(it.a);if(!a)return;var bt=E('button','lxchip',it.n||('المادة '+a.no));bt.type='button';bt.addEventListener('click',function(){body.value=(body.value.trim()?body.value.replace(/\s+$/,'')+'\n\n':'')+KIT.cite(a);refresh();});kitBox.appendChild(bt);});}
     function fill(fid){var p=fromFile(all[fid]);no.value=p.no||'';our.value=p.our||'';judge.value=p.judge||'';if(p.jl)jl.value=p.jl;hdt.value=p.hd||'';room.value=p.room||'';tm.value=p.time||'';
       if(p.toP)toP.value=p.toP;to.value=p.to||'';pr.value=p.pr||'لفائدة';pfor.value=p.pfor||'';if(p.r1t)r1t.value=p.r1t;r1.value=fid?(p.r1||''):(b.lawyer||'');if(p.vt)vt.value=p.vt;vs.value=p.vs||'';if(p.r2t)r2t.value=p.r2t;r2.value=p.r2||'';kit(fid);refresh();}
     fs.addEventListener('change',function(){fill(fs.value);});
     dm.addEventListener('change',function(){dt.hidden=dm.value!=='pick';refresh();});
-    [type,dt,no,our,jl,judge,hdt,room,tm,toP,to,pr,pfor,r1t,r1,vt,vs,r2t,r2,op,opS,bS,opB,bB,body,att,sg,cpro,blanks,plain].forEach(function(x){x.addEventListener('input',refresh);x.addEventListener('change',refresh);});
+    [type,dt,no,our,dk,dn,ddt,jl,judge,hdt,room,tm,toP,to,pr,pfor,r1t,r1,vt,vs,r2t,r2,op,opS,bS,opB,bB,body,att,sg,cpro,blanks,plain].forEach(function(x){x.addEventListener('input',refresh);x.addEventListener('change',refresh);});
     var STY={tS:tS,tB:tB,toS:toS,toB:toB,pS:pS,pLB:pLB,pNB:pNB,opS:opS,opB:opB,bS:bS,bB:bB},SK='zl_lhstyle:'+location.pathname;
     try{var sv=JSON.parse(localStorage.getItem(SK)||'null');if(sv)Object.keys(STY).forEach(function(k){if(sv[k]==null)return;if(STY[k].type==='checkbox')STY[k].checked=!!sv[k];else if([].some.call(STY[k].options,function(o){return o.value===String(sv[k]);}))STY[k].value=String(sv[k]);});}catch(e){}
     Object.keys(STY).forEach(function(k){STY[k].addEventListener('change',function(){var o={};Object.keys(STY).forEach(function(j){o[j]=STY[j].type==='checkbox'?STY[j].checked:+STY[j].value;});try{localStorage.setItem(SK,JSON.stringify(o));}catch(e){}refresh();});});
@@ -4114,6 +4158,7 @@ var LH=(function(){
     function close(){ov.remove();window.removeEventListener('resize',fit);}
     cx.addEventListener('click',close);xb.addEventListener('click',close);window.addEventListener('resize',fit);
     document.body.appendChild(ov);
+    syncType();mvSave();
     if(fid&&all[fid]){fs.value=fid;fill(fid);}else refresh();
     return ov;
   }

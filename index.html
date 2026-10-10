@@ -1287,7 +1287,7 @@ var CODES_TBL=[["شكاية", "عادية", "3101", "شكاية عامة معر�
 function CDUI(root){
   if(!root||root.getAttribute('data-ready'))return;root.setAttribute('data-ready','1');root.classList.add('inh');
   var E=function(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!==undefined)e.textContent=x;return e;};
-  var TL={'شكاية':'ملف شكاية','محضر':'ملف محضر','تحقيق':'ملف تحقيق','جنحي':'ملف جنحي','مدني':'ملف مدني','عقاري':'ملف عقاري','أسرة':'ملف أسرة','إداري':'ملف إداري','تجاري':'ملف تجاري','اجتماعي':'ملف اجتماعي','كراء':'ملف كراء'};
+  var TL={'شكاية':'شكاية','محضر':'محضر','تحقيق':'ملف تحقيق','جنحي':'ملف جنحي','مدني':'ملف مدني','عقاري':'ملف عقاري','أسرة':'ملف أسرة','إداري':'ملف إداري','تجاري':'ملف تجاري','اجتماعي':'ملف اجتماعي','كراء':'ملف كراء'};
   var PROC={'شكاية':1,'محضر':1,'تحقيق':1};
   var ROWS=(typeof CODES_TBL!=='undefined'?CODES_TBL:[]).map(function(r){return {ty:r[0],sh:r[1],c:r[2],d:r[3],x:r[4]};});
   var M=typeof CODEMAP==='object'?CODEMAP:{};
