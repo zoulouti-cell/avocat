@@ -4173,10 +4173,18 @@ var LH=(function(){
       +'<div class="lh-a lh-foot">'+(b.addr_ar?'<div class="lh-fa">'+X(b.addr_ar)+'</div>':'')+(b.addr_fr?'<div class="lh-fl">'+X(b.addr_fr)+'</div>':'')+(tl.length?'<div class="lh-fl">'+X(tl.join(' – '))+(b.tel?'<span class="lh-fa">الهاتف</span>':'')+'</div>':'')+'</div>';
   }
   var DOTS='<span class="lh-dots">..............................</span>';
+  /* the date line: the national number (right), the date (middle), the office reference (left), never touching:
+     the date stays in the middle of the page when it fits, else in the middle of the free space, smaller when it must */
+  function twPt(t,font){try{var e=document.createElement('span');e.style.cssText='position:absolute;left:-9999px;top:0;visibility:hidden;white-space:nowrap;font:'+font;e.textContent=t;document.body.appendChild(e);var w=e.getBoundingClientRect().width*0.75;e.remove();return w||String(t).length*6.5;}catch(x){return String(t).length*6.5;}}
   function dateLine(b,d){
-    var dt=d.dateMode==='blank'?'....../....../..........':ymd(d.date||todayIso());
-    var h='<div class="lh-a lh-date"><span class="lh-dfr">'+X((b.city_fr||'')+' Le : '+dt+' :')+'</span> <span class="lh-dar">'+X((b.city_ar||'')+' في')+'</span></div>';
-    if(d.showPro!==false&&b.pro)h+='<div class="lh-a lh-side" style="right:40pt"><b>الرقم الوطني :</b> <span>'+X(b.pro)+'</span></div>';
+    var dt=d.dateMode==='blank'?'....../....../..........':ymd(d.date||todayIso()),fr=(b.city_fr||'')+' Le : '+dt+' :',ar=(b.city_ar||'')+' في';
+    var pro=(d.showPro!==false&&b.pro)?String(b.pro):'',our=d.our?String(d.our):(d.blanks?'..............':'');
+    var wR=pro?twPt('الرقم الوطني :','700 12pt '+FB)+twPt(' '+pro,'12pt '+FB)+8:0,wL=our?twPt('مرجع المكتب :','700 12pt '+FB)+twPt(' '+our,'12pt '+FB)+8:0;
+    var x0=40+wL,x1=595.3-40-wR,C=595.3/2,s1=16,s2=12,w=twPt(fr,s1+'pt '+FT)+5+twPt(ar,'700 '+s2+'pt '+FB);
+    var half=Math.min(C-x0,x1-C),L,W;
+    if(w<=2*half){L=110;W=375.3;}else{L=x0;W=Math.max(60,x1-x0);if(w>W){var k=W/w;s1=Math.max(9.5,Math.round(s1*k*10)/10);s2=Math.max(9,Math.round(s2*k*10)/10);}}
+    var h='<div class="lh-a lh-date" style="left:'+L.toFixed(1)+'pt;width:'+W.toFixed(1)+'pt"><span class="lh-dfr"'+(s1!==16?' style="font-size:'+s1+'pt"':'')+'>'+X(fr)+'</span> <span class="lh-dar"'+(s2!==12?' style="font-size:'+s2+'pt"':'')+'>'+X(ar)+'</span></div>';
+    if(pro)h+='<div class="lh-a lh-side" style="right:40pt"><b>الرقم الوطني :</b> <span>'+X(pro)+'</span></div>';
     if(d.our)h+='<div class="lh-a lh-side" style="left:40pt"><b>مرجع المكتب :</b> <span>'+X(d.our)+'</span></div>';else if(d.blanks)h+='<div class="lh-a lh-side" style="left:40pt"><b>مرجع المكتب :</b> <span class="lh-dots">..............</span></div>';
     return h;
   }
