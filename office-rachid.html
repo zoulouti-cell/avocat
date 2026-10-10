@@ -508,11 +508,18 @@ td.cdc{white-space:nowrap;font-size:.95rem}
 .lhsubh{display:flex;align-items:center;gap:.45rem;margin:.1rem 0 .25rem;color:#e6c873;font-size:.95rem;font-weight:700}
 .lhnum.lhnum2{min-width:2.3rem;height:1.5rem;border-radius:999px;font-size:.78rem}
 .lhsub>textarea{width:100%;box-sizing:border-box;margin:.2rem 0}
-/* the portal, archive and letterhead sheets on a phone: the panel reaches the side edges and starts below the status bar and the camera hole */
+/* the portal, archive and letterhead sheets on a phone: a full page on the green background, just below the status bar and the camera hole;
+   the title and the close button fold away while scrolling down and come back on scrolling up (as in the Facebook app) */
+:root{--sat:env(safe-area-inset-top,0px)}
 @media (max-width:820px){
-.lxsheet.lhsheet,.lxsheet.posheet{padding:max(56px,calc(env(safe-area-inset-top,0px) + 22px)) 0 calc(70px + env(safe-area-inset-bottom,0px))}
-.lhsheet .lxsc,.posheet .lxsc{max-width:none;border-left:0;border-right:0;border-radius:0;padding:1rem .8rem}
+.lxsheet.lhsheet,.lxsheet.posheet{padding:0 0 calc(70px + env(safe-area-inset-bottom,0px));background:#0b2420!important}
+.lxsheet.lhsheet::before,.lxsheet.posheet::before{content:'';display:block;position:sticky;top:0;height:var(--sat);background:#0b2420;z-index:6}
+.lhsheet .lxsc,.posheet .lxsc{max-width:none;border:0;border-radius:0;background:transparent;box-shadow:none;padding:0 .8rem 1rem}
+.lhsheet .lxsc>.lhhead,.posheet .lxsc>.lhhead{position:sticky;top:var(--sat);z-index:5;margin:0 -.8rem .35rem;padding:.6rem .8rem .5rem;background:#0b2420;
+  transform-origin:50% 0;transition:transform .3s ease,opacity .25s ease}
+.lxsheet.hdup .lxsc>.lhhead{transform:perspective(520px) rotateX(-90deg);opacity:0;pointer-events:none}
 }
+@media (max-width:820px) and (prefers-reduced-motion:reduce){.lhsheet .lxsc>.lhhead,.posheet .lxsc>.lhhead{transition:none}}
 /* the letterhead: the wording of the addressee as a long bar, the addressee under it */
 .lxsc .trf.lhone{grid-template-columns:1fr}
 @media (max-width:560px){.lxsc .trf.lhg0{grid-template-columns:1fr}}
@@ -4519,6 +4526,16 @@ var NAV=(function(){
     return false;
   };
   return {init:init,push:push,snap:snap,prev:prev,ready:function(){return ready;},busy:function(){return busy;},depth:function(){return idx;},overlay:function(){return ovs.length>0;},curTab:curTab};
+})();
+/* the portal, archive and letterhead sheets: the title and the close button fold away while scrolling down and come back on scrolling up */
+(function(){
+  var last=typeof WeakMap==='function'?new WeakMap():null;if(!last)return;
+  document.addEventListener('scroll',function(e){
+    var s=e.target;if(!s||!s.classList||!s.classList.contains('lxsheet')||!(s.classList.contains('lhsheet')||s.classList.contains('posheet')))return;
+    var y=s.scrollTop,p=last.has(s)?last.get(s):0,h=s.querySelector('.lxsc>.lhhead'),top=(h?h.offsetHeight:50)+12;
+    if(y<=top){s.classList.remove('hdup');last.set(s,y);return;}
+    if(y>p+8){s.classList.add('hdup');last.set(s,y);}else if(y<p-8){s.classList.remove('hdup');last.set(s,y);}
+  },true);
 })();
 
 /* ---------- client portal (prototype): documents encrypted per file, expiring access, exchange log ---------- */
