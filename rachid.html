@@ -319,6 +319,7 @@ html:not([lang=ar]) .firm{font-family:"Playfair Display",Georgia,serif;font-weig
 @media(max-width:430px){html:not([lang=ar]) .bar{flex-wrap:wrap;row-gap:.4rem;position:relative;z-index:20}html:not([lang=ar]) .bar>.who{order:9;flex:1 1 100%}html:not([lang=ar]) .bar>.who a{flex:1;text-align:center}html:not([lang=ar]) .chips{top:calc(env(safe-area-inset-top,0px) + 8px)}}
 .pcbox{margin-top:1.1rem;padding-top:.9rem;border-top:1px solid rgba(230,200,115,.35)}
 .pcbox h3{margin:.1rem 0 .5rem;font-size:1.08rem}
+.pcsteps{margin:0 0 1rem}.pcstep{display:flex;flex-direction:column;gap:.15rem;padding:.55rem 0;border-top:1px solid rgba(230,200,115,.22)}.pcstep span{font-size:.82rem;opacity:.8}.pcstep b{font-size:1rem;line-height:1.6}
 .pcdoc{display:flex;align-items:center;justify-content:space-between;gap:.8rem;padding:.6rem 0;border-top:1px solid rgba(230,200,115,.22)}
 .pcdoc div{display:grid;gap:.15rem;min-width:0}.pcdoc b{overflow-wrap:anywhere}.pcdoc small{opacity:.8;font-size:.85rem}
 .pcsend{margin-top:.8rem}.pcsend summary{cursor:pointer;font-weight:700;padding:.3rem 0}
@@ -435,7 +436,7 @@ html:not([lang=ar]) .firm{font-family:"Playfair Display",Georgia,serif;font-weig
     <p class="msg" id="trnf" data-t="tr_nf" hidden>لا يوجد ملف مطابق. تحقّقوا من الرقم والرمز، أو تواصلوا مع المكتب.</p>
     <div id="trres" hidden>
       <div class="steps" id="steps"><div class="step" data-t="st1">قيد الدرس</div><div class="step" data-t="st2">مسطرة جارية</div><div class="step" data-t="st4">ابتدائي</div><div class="step" data-t="st5">استئنافي</div><div class="step" data-t="st6">النقض</div><div class="step" data-t="st3">ملف مغلق</div></div>
-      <p class="upd"><span data-t="tr_up">آخر تحديث</span>: <bdi id="trdate"></bdi></p><div class="pcbox" id="pcbox" hidden><h3 data-t="pc_h">وثائق ملفكم</h3><p class="note" id="pcst"></p><div id="pclist"></div><details class="pcsend"><summary data-t="pc_send">إرسال وثيقة إلى المكتب</summary><p class="note" data-t="pc_sn">تُشفَّر الوثيقة على جهازكم فلا يفتحها إلا المكتب، ثم ترسلون الملف الناتج عبر واتساب أو البريد.</p><div class="trf"><label><span data-t="pc_file">الوثيقة</span><input type="file" id="pcfile"></label><label><span data-t="pc_note">ملاحظة (اختيارية)</span><input id="pcnote" maxlength="120" autocomplete="off"></label></div><div class="row2"><button type="button" class="btn p" id="pcgo" data-t="pc_go">تشفير وإرسال</button></div><p class="msg" id="pcmsg"></p></details></div>
+      <p class="upd"><span data-t="tr_up">آخر تحديث</span>: <bdi id="trdate"></bdi></p><div class="pcbox" id="pcbox" hidden><div class="pcsteps" id="pcsteps" hidden></div><h3 data-t="pc_h">وثائق ملفكم</h3><p class="note" id="pcst"></p><div id="pclist"></div><details class="pcsend"><summary data-t="pc_send">إرسال وثيقة إلى المكتب</summary><p class="note" data-t="pc_sn">تُشفَّر الوثيقة على جهازكم فلا يفتحها إلا المكتب، ثم ترسلون الملف الناتج عبر واتساب أو البريد.</p><div class="trf"><label><span data-t="pc_file">الوثيقة</span><input type="file" id="pcfile"></label><label><span data-t="pc_note">ملاحظة (اختيارية)</span><input id="pcnote" maxlength="120" autocomplete="off"></label></div><div class="row2"><button type="button" class="btn p" id="pcgo" data-t="pc_go">تشفير وإرسال</button></div><p class="msg" id="pcmsg"></p></details></div>
     </div>
     <p class="note" data-t="tr_note">لا تُعرض هنا إلا مرحلة الملف؛ للتفاصيل يرجى التواصل مع المكتب.</p>
     <div class="adm" id="adm" hidden>
@@ -1529,9 +1530,9 @@ window.PC_REPO_KEY="repo_r";
 var PC=(function(){
   var ITER=310000,SALT='zoulouti-portal-v1',enc=new TextEncoder(),dec=new TextDecoder(),cur=null,repo=null,MAXB=10*1024*1024;
   var L={
-    ar:{wait:'جارٍ فتح وثائق الملف…',none:'لا توجد وثائق مشتركة معكم حاليًا.',err:'تعذر جلب الوثائق الآن. أعيدوا المحاولة بعد قليل.',dl:'تنزيل',until:'متاحة حتى',busy:'جارٍ التنزيل…',bad:'تعذر فك الوثيقة.',pick:'اختاروا وثيقة أولًا.',big:'الحد الأقصى 10 م.ب.',nokey:'المكتب لم يفعّل استلام الوثائق بعد. تواصلوا معه.',made:'جاهز. أرسلوا الملف المشفر إلى المكتب عبر واتساب أو البريد.',shared:'أُرسل الملف المشفر.',encr:'جارٍ التشفير…'},
-    fr:{wait:'Ouverture des documents…',none:'Aucun document partagé pour le moment.',err:'Impossible de récupérer les documents. Réessayez plus tard.',dl:'Télécharger',until:'Disponible jusqu’au',busy:'Téléchargement…',bad:'Impossible de déchiffrer le document.',pick:'Choisissez d’abord un document.',big:'10 Mo maximum.',nokey:'Le cabinet n’a pas encore activé la réception. Contactez-le.',made:'Prêt. Envoyez le fichier chiffré au cabinet par WhatsApp ou e-mail.',shared:'Fichier chiffré envoyé.',encr:'Chiffrement…'},
-    en:{wait:'Opening documents…',none:'No documents shared with you yet.',err:'Could not fetch documents now. Please retry later.',dl:'Download',until:'Available until',busy:'Downloading…',bad:'Could not decrypt the document.',pick:'Choose a document first.',big:'10 MB maximum.',nokey:'The firm has not enabled receiving yet. Please contact it.',made:'Ready. Send the encrypted file to the firm by WhatsApp or e-mail.',shared:'Encrypted file sent.',encr:'Encrypting…'}
+    ar:{sh:'مستجدات ملفكم',nx:'الجلسة المقبلة',ls:'آخر ما جرى في الملف',tm:'على الساعة',rm:'القاعة',wait:'جارٍ فتح وثائق الملف…',none:'لا توجد وثائق مشتركة معكم حاليًا.',err:'تعذر جلب الوثائق الآن. أعيدوا المحاولة بعد قليل.',dl:'تنزيل',until:'متاحة حتى',busy:'جارٍ التنزيل…',bad:'تعذر فك الوثيقة.',pick:'اختاروا وثيقة أولًا.',big:'الحد الأقصى 10 م.ب.',nokey:'المكتب لم يفعّل استلام الوثائق بعد. تواصلوا معه.',made:'جاهز. أرسلوا الملف المشفر إلى المكتب عبر واتساب أو البريد.',shared:'أُرسل الملف المشفر.',encr:'جارٍ التشفير…'},
+    fr:{sh:'Suivi de votre dossier',nx:'Prochaine audience',ls:'Dernière étape',tm:'à',rm:'salle',wait:'Ouverture des documents…',none:'Aucun document partagé pour le moment.',err:'Impossible de récupérer les documents. Réessayez plus tard.',dl:'Télécharger',until:'Disponible jusqu’au',busy:'Téléchargement…',bad:'Impossible de déchiffrer le document.',pick:'Choisissez d’abord un document.',big:'10 Mo maximum.',nokey:'Le cabinet n’a pas encore activé la réception. Contactez-le.',made:'Prêt. Envoyez le fichier chiffré au cabinet par WhatsApp ou e-mail.',shared:'Fichier chiffré envoyé.',encr:'Chiffrement…'},
+    en:{sh:'Your case update',nx:'Next hearing',ls:'Latest step',tm:'at',rm:'room',wait:'Opening documents…',none:'No documents shared with you yet.',err:'Could not fetch documents now. Please retry later.',dl:'Download',until:'Available until',busy:'Downloading…',bad:'Could not decrypt the document.',pick:'Choose a document first.',big:'10 MB maximum.',nokey:'The firm has not enabled receiving yet. Please contact it.',made:'Ready. Send the encrypted file to the firm by WhatsApp or e-mail.',shared:'Encrypted file sent.',encr:'Encrypting…'}
   };
   function t(k){var l=document.documentElement.lang||'ar';return (L[l]||L.ar)[k]||L.ar[k];}
   function $p(i){return document.getElementById(i);}
@@ -1556,12 +1557,19 @@ var PC=(function(){
     return {fid:hex(bits.slice(0,16)),key:await crypto.subtle.importKey('raw',bits.slice(32,64),'AES-GCM',false,['decrypt']),mac:await crypto.subtle.importKey('raw',bits.slice(16,32),{name:'HMAC',hash:'SHA-256'},false,['sign'])};
   }
   async function open(key,u8){return new Uint8Array(await crypto.subtle.decrypt({name:'AES-GCM',iv:u8.slice(0,12)},key,u8.slice(12)));}
+  /* the next hearing and the latest step, written by the office into the file's encrypted index */
+  function steps(ix){var b=$p('pcsteps');if(!b)return;b.textContent='';var s=ix&&ix.steps;if(!s||(!s.next&&!s.last)){b.hidden=true;return;}
+    b.appendChild(E('h3',null,t('sh')));
+    function row(l,v){var r=E('div','pcstep');r.appendChild(E('span',null,l));var x=E('b');x.appendChild(E('bdi',null,v));r.appendChild(x);b.appendChild(r);}
+    if(s.next)row(t('nx'),dmy(s.next.d)+(s.next.t?' '+t('tm')+' '+s.next.t:'')+(s.next.r?' — '+t('rm')+' '+s.next.r:''));
+    if(s.last)row(t('ls'),dmy(s.last.d)+' — '+s.last.a);
+    b.hidden=false;}
   function st(x){var s=$p('pcst');if(s){s.textContent=x||'';s.hidden=!x;}}
   async function load(ref,code){
     var box=$p('pcbox');if(!box)return;box.hidden=false;$p('pclist').textContent='';st(t('wait'));cur=null;
     try{cur=await keysOf(ref,code);var raw=await getBin('portal/'+cur.fid+'/i',true);
-      if(!raw){st(t('none'));return;}
-      var ix=JSON.parse(dec.decode(await open(cur.key,raw))),today=new Date().toISOString().slice(0,10),docs=(ix.docs||[]).filter(function(d){return !d.exp||d.exp>=today;});
+      if(!raw){steps(null);st(t('none'));return;}
+      var ix=JSON.parse(dec.decode(await open(cur.key,raw)));steps(ix);var today=new Date().toISOString().slice(0,10),docs=(ix.docs||[]).filter(function(d){return !d.exp||d.exp>=today;});
       if(!docs.length){st(t('none'));return;}st('');
       docs.forEach(function(d){var r=E('div','pcdoc'),tx=E('div');var nb=E('b');nb.appendChild(E('bdi',null,d.name));tx.appendChild(nb);tx.appendChild(E('small',null,size(d.size)+' | '+t('until')+' '+dmy(d.exp)+(d.note?' | '+d.note:'')));r.appendChild(tx);
         var b=E('button','btn o',t('dl'));b.type='button';b.addEventListener('click',async function(){b.disabled=true;var o=b.textContent;b.textContent=t('busy');
@@ -1587,7 +1595,7 @@ var PC=(function(){
       var u=URL.createObjectURL(file),a=E('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();setTimeout(function(){a.remove();URL.revokeObjectURL(u);},4000);say(t('made'),true);
     }catch(e){say(t('err'));}
   }
-  function hide(){var b=$p('pcbox');if(b)b.hidden=true;cur=null;}
+  function hide(){var b=$p('pcbox');if(b)b.hidden=true;steps(null);cur=null;}
   document.addEventListener('DOMContentLoaded',function(){});
   function wire(){var g=$p('pcgo');if(g&&!g.getAttribute('data-w')){g.setAttribute('data-w','1');g.addEventListener('click',send);}}
   return {load:load,hide:hide,wire:wire};
