@@ -4468,10 +4468,12 @@ var LH=(function(){
       var pn=para('<w:r><w:fldChar w:fldCharType="begin"/></w:r><w:r><w:instrText xml:space="preserve"> PAGE </w:instrText></w:r><w:r><w:fldChar w:fldCharType="separate"/></w:r>'+run('2',{s:10,ltr:1})+'<w:r><w:fldChar w:fldCharType="end"/></w:r>',{jc:'center',ltr:1});
       /* date line: national number (right), date (middle), office reference (left) */
       var dt=d.dateMode==='blank'?'....../....../..........':ymd(d.date||todayIso());
-      var rC=(d.showPro!==false&&b.pro)?para(run('الرقم الوطني : ',{b:1,s:11})+run(b.pro,{s:11}),{jc:'center',line:1}):'';
-      var mC=para(mark('\u202B')+run((b.city_ar||'')+' في',{f:afont?F_AR:F_FOOT,b:afont?0:1,s:12})+run(' : ',{f:F_FR,s:13.5})+run((b.city_fr||'')+' Le : '+dt,{f:F_FR,s:13.5,ltr:1})+mark('\u202C'),{jc:'center',line:1});
-      var lC=d.our?para(run('مرجع المكتب : ',{b:1,s:11})+run(d.our,{s:11}),{jc:'center',line:1}):(d.blanks?para(run('مرجع المكتب : ',{b:1,s:11})+run('..............',{s:11,c:'777777'}),{jc:'center',line:1}):'');
-      body.push(table([[rC,mC,lC]],[2650,5440,2650],{va:'center'}));
+      var rC=(d.showPro!==false&&b.pro)?para(run('الرقم الوطني : ',{b:1,s:10})+run(b.pro,{s:10}),{jc:'center',line:1}):'';
+      var mC=para(mark('\u202B')+run((b.city_ar||'')+' في',{f:afont?F_AR:F_FOOT,b:afont?0:1,s:11.5})+run(' : ',{f:F_FR,s:13})+run((b.city_fr||'')+' Le : '+dt,{f:F_FR,s:13,ltr:1})+mark('\u202C'),{jc:'center',line:1});
+      var lC=d.our?para(run('مرجع المكتب : ',{b:1,s:10})+run(d.our,{s:10}),{jc:'center',line:1}):(d.blanks?para(run('مرجع المكتب : ',{b:1,s:10})+run('..............',{s:10,c:'777777'}),{jc:'center',line:1}):'');
+      /* exactly as wide as the text of the page: the date sits in the middle of the page, the national number and the office reference at its two edges
+         (a table wider than the text is placed from the right margin by Word, which pushes the date to the right) */
+      var SDW=Math.floor((TEXT_W-4900)/2);body.push(table([[rC,mC,lC]],[SDW,TEXT_W-2*SDW,SDW],{va:'center',cm:{h:1}}));
       var title=String(d.type||'').trim(),V=d.model==='v';
       /* the font chosen for each part, by its name in Word (shown as chosen when the font is installed on the computer) */
       var fT=wname(d.tF,F_TXT),fI=wname(d.iF,F_TXT),fTo=wname(d.toF,F_TXT),fP=wname(d.pF,F_TXT),fO=wname(d.opF,F_TXT),fB=wname(d.bF,F_TXT),fS=wname(d.sF,F_SIG),fA=wname(d.aF,F_TXT);
@@ -4483,13 +4485,13 @@ var LH=(function(){
       var frame=d.nf?null:{top:{sz:7},left:{sz:7},bottom:{sz:7},right:{sz:7}};
       if(V&&(il.length||tls.length)){
         /* vertical model: the file frame on the right, the addressee on the left, a space between them */
-        var CW=Math.round(COLW*20),W=10000;
+        var W=TEXT_W,CW=Math.min(Math.round(COLW*20),Math.floor((W-560)/2));
         body.push(para('',{before:gap('info',8),exact:2,keep:1}));
         body.push(table([[il.length?il.map(function(x){return iline(x,1.25);}).join(''):'','',tls.length?toParas(0):'']],[CW,W-2*CW,CW],{va:'center',c:c3,cell:[il.length&&frame?frame:null,null,null],cellMar:{t:3,b:3,h:8}}));
       }else{
         if(il.length){var rows=[];for(var i=0;i<il.length;i+=2)rows.push([iline(il[i]),il[i+1]?iline(il[i+1]):'']);
           body.push(para('',{before:gap('info',8),exact:2,keep:1}));
-          body.push(table(rows,[5000,5000],{b:frame?Object.assign({insideH:0,insideV:0},frame):{},c:c3,cm:{t:2,b:2,h:9}}));}
+          body.push(table(rows,[TEXT_W/2,TEXT_W/2],{b:frame?Object.assign({insideH:0,insideV:0},frame):{},c:c3,cm:{t:2,b:2,h:9}}));}
         if(tls.length)body.push(toParas(gap('to',12)));
       }
       var pl=partyList(d),ps=+d.pS||14;
