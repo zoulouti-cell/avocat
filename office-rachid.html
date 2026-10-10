@@ -397,7 +397,7 @@ li.act .tm{font-size:1.02rem}
 @keyframes swinB{from{opacity:.35;transform:translateX(26px)}to{opacity:1;transform:none}}
 .swin-n{animation:swinN .26s ease-out}.swin-b{animation:swinB .26s ease-out}
 @media (prefers-reduced-motion:reduce){.swin-n,.swin-b{animation:none}}
-.lhsheet,.posheet{background:rgba(5,19,16,.985)!important}
+.lhsheet,.posheet{background:#0b2420!important}
 .lhsheet .lxsc select,.posheet .lxsc select{-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24'><path fill='%23e6c873' d='M7 10l5 5 5-5z'/></svg>");background-repeat:no-repeat;background-position:left .85rem center;padding-inline-start:2.2rem}
 .lhsheet .lxsc input[readonly]{opacity:.75}
 .lhsec{margin:1rem 0 .1rem;color:#f0d68a;font-size:.98rem;border-top:1px solid rgba(255,255,255,.14);padding-top:.7rem}
@@ -527,11 +527,66 @@ td.cdc{white-space:nowrap;font-size:.95rem}
 /* update 12 */
 .lxaddsheet .lhhead{margin-bottom:.5rem}.lxaddseg{margin:.1rem 0 .9rem}.lxtoolbox #lx-m>p.note:first-child{margin-top:0}
 .lxnsug{margin-top:4px}.lxnsug button{border-radius:12px;background:#12352e;color:#f6f1e2;border:1px solid rgba(230,200,115,.45);font-size:.95rem}
-.lxsc .lhops.lhops4{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto;grid-auto-flow:column;gap:.55rem 1rem;align-items:start;margin:.5rem 0 .4rem}
-.lhfrw{display:flex;justify-content:center;margin:.35rem 0 .9rem}
 .lhpv.lhpvx{max-height:none;overflow:visible;margin:.6rem 0 .8rem}
 .lhprevbar{position:sticky;bottom:0;z-index:4;padding:.6rem 0 calc(.6rem + env(safe-area-inset-bottom,0px));background:#0b2420;margin:0}
 .lxsheet.lhprev{z-index:9992}
+/* letterhead, section 8: four switches of the same size, two per line, text that never runs under the switch */
+.lhtogs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem;margin:.35rem 0 .15rem}
+@media(max-width:330px){.lhtogs{grid-template-columns:1fr}}
+.lxsc label.lhtog{display:grid!important;grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto auto;align-items:center;column-gap:.45rem;row-gap:.15rem;margin:0!important;padding:.55rem .65rem .5rem;box-sizing:border-box;border-radius:14px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.035);cursor:pointer;transition:border-color .2s,background .2s}
+.lxsc label.lhtog.on{border-color:rgba(230,200,115,.55);background:rgba(230,200,115,.08)}
+.lhtogt{display:contents}
+.lhtogt b{grid-column:1;grid-row:1;font-size:.8rem;font-weight:700;color:#f3e7c4;line-height:1.3}
+.lhtogt small{grid-column:1/-1;grid-row:2;font-size:.68rem;color:#9fb3ab;line-height:1.35}
+.lxsc label.lhtog>input{grid-column:2;grid-row:1}
+.lxsc input.lhsw{-webkit-appearance:none;appearance:none;flex:0 0 auto;width:36px!important;height:21px!important;min-height:0!important;margin:0!important;padding:0!important;border-radius:999px!important;border:1px solid rgba(255,255,255,.3)!important;background:rgba(255,255,255,.12)!important;position:relative;cursor:pointer;transition:background .2s,border-color .2s}
+.lxsc input.lhsw::before{content:'';position:absolute;top:2px;right:2px;width:15px;height:15px;border-radius:50%;background:#cfdcd6;box-shadow:0 1px 3px rgba(0,0,0,.4);transition:transform .2s,background .2s}
+.lxsc input.lhsw:checked{background:#c8a24a!important;border-color:#e6c873!important}
+.lxsc input.lhsw:checked::before{transform:translateX(-15px);background:#fff}
+.lxsc input.lhsw:focus-visible{outline:2px solid #f0d68a;outline-offset:2px}
+.lhtools{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.5rem;margin:.65rem 0 .1rem}.lhtools .btn{width:100%;font-size:.85rem;padding-inline:.4rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lhmv{margin:0}
+/* the actions under the form, on one line */
+.lxsc .row2.lhout{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:.5rem;margin:.6rem 0 .4rem}
+.lhout .btn{width:100%;padding-inline:.4rem;white-space:nowrap}
+/* full-screen preview: a bar on top (zoom, close), the pages filling the width, the outputs at the bottom */
+.lhview{position:fixed;left:0;top:0;right:0;bottom:0;z-index:9995;display:flex;flex-direction:column;background:#262d2b;color:#f6f1e2;direction:rtl}
+.lhvtop{flex:0 0 auto;display:flex;align-items:center;gap:.45rem;padding:calc(.45rem + env(safe-area-inset-top,0px)) .7rem .45rem;background:#0b2420;border-bottom:1px solid rgba(230,200,115,.28);box-shadow:0 2px 12px rgba(0,0,0,.35)}
+.lhvtt{display:flex;flex-direction:column;line-height:1.25;margin-inline-end:auto;min-width:0}.lhvtt b{color:#f0d68a;font-size:1rem}.lhvtt span{font-size:.74rem;color:#b9c9c2}
+.lhvz{display:flex;align-items:center;gap:.3rem}
+.lhvzb{width:36px;height:36px;border-radius:50%;border:1px solid rgba(230,200,115,.6);background:rgba(230,200,115,.1);color:#f0d68a;font:inherit;font-size:1.2rem;line-height:1;cursor:pointer;padding:0}
+.lhvzb:disabled{opacity:.35;cursor:default}
+.lhvzv{min-width:5rem;height:36px;border-radius:999px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.06);color:#e7efe9;font:inherit;font-size:.76rem;cursor:pointer;padding:0 .55rem;white-space:nowrap}
+.lhvx{width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;font:inherit;font-size:1rem;line-height:1;cursor:pointer;padding:0;margin-inline-start:.15rem}
+.lhvsc{flex:1 1 auto;overflow:auto;-webkit-overflow-scrolling:touch;direction:ltr;overscroll-behavior:contain;touch-action:pan-x pan-y}
+.lhvpages{display:flex;flex-direction:column;align-items:center;gap:10px;padding:6px 6px 14px;min-width:100%;width:max-content;box-sizing:border-box}
+@media(min-width:700px){.lhvpages{gap:22px;padding:24px 28px 32px}}
+.lhvpw{position:relative;overflow:hidden;background:#fff;box-shadow:0 4px 18px rgba(0,0,0,.45);border-radius:2px;flex:0 0 auto}
+.lhvpw .lhp{position:absolute;top:0;right:0}
+.lhvbar{flex:0 0 auto;display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:.5rem;padding:.6rem .8rem calc(.6rem + env(safe-area-inset-bottom,0px));background:#0b2420;border-top:1px solid rgba(230,200,115,.28)}
+@media(min-width:700px){.lhvbar{grid-template-columns:repeat(3,minmax(0,190px));justify-content:center}}
+.lhvbar .btn{width:100%;white-space:nowrap}
+html.lhvon,html.lhvon body{overflow:hidden}
+/* files: import the data from a summons or a claim */
+.fimp{display:flex;align-items:center;gap:.45rem .8rem;flex-wrap:wrap;margin:.8rem 0 .6rem;padding:.7rem .85rem;border-radius:16px;border:1px dashed rgba(230,200,115,.55);background:rgba(230,200,115,.07)}
+.fimp .btn{flex:0 0 auto;display:inline-flex;align-items:center;gap:.4rem}.fimp .btn svg{width:18px;height:18px;fill:currentColor;flex:0 0 auto}
+.fimp small{flex:1 1 13rem;color:#b9c9c2;font-size:.8rem;line-height:1.55}
+.fimpbox{margin:.2rem 0 .9rem;padding:.75rem .9rem;border-radius:16px;border:1px solid rgba(230,200,115,.4);background:rgba(255,255,255,.04)}
+.fimpbox .note{margin:.35rem 0}
+.fimps{margin:.1rem 0;font-size:.9rem;color:#e7efe9}
+.fimpbar{height:6px;border-radius:999px;background:rgba(255,255,255,.12);overflow:hidden;margin:.5rem 0 .3rem}.fimpbar i{display:block;height:100%;width:0;border-radius:inherit;background:linear-gradient(90deg,#b8893a,#f0d68a);transition:width .35s}
+.fimph{display:flex;align-items:baseline;justify-content:space-between;gap:.5rem;flex-wrap:wrap}.fimph b{color:#f0d68a;font-size:1rem}.fimpk{font-size:.76rem;color:#b9c9c2}
+.fimpg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.1rem .7rem;margin:.3rem 0}
+.fimpg label.fimpr{display:flex;flex-direction:column;gap:.25rem;margin:.3rem 0}.fimpg .fimpw{grid-column:1/-1}
+@media(max-width:340px){.fimpg{grid-template-columns:1fr}}
+@media(min-width:900px){.fimpg{grid-template-columns:repeat(4,minmax(0,1fr))}.fimpg .fimpw{grid-column:span 2}.fimpg .fimpf{grid-column:1/-1}}
+.fimpl{display:flex!important;align-items:center;gap:.45rem;font-size:.86rem;color:#d7e3dd}
+.fimpl input{width:18px!important;height:18px!important;min-height:0!important;padding:0!important;margin:0!important;accent-color:#c8a24a;flex:0 0 auto}
+.fimpside{display:flex;align-items:center;gap:.6rem;margin:.55rem 0}.fimpside span{white-space:nowrap;color:#f0d68a;font-weight:700;font-size:.9rem}.fimpside select{flex:1;max-width:16rem}
+.fimpbtns{margin-top:.6rem}
+.fimpraw{width:100%;box-sizing:border-box;margin-top:.6rem;font-size:.85rem;line-height:1.6}
+.fimpnote{display:flex;align-items:center;justify-content:space-between;gap:.6rem;flex-wrap:wrap;margin:.6rem 0;padding:.55rem .75rem;border-radius:12px;background:rgba(230,200,115,.1);border:1px solid rgba(230,200,115,.45);color:#f3e7c4;font-size:.86rem}
+.fimpnote[hidden]{display:none}
 .lxsheet.lxaddsheet{background:#0b2420!important;animation:none!important;opacity:1!important}
 .lxaddsheet .lxsc{background:#0f2b25}
 @media (max-width:820px){.lxsheet.lxaddsheet{padding:0 0 calc(70px + env(safe-area-inset-bottom,0px))}.lxsheet.lxaddsheet::before{content:'';display:block;position:sticky;top:0;height:var(--sat);background:#0b2420;z-index:6}.lxaddsheet .lxsc{max-width:none;border:0;border-radius:0;background:transparent;box-shadow:none;padding:0 .8rem 1rem}.lxaddsheet .lxsc>.lhhead{position:sticky;top:var(--sat);z-index:5;margin:0 -.8rem .35rem;padding:.6rem .8rem .5rem;background:#0b2420}}
@@ -620,6 +675,8 @@ td.cdc{white-space:nowrap;font-size:.95rem}
 <details class="card" id="mcards"><summary>بطائق الملفات</summary><div id="mlist"></div></details>
     <details class="card" id="madd">
       <summary>إضافة ملف جديد</summary>
+      <div class="fimp"><button class="btn p sm" type="button" id="mimp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm4 18H6V4h7v5h5v11zM8 13h8v2H8v-2zm0 4h5v2H8v-2z"/></svg>استيراد من استدعاء أو مقال</button><small>ملف PDF أو صورة: تُقرأ المحكمة ورقم الملف والجلسة والأطراف على هذا الجهاز، وتراجعونها قبل الحفظ.</small></div>
+      <div class="fimpbox" id="mimpbox" hidden></div>
       <div class="trf">
         <label><span>عنوان الملف (اختياري)</span><input id="mlabel" maxlength="60"></label>
         <label><span>المحكمة</span><input id="mcourt" maxlength="80" autocomplete="off" placeholder="اكتبوا جزءًا من الاسم، أو اسمًا غير مدرج"><div class="sug" id="csug"></div></label>
@@ -658,6 +715,7 @@ td.cdc{white-space:nowrap;font-size:.95rem}
           <button type="button" class="btn sm" id="mcgen">توليد رمز</button>
         </div>
       </details>
+      <p class="fimpnote" id="mimpnote" hidden></p>
       <div class="row2"><button class="btn p" id="msave">إضافة الملف</button><button class="btn" id="mcancel" hidden>إلغاء التعديل</button></div>
     </details>
     <div class="mkrow"><a class="btn" id="mkapp" href="https://play.google.com/store/apps/details?id=com.justice.service" target="_blank" rel="noopener">الولوج إلى تطبيق محاكم</a></div>
@@ -1633,7 +1691,7 @@ function renderFiles(){
   function more(){var end=Math.min(LST.length,RN+PG);for(;RN<end;RN++)card(LST[RN]);PG=10;if(RN<LST.length){var s=el('div','fsent');box.appendChild(s);if('IntersectionObserver' in window){var io=new IntersectionObserver(function(en){if(en[0].isIntersecting){io.disconnect();s.remove();more();}},{rootMargin:'900px'});io.observe(s);}else{s.remove();more();}}}
   more();if(window.FUI)FUI.refresh();
 }
-function clearForm(){['mlabel','mcourt','mroom','mjudge','mour','mno','mcode','myr','mkind','mnote','mcref','mccode','mcli','mtel','memail','madv','madvl','mfee','mfeeby'].forEach(function(i){$(i).value='';});$('mtype').value='مدني';$('mtype').dataset.m='';$('mkind').dataset.auto='';$('mkindhint').textContent='';$('csug').textContent='';$('mst').value='1';editId=null;$('msave').textContent='إضافة الملف';$('mcancel').hidden=true;CTBL.reset();}
+function clearForm(){if(window.FIMP)FIMP.clear();['mlabel','mcourt','mroom','mjudge','mour','mno','mcode','myr','mkind','mnote','mcref','mccode','mcli','mtel','memail','madv','madvl','mfee','mfeeby'].forEach(function(i){$(i).value='';});$('mtype').value='مدني';$('mtype').dataset.m='';$('mkind').dataset.auto='';$('mkindhint').textContent='';$('csug').textContent='';$('mst').value='1';editId=null;$('msave').textContent='إضافة الملف';$('mcancel').hidden=true;CTBL.reset();}
 function renderAll(){renderAgenda();renderFiles();notifUI();fillFiles();}
 
 
@@ -3307,7 +3365,7 @@ async function resetOnce(){var K='zlr_lib3';try{if(localStorage.getItem(K)==='1'
 async function init(seed){
   try{await openDb();await resetOnce();await applySeed(seed);await load();UI.build();UI.stats();applyRemote().then(async function(rs){if(rs.added){await load();UI.stats();}}).catch(function(){});}catch(e){var r=$('p-lex');if(r)r.appendChild(E('p','msg','تعذر فتح قاعدة البيانات المحلية في هذا المتصفح.'));}
 }
-return {libHost:function(h){LIB.host(h);},libSync:function(f){return LIB.sync(f);},libStatus:function(){return LIB.status();},UI:UI,art:function(id){for(var i=0;i<ARTS.length;i++)if(ARTS[i].id===id)return ARTS[i];return null;},tx:TX,cite:function(a){var t=TX(a.tid)||{};return 'المادة '+a.no+' من '+(t.name||'')+':\n«'+a.body+'»';},init:init,dump:dump,restore:restore,files:fileRecords,openPdf:openPdf,_t:{pdfText:pdfText,lib:LIB,setNote:setNote,toggleFav:toggleFav,known:known,exact:exact,laFix:laFix,setDoc:function(o){PDOC=o;},ordWords:ordWords,ordQ:ordQ,refMatches:refMatches,fixText:pdfFix,lineFix:lineFix,rowReadings:rowReadings,lineScore:lineScore,htmlToText:htmlToText,mdToText:mdToText,cleanDoc:cleanDoc,fetchPage:fetchPage,discoverLinks:discoverLinks,importFromUrls:importFromUrls,parseDecision:parseDecision,splitDecisions:splitDecisions,resolveRef:resolveRef,applyRemote:applyRemote,importPack:importPack,nrm:nrm,stem:stem,parseArticles:parseArticles,parseCsv:parseCsv,searchTexts:searchTexts,searchCases:searchCases,state:function(){return {TEXTS:TEXTS,ARTS:ARTS,CASES:CASES};},addText:addText,load:load,putMany:putMany}};
+return {libHost:function(h){LIB.host(h);},libSync:function(f){return LIB.sync(f);},libStatus:function(){return LIB.status();},UI:UI,art:function(id){for(var i=0;i<ARTS.length;i++)if(ARTS[i].id===id)return ARTS[i];return null;},tx:TX,cite:function(a){var t=TX(a.tid)||{};return 'المادة '+a.no+' من '+(t.name||'')+':\n«'+a.body+'»';},init:init,dump:dump,restore:restore,files:fileRecords,openPdf:openPdf,_t:{pdfLib:pdfLib,pdfText:pdfText,lib:LIB,setNote:setNote,toggleFav:toggleFav,known:known,exact:exact,laFix:laFix,setDoc:function(o){PDOC=o;},ordWords:ordWords,ordQ:ordQ,refMatches:refMatches,fixText:pdfFix,lineFix:lineFix,rowReadings:rowReadings,lineScore:lineScore,htmlToText:htmlToText,mdToText:mdToText,cleanDoc:cleanDoc,fetchPage:fetchPage,discoverLinks:discoverLinks,importFromUrls:importFromUrls,parseDecision:parseDecision,splitDecisions:splitDecisions,resolveRef:resolveRef,applyRemote:applyRemote,importPack:importPack,nrm:nrm,stem:stem,parseArticles:parseArticles,parseCsv:parseCsv,searchTexts:searchTexts,searchCases:searchCases,state:function(){return {TEXTS:TEXTS,ARTS:ARTS,CASES:CASES};},addText:addText,load:load,putMany:putMany}};
 })();
 
 var LEX_SEED={"v":6,"texts":[],"cases":[]};
@@ -3959,33 +4017,56 @@ var LH=(function(){
     fontsReady=(document.fonts&&document.fonts.load)?Promise.all(want.map(function(w){return document.fonts.load(w[0]+' 16px '+w[1],w[2]).catch(function(){});})):Promise.resolve();
     return fontsReady;
   }
-  /* Arabic fonts offered for each part of the text (SIL Open Font License), fetched when first chosen and kept on the device */
+  /* Arabic fonts offered for each part of the text (SIL Open Font License), fetched when first chosen and kept on the device.
+     «كاليبري» is the text font built into the letterhead (Calibri's Latin metrics, with its Naskh-like Arabic letters);
+     «الجزيرة» and any other font of the office (Sakkal Majalla, Traditional Arabic…) come from a font file chosen once on the device */
   var XF=[['amiri','أميري — نسخ كلاسيكي','Amiri'],['scheherazade-new','شهرزاد — نسخ','Scheherazade New'],['lateef','لطيف — نسخ','Lateef'],['markazi-text','مركزي — نسخ حديث','Markazi Text'],
-    ['noto-kufi-arabic','نوتو كوفي','Noto Kufi Arabic'],['reem-kufi','ريم كوفي','Reem Kufi'],['cairo','القاهرة — حديث','Cairo'],['tajawal','تجوال — حديث','Tajawal'],['ibm-plex-sans-arabic','بلكس — حديث','IBM Plex Sans Arabic'],
-    ['el-messiri','المسيري — أنيق','El Messiri'],['almarai','المراعي','Almarai'],['aref-ruqaa','عارف — رقعة','Aref Ruqaa']];
-  var XCSS='',XOK={},XP={},XDB=null;
+    ['noto-kufi-arabic','نوتو كوفي','Noto Kufi Arabic'],['reem-kufi','ريم كوفي','Reem Kufi'],['cairo','القاهرة — حديث','Cairo'],['tajawal','تجوال — حديث','Tajawal'],
+    ['calibri','كاليبري — Calibri','Calibri'],['aljazeera','الجزيرة — Al-Jazeera','Al-Jazeera-Arabic-Bold'],['readex-pro','ريدكس — حديث أنيق','Readex Pro'],['noto-sans-arabic','نوتو سانس — واضح','Noto Sans Arabic']];
+  var XCSS='',XOK={calibri:1},XP={},XDB=null,XU={};/* XU: fonts from a file on this device, by id: {fam,label} */
   function xdb(){if(XDB)return XDB;XDB=new Promise(function(res){try{var r=indexedDB.open('zl_fonts',1);r.onupgradeneeded=function(){r.result.createObjectStore('f');};r.onsuccess=function(){res(r.result);};r.onerror=function(){res(null);};}catch(e){res(null);}});return XDB;}
   function xget(k){return xdb().then(function(db){return db?new Promise(function(res){try{var q=db.transaction('f').objectStore('f').get(k);q.onsuccess=function(){res(q.result||null);};q.onerror=function(){res(null);};}catch(e){res(null);}}):null;});}
-  function xput(k,v){return xdb().then(function(db){if(!db)return;try{db.transaction('f','readwrite').objectStore('f').put(v,k);}catch(e){}});}
+  function xput(k,v){return xdb().then(function(db){if(!db)return;return new Promise(function(res){try{var t=db.transaction('f','readwrite');t.objectStore('f').put(v,k);t.oncomplete=res;t.onerror=res;}catch(e){res();}});});}
+  function xkeys(){return xdb().then(function(db){return db?new Promise(function(res){try{var q=db.transaction('f').objectStore('f').getAllKeys();q.onsuccess=function(){res(q.result||[]);};q.onerror=function(){res([]);};}catch(e){res([]);}}):[];});}
   function u8b64(u){var s='';for(var i=0;i<u.length;i+=32768)s+=String.fromCharCode.apply(null,u.subarray(i,i+32768));return btoa(s);}
   async function xfile(id,file){
     var c=await xget(file);if(c)return c;
     var urls=[(window.ZL_BASE||'')+'data/fonts/'+file,'https://cdn.jsdelivr.net/npm/@fontsource/'+id+'@5.3.0/files/'+file],buf=null;
     for(var i=0;i<urls.length&&!buf;i++){try{var r=await fetch(urls[i]);if(r.ok)buf=new Uint8Array(await r.arrayBuffer());}catch(e){}}
     if(!buf||buf.length<1000)throw new Error('font');var u='data:font/woff2;base64,'+u8b64(buf);xput(file,u);return u;}
+  /* the family name written inside a TrueType / OpenType file (name table: typographic family, else family) */
+  function fontFamily(u){try{var v=new DataView(u.buffer,u.byteOffset,u.byteLength),tag=v.getUint32(0);if(tag!==0x00010000&&tag!==0x4F54544F&&tag!==0x74727565)return '';
+    var n=v.getUint16(4),off=0;for(var i=0;i<n;i++){var r=12+i*16;if(v.getUint32(r)===0x6E616D65){off=v.getUint32(r+8);break;}}if(!off)return '';
+    var cnt=v.getUint16(off+2),so=off+v.getUint16(off+4),best={};
+    for(var j=0;j<cnt;j++){var q=off+6+j*12,pl=v.getUint16(q),id=v.getUint16(q+6),ln=v.getUint16(q+8),o=so+v.getUint16(q+10),s='';if(id!==1&&id!==16)continue;
+      if(pl===3||pl===0){for(var k=0;k<ln;k+=2)s+=String.fromCharCode(v.getUint16(o+k));}else if(pl===1){for(var k2=0;k2<ln;k2++)s+=String.fromCharCode(v.getUint8(o+k2));}
+      s=s.replace(/\0/g,'').trim();if(s&&!best[id])best[id]=s;}
+    return best[16]||best[1]||'';}catch(e){return '';}}
+  function fontFmt(u){var t=String.fromCharCode(u[0],u[1],u[2],u[3]);return t==='wOF2'?['woff2','font/woff2']:t==='wOFF'?['woff','font/woff']:t==='OTTO'?['opentype','font/otf']:['truetype','font/ttf'];}
+  /* a font file chosen on the device: kept in this browser (or the app) and offered in every list */
+  async function addFontFile(file,forId){
+    var u=new Uint8Array(await file.arrayBuffer());if(u.length<1000)throw new Error('font');
+    var fm=fontFmt(u),fam=fontFamily(u)||String(file.name||'').replace(/\.[^.]+$/,'').replace(/[-_]+/g,' ').trim()||'خط';
+    var id=forId||('u:'+fam.toLowerCase().replace(/[^a-z0-9\u0600-\u06FF]+/g,'-').replace(/^-|-$/g,'').slice(0,40));
+    var rec={fam:fam,label:forId?wlabel(forId):fam+' — من ملف',fmt:fm[0],src:'data:'+fm[1]+';base64,'+u8b64(u)};
+    await xput('file:'+id,rec);XU[id]={fam:fam,label:rec.label};XOK[id]=0;XP[id]=null;await loadFont(id);return id;}
+  function fontList(){return xkeys().then(function(ks){var ps=ks.filter(function(k){return /^file:/.test(k);}).map(function(k){var id=k.slice(5);if(XU[id])return null;return xget(k).then(function(r){if(r)XU[id]={fam:r.fam,label:r.label};});});return Promise.all(ps);}).then(function(){return XU;});}
   function loadFont(id){
     if(!id||XOK[id])return Promise.resolve(true);if(XP[id])return XP[id];
     XP[id]=(async function(){var css='';
-      for(var w=0;w<2;w++)for(var k=0;k<2;k++){var wt=[400,700][w],sub=['arabic','latin'][k],src=await xfile(id,id+'-'+sub+'-'+wt+'-normal.woff2');css+=face('LhF-'+id,wt,src,'woff2',sub==='arabic'?AR_R+',U+0020,U+00A0':LAT);}
+      if(id==='aljazeera'||/^u:/.test(id)){var r=await xget('file:'+id);if(!r){var e=new Error('nofile');e.nofile=1;throw e;}XU[id]={fam:r.fam,label:r.label};
+        css='@font-face{font-family:"LhF-'+id+'";font-weight:100 900;font-style:normal;src:url('+r.src+') format("'+r.fmt+'")}';}
+      else for(var w=0;w<2;w++)for(var k=0;k<2;k++){var wt=[400,700][w],sub=['arabic','latin'][k],src=await xfile(id,id+'-'+sub+'-'+wt+'-normal.woff2');css+=face('LhF-'+id,wt,src,'woff2',sub==='arabic'?AR_R+',U+0020,U+00A0':LAT);}
       XCSS+=css;var st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
       if(document.fonts&&document.fonts.load)await Promise.all(['400','700'].map(function(w){return document.fonts.load(w+' 16px "LhF-'+id+'"','عربي').catch(function(){});}));
       XOK[id]=1;return true;})();
     XP[id].catch(function(){XP[id]=null;});return XP[id];
   }
   function allCss(){return FONTCSS+XCSS;}
-  function ffam(id,base){return id&&XOK[id]?"'LhF-"+id+"',"+base:base;}
+  function ffam(id,base){return id==='calibri'?FS:id&&XOK[id]?"'LhF-"+id+"',"+base:base;}
   function fst(id,base){return id&&XOK[id]?'font-family:'+ffam(id,base)+';':'';}
-  function wname(id,def){for(var i=0;i<XF.length;i++)if(XF[i][0]===id)return XF[i][2];return def;}
+  function wlabel(id){for(var i=0;i<XF.length;i++)if(XF[i][0]===id)return XF[i][1];return XU[id]?XU[id].label:id;}
+  function wname(id,def){if(XU[id]&&XU[id].fam)return XU[id].fam;for(var i=0;i<XF.length;i++)if(XF[i][0]===id)return XF[i][2];return def;}
   var TITLE_W=290,COLW=232;
   function css(b){var c3=b.c3||'#6b572f';
     return '<style>'
@@ -4182,24 +4263,54 @@ var LH=(function(){
       printWeb(pages,name.replace(/\.pdf$/,''));
     });
   }
-  /* preview before printing: the pages as they will print; nothing is created before «print» is pressed */
+  /* preview before printing: the pages fill the screen, as they will print; zoom with the buttons, a pinch or a double tap;
+     nothing is created before «PDF» or «Word» is pressed */
   function preview(d){
     return ensureFonts().then(function(){
-      var pages=build(d),FIN=hasFS()?'إنشاء PDF وطباعته':'طباعة';
-      var ov=E('div','lxsheet lhsheet lhprev'),cd=E('div','lxsc');ov.setAttribute('data-ov','1');ov.appendChild(cd);
-      var hd=E('div','lhhead');hd.appendChild(E('h3',null,'معاينة قبل الطباعة'));var xb=E('button','btn sm','رجوع');xb.type='button';xb.setAttribute('data-close','1');hd.appendChild(xb);cd.appendChild(hd);
-      var n=pages.length;cd.appendChild(E('p','note',(n===1?'صفحة واحدة':n===2?'صفحتان':n+' صفحات')+'، كما ستُطبع. للتعديل اضغطوا «رجوع إلى التعديل». لا يُنشأ أي ملف قبل الضغط على «'+FIN+'».'));
-      var box=E('div','lhpv lhpvx');cd.appendChild(box);pages.forEach(function(h){var w=E('div','lhpw');w.innerHTML=h;box.appendChild(w);});
-      var bar=E('div','row2 lhprevbar'),go=E('button','btn p',FIN),bk=E('button','btn','رجوع إلى التعديل');go.type=bk.type='button';bar.appendChild(go);bar.appendChild(bk);cd.appendChild(bar);
-      function fitp(){var w=box.clientWidth||300,s=Math.min(1.3,(w-2)/793.7);[].slice.call(box.querySelectorAll('.lhpw')).forEach(function(x){x.style.height=(1122.5*s)+'px';var p=x.querySelector('.lhp');if(p){p.style.transform='scale('+s+')';p.style.transformOrigin='top right';}});}
-      function close(){window.removeEventListener('resize',fitp);ov.remove();}
+      var pages=build(d),n=pages.length,nat=hasFS(),Z=[1,1.5,2,3],zi=0,zoom=1;
+      var ov=E('div','lhview');ov.setAttribute('data-ov','1');ov.setAttribute('role','dialog');ov.setAttribute('aria-label','معاينة');
+      var top=E('div','lhvtop'),tt=E('div','lhvtt');tt.appendChild(E('b',null,'معاينة'));tt.appendChild(E('span',null,n===1?'صفحة واحدة':n===2?'صفحتان':n+' صفحات'));top.appendChild(tt);
+      var zr=E('div','lhvz'),zo=E('button','lhvzb','−'),zv=E('button','lhvzv','ملء الشاشة'),zp=E('button','lhvzb','+');zo.type=zv.type=zp.type='button';zo.setAttribute('aria-label','تصغير');zp.setAttribute('aria-label','تكبير');zv.title='ملء الشاشة';
+      zr.appendChild(zp);zr.appendChild(zv);zr.appendChild(zo);top.appendChild(zr);
+      var xb=E('button','lhvx','✕');xb.type='button';xb.setAttribute('data-close','1');xb.setAttribute('aria-label','رجوع إلى التعديل');top.appendChild(xb);
+      var sc=E('div','lhvsc'),box=E('div','lhvpages');sc.appendChild(box);
+      pages.forEach(function(h){var w=E('div','lhvpw');w.innerHTML=h;box.appendChild(w);});
+      var bar=E('div','lhvbar'),bp=E('button','btn p',nat?'PDF':'طباعة / PDF'),bw=E('button','btn','Word'),bk=E('button','btn','رجوع');bp.type=bw.type=bk.type='button';
+      bp.title=nat?'إنشاء ملف PDF وحفظه أو طباعته':'نافذة الطباعة، ومنها الحفظ بصيغة PDF';bw.title='ملف Word (.docx) قابل للتعديل';
+      bar.appendChild(bp);bar.appendChild(bw);bar.appendChild(bk);
+      ov.appendChild(top);ov.appendChild(sc);ov.appendChild(bar);
+      function base(){var W=sc.clientWidth||window.innerWidth,H=sc.clientHeight||window.innerHeight;if(W<700)return (W-12)/793.7;return Math.min((W-56)/793.7,(H-40)/1122.5,1.35);}
+      function fit(keep){var s=base()*zoom,cx=0,cy=0;
+        if(keep){cx=(sc.scrollLeft+sc.clientWidth/2)/(sc.scrollWidth||1);cy=(sc.scrollTop+sc.clientHeight/2)/(sc.scrollHeight||1);}
+        [].slice.call(box.children).forEach(function(w){w.style.width=(793.7*s)+'px';w.style.height=(1122.5*s)+'px';var p=w.querySelector('.lhp');if(p){p.style.transform='scale('+s+')';p.style.transformOrigin='top right';}});
+        zv.textContent=zoom===1?'ملء الشاشة':Math.round(zoom*100)+'%';zo.disabled=zoom<=1;zp.disabled=zoom>=3;
+        if(keep){sc.scrollLeft=cx*sc.scrollWidth-sc.clientWidth/2;sc.scrollTop=cy*sc.scrollHeight-sc.clientHeight/2;}}
+      function setZ(z,keep){zoom=Math.max(1,Math.min(3,z));zi=0;for(var i=0;i<Z.length;i++)if(Z[i]<=zoom+0.01)zi=i;fit(keep!==false);}
+      zp.addEventListener('click',function(){setZ(Z[Math.min(Z.length-1,zi+1)]);});
+      zo.addEventListener('click',function(){setZ(Z[Math.max(0,zi-1)]);});
+      zv.addEventListener('click',function(){setZ(1);});
+      /* double tap (or double click): zoom in on the tapped place, again to come back */
+      sc.addEventListener('dblclick',function(e){var r=sc.getBoundingClientRect(),fx=(sc.scrollLeft+e.clientX-r.left)/(sc.scrollWidth||1),fy=(sc.scrollTop+e.clientY-r.top)/(sc.scrollHeight||1);
+        setZ(zoom>1?1:2,false);sc.scrollLeft=fx*sc.scrollWidth-sc.clientWidth/2;sc.scrollTop=fy*sc.scrollHeight-sc.clientHeight/2;});
+      /* pinch with two fingers */
+      var pin=null;
+      sc.addEventListener('touchstart',function(e){if(e.touches.length===2){var a=e.touches[0],b=e.touches[1];pin={d:Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY),z:zoom};}},{passive:true});
+      sc.addEventListener('touchmove',function(e){if(!pin||e.touches.length!==2)return;var a=e.touches[0],b=e.touches[1],k=Math.hypot(a.clientX-b.clientX,a.clientY-b.clientY)/(pin.d||1);
+        box.style.transform='scale('+Math.max(1/pin.z,Math.min(3/pin.z,k))+')';box.style.transformOrigin='center top';e.preventDefault();},{passive:false});
+      sc.addEventListener('touchend',function(e){if(!pin||e.touches.length>=2)return;var m=/scale\(([\d.]+)\)/.exec(box.style.transform||''),k=m?+m[1]:1;box.style.transform='';setZ(pin.z*k);pin=null;});
+      function close(){window.removeEventListener('resize',onrs);document.documentElement.classList.remove('lhvon');ov.remove();}
+      function onrs(){fit(true);}
       xb.addEventListener('click',close);bk.addEventListener('click',close);
-      go.addEventListener('click',function(){go.disabled=true;bk.disabled=true;output(d).then(function(){close();},function(){go.disabled=false;bk.disabled=false;});});
-      document.body.appendChild(ov);fitp();requestAnimationFrame(fitp);window.addEventListener('resize',fitp);
+      function busy(on){bp.disabled=bw.disabled=bk.disabled=on;}
+      bp.addEventListener('click',function(){busy(true);output(d).then(function(){busy(false);if(!nat)close();},function(){busy(false);});});
+      bw.addEventListener('click',function(){busy(true);outputWord(d).then(function(){busy(false);},function(){busy(false);});});
+      document.documentElement.classList.add('lhvon');document.body.appendChild(ov);fit();requestAnimationFrame(function(){fit();});window.addEventListener('resize',onrs);
     });
   }
   function safe(t){return String(t||'').replace(/[\\\/:*?"<>|\n\r]+/g,'-').replace(/\s+/g,' ').trim().slice(0,60)||'رأسية';}
-  /* ---------- Word (.docx): the same letterhead as an editable document (fonts of the office's Word templates) ---------- */
+  /* ---------- Word (.docx): the letterhead as a native, editable Word document, laid out like the office's own Word template:
+     first-page header (Arabic name, logo, French name over the brown rule), footer (address between the two QR codes),
+     text in Calibri, the date line in Al-Jazeera, every block in a borderless table so that nothing overlaps in Word, LibreOffice or on a phone ---------- */
   var DOCX=(function(){
     var CRC=null,ENC=new TextEncoder();
     function crc32(u){if(!CRC){CRC=new Uint32Array(256);for(var n=0;n<256;n++){var c=n;for(var k=0;k<8;k++)c=(c&1)?(0xEDB88320^(c>>>1)):(c>>>1);CRC[n]=c>>>0;}}var x=0xFFFFFFFF;for(var i=0;i<u.length;i++)x=CRC[(x^u[i])&255]^(x>>>8);return (x^0xFFFFFFFF)>>>0;}
@@ -4213,127 +4324,145 @@ var LH=(function(){
       var cdl=cd.reduce(function(a,x){return a+x.length;},0),z=new DataView(new ArrayBuffer(22));z.setUint32(0,0x06054b50,true);z.setUint16(8,files.length,true);z.setUint16(10,files.length,true);z.setUint32(12,cdl,true);z.setUint32(16,off,true);
       return new Blob(parts.concat(cd,[new Uint8Array(z.buffer)]),{type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
     }
-    function E(s){return pf(String(s==null?'':s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+    function E(s){return pf(String(s==null?'':s)).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g,'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
     function tw(pt){return Math.max(0,Math.round(pt*20));}
     var NS=' xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing" xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture"';
     var XH='<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n';
-    var F_TXT='Calibri',F_HEAD='Almarai ExtraBold',F_FR='Times New Roman',F_SIG='Droid Arabic Naskh';
-    function run(t,o){o=o||{};var f=o.f||F_TXT,sz=Math.round((o.s||14)*2);
-      var rp='<w:rFonts w:ascii="'+f+'" w:hAnsi="'+f+'" w:cs="'+f+'" w:eastAsia="'+f+'"/>'+(o.b?'<w:b/><w:bCs/>':'')+(o.c?'<w:color w:val="'+o.c+'"/>':'')+'<w:sz w:val="'+sz+'"/><w:szCs w:val="'+sz+'"/>'+(o.u?'<w:u w:val="single"/>':'')+(o.ltr?'':'<w:rtl/>');
-      return '<w:r><w:rPr>'+rp+'</w:rPr><w:t xml:space="preserve">'+E(t)+'</w:t></w:r>';}
-    function para(runs,o){o=o||{};var p='';if(o.keep)p+='<w:keepNext/>';
-      if(o.top)p+='<w:pBdr><w:top w:val="single" w:sz="'+o.top+'" w:space="6" w:color="'+(o.bc||'000000')+'"/></w:pBdr>';
+    /* the fonts of the office's Word template */
+    var F_TXT='Calibri',F_HEAD='Almarai ExtraBold',F_FOOT='Al-Jazeera-Arabic-Bold',F_FR='Times New Roman',F_SIG='Droid Arabic Naskh';
+    var PAGE_W=11906,MARG=1134,TEXT_W=PAGE_W-2*MARG,WIDE=11340;   /* A4, 2 cm margins; the header, footer and date line run wider, as on the printed page */
+    function run(t,o){o=o||{};var f=o.f||F_TXT,lf=o.fl||f,sz=Math.round((o.s||14)*2);
+      var rp='<w:rFonts w:ascii="'+E(lf)+'" w:hAnsi="'+E(lf)+'" w:cs="'+E(f)+'" w:eastAsia="'+E(f)+'"/>'+(o.b?'<w:b/><w:bCs/>':'')+(o.c?'<w:color w:val="'+o.c+'"/>':'')+'<w:sz w:val="'+sz+'"/><w:szCs w:val="'+sz+'"/>'+(o.u?'<w:u w:val="single"/>':'')+(o.ltr?'':'<w:rtl/>');
+      return String(t==null?'':t).split('\n').map(function(l,i){return '<w:r><w:rPr>'+rp+'</w:rPr>'+(i?'<w:br/>':'')+'<w:t xml:space="preserve">'+E(l)+'</w:t></w:r>';}).join('');}
+    function para(runs,o){o=o||{};var p='';if(o.keep)p+='<w:keepNext/>';if(o.kl)p+='<w:keepLines/>';
       if(!o.ltr)p+='<w:bidi/>';
-      p+='<w:spacing w:before="'+tw(o.before||0)+'" w:after="'+tw(o.after||0)+'" w:line="'+Math.round((o.line||1.15)*240)+'" w:lineRule="auto"/>';
+      p+='<w:spacing w:before="'+tw(o.before||0)+'" w:after="'+tw(o.after||0)+'" '+(o.exact?'w:line="'+tw(o.exact)+'" w:lineRule="exact"':'w:line="'+Math.round((o.line||1.15)*240)+'" w:lineRule="auto"')+'/>';
       if(o.ind)p+='<w:ind w:left="'+tw(o.ind)+'" w:right="'+tw(o.ind)+'"/>';
       if(o.jc)p+='<w:jc w:val="'+o.jc+'"/>';
       return '<w:p><w:pPr>'+p+'</w:pPr>'+(runs||'')+'</w:p>';}
-    function bord(v,sz,c){return ['top','left','bottom','right','insideH','insideV'].map(function(k){var x=v[k];return x?'<w:'+k+' w:val="single" w:sz="'+(x.sz||sz)+'" w:space="0" w:color="'+(x.c||c||'000000')+'"/>':'<w:'+k+' w:val="nil"/>';}).join('');}
-    /* a table laid out right to left: the first cell is on the right */
-    function table(rows,widths,o){o=o||{};var W=widths.reduce(function(a,b){return a+b;},0);
-      var pr='<w:tblPr><w:bidiVisual/><w:tblW w:w="'+W+'" w:type="dxa"/><w:jc w:val="center"/><w:tblBorders>'+bord(o.b||{},o.sz||8,o.c)+'</w:tblBorders><w:tblLayout w:type="fixed"/><w:tblCellMar><w:top w:w="'+tw(o.pt||0)+'" w:type="dxa"/><w:left w:w="'+tw(o.ph||0)+'" w:type="dxa"/><w:bottom w:w="'+tw(o.pt||0)+'" w:type="dxa"/><w:right w:w="'+tw(o.ph||0)+'" w:type="dxa"/></w:tblCellMar></w:tblPr>';
+    function edges(v,c){return ['top','left','bottom','right','insideH','insideV'].filter(function(k){return k in v;}).map(function(k){var x=v[k];return x?'<w:'+k+' w:val="single" w:sz="'+(x.sz||8)+'" w:space="0" w:color="'+(x.c||c||'000000')+'"/>':'<w:'+k+' w:val="nil"/>';}).join('');}
+    var NONE={top:0,left:0,bottom:0,right:0,insideH:0,insideV:0};
+    /* a table laid out right to left (the first cell is on the right); each cell ends with a paragraph, as Word requires */
+    function table(rows,widths,o){o=o||{};var W=widths.reduce(function(a,b){return a+b;},0),cm=o.cm||{};
+      var pr='<w:tblPr><w:bidiVisual/><w:tblW w:w="'+W+'" w:type="dxa"/><w:jc w:val="center"/><w:tblBorders>'+edges(Object.assign({},NONE,o.b||{}),o.c)+'</w:tblBorders><w:tblLayout w:type="fixed"/><w:tblCellMar><w:top w:w="'+tw(cm.t||0)+'" w:type="dxa"/><w:left w:w="'+tw(cm.h||0)+'" w:type="dxa"/><w:bottom w:w="'+tw(cm.b||0)+'" w:type="dxa"/><w:right w:w="'+tw(cm.h||0)+'" w:type="dxa"/></w:tblCellMar><w:tblLook w:val="0000" w:firstRow="0" w:lastRow="0" w:firstColumn="0" w:lastColumn="0" w:noHBand="1" w:noVBand="1"/></w:tblPr>';
       var g='<w:tblGrid>'+widths.map(function(x){return '<w:gridCol w:w="'+x+'"/>';}).join('')+'</w:tblGrid>';
-      return '<w:tbl>'+pr+g+rows.map(function(r){return '<w:tr><w:trPr><w:cantSplit/></w:trPr>'+r.map(function(c,i){return '<w:tc><w:tcPr><w:tcW w:w="'+widths[i]+'" w:type="dxa"/>'+(o.va?'<w:vAlign w:val="'+o.va+'"/>':'')+'</w:tcPr>'+(c||para(''))+'</w:tc>';}).join('')+'</w:tr>';}).join('')+'</w:tbl>';}
+      return '<w:tbl>'+pr+g+rows.map(function(r){return '<w:tr><w:trPr><w:cantSplit/></w:trPr>'+r.map(function(c,i){var cb=o.cell&&o.cell[i];c=c||'';if(!/<\/w:p>$/.test(c))c+=para('',{exact:1});
+        return '<w:tc><w:tcPr><w:tcW w:w="'+widths[i]+'" w:type="dxa"/>'+(cb?'<w:tcBorders>'+edges(cb,o.c)+'</w:tcBorders>':'')+(cb&&o.cellMar?'<w:tcMar><w:top w:w="'+tw(o.cellMar.t)+'" w:type="dxa"/><w:left w:w="'+tw(o.cellMar.h)+'" w:type="dxa"/><w:bottom w:w="'+tw(o.cellMar.b)+'" w:type="dxa"/><w:right w:w="'+tw(o.cellMar.h)+'" w:type="dxa"/></w:tcMar>':'')+'<w:vAlign w:val="'+(o.va||'top')+'"/></w:tcPr>'+c+'</w:tc>';}).join('')+'</w:tr>';}).join('')+'</w:tbl>';}
     /* images: PNG through a canvas, sized in points */
     function png(src){return new Promise(function(res){if(!src)return res(null);var im=new Image();im.onload=function(){try{var c=document.createElement('canvas');c.width=im.naturalWidth;c.height=im.naturalHeight;var g=c.getContext('2d');g.drawImage(im,0,0);var u=c.toDataURL('image/png'),b=atob(u.split(',')[1]),a=new Uint8Array(b.length);for(var i=0;i<b.length;i++)a[i]=b.charCodeAt(i);res({data:a,w:im.naturalWidth,h:im.naturalHeight});}catch(e){res(null);}};im.onerror=function(){res(null);};im.src=src;});}
     function Part(){this.rels=[];}
     var MEDIA=[],DID=0;
     function pic(part,img,wpt,hpt){if(!img)return '';var n='image'+(MEDIA.length+1)+'.png';MEDIA.push({name:'word/media/'+n,data:img.data});var rid='rIdm'+(part.rels.length+1);part.rels.push('<Relationship Id="'+rid+'" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="media/'+n+'"/>');
       if(hpt==null)hpt=wpt*img.h/img.w;if(wpt==null)wpt=hpt*img.w/img.h;var cx=Math.round(wpt*12700),cy=Math.round(hpt*12700),id=++DID;
-      return '<w:r><w:drawing><wp:inline distT="0" distB="0" distL="0" distR="0"><wp:extent cx="'+cx+'" cy="'+cy+'"/><wp:docPr id="'+id+'" name="Image '+id+'"/><wp:cNvGraphicFramePr><a:graphicFrameLocks noChangeAspect="1"/></wp:cNvGraphicFramePr><a:graphic><a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture"><pic:pic><pic:nvPicPr><pic:cNvPr id="'+id+'" name="Image '+id+'"/><pic:cNvPicPr/></pic:nvPicPr><pic:blipFill><a:blip r:embed="'+rid+'"/><a:stretch><a:fillRect/></a:stretch></pic:blipFill><pic:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="'+cx+'" cy="'+cy+'"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></pic:spPr></pic:pic></a:graphicData></a:graphic></wp:inline></w:drawing></w:r>';}
+      return '<w:r><w:drawing><wp:inline distT="0" distB="0" distL="0" distR="0"><wp:extent cx="'+cx+'" cy="'+cy+'"/><wp:effectExtent l="0" t="0" r="0" b="0"/><wp:docPr id="'+id+'" name="Image '+id+'"/><wp:cNvGraphicFramePr><a:graphicFrameLocks noChangeAspect="1"/></wp:cNvGraphicFramePr><a:graphic><a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture"><pic:pic><pic:nvPicPr><pic:cNvPr id="'+id+'" name="Image '+id+'"/><pic:cNvPicPr/></pic:nvPicPr><pic:blipFill><a:blip r:embed="'+rid+'"/><a:stretch><a:fillRect/></a:stretch></pic:blipFill><pic:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="'+cx+'" cy="'+cy+'"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></pic:spPr></pic:pic></a:graphicData></a:graphic></wp:inline></w:drawing></w:r>';}
     function fit(img,maxW,maxH){if(!img)return [maxW,maxH];var r=Math.min(maxW/img.w,maxH/img.h);return [img.w*r,img.h*r];}
     function hex(c,def){c=String(c||def||'').replace('#','');return /^[0-9a-f]{6}$/i.test(c)?c.toUpperCase():(def||'000000').replace('#','');}
-    /* a band of the printed page (header or footer) as a PNG, so that Word shows it as printed whatever the fonts of the computer */
-    async function band(html,y0,y1){
-      if(!(window.RPT&&RPT.toCanvas))return null;await ensureFonts();
-      var sc=2.4,c=await RPT.toCanvas('<style>'+allCss()+'</style>'+html,sc),k=sc*96/72,top=Math.round(y0*k),h=Math.round((y1-y0)*k),o=document.createElement('canvas');o.width=c.width;o.height=h;
-      o.getContext('2d').drawImage(c,0,top,c.width,h,0,0,c.width,h);var u=o.toDataURL('image/png'),bs=atob(u.split(',')[1]),a=new Uint8Array(bs.length);for(var i=0;i<bs.length;i++)a[i]=bs.charCodeAt(i);return {data:a,w:o.width,h:o.height};}
-    function full(part,img,hpt){return '<w:p><w:pPr><w:spacing w:before="0" w:after="0" w:line="240" w:lineRule="auto"/><w:ind w:left="-920" w:right="-920"/><w:jc w:val="center"/></w:pPr>'+pic(part,img,595.3,hpt)+'</w:p>';}
     function rels(part){return XH+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'+part.rels.join('')+'</Relationships>';}
+    /* the header font travels inside the document (Almarai ExtraBold, SIL Open Font License), so that the header keeps its look
+       on a computer or a phone where the font is not installed. Word's rule: the first 32 bytes are mixed with the key written in the font table */
+    var EMB={};
+    async function embFont(file,alt){
+      if(EMB[file])return EMB[file];
+      var c=await xget('ttf:'+file);if(c&&c.length>1000)return (EMB[file]=c);
+      var urls=[(window.ZL_BASE||'')+'data/fonts/'+file].concat(alt||[]),buf=null;
+      for(var i=0;i<urls.length&&!buf;i++){try{var r=await fetch(urls[i]);if(r.ok){var u=new Uint8Array(await r.arrayBuffer());if(u.length>1000&&fontFmt(u)[0]==='truetype')buf=u;}}catch(e){}}
+      if(buf){xput('ttf:'+file,buf);EMB[file]=buf;}
+      return buf;}
+    function guid(){var a=new Uint8Array(16);if(window.crypto&&crypto.getRandomValues)crypto.getRandomValues(a);else for(var i=0;i<16;i++)a[i]=Math.random()*256|0;
+      var h=[].map.call(a,function(x){return (x<16?'0':'')+x.toString(16).toUpperCase();}).join('');return '{'+h.slice(0,8)+'-'+h.slice(8,12)+'-'+h.slice(12,16)+'-'+h.slice(16,20)+'-'+h.slice(20)+'}';}
+    function obf(u,key){var h=key.replace(/[{}-]/g,''),k=[],o=new Uint8Array(u);for(var i=0;i<16;i++)k.push(parseInt(h.substr(30-2*i,2),16));for(var j=0;j<32;j++)o[j]^=k[j%16];return o;}
     async function build(d,brand){
       MEDIA=[];DID=0;
       var b=Object.assign({},window.BRAND?BRAND.get():{},brand||{}),plain=d.plain,c3=hex(b.c3,'6b572f'),M=d.mv||{};
       var logo=await png(b.logo||(typeof LH_LOGO==='string'?LH_LOGO:'')),stamp=await png(b.stamp),q1=await png(qr(b.qr1)),q2=await png(qr(b.qr2));
-      var doc=new Part(),h1=new Part(),f1=new Part(),f2=new Part(),h2=new Part();
-      var TW=10066,body=[];   /* 503.3pt between the margins (46pt each side), as on the printed page */
-      /* header of the first page: Arabic (right), logo, French (left), the brown rule below */
-      var hx,hImg=null,fImg=null;
-      if(!plain){try{var lg=b.logo||(typeof LH_LOGO==='string'?LH_LOGO:'');hImg=await band(css(b)+'<div class="lhp">'+header(b,lg)+'</div>',0,113);fImg=await band(css(b)+'<div class="lhp">'+footer(b)+'</div>',780,841.9);}catch(e){hImg=fImg=null;}}
-      if(plain)hx=para('',{before:96,line:1});
-      else if(hImg)hx=full(h1,hImg,113);
-      else{var lf=fit(logo,119.6,90);
-        var ar=para(run(b.name_ar,{f:F_HEAD,b:1,s:20}),{jc:'center',line:1.05})+para(run(b.title_ar,{f:F_HEAD,b:1,s:20}),{jc:'center',line:1.05})+para(run(b.bar_ar,{f:F_HEAD,b:1,s:16}),{jc:'center',line:1.05});
-        var fr=para(run(b.name_fr,{f:F_HEAD,b:1,s:14,ltr:1}),{jc:'center',ltr:1,line:1.3})+para(run(b.title_fr,{f:F_HEAD,b:1,s:14,ltr:1}),{jc:'center',ltr:1,line:1.3})+para(run(b.bar_fr,{f:F_HEAD,b:1,s:12,ltr:1}),{jc:'center',ltr:1,line:1.3});
-        hx=table([[ar,para(pic(h1,logo,lf[0],lf[1]),{jc:'center',line:1}),fr]],[4300,2900,4300],{b:{bottom:{sz:34,c:c3}},va:'center'})+para('',{line:0.4});}
-      /* footer of the first page: QR codes and the address */
-      var fx='';
-      if(fImg)fx=full(f1,fImg,61.9);
-      else if(!plain){var tl=[];if(b.email)tl.push('EMAIL : '+String(b.email).toUpperCase());if(b.tel)tl.push('Tél : '+b.tel+' :');
-        var mid=(b.addr_ar?para(run(b.addr_ar,{f:F_HEAD,b:1,s:10}),{jc:'center',line:1.1}):'')+(b.addr_fr?para(run(b.addr_fr,{f:F_TXT,b:1,s:9.5,ltr:1}),{jc:'center',ltr:1,line:1.1}):'')+(tl.length?para(run(tl.join(' – ')+' ',{f:F_TXT,b:1,s:9.5,ltr:1})+(b.tel?run('الهاتف',{f:F_HEAD,b:1,s:9.5}):''),{jc:'center',ltr:1,line:1.1}):'');
-        fx=table([[para(pic(f1,q2,39.5,39.5),{jc:'center',line:1}),mid,para(pic(f1,q1,39.5,39.5),{jc:'center',line:1})]],[1500,8500,1500],{b:{top:{sz:7,c:'000000'}},va:'center',pt:4});}
-      var fn=para('<w:r><w:fldChar w:fldCharType="begin"/></w:r><w:r><w:instrText xml:space="preserve"> PAGE </w:instrText></w:r><w:r><w:fldChar w:fldCharType="separate"/></w:r>'+run('2',{s:10,ltr:1})+'<w:r><w:fldChar w:fldCharType="end"/></w:r>',{jc:'left',ltr:1,after:fImg?22:0});
+      var doc=new Part(),h1=new Part(),f1=new Part();
+      var body=[],gap=function(k,def){return Math.max(0,def+(+M[k]||0));};
+      /* first-page header: Arabic name (right), logo (middle), French name (left), the brown rule under them */
+      var hx;
+      var hfont=plain?null:await embFont('almarai-extrabold.ttf',['https://cdn.jsdelivr.net/gh/google/fonts@main/ofl/almarai/Almarai-ExtraBold.ttf']),hb=hfont?0:1;
+      if(plain)hx=para('',{exact:118});
+      else{var lf=fit(logo,112,84);
+        var ar=para(run(b.name_ar,{f:F_HEAD,b:hb,s:20}),{jc:'center',line:1})+para(run(b.title_ar,{f:F_HEAD,b:hb,s:20}),{jc:'center',line:1})+para(run(b.bar_ar,{f:F_HEAD,b:hb,s:16}),{jc:'center',line:1.1,before:3});
+        var fr=para(run(b.name_fr,{f:F_HEAD,b:hb,s:14,ltr:1}),{jc:'center',ltr:1,line:1.3})+para(run(b.title_fr,{f:F_HEAD,b:hb,s:14,ltr:1}),{jc:'center',ltr:1,line:1.3})+para(run(b.bar_fr,{f:F_HEAD,b:hb,s:12,ltr:1}),{jc:'center',ltr:1,line:1.3});
+        hx=table([[ar,para(pic(h1,logo,lf[0],lf[1]),{jc:'center',line:1}),fr]],[4500,2340,4500],{va:'center',b:{bottom:{sz:32,c:c3}},cm:{b:5}})+para('',{exact:2});}
+      /* first-page footer: the QR codes on both sides, the address in the middle, a thin rule above */
+      var fx=para('',{exact:2});
+      if(!plain){var tl=[];if(b.email)tl.push('EMAIL : '+String(b.email).toUpperCase());if(b.tel)tl.push('Tél : '+b.tel+' :');
+        var mid=(b.addr_ar?para(run(b.addr_ar,{f:F_FOOT,b:1,s:10}),{jc:'center',line:1.05}):'')+(b.addr_fr?para(run(b.addr_fr,{b:1,s:9.5,ltr:1}),{jc:'center',ltr:1,line:1.05}):'')+(tl.length?para(run(tl.join(' – ')+' ',{b:1,s:9.5,ltr:1})+(b.tel?run('الهاتف',{f:F_FOOT,b:1,s:9.5}):''),{jc:'center',ltr:1,line:1.05}):'');
+        fx=table([[para(pic(f1,q2,38,38),{jc:'center',line:1}),mid,para(pic(f1,q1,38,38),{jc:'center',line:1})]],[1400,8540,1400],{va:'center',b:{top:{sz:7,c:'000000'}},cm:{t:3}});}
+      var pn=para('<w:r><w:fldChar w:fldCharType="begin"/></w:r><w:r><w:instrText xml:space="preserve"> PAGE </w:instrText></w:r><w:r><w:fldChar w:fldCharType="separate"/></w:r>'+run('2',{s:10,ltr:1})+'<w:r><w:fldChar w:fldCharType="end"/></w:r>',{jc:'center',ltr:1});
       /* date line: national number (right), date (middle), office reference (left) */
       var dt=d.dateMode==='blank'?'....../....../..........':ymd(d.date||todayIso());
-      var rC=(d.showPro!==false&&b.pro)?para(run('الرقم الوطني : ',{b:1,s:11})+run(b.pro,{s:11}),{line:1}):para('');
-      var mC=para(run((b.city_fr||'')+' Le : '+dt+' : ',{f:F_FR,s:14,ltr:1})+run((b.city_ar||'')+' في',{f:F_HEAD,b:1,s:11.5}),{jc:'center',ltr:1,line:1});
-      var lC=d.our?para(run('مرجع المكتب : ',{b:1,s:11})+run(d.our,{s:11}),{line:1}):(d.blanks?para(run('مرجع المكتب : ..............',{b:1,s:11}),{line:1}):para(''));
-      body.push(table([[rC,mC,lC]],[2900,5300,2900],{va:'center'}));   /* wider than the text, as on the printed page */
-      var gap=function(k,def){return Math.max(0,def+(+M[k]||0));};
+      var rC=(d.showPro!==false&&b.pro)?para(run('الرقم الوطني : ',{b:1,s:11})+run(b.pro,{s:11}),{jc:'center',line:1}):'';
+      var mC=para(run((b.city_fr||'')+' Le : '+dt+' : ',{f:F_FR,s:13.5,ltr:1})+run((b.city_ar||'')+' في',{f:F_FOOT,b:1,s:12}),{jc:'center',ltr:1,line:1});
+      var lC=d.our?para(run('مرجع المكتب : ',{b:1,s:11})+run(d.our,{s:11}),{jc:'center',line:1}):(d.blanks?para(run('مرجع المكتب : ',{b:1,s:11})+run('..............',{s:11,c:'777777'}),{jc:'center',line:1}):'');
+      body.push(table([[rC,mC,lC]],[2650,5440,2650],{va:'center'}));
       var title=String(d.type||'').trim(),V=d.model==='v';
       /* the font chosen for each part, by its name in Word (shown as chosen when the font is installed on the computer) */
-      var fT=wname(d.tF,F_TXT),fI=wname(d.iF,F_TXT),fTo=wname(d.toF,F_TXT),fP=wname(d.pF,F_TXT),fO=wname(d.opF,F_TXT),fB=wname(d.bF,F_TXT),fS=wname(d.sF,F_SIG);
-      if(title)body.push(para(run(title,{f:fT,b:d.tB!==false,s:+d.tS||18}),{jc:'center',before:gap('title',14),after:0,line:1.5,ind:(595.3-290)/2-46,keep:1}));
+      var fT=wname(d.tF,F_TXT),fI=wname(d.iF,F_TXT),fTo=wname(d.toF,F_TXT),fP=wname(d.pF,F_TXT),fO=wname(d.opF,F_TXT),fB=wname(d.bF,F_TXT),fS=wname(d.sF,F_SIG),fA=wname(d.aF,F_TXT);
+      if(title)body.push(para(run(title,{f:fT,b:d.tB!==false,s:+d.tS||18}),{jc:'center',before:gap('title',16),after:4,line:1.3,ind:92,keep:1}));
       var il=infoList(d),is=+d.iS||12,ib=d.iB!==false;
-      function icell(x,ln){if(!x)return para('');return para(run(x[0]+' : ',{f:fI,b:ib,s:is})+run(x[1]!=null?x[1]:'..............................',{f:fI,b:!!d.iV,s:is,c:x[1]!=null?null:'777777'}),{line:ln||1.5});}
-      var to=String(d.to||'').trim(),tls=(to||d.blanks)?(to?to.split(/\n/):['..............................']):[];
-      function toParas(first){return tls.map(function(l,i){return para((i===0?run((d.toP||'إلى')+' ',{f:fTo,b:d.toB!==false,s:+d.toS||16}):'')+run(l.trim(),{f:fTo,b:d.toB!==false,s:+d.toS||16}),{jc:'center',before:i===0?first:0,line:1.5,keep:1});}).join('');}
-      var CW=Math.round(COLW*20);
+      function iline(x,ln){return para(run(x[0]+' : ',{f:fI,b:ib,s:is})+run(x[1]!=null?x[1]:'..............................',{f:fI,b:!!d.iV,s:is,c:x[1]!=null?null:'777777'}),{line:ln||1.3});}
+      var to=String(d.to||'').trim(),tls=(to||d.blanks)?(to?to.split(/\n/):['..............................']):[],toS=+d.toS||16,toB=d.toB!==false;
+      function toParas(first){return tls.map(function(l,i){return para((i===0?run((d.toP||'إلى')+' ',{f:fTo,b:toB,s:toS}):'')+run(l.trim(),{f:fTo,b:toB,s:toS}),{jc:'center',before:i===0?first:0,line:1.35,keep:1});}).join('');}
+      var frame=d.nf?null:{top:{sz:7},left:{sz:7},bottom:{sz:7},right:{sz:7}};
       if(V&&(il.length||tls.length)){
         /* vertical model: the file frame on the right, the addressee on the left, a space between them */
-        var box=il.length?table(il.map(function(x){return [icell(x,1.25)];}),[CW],{b:d.nf?{}:{top:1,left:1,bottom:1,right:1},sz:7,c:c3,pt:4,ph:10}):para('');
-        body.push(para('',{before:gap('info',10),line:0.5,keep:1}));
-        body.push(table([[box,para(''),(tls.length?toParas(Math.max(0,+M.to||0)):para(''))]],[CW,TW-2*CW,CW],{va:'center'}));
+        var CW=Math.round(COLW*20),W=10000;
+        body.push(para('',{before:gap('info',8),exact:2,keep:1}));
+        body.push(table([[il.length?il.map(function(x){return iline(x,1.25);}).join(''):'','',tls.length?toParas(0):'']],[CW,W-2*CW,CW],{va:'center',c:c3,cell:[il.length&&frame?frame:null,null,null],cellMar:{t:3,b:3,h:8}}));
       }else{
-        if(il.length){var rows=[];for(var i=0;i<il.length;i+=2)rows.push([icell(il[i]),icell(il[i+1])]);
-          body.push(para('',{before:gap('info',8),line:0.5}));body.push(table(rows,[TW/2,TW/2],{b:d.nf?{}:{top:1,left:1,bottom:1,right:1},sz:7,c:c3,pt:4,ph:12}));}
+        if(il.length){var rows=[];for(var i=0;i<il.length;i+=2)rows.push([iline(il[i]),il[i+1]?iline(il[i+1]):'']);
+          body.push(para('',{before:gap('info',8),exact:2,keep:1}));
+          body.push(table(rows,[5000,5000],{b:frame?Object.assign({insideH:0,insideV:0},frame):{},c:c3,cm:{t:2,b:2,h:9}}));}
         if(tls.length)body.push(toParas(gap('to',12)));
       }
       var pl=partyList(d),ps=+d.pS||14;
-      pl.forEach(function(x,i){body.push(para((x.rep?run('  ',{f:fP,s:ps}):'')+run(x.l+' : ',{f:fP,b:d.pLB!==false,s:x.rep?ps-1:ps})+run(x.v||'..............................',{f:fP,b:!!d.pNB,s:x.rep?ps:ps+0.5}),{before:i===0?gap('par',10):0,line:1.6,ind:12,keep:1}));});
+      pl.forEach(function(x,i){body.push(para(run(x.l+' : ',{f:fP,b:d.pLB!==false,s:x.rep?ps-1:ps})+run(x.v||'..............................',{f:fP,b:!!d.pNB,s:x.rep?ps:ps+0.5,c:x.v?null:'777777'}),{before:i===0?gap('par',12):0,line:1.4,ind:x.rep?26:0,keep:1}));});
       var op=String(d.op||'').trim();
-      if(op)op.split(/\n/).forEach(function(l,i){body.push(para(run(l.trim(),{f:fO,b:d.opB!==false,s:+d.opS||14}),{before:i===0?gap('op',10):0,line:1.5,ind:12,keep:1}));});
+      if(op)op.split(/\n/).forEach(function(l,i){body.push(para(run(l.trim(),{f:fO,b:d.opB!==false,s:+d.opS||14}),{before:i===0?gap('op',10):0,after:2,line:1.4,keep:1}));});
       var tx=String(d.body||'').replace(/\r/g,'').replace(/\s+$/,'');
-      if(tx)tx.split('\n').forEach(function(l,i){body.push(para(run(l,{f:fB,b:!!d.bB,s:+d.bS||14}),{jc:'both',before:i===0?gap('body',4):0,line:1.85,ind:12}));});
-      else body.push(para('',{before:gap('body',4)+120,line:1}));
+      if(tx)tx.split('\n').forEach(function(l,i){body.push(para(run(l,{f:fB,b:!!d.bB,s:+d.bS||14}),{jc:'both',before:i===0?gap('body',6):0,line:1.5}));});
+      else body.push(para('',{before:gap('body',6),exact:120}));
       /* signature on the left, attachments on the right */
       var m=sigMode(b,d),ss=+d.sS||12,sbd=d.sB!==false,sw=stW(d),sg=para(run('تحت جميــــع التحفظـــــــات',{f:fS,b:sbd,s:ss,u:1}),{jc:'center',line:1.3,keep:1});
       if(m==='name'||m==='both')sg+=para(run(b.sign||'',{f:fS,b:sbd,s:ss+2}),{jc:'center',before:6,line:1.3});
       if(m==='stamp'||m==='both')sg+=para(pic(doc,stamp,sw,null),{jc:'center',before:4,line:1});
-      if(m==='none')sg+=para('',{before:50});
+      if(m==='none')sg+=para('',{exact:50});
       var att=(d.att||'').split(/\n+/).map(function(x){return x.trim();}).filter(Boolean),ac='',as=+d.aS||12.5;
-      var fA=wname(d.aF,F_TXT);if(att.length||d.blanks){ac=para(run('المرفقات:',{f:fA,b:1,s:as}),{line:1.4,keep:1})+att.map(function(a,i){return para(run((i+1)+'. '+a,{f:fA,b:!!d.aB,s:as}),{line:1.4,ind:4});}).join('');}
+      if(att.length||d.blanks){ac=para(run('المرفقات:',{f:fA,b:1,s:as}),{line:1.3,keep:1})+att.map(function(a,i){return para(run((i+1)+'. '+a,{f:fA,b:!!d.aB,s:as}),{line:1.3,ind:6});}).join('');}
       var SW=Math.max(3900,Math.round((sw+40)*20));
-      body.push(para('',{before:gap('sig',18),line:0.5,keep:1}));body.push(table([[ac||para(''),sg]],[TW-SW,SW],{va:'top'}));
+      body.push(para('',{before:gap('sig',18),exact:2,keep:1}));body.push(table([[ac,sg]],[TEXT_W-SW,SW],{va:'top'}));
+      body.push(para('',{exact:2}));
       /* the section: first page with the letterhead, the next ones with the page number only */
-      var sect='<w:sectPr><w:headerReference w:type="default" r:id="rIdh2"/><w:headerReference w:type="first" r:id="rIdh1"/><w:footerReference w:type="default" r:id="rIdf2"/><w:footerReference w:type="first" r:id="rIdf1"/><w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="1120" w:right="920" w:bottom="1000" w:left="920" w:header="'+(hImg?0:220)+'" w:footer="'+(fImg?0:160)+'" w:gutter="0"/><w:titlePg/><w:bidi/></w:sectPr>';
-      doc.rels.unshift('<Relationship Id="rIdst" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>','<Relationship Id="rIdse" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/settings" Target="settings.xml"/>',
+      var sect='<w:sectPr><w:headerReference w:type="default" r:id="rIdh2"/><w:headerReference w:type="first" r:id="rIdh1"/><w:footerReference w:type="default" r:id="rIdf2"/><w:footerReference w:type="first" r:id="rIdf1"/><w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="1134" w:right="'+MARG+'" w:bottom="1134" w:left="'+MARG+'" w:header="300" w:footer="260" w:gutter="0"/><w:titlePg/><w:bidi/></w:sectPr>';
+      doc.rels.unshift('<Relationship Id="rIdst" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>','<Relationship Id="rIdse" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/settings" Target="settings.xml"/>','<Relationship Id="rIdft" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/fontTable" Target="fontTable.xml"/>',
         '<Relationship Id="rIdh1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/header" Target="header1.xml"/>','<Relationship Id="rIdh2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/header" Target="header2.xml"/>',
         '<Relationship Id="rIdf1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/footer" Target="footer1.xml"/>','<Relationship Id="rIdf2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/footer" Target="footer2.xml"/>');
       var documentXml=XH+'<w:document'+NS+'><w:body>'+body.join('')+sect+'</w:body></w:document>';
-      var styles=XH+'<w:styles xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:docDefaults><w:rPrDefault><w:rPr><w:rFonts w:ascii="'+F_TXT+'" w:hAnsi="'+F_TXT+'" w:cs="'+F_TXT+'" w:eastAsia="'+F_TXT+'"/><w:sz w:val="28"/><w:szCs w:val="28"/><w:lang w:val="fr-FR" w:bidi="ar-MA"/></w:rPr></w:rPrDefault><w:pPrDefault><w:pPr><w:bidi/><w:spacing w:after="0" w:line="240" w:lineRule="auto"/></w:pPr></w:pPrDefault></w:docDefaults><w:style w:type="paragraph" w:default="1" w:styleId="Normal"><w:name w:val="Normal"/><w:qFormat/></w:style><w:style w:type="table" w:default="1" w:styleId="TableNormal"><w:name w:val="Normal Table"/><w:tblPr><w:tblInd w:w="0" w:type="dxa"/><w:tblCellMar><w:top w:w="0" w:type="dxa"/><w:left w:w="108" w:type="dxa"/><w:bottom w:w="0" w:type="dxa"/><w:right w:w="108" w:type="dxa"/></w:tblCellMar></w:tblPr></w:style></w:styles>';
-      var settings=XH+'<w:settings xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:defaultTabStop w:val="708"/><w:characterSpacingControl w:val="doNotCompress"/><w:compat><w:compatSetting w:name="compatibilityMode" w:uri="http://schemas.microsoft.com/office/word" w:val="15"/></w:compat></w:settings>';
+      var styles=XH+'<w:styles xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:docDefaults><w:rPrDefault><w:rPr><w:rFonts w:ascii="'+F_TXT+'" w:hAnsi="'+F_TXT+'" w:cs="'+F_TXT+'" w:eastAsia="'+F_TXT+'"/><w:sz w:val="28"/><w:szCs w:val="28"/><w:lang w:val="fr-FR" w:eastAsia="en-US" w:bidi="ar-MA"/></w:rPr></w:rPrDefault><w:pPrDefault><w:pPr><w:bidi/><w:spacing w:after="0" w:line="240" w:lineRule="auto"/></w:pPr></w:pPrDefault></w:docDefaults>'
+        +'<w:style w:type="paragraph" w:default="1" w:styleId="Normal"><w:name w:val="Normal"/><w:qFormat/><w:pPr><w:bidi/></w:pPr><w:rPr><w:rtl/></w:rPr></w:style>'
+        +'<w:style w:type="table" w:default="1" w:styleId="TableNormal"><w:name w:val="Normal Table"/><w:uiPriority w:val="99"/><w:semiHidden/><w:unhideWhenUsed/><w:tblPr><w:tblInd w:w="0" w:type="dxa"/><w:tblCellMar><w:top w:w="0" w:type="dxa"/><w:left w:w="108" w:type="dxa"/><w:bottom w:w="0" w:type="dxa"/><w:right w:w="108" w:type="dxa"/></w:tblCellMar></w:tblPr></w:style>'
+        +'<w:style w:type="paragraph" w:styleId="Header"><w:name w:val="header"/><w:basedOn w:val="Normal"/></w:style><w:style w:type="paragraph" w:styleId="Footer"><w:name w:val="footer"/><w:basedOn w:val="Normal"/></w:style></w:styles>';
+      var settings=XH+'<w:settings xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:zoom w:percent="100"/><w:defaultTabStop w:val="708"/><w:characterSpacingControl w:val="doNotCompress"/><w:compat><w:compatSetting w:name="compatibilityMode" w:uri="http://schemas.microsoft.com/office/word" w:val="15"/></w:compat><w:themeFontLang w:val="fr-FR" w:bidi="ar-MA"/></w:settings>';
+      var fonts=[F_TXT,F_HEAD,F_FOOT,F_FR,F_SIG,fT,fI,fTo,fP,fO,fB,fS,fA].filter(function(x,i,a){return x&&a.indexOf(x)===i;});
+      var fkey=hfont&&!plain?guid():'',FONTS=[];
+      if(fkey)FONTS.push({name:'word/fonts/font1.odttf',data:obf(hfont,fkey)});
+      var fontTable=XH+'<w:fonts xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">'+fonts.map(function(f){return '<w:font w:name="'+E(f)+'"><w:charset w:val="00"/><w:family w:val="auto"/><w:pitch w:val="variable"/>'+(fkey&&f===F_HEAD?'<w:embedRegular r:id="rIdF1" w:fontKey="'+fkey+'"/>':'')+'</w:font>';}).join('')+'</w:fonts>';
       function hf(tag,inner){return XH+'<w:'+tag+NS+'>'+(inner||para(''))+'</w:'+tag+'>';}
       var files=[
-        {name:'[Content_Types].xml',data:XH+'<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Default Extension="png" ContentType="image/png"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/><Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/><Override PartName="/word/settings.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.settings+xml"/><Override PartName="/word/header1.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.header+xml"/><Override PartName="/word/header2.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.header+xml"/><Override PartName="/word/footer1.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.footer+xml"/><Override PartName="/word/footer2.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.footer+xml"/><Override PartName="/docProps/core.xml" ContentType="application/vnd.openxmlformats-package.core-properties+xml"/></Types>'},
-        {name:'_rels/.rels',data:XH+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties" Target="docProps/core.xml"/></Relationships>'},
-        {name:'docProps/core.xml',data:XH+'<cp:coreProperties xmlns:cp="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><dc:title>'+E(title||'رأسية')+'</dc:title><dc:creator>'+E(b.firm||'')+'</dc:creator><dcterms:created xsi:type="dcterms:W3CDTF">'+new Date().toISOString().replace(/\.\d+Z$/,'Z')+'</dcterms:created></cp:coreProperties>'},
-        {name:'word/document.xml',data:documentXml},{name:'word/styles.xml',data:styles},{name:'word/settings.xml',data:settings},
-        {name:'word/header1.xml',data:hf('hdr',hx)},{name:'word/header2.xml',data:hf('hdr','')},{name:'word/footer1.xml',data:hf('ftr',fx||para(''))},{name:'word/footer2.xml',data:hf('ftr',fn)},
+        {name:'[Content_Types].xml',data:XH+'<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Default Extension="png" ContentType="image/png"/><Default Extension="odttf" ContentType="application/vnd.openxmlformats-officedocument.obfuscatedFont"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/><Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/><Override PartName="/word/settings.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.settings+xml"/><Override PartName="/word/fontTable.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.fontTable+xml"/><Override PartName="/word/header1.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.header+xml"/><Override PartName="/word/header2.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.header+xml"/><Override PartName="/word/footer1.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.footer+xml"/><Override PartName="/word/footer2.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.footer+xml"/><Override PartName="/docProps/core.xml" ContentType="application/vnd.openxmlformats-package.core-properties+xml"/><Override PartName="/docProps/app.xml" ContentType="application/vnd.openxmlformats-officedocument.extended-properties+xml"/></Types>'},
+        {name:'_rels/.rels',data:XH+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties" Target="docProps/core.xml"/><Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/extended-properties" Target="docProps/app.xml"/></Relationships>'},
+        {name:'docProps/core.xml',data:XH+'<cp:coreProperties xmlns:cp="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><dc:title>'+E(title||'رأسية')+'</dc:title><dc:creator>'+E(b.firm||b.name_ar||'')+'</dc:creator><dcterms:created xsi:type="dcterms:W3CDTF">'+new Date().toISOString().replace(/\.\d+Z$/,'Z')+'</dcterms:created></cp:coreProperties>'},
+        {name:'docProps/app.xml',data:XH+'<Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties"><Application>Microsoft Office Word</Application></Properties>'},
+        {name:'word/document.xml',data:documentXml},{name:'word/styles.xml',data:styles},{name:'word/settings.xml',data:settings},{name:'word/fontTable.xml',data:fontTable},
+        {name:'word/header1.xml',data:hf('hdr',hx)},{name:'word/header2.xml',data:hf('hdr',para(''))},{name:'word/footer1.xml',data:hf('ftr',fx)},{name:'word/footer2.xml',data:hf('ftr',pn)},
         {name:'word/_rels/document.xml.rels',data:rels(doc)}
       ];
       if(h1.rels.length)files.push({name:'word/_rels/header1.xml.rels',data:rels(h1)});
       if(f1.rels.length)files.push({name:'word/_rels/footer1.xml.rels',data:rels(f1)});
-      return zip(files.concat(MEDIA));
+      if(fkey)files.push({name:'word/_rels/fontTable.xml.rels',data:XH+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rIdF1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/font" Target="fonts/font1.odttf"/></Relationships>'});
+      return zip(files.concat(MEDIA,FONTS));
     }
     return {build:build,_t:{zip:zip,crc32:crc32}};
   })();
@@ -4422,8 +4551,25 @@ var LH=(function(){
     g1.appendChild(field('نوع الطلب',type));g1.appendChild(cpf);tgt.appendChild(g1);
     var bx=E('div','lhops');function ck(t,v,host){var l=E('label','lhck'),c=E('input');c.type='checkbox';c.checked=!!v;l.appendChild(c);l.appendChild(E('span',null,t));(host||bx).appendChild(l);return c;}
     /* size and weight of each part of the letterhead; the last choice is kept on this device */
-    function fontSel(def){var o=[['',def||'الخط الافتراضي']];XF.forEach(function(f){o.push([f[0],f[1]]);});var x=sel(o,'');x.className='lhfsel';
-      x.addEventListener('change',function(){var v=x.value;if(!v||XOK[v])return;toast('جارٍ تحميل الخط …');loadFont(v).then(function(){refresh();},function(){toast('تعذر تحميل الخط. تحققوا من الاتصال بالإنترنت ثم أعيدوا المحاولة.');x.value='';x.dispatchEvent(new Event('change'));});});return x;}
+    /* the font lists: the bundled fonts, the fonts added from a file on this device, and «a font from a file…» */
+    var FSELS=[];
+    function fontOpt(x,id,label){var o=E('option',null,label);o.value=id;x.insertBefore(o,x.querySelector('option[value="+file"]'));}
+    function fontSel(def){var o=[['',def||'الخط الافتراضي']];XF.forEach(function(f){o.push([f[0],f[1]]);});Object.keys(XU).forEach(function(k){if(/^u:/.test(k))o.push([k,XU[k].label]);});o.push(['+file','＋ خط من ملف على هذا الجهاز…']);
+      var x=sel(o,'');x.className='lhfsel';x._prev='';FSELS.push(x);
+      x.addEventListener('change',function(){var v=x.value;
+        if(v==='+file'){pickFont('',x);return;}
+        if(!v||XOK[v]){x._prev=v;return;}
+        toast(v==='aljazeera'?'جارٍ تجهيز خط الجزيرة …':'جارٍ تحميل الخط …');
+        loadFont(v).then(function(){x._prev=v;refresh();},function(e){if(e&&e.nofile){pickFont(v,x);return;}toast('تعذر تحميل الخط. تحققوا من الاتصال بالإنترنت ثم أعيدوا المحاولة.');x.value=x._prev||'';x.dispatchEvent(new Event('change'));});});return x;}
+    /* a font file from the device: the Al-Jazeera font of the office's Word template, or any other (Sakkal Majalla, Traditional Arabic…) */
+    function pickFont(forId,x){var fi=E('input');fi.type='file';fi.accept='.ttf,.otf,.woff,.woff2,font/ttf,font/otf,font/woff,font/woff2,application/x-font-ttf,application/octet-stream';fi.style.display='none';document.body.appendChild(fi);
+      if(forId==='aljazeera')toast('اختاروا ملف خط الجزيرة (مثل Al-Jazeera-Arabic-Bold.ttf) من جهازكم مرة واحدة، فيُحفظ في هذا الجهاز.');
+      var done=false;function back(){x.value=x._prev||'';fi.remove();}
+      fi.addEventListener('change',function(){var f=fi.files&&fi.files[0];done=true;if(!f){back();return;}
+        addFontFile(f,forId).then(function(id){if(!forId)FSELS.forEach(function(s){if(!s.querySelector('option[value="'+id+'"]'))fontOpt(s,id,XU[id].label);});x.value=id;x._prev=id;fi.remove();x.dispatchEvent(new Event('change'));toast('أُضيف الخط: '+XU[id].fam);refresh();},function(){back();toast('تعذرت قراءة ملف الخط. اختاروا ملفًا بصيغة TTF أو OTF.');});});
+      fi.addEventListener('cancel',function(){done=true;back();});
+      window.addEventListener('focus',function onf(){window.removeEventListener('focus',onf);setTimeout(function(){if(!done)back();},1200);});
+      fi.click();}
     function shape(opts,v){return sel(opts,v);}
     var BOLD=[['1','غامق'],['0','عادي']];
     function fontBar(lbl,sh,sz,fsel,extra){var w=E('div','lhfbar'),h=E('div','lhfbh');h.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19h2.6l1.2-3.4h5.4l1.2 3.4H17L11.9 5h-1.8L4 19zm4.6-5.6L10.5 8l1.9 5.4H8.6zM18 9h2v10h-2z"/></svg>';h.appendChild(E('span',null,'أدوات الخط — '+lbl));w.appendChild(h);
@@ -4465,11 +4611,18 @@ var LH=(function(){
     g11.appendChild(field('توقيع المذكرة'+(b.stamp?'':' (لا طابع في الهوية)'),sg));g11.appendChild(field('الرقم الوطني',pro));tgt.appendChild(g11);
     var stw=[];for(var q=100;q<=220;q+=10)stw.push([String(q),q+' نقطة'+(q===160?' (الأصل)':'')]);var stW=sel(stw,'160');
     var sS=sizes(10,18,12),sB=shape(BOLD,'1'),sF=fontSel('الخط الافتراضي (نسخ)');fontBar('التوقيع والطابع',sB,sS,sF,field('عرض الطابع',stW));
-    var ops=E('div','lhops lhops4'),cpro=ck('إظهار الرقم الوطني',!!b.pro,ops),blanks=ck('إظهار الحقول فارغة',false,ops),plain=ck('حذف الرأسية والتذييل',false,ops),nfr=ck('حذف إطارات المراجع',false,ops);card.appendChild(ops);var frw=E('div','lhfrw'),frs=E('button','btn sm lhfreset','إرجاع إعدادات الخط إلى الوضع الافتراضي');frs.type='button';frw.appendChild(frs);card.appendChild(frw);frs.addEventListener('click',function(){fontReset();});
+    /* 8. what the page shows: four switches of the same size, then the tools for positions and fonts */
+    tgt=sec('8','عناصر الصفحة');
+    var tgs=E('div','lhtogs');
+    function sw(t,sub,v){var l=E('label','lhtog'),tx=E('span','lhtogt'),c=E('input');c.type='checkbox';c.className='lhsw';c.checked=!!v;tx.appendChild(E('b',null,t));tx.appendChild(E('small',null,sub));l.appendChild(tx);l.appendChild(c);tgs.appendChild(l);
+      function on(){l.classList.toggle('on',c.checked);}c.addEventListener('change',on);c._sync=on;on();return c;}
+    var shd=sw('الرأسية والتذييل','الشعار والعنوان',true),sfr=sw('إطار المراجع','حول رقم الملف والجلسة',true),cpro=sw('الرقم الوطني','بجانب التاريخ',!!b.pro),blanks=sw('الحقول الفارغة','نقط للملء باليد',false);
+    tgt.appendChild(tgs);
+    var tools=E('div','lhtools'),frs=E('button','btn sm lhfreset','إرجاع الخطوط الأصلية');frs.type='button';tools.appendChild(frs);tgt.appendChild(tools);frs.addEventListener('click',function(){fontReset();});
     /* positions: drag a block in the preview (or use the arrows); the blocks below follow it */
     var MVK=['title','info','to','par','op','body','sig'],MVL={title:'نوع الطلب',info:'إطار الملف',to:'الجهة',par:'الأطراف',op:'المستهل',body:'المتن',sig:'التوقيع والطابع'},MK='zl_lhmv:'+location.pathname,MV={},SC=1;
     try{MV=JSON.parse(localStorage.getItem(MK)||'{}')||{};}catch(e){MV={};}
-    var mvw=E('div','lhmv'),mvt=E('button','btn sm lhmvt','تحريك العناصر في الصفحة');mvt.type='button';mvw.appendChild(mvt);
+    var mvw=E('div','lhmv'),mvt=E('button','btn sm lhmvt','تحريك العناصر');mvt.type='button';tools.insertBefore(mvt,frs);
     var mvp=E('div','lhmvp');mvp.hidden=true;mvp.appendChild(E('p','note','اسحبوا الإطار أو الجهة أو الأطراف أو المستهل أو المتن في المعاينة إلى الأعلى أو الأسفل، أو استعملوا الأسهم. ما تحت العنصر يتبعه، ولا يتراكب عنصر على آخر. تُحفظ المواضع في هذا الجهاز.'));
     var mvr=E('div','lhmvr'),OUT={};mvp.appendChild(mvr);mvw.appendChild(mvp);
     function nv(v){v=Math.round(+v||0);return (v>0?'+':'')+v+' نقطة';}
@@ -4479,8 +4632,8 @@ var LH=(function(){
     var mvx=E('button','btn sm','إرجاع كل المواضع');mvx.type='button';mvp.appendChild(mvx);mvx.addEventListener('click',function(){MV={};mvSave();refresh();});
     function mvSave(){try{localStorage.setItem(MK,JSON.stringify(MV));}catch(e){}MVK.forEach(function(k){OUT[k].textContent=nv(MV[k]);});}
     function mvSet(k,v){v=Math.max(-240,Math.min(480,Math.round(v)));if(v)MV[k]=v;else delete MV[k];mvSave();refresh();}
-    mvt.addEventListener('click',function(){var on=!pv.classList.contains('mvon');pv.classList.toggle('mvon',on);mvp.hidden=!on;mvt.textContent=on?'إنهاء التحريك':'تحريك العناصر في الصفحة';mvt.classList.toggle('p',on);if(on)pv.scrollIntoView({behavior:'smooth',block:'nearest'});});
-    card.appendChild(mvw);
+    mvt.addEventListener('click',function(){var on=!pv.classList.contains('mvon');pv.classList.toggle('mvon',on);mvp.hidden=!on;mvt.textContent=on?'إنهاء التحريك':'تحريك العناصر';mvt.classList.toggle('p',on);if(on)pv.scrollIntoView({behavior:'smooth',block:'nearest'});});
+    tgt.appendChild(mvw);
     var pv=E('div','lhpv');card.appendChild(pv);
     var drag=null,ORD=MVK;
     pv.addEventListener('pointerdown',function(e){if(!pv.classList.contains('mvon'))return;var t=e.target.closest&&e.target.closest('[data-mv]');if(!t)return;var k=t.getAttribute('data-mv');var pg=t.closest('.lhp');if(!pg)return;
@@ -4489,7 +4642,7 @@ var LH=(function(){
     pv.addEventListener('pointermove',function(e){if(!drag)return;var d=Math.round((e.clientY-drag.y0)/(SC*96/72)/2)*2;drag.d=d;drag.els.forEach(function(x){x.style.transform='translateY('+d+'pt)';});OUT[drag.k].textContent=nv(drag.base+d);e.preventDefault();});
     function dragEnd(){if(!drag)return;var k=drag.k,v=drag.base+drag.d,moved=drag.d!==0;drag.t.classList.remove('mvdrag');drag=null;if(moved)mvSet(k,v);}
     pv.addEventListener('pointerup',dragEnd);pv.addEventListener('pointercancel',dragEnd);
-    var row=E('div','row2 lhout'),pb=E('button','btn p','معاينة قبل الطباعة'),pw=E('button','btn','ملف Word'),cx=E('button','btn','إغلاق');pb.type=pw.type=cx.type='button';pw.title='نسخة قابلة للتعديل في Word';row.appendChild(pb);row.appendChild(pw);row.appendChild(cx);card.appendChild(row);
+    var row=E('div','row2 lhout'),pb=E('button','btn p','معاينة'),pw=E('button','btn','Word'),cx=E('button','btn','إغلاق');pb.type=pw.type=cx.type='button';pb.title='معاينة الصفحات كاملة قبل إنشاء PDF أو Word';pw.title='ملف Word (.docx) قابل للتعديل';row.appendChild(pb);row.appendChild(pw);row.appendChild(cx);card.appendChild(row);
     var JUD=/نسخة|استئناف|نقض|إصلاح|تنفيذ|تبليغ|تعرض|إعادة النظر|تفسير/;
     function jOn(){return JUD.test(type.value);}
     function syncType(){var t=type.value,cp=/^\s*طلب\s+(?:الحصول\s+على\s+)?نسخة/.test(t);cpf.hidden=!cp;if(cp){var m=/نسخة\s+(تنفيذية|تبليغية|عادية)/.exec(t);cpk.value=m?m[1]:'';}gj.hidden=!jOn();}
@@ -4498,19 +4651,20 @@ var LH=(function(){
     function data(){var m=dm.value,jd=jOn();return {model:mdl.value,tF:tF.value,iS:+iS.value,iB:iB.value!=='n',iV:iB.value==='a',iF:iF.value,toF:toF.value,pF:pF.value,opF:opF.value,bF:bF.value,sS:+sS.value,sB:sB.value==='1',sF:sF.value,stW:+stW.value,aS:+aS.value,aB:aB.value==='1',aF:aF.value,jd:jd,dk:dk.value,dn:jd?dn.value.trim():'',dd:jd?ddt.value:'',mv:MV,type:type.value.trim(),dateMode:m,date:m==='pick'?dt.value:todayIso(),no:no.value.trim(),our:our.value.trim(),jl:jl.value,judge:judge.value.trim(),hd:hdt.value,room:room.value.trim(),time:tm.value,
       toP:toP.value,to:to.value,pr:pr.value.trim()||'لفائدة',pfor:pfor.value.trim(),r1t:r1t.value,r1:r1.value.trim(),vt:vt.value,vs:vs.value.trim(),r2t:r2t.value,r2:r2.value.trim(),
       op:op.value,opS:+opS.value,opB:opB.value==='1',body:body.value,bS:+bS.value,bB:bB.value==='1',att:att.value,
-      tS:+tS.value,tB:tB.value==='1',toS:+toS.value,toB:toB.value==='1',pS:+pS.value,pLB:pSh.value==='l'||pSh.value==='a',pNB:pSh.value==='v'||pSh.value==='a',sig:sg.value,showPro:cpro.checked,blanks:blanks.checked,plain:plain.checked,nf:nfr.checked};}
+      tS:+tS.value,tB:tB.value==='1',toS:+toS.value,toB:toB.value==='1',pS:+pS.value,pLB:pSh.value==='l'||pSh.value==='a',pNB:pSh.value==='v'||pSh.value==='a',sig:sg.value,showPro:cpro.checked,blanks:blanks.checked,plain:!shd.checked,nf:!sfr.checked};}
     var pt=null;function refresh(){clearTimeout(pt);pt=setTimeout(function(){ensureFonts().then(function(){var pg=build(data()),ef=pg.mv||{},ch=false;MVK.forEach(function(k){if(MV[k]!=null&&ef[k]!=null&&ef[k]!==MV[k]){if(ef[k])MV[k]=ef[k];else delete MV[k];ch=true;}});if(ch)mvSave();pv.textContent='';pg.forEach(function(h){var w=E('div','lhpw');w.innerHTML=h;pv.appendChild(w);});fit();});},220);}
-    function fit(){var w=pv.clientWidth||300,s=Math.min(1,(w-2)/793.7);SC=s;[].slice.call(pv.querySelectorAll('.lhpw')).forEach(function(x){x.style.height=(1122.5*s)+'px';var p=x.querySelector('.lhp');if(p){p.style.transform='scale('+s+')';p.style.transformOrigin='top right';}});}
+    function fit(){var fw=pv.querySelector('.lhpw'),w=(fw&&fw.clientWidth)||(pv.clientWidth-20)||300,s=Math.min(1,w/793.7);SC=s;[].slice.call(pv.querySelectorAll('.lhpw')).forEach(function(x){x.style.height=(1122.5*s)+'px';var p=x.querySelector('.lhp');if(p){p.style.transform='scale('+s+')';p.style.transformOrigin='top right';}});}
     function kit(fid){kitBox.textContent='';var f=all[fid],k=(f&&f.kit)||[];if(!k.length||!window.KIT)return;if(!k.some(function(it){return KIT.art(it.a);}))return;kitBox.appendChild(E('span','lhkh','إدراج نص من مواد الملف:'));
       k.forEach(function(it){var a=KIT.art(it.a);if(!a)return;var bt=E('button','lxchip',it.n||('المادة '+a.no));bt.type='button';bt.addEventListener('click',function(){body.value=(body.value.trim()?body.value.replace(/\s+$/,'')+'\n\n':'')+KIT.cite(a);refresh();});kitBox.appendChild(bt);});}
     function fill(fid){var p=fromFile(all[fid]);no.value=p.no||'';our.value=p.our||'';judge.value=p.judge||'';if(p.jl)jl.value=p.jl;hdt.value=p.hd||'';room.value=p.room||'';tm.value=p.time||'';
       if(p.toP)toP.value=p.toP;to.value=p.to||'';pr.value=p.pr||'لفائدة';pfor.value=p.pfor||'';if(p.r1t)r1t.value=p.r1t;r1.value=fid?(p.r1||''):(b.lawyer||'');if(p.vt)vt.value=p.vt;vs.value=p.vs||'';if(p.r2t)r2t.value=p.r2t;r2.value=p.r2||'';kit(fid);refresh();}
     fs.addEventListener('change',function(){fill(fs.value);});
     dm.addEventListener('change',function(){dt.hidden=dm.value!=='pick';refresh();});
-    [type,dt,no,our,dk,dn,ddt,jl,judge,hdt,room,tm,toP,to,pr,pfor,r1t,r1,vt,vs,r2t,r2,op,body,att,sg,cpro,blanks,plain].forEach(function(x){x.addEventListener('input',refresh);x.addEventListener('change',refresh);});
-    var STY={model:mdl,tS:tS,tSh:tB,tF:tF,iS:iS,iSh:iB,iF:iF,toS:toS,toSh:toB,toF:toF,pS:pS,pSh:pSh,pF:pF,opS:opS,opSh:opB,opF:opF,bS:bS,bSh:bB,bF:bF,aS:aS,aSh:aB,aF:aF,sS:sS,sSh:sB,sF:sF,stW:stW,nf:nfr},SK='zl_lhstyle:'+location.pathname;var STYD={};Object.keys(STY).forEach(function(k){STYD[k]=STY[k].type==='checkbox'?STY[k].checked:STY[k].value;});function fontReset(){Object.keys(STY).forEach(function(k){if(k==='model'||k==='nf')return;STY[k].value=STYD[k];});var o={};Object.keys(STY).forEach(function(j){o[j]=STY[j].type==='checkbox'?STY[j].checked:(STY[j].value===''||isNaN(+STY[j].value)?STY[j].value:+STY[j].value);});try{localStorage.setItem(SK,JSON.stringify(o));}catch(e){}refresh();toast('أُرجعت إعدادات الخط إلى الوضع الافتراضي.');}
-    try{var sv=JSON.parse(localStorage.getItem(SK)||'null');if(sv)Object.keys(STY).forEach(function(k){if(sv[k]==null)return;if(STY[k].type==='checkbox')STY[k].checked=!!sv[k];else if([].some.call(STY[k].options,function(o){return o.value===String(sv[k]);}))STY[k].value=String(sv[k]);});}catch(e){}
-    Object.keys(STY).forEach(function(k){STY[k].addEventListener('change',function(){var o={};Object.keys(STY).forEach(function(j){o[j]=STY[j].type==='checkbox'?STY[j].checked:(STY[j].value===''||isNaN(+STY[j].value)?STY[j].value:+STY[j].value);});try{localStorage.setItem(SK,JSON.stringify(o));}catch(e){}refresh();});});
+    [type,dt,no,our,dk,dn,ddt,jl,judge,hdt,room,tm,toP,to,pr,pfor,r1t,r1,vt,vs,r2t,r2,op,body,att,sg,cpro,blanks,shd].forEach(function(x){x.addEventListener('input',refresh);x.addEventListener('change',refresh);});
+    function styv(x){var v=x.value==='+file'?(x._prev||''):x.value;return v===''||isNaN(+v)?v:+v;}
+    var STY={model:mdl,tS:tS,tSh:tB,tF:tF,iS:iS,iSh:iB,iF:iF,toS:toS,toSh:toB,toF:toF,pS:pS,pSh:pSh,pF:pF,opS:opS,opSh:opB,opF:opF,bS:bS,bSh:bB,bF:bF,aS:aS,aSh:aB,aF:aF,sS:sS,sSh:sB,sF:sF,stW:stW,sfr:sfr},SK='zl_lhstyle:'+location.pathname;var STYD={};Object.keys(STY).forEach(function(k){STYD[k]=STY[k].type==='checkbox'?STY[k].checked:STY[k].value;});function fontReset(){Object.keys(STY).forEach(function(k){if(k==='model'||k==='sfr')return;STY[k].value=STYD[k];});var o={};Object.keys(STY).forEach(function(j){o[j]=STY[j].type==='checkbox'?STY[j].checked:styv(STY[j]);});try{localStorage.setItem(SK,JSON.stringify(o));}catch(e){}refresh();toast('أُرجعت إعدادات الخط إلى الوضع الافتراضي.');}
+    try{var sv=JSON.parse(localStorage.getItem(SK)||'null');if(sv)Object.keys(STY).forEach(function(k){if(sv[k]==null)return;if(STY[k].type==='checkbox')STY[k].checked=!!sv[k];else if([].some.call(STY[k].options,function(o){return o.value===String(sv[k]);})){STY[k].value=String(sv[k]);STY[k]._prev=STY[k].value;}});}catch(e){}sfr._sync();
+    Object.keys(STY).forEach(function(k){STY[k].addEventListener('change',function(){var o={};Object.keys(STY).forEach(function(j){o[j]=STY[j].type==='checkbox'?STY[j].checked:styv(STY[j]);});try{localStorage.setItem(SK,JSON.stringify(o));}catch(e){}refresh();});});
     pb.addEventListener('click',function(){preview(data());});
     pw.addEventListener('click',function(){pw.disabled=true;outputWord(data()).then(function(){pw.disabled=false;});});
     function close(){ov.remove();window.removeEventListener('resize',fit);}
@@ -4524,10 +4678,185 @@ var LH=(function(){
     if(fid&&all[fid]){fs.value=fid;fill(fid);}else refresh();
     return ov;
   }
-  return {open:open,build:build,docx:function(d){return DOCX.build(d);},ensureFonts:ensureFonts,fontCss:allCss,loadFont:loadFont,FONTS:XF,fromFile:fromFile,qr:qr,_t:{paginate:paginate,measure:measure}};
+  fontList();
+  return {open:open,build:build,docx:function(d){return DOCX.build(d);},preview:preview,addFontFile:addFontFile,ensureFonts:ensureFonts,fontCss:allCss,loadFont:loadFont,FONTS:XF,fromFile:fromFile,qr:qr,_t:{paginate:paginate,measure:measure}};
 })();
 
 /* ---------- back navigation: browser and phone back return one step (tabs, library levels, open sheets) ---------- */
+/* ---------- import the data of a file from a summons or a claim (PDF or photo): the text is read on this device
+   (the PDF's own text, or optical recognition for a scan or a photo), the lawyer checks what was found, then the form is filled ---------- */
+var FIMP=(function(){
+  var pending=null,lastText='';
+  function $i(i){return document.getElementById(i);}
+  function E(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e;}
+  function loadScript(src){return new Promise(function(res,rej){var s=document.createElement('script');s.src=src;s.async=true;s.onload=res;s.onerror=function(){s.remove();rej(new Error('net'));};document.head.appendChild(s);});}
+  var TS=null;function tess(){if(window.Tesseract)return Promise.resolve(window.Tesseract);if(!TS)TS=loadScript('https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js').then(function(){return window.Tesseract;},function(e){TS=null;throw e;});return TS;}
+  /* ---------- reading ---------- */
+  function norm(t){t=String(t||'');try{t=t.normalize('NFKC');}catch(e){}
+    return t.replace(/[\u0660-\u0669]/g,function(c){return c.charCodeAt(0)-0x660;}).replace(/[\u06F0-\u06F9]/g,function(c){return c.charCodeAt(0)-0x6F0;})
+      .replace(/\u0640/g,'').replace(/[\u064B-\u065F\u0670]/g,'').replace(/[\u200B-\u200F\u202A-\u202E\u2066-\u2069]/g,'').replace(/[ \t\u00A0]+/g,' ').replace(/ *\n */g,'\n');}
+  function score(q){return (q.no?1:0)+(q.court?1:0)+(q.hd?1:0)+(q.p1?1:0)+(q.p2?1:0)+(q.judge?1:0);}
+  function letters(t){return (String(t).match(/[\u0621-\u064Aa-zA-Z]/g)||[]).length;}
+  async function pdfCanvases(file,max,onp){var L=await LEX._t.pdfLib(),doc=await L.getDocument({data:new Uint8Array(await file.arrayBuffer())}).promise,out=[],n=Math.min(doc.numPages,max||3);
+    for(var p=1;p<=n;p++){var pg=await doc.getPage(p),vp=pg.getViewport({scale:2.4}),c=document.createElement('canvas');c.width=Math.round(vp.width);c.height=Math.round(vp.height);var g=c.getContext('2d');g.fillStyle='#fff';g.fillRect(0,0,c.width,c.height);await pg.render({canvasContext:g,viewport:vp}).promise;out.push(c);if(onp)onp(p/n);}
+    return out;}
+  function imgCanvas(file){return new Promise(function(res,rej){var u=URL.createObjectURL(file),im=new Image();im.onload=function(){var k=Math.min(1,2600/Math.max(im.naturalWidth,im.naturalHeight)),c=document.createElement('canvas');c.width=Math.round(im.naturalWidth*k);c.height=Math.round(im.naturalHeight*k);var g=c.getContext('2d');g.fillStyle='#fff';g.fillRect(0,0,c.width,c.height);g.drawImage(im,0,0,c.width,c.height);URL.revokeObjectURL(u);res(c);};im.onerror=function(){URL.revokeObjectURL(u);rej(new Error('img'));};im.src=u;});}
+  async function ocr(canvases,onp,langs){var T=await tess(),cur=0,n=canvases.length;
+    var w=await T.createWorker(langs||['ara','fra'],1,{logger:function(m){if(m&&m.status==='recognizing text'&&onp)onp((cur+m.progress)/n);}});
+    var out=[];try{for(cur=0;cur<n;cur++){var r=await w.recognize(canvases[cur]);out.push(r&&r.data?r.data.text:'');}}finally{try{await w.terminate();}catch(e){}}
+    return out.join('\n');}
+  /* the PDF's own text, line by line as printed: pieces on the same line put in reading order (right to left for Arabic) */
+  async function pdfRaw(file){var L=await LEX._t.pdfLib(),doc=await L.getDocument({data:new Uint8Array(await file.arrayBuffer())}).promise,out=[];
+    for(var p=1;p<=Math.min(doc.numPages,4);p++){var pg=await doc.getPage(p),tc=await pg.getTextContent(),it=[],rows=[];
+      tc.items.forEach(function(x){if(!x.str)return;var h=Math.abs(x.transform[3])||Math.hypot(x.transform[2],x.transform[3])||x.height||10;it.push({x:x.transform[4],y:x.transform[5],w:x.width||0,h:h,s:x.str,r:x.dir==='rtl'||/[؀-ۿ]/.test(x.str)});});
+      it.sort(function(a,b){return b.y-a.y;});
+      it.forEach(function(x){var r=rows.length?rows[rows.length-1]:null;if(r&&Math.abs(r.y-x.y)<=Math.max(2,Math.min(r.h,x.h)*0.5))r.it.push(x);else rows.push({y:x.y,h:x.h,it:[x]});});
+      rows.forEach(function(r){var rtl=r.it.filter(function(x){return x.r;}).length*2>=r.it.length,s='',pv=null;
+        r.it.sort(function(a,b){return rtl?b.x-a.x:a.x-b.x;});
+        r.it.forEach(function(x){if(pv){var gap=rtl?pv.x-(x.x+x.w):x.x-(pv.x+pv.w);if(gap>Math.min(pv.h,x.h)*0.18&&!/\s$/.test(s)&&!/^\s/.test(x.s))s+=' ';}s+=x.s;pv=x;});
+        out.push(s);});
+      out.push('');}
+    return {t:out.join('\n'),np:doc.numPages};}
+  async function readFile(file,step){var CS=null;
+    var isPdf=/pdf$/i.test(file.type)||/\.pdf$/i.test(file.name),text='',how='';
+    if(isPdf){step('قراءة نص الملف …',0.05);var np=1;try{var pr=await pdfRaw(file);text=pr.t;np=pr.np;}catch(e){text='';}
+      /* a text layer whose letters were lost on the way (signs «�», private glyphs, letters without their dots, words written backwards)
+         says little: the pages are then read from their picture, and the better of the two readings is kept */
+      var bad=(text.match(/[\uFFFD\uE000-\uF8FF]/g)||[]).length,sc0=score(parse(norm(text)));
+      if(letters(text)>=60*Math.min(np,2)&&bad<=Math.max(3,letters(text)*0.01)&&sc0>=3)how='نص الملف';
+      else{var t0=text;try{step('الملف مصوَّر أو نصه غير مقروء: تحضير الصفحات للتعرف على النص …',0.1);var cs=await pdfCanvases(file,3,function(f){step(null,0.1+f*0.1);});CS=cs;
+        step('تحميل أداة التعرف على النص (مرة واحدة) …',0.22);text=await ocr(cs,function(f){step('التعرف على النص … '+Math.round(f*100)+'%',0.25+f*0.73);});how='التعرف الضوئي على النص';}
+        catch(e){if(letters(t0)<20)throw e;text=t0;how='نص الملف';CS=null;}
+        if(letters(t0)>=20&&score(parse(norm(text)))<sc0){text=t0;how='نص الملف';CS=null;}}}
+    else{step('تحضير الصورة …',0.08);var c=await imgCanvas(file);CS=[c];step('تحميل أداة التعرف على النص (مرة واحدة) …',0.18);text=await ocr([c],function(f){step('التعرف على النص … '+Math.round(f*100)+'%',0.2+f*0.78);});how='التعرف الضوئي على النص';}
+    return {text:norm(text),how:how,cs:CS};}
+  /* ---------- understanding ---------- */
+  var DATE=/(?:(\d{1,2})\s*[\/\-.]\s*(\d{1,2})\s*[\/\-.]\s*(\d{4}))|(?:(\d{4})\s*[\/\-.]\s*(\d{1,2})\s*[\/\-.]\s*(\d{1,2}))/;
+  function isoOf(m){var d,mo,y;if(m[3]){d=+m[1];mo=+m[2];y=+m[3];}else{y=+m[4];mo=+m[5];d=+m[6];}if(mo>12&&d<=12){var t=d;d=mo;mo=t;}if(!(y>1990&&y<2100&&mo>=1&&mo<=12&&d>=1&&d<=31))return '';return y+'-'+('0'+mo).slice(-2)+'-'+('0'+d).slice(-2);}
+  function fileNo(t){var re=/(\d{1,6})\s*[\/\-]\s*(\d{2,4})\s*[\/\-]\s*(\d{2,6})/g,m,best=null,yNow=new Date().getFullYear();
+    while((m=re.exec(t))){var a=m[1],c=m[2],b=m[3],pre=t.slice(Math.max(0,m.index-40),m.index),sc=0;
+      if(/ملف|الملف|عدد|رقم|ملف رقم/.test(pre))sc+=3;if(/جلسة|بتاريخ|تاريخ/.test(pre.slice(-14)))sc-=4;
+      var yr='',no='';
+      if(/^(19|20)\d\d$/.test(b)&&+b<=yNow+1){yr=b;no=a;}else if(/^(19|20)\d\d$/.test(a)&&+a<=yNow+1){yr=a;no=b;}else if(/^\d\d$/.test(b)){yr='20'+b;no=a;sc-=1;}else continue;
+      if(!/^\d{3,4}$/.test(c))sc-=2;
+      if(isoOf(DATE.exec(m[0])||[])&&sc<3)continue;  /* a date, not a file number */
+      if(!best||sc>best.sc)best={no:no,code:c,yr:yr,sc:sc};}
+    return best&&best.sc>=0?best:null;}
+  var CT='(?:المحكمة\\s+(?:الابتدائية(?:\\s+(?:التجارية|الإدارية|الادارية|الزجرية|المدنية|الاجتماعية))?|التجارية|الإدارية|الادارية|الزجرية|الاجتماعية)|محكمة\\s+(?:الاستئناف(?:\\s+(?:التجارية|الإدارية|الادارية))?|النقض)|قسم\\s+قضاء\\s+الأسرة|المركز\\s+القضائي)';
+  function court(t){var re=new RegExp(CT+'(?:\\s*(?:ب|في|لـ|ل)\\s*([\\u0621-\\u064A]+(?:\\s+[\\u0621-\\u064A]+)?))?','g'),m,all=[],head=t.slice(0,Math.max(400,Math.round(t.length*0.45)));
+    while((m=re.exec(head))){var s=m[0].replace(/\s+/g,' ').trim();s=s.replace(/\s+(?:في|عدد|رقم|ملف|جلسة|بتاريخ|ضد)$/,'');all.push({s:s,i:m.index,ca:/الاستئناف|النقض/.test(s)});}
+    if(!all.length)return '';
+    var low=all.filter(function(x){return !x.ca;}),pick=(low.length&&all[0].ca)?low[0]:all[0];var s=pick.s.replace(/^(المحكمة)\s+/,'المحكمة ');
+    if(typeof courtSug==='function'){var sg=courtSug(s);if(sg&&sg.length)return sg[0];}
+    return s;}
+  function hearing(t){var re=/(?:جلسة|الجلسة|للحضور|الحضور|بالجلسة|موعد)(?:[^\n]{0,60}\n?){1,2}/g,m,d='',ti='';
+    while((m=re.exec(t))&&!d){var x=DATE.exec(m[0].slice(0,90));if(x){d=isoOf(x);}}
+    if(!d&&/استدعاء/.test(t)){var rg=new RegExp(DATE.source,'g'),y;while((y=rg.exec(t))){var pre=t.slice(Math.max(0,y.index-30),y.index),iso=isoOf(y);
+      if(iso&&!/حرر|صدر|المزداد|ازداد|مزداد|الإيداع|سجل|بتاريخ الإصدار/.test(pre)&&iso>d)d=iso;}}
+    var tm=/(?:الساعة|على الساعة|ساعة)\s*:?\s*(\d{1,2})\s*(?:[:hH.]\s*(\d{2}))?\s*(صباحا|زوالا|مساء|بعد الزوال)?/.exec(t);
+    if(tm){var h=+tm[1],mi=tm[2]?+tm[2]:0;if(tm[3]&&/زوال|مساء/.test(tm[3])&&h<12)h+=12;if(h<24&&mi<60)ti=('0'+h).slice(-2)+':'+('0'+mi).slice(-2);}
+    else{var W={'الثامنة':8,'التاسعة':9,'العاشرة':10,'الحادية عشرة':11,'الحادية عشر':11,'الثانية عشرة':12,'الثانية عشر':12,'الواحدة':13,'الثانية':14,'الثالثة':15,'الرابعة':16},wm=/الساعة\s+(الحادية عشرة?|الثانية عشرة?|الثامنة|التاسعة|العاشرة|الواحدة|الثانية|الثالثة|الرابعة)(\s+والنصف|\s+والربع)?/.exec(t);
+      if(wm){var hh=W[wm[1]]||0,mm=wm[2]?(/النصف/.test(wm[2])?30:15):0;if(hh)ti=('0'+hh).slice(-2)+':'+('0'+mm).slice(-2);}}
+    return {d:d,t:ti};}
+  function room(t){var m=/(?:بالقاعة|القاعة|قاعة الجلسات|قاعة)\s*(?:رقم|عدد)?\s*:?\s*(\d{1,3}|[A-Za-z]\b|[\u0621-\u064A]{3,12}(?:\s+[\u0621-\u064A]{3,12})?)/.exec(t);if(!m)return '';var v=m[1].trim();if(/^(?:رقم|عدد|الجلسات|التي|الكبرى)$/.test(v))return '';return v;}
+  function clean(n){n=String(n||'').replace(/^[\s:،,.;؛\-–—]+/,'').replace(new RegExp('^(?:'+ROLE+')\\s*:\\s*'),'').replace(/^(?:السيد(?:ة)?|السادة|الأستاذ(?:ة)?|الاستاذ(?:ة)?|ذة?\s*[.\/])\s*/,'').replace(/\s*(?:ينوب|النائب|نائب|يؤازر|بواسطة|الكائن|الكائنة|الساكن|الساكنة|القاطن|عنوانه|عنوانها|بصفته|بصفتها|الحامل|الحاملة|المزداد|ب\.ت\.و|رقم البطاقة|في شخص|ومن معه|ومن معها)[\s\S]*$/,'').replace(/[\s:،,.\-–—]+$/,'').trim();
+    return n.length>=3&&n.length<=70&&/[\u0621-\u064Aa-zA-Z]{2}/.test(n)?n:'';}
+  var ROLE='المشتكية|المشتكي|المدعية|المدعي|المطالبة بالحق المدني|المطالب بالحق المدني|الطالبة|الطالب|المتهمة|المتهم|المشتكى بها|المشتكى به';
+  var P1='لفائدة|المدعي|المدعية|المدعون|المدعين|المشتكي|المشتكية|الطالب|الطالبة|المستأنف|المستأنفة|الطاعن|الطاعنة|طالب التنفيذ|طالبة التنفيذ|المطالب بالحق المدني|الطرف المدني',
+      P2='ضد|في مواجهة|المدعى عليه|المدعى عليها|المدعى عليهم|المشتكى به|المشتكى بها|المتهم|المتهمة|الظنين|الظنينة|المستأنف عليه|المستأنف عليها|المطلوب ضده|المطلوب ضدها|المطلوب في النقض|المنفذ عليه|المنفذ عليها',
+      P3='المستدعى|المطلوب حضوره|المطلوب حضورها|المطلوب استدعاؤه|المطلوب استدعاؤها|المبلغ إليه|المبلغ إليها|المبلغ له';
+  function party(t,keys){keys=keys.split('|').sort(function(a,b){return b.length-a.length;}).join('|');var re=new RegExp('(?:^|[\\s:،(])(?:'+keys+')\\s*(?:\\(?ة\\)?)?\\s*[:：]?\\s*(?:السيد(?:ة)?|السادة|الأستاذ(?:ة)?)?\\s*([^\\n]{2,90})','g'),m;
+    while((m=re.exec(t))){var v=clean(m[1]);if(v&&!/^(?:عليه|عليها|عليهم|به|بها|ضده|ضدها|في النقض)(?=$|[\s:،.])/.test(v))return {v:v,i:m.index};}return null;}
+  function lawyers(t){var re=/(?:ينوب عنه(?:ا|م|ما)?|النائب عنه(?:ا|م)?|نائبه|نائبها|يؤازره|يؤازرها|بواسطة|دفاعه|دفاعها)\s*:?\s*(?:الأستاذ(?:ة)?|الاستاذ(?:ة)?|ذة?\.?\s*\/?|ذ\/)\s*([^\n،,(]{2,45})(?:\n([^\n،,(]{2,40}))?/g,m,out=[];
+    /* a name cut at the end of the line («الأستاذ عبد / الحكيم …») goes on with the next line */
+    while((m=re.exec(t))){var n1=m[1].trim();if(m[2]&&n1.split(/\s+/).length<2)n1+=' '+m[2].trim();else if(m[2])re.lastIndex-=m[2].length+1;var v=clean(n1.replace(/\s+(?:المحامي|المحامية|محام)(?=$|[\s،.])[\s\S]*$/,''));if(v)out.push({v:v,i:m.index});}return out;}
+  function judge(t){var m=/(القاضي(?:ة)?\s*المقرر(?:ة)?|المستشار(?:ة)?\s*المقرر(?:ة)?|قاضي(?:ة)?\s*التحقيق|القاضي(?:ة)?\s*المكلف(?:ة)?(?:\s*بالملف)?|ق\s*\.\s*ت|المستشار(?:ة)?\s*المكلف(?:ة)?)[ \t]*:?[ \t]*(?:السيد(?:ة)?|الأستاذ(?:ة)?|ذة?\.?)?[ \t]*([^\n،,:]{3,40})/.exec(t);if(!m)return null;
+    var k=m[1],role=/التحقيق|ق\s*\.\s*ت/.test(k)?'قاضي التحقيق':/المستشار/.test(k)?'المستشار(ة) المقرر(ة)':/المكلف/.test(k)?'القاضي(ة) المكلف(ة)':'القاضي(ة) المقرر(ة)';var v=clean(m[2]);return v?{v:v,role:role}:null;}
+  function kindOf(t){var m=/ملف\s+(جنحي|جنحية|مدني|تجاري|عقاري|اجتماعي|إداري|اداري|تنفيذ|تبليغ|تحقيق|أسرة|اسرة|كراء|شكاية)/.exec(t);if(!m)return '';var k=m[1].replace('جنحية','جنحي').replace('اداري','إداري').replace('اسرة','أسرة');return k;}
+  function docKind(t){var h=t.slice(0,Math.max(300,t.length*0.3));return /استدعاء/.test(h)?'استدعاء':/مقال\s+(?:افتتاحي|استئنافي|رام|من أجل)/.test(h)?'مقال':/مذكرة/.test(h)?'مذكرة':/حكم|قرار|أمر/.test(h)?'مقرر قضائي':'وثيقة';}
+  function words(x){return norm(x).split(/\s+/).map(function(w){return w.replace(/[^\u0621-\u063A\u0641-\u064A]/g,'');}).filter(function(w){return w.length>2&&!/^(?:الأستاذ|الاستاذ|الأستاذة|الاستاذة|المحامي|محام)$/.test(w);});}
+  function parse(t){var b=window.BRAND?BRAND.get():{},MT=[];[b.lawyer,b.name_ar,b.sign].forEach(function(x){words(x||'').forEach(function(w){if(MT.indexOf(w)<0)MT.push(w);});});
+    function isMine(v){return MT.length&&words(v).filter(function(w){return MT.indexOf(w)>=0;}).length>=2;}
+    var fno=fileNo(t),p1=party(t,P1),p2=party(t,P2),p3=party(t,P3),all=lawyers(t),lw=all.filter(function(x){return !isMine(x.v);}),my=all.filter(function(x){return isMine(x.v);}),j=judge(t),h=hearing(t);
+    var side=my.length?(p2&&my[0].i>p2.i?'2':'1'):'';
+    /* the other side's lawyer: the one named after the second party, else after the first */
+    var l2='';if(lw.length){var after=p2?lw.filter(function(x){return x.i>p2.i;}):[],before=lw.filter(function(x){return !p2||x.i<p2.i;});l2=((side==='2'?before[0]:after[0])||lw[lw.length-1]).v;}
+    return {kind:docKind(t),no:fno?fno.no:'',code:fno?fno.code:'',yr:fno?fno.yr:'',court:court(t),room:room(t),judge:j?j.v:'',jrole:j?j.role:'',hd:h.d,ht:h.t,
+      p1:p1?p1.v:'',p2:p2?p2.v:(p3?p3.v:''),l2:l2,side:side,ftype:kindOf(t)};}
+  /* ---------- the review panel ---------- */
+  function lateDate(lat,ar){var rg=new RegExp(DATE.source,'g'),y,skip={},best='';
+    var ra=new RegExp(DATE.source,'g');while((y=ra.exec(ar))){var pre=ar.slice(Math.max(0,y.index-30),y.index),iso=isoOf(y);if(iso&&/حرر|صدر|المزداد|ازداد|مزداد|الإيداع|سجل/.test(pre))skip[iso]=1;}
+    while((y=rg.exec(lat))){var i2=isoOf(y);if(i2&&!skip[i2]&&i2>best)best=i2;}return best;}
+  function fd(iso){if(!iso)return '';var p=iso.split('-');return p[2]+'/'+p[1]+'/'+p[0];}
+  function pdIso(s){var m=/^\s*(\d{1,2})\s*\/\s*(\d{1,2})\s*\/\s*(\d{4})\s*$/.exec(s||'');return m?isoOf([m[0],m[1],m[2],m[3]]):'';}
+  function review(box,r,how,file){
+    box.textContent='';var h=E('div','fimph');h.appendChild(E('b',null,'ما قُرئ من الوثيقة'));h.appendChild(E('span','fimpk',r.kind+' — '+how));box.appendChild(h);
+    box.appendChild(E('p','note','راجعوا كل خانة وصحّحوها عند الحاجة، وألغوا علامة ما لا تريدون نقله، ثم اضغطوا «ملء النموذج». لا يُحفظ شيء قبل «إضافة الملف».'));
+    var F={},g=E('div','fimpg');
+    function row(k,lbl,val,o){o=o||{};var l=E('label','fimpr'+(o.wide?' fimpw':'')+(o.full?' fimpf':'')),top=E('span','fimpl'),c=E('input');c.type='checkbox';c.checked=!!val;top.appendChild(c);top.appendChild(document.createTextNode(lbl));l.appendChild(top);
+      var i=E('input');i.value=val||'';if(o.ltr)i.dir='ltr';if(o.ph)i.placeholder=o.ph;i.autocomplete='off';i.addEventListener('input',function(){c.checked=!!i.value.trim();});l.appendChild(i);g.appendChild(l);F[k]={c:c,i:i};}
+    row('court','المحكمة',r.court,{wide:1,full:1});
+    row('fno','رقم الملف',[r.no,r.code,r.yr].filter(Boolean).join('/'),{ltr:1,ph:'رقم/رمز/سنة'});
+    row('room','القاعة',r.room);
+    row('hd','تاريخ الجلسة',fd(r.hd),{ltr:1,ph:'25/10/2026'});
+    row('ht','الساعة',r.ht,{ltr:1,ph:'09:30'});
+    row('judge',r.jrole||'القاضي(ة) المقرر(ة)',r.judge,{wide:1});
+    row('p1','الطرف الأول (المدعي، المشتكي…)',r.p1,{wide:1});
+    row('p2','الطرف الثاني (المدعى عليه، المتهم…)',r.p2,{wide:1});
+    row('l2','محامي الطرف الآخر',r.l2,{wide:1});
+    box.appendChild(g);
+    var sw=E('div','fimpside'),s1=E('span',null,'موكلنا هو:'),sel=E('select');[['1','الطرف الأول'],['2','الطرف الثاني']].forEach(function(x){var o=E('option',null,x[1]);o.value=x[0];sel.appendChild(o);});
+    sel.value=r.side||((r.kind==='مقال'||!r.p2)?'1':'2');sw.appendChild(s1);sw.appendChild(sel);box.appendChild(sw);
+    var rr=E('div','row2 fimpbtns'),go=E('button','btn p','ملء النموذج'),tx=E('button','btn sm','النص المقروء'),cx=E('button','btn sm','إلغاء');go.type=tx.type=cx.type='button';rr.appendChild(go);rr.appendChild(tx);rr.appendChild(cx);box.appendChild(rr);
+    var raw=E('textarea','fimpraw');raw.rows=8;raw.readOnly=true;raw.value=lastText;raw.hidden=true;box.appendChild(raw);
+    tx.addEventListener('click',function(){raw.hidden=!raw.hidden;});
+    cx.addEventListener('click',function(){box.hidden=true;box.textContent='';});
+    go.addEventListener('click',function(){
+      function v(k){return F[k].c.checked?F[k].i.value.trim():'';}
+      function set(id,val,ev){var e=$i(id);if(!e||!val)return;e.value=val;if(ev)e.dispatchEvent(new Event(ev,{bubbles:true}));}
+      var fno=v('fno').split(/\s*[\/\-]\s*/);
+      if(fno.length===3){var yr=/^(19|20)\d\d$/.test(fno[0])?fno[0]:fno[2],no=yr===fno[0]?fno[2]:fno[0];set('mno',no);set('myr',yr);set('mcode',fno[1],'input');}
+      else if(v('fno'))set('mno',fno[0]);
+      var ft=r.ftype;if(ft&&$i('mtype')&&!(fno.length===3&&$i('mkind')&&$i('mkind').value)){var ty=$i('mtype');if([].some.call(ty.options,function(o){return o.value===ft;})&&ty.value!==ft){ty.value=ft;ty.dispatchEvent(new Event('change',{bubbles:true}));}}
+      set('mcourt',v('court'));set('mroom',v('room'));set('mjudge',v('judge'));
+      if(v('judge')&&r.jrole&&$i('mjrole')){$i('mjrole').value=r.jrole;$i('mjrole').dataset.m='1';}
+      var me=sel.value==='1'?v('p1'):v('p2'),them=sel.value==='1'?v('p2'):v('p1');
+      set('mcli',me);set('madv',them);set('madvl',v('l2'));
+      if(me||them){var det=$i('mcli')&&$i('mcli').closest('details');if(det)det.open=true;}
+      if(!$i('mlabel').value&&(me||them))$i('mlabel').value=[me,them].filter(Boolean).join(' ضد ').slice(0,60);
+      var hd=pdIso(v('hd'));pending=hd?{d:hd,t:/^\d{1,2}:\d{2}$/.test(v('ht'))?v('ht'):'',r:v('room')}:null;
+      box.hidden=true;box.textContent='';note();
+      var m=$i('mmsg');if(m){m.textContent='مُلئ النموذج من الوثيقة. راجعوه ثم اضغطوا «إضافة الملف».';m.className='msg ok';}
+      var mn=$i('mno');if(mn)mn.scrollIntoView({behavior:'smooth',block:'center'});
+    });
+  }
+  function note(){var n=$i('mimpnote');if(!n)return;n.textContent='';n.hidden=!pending;if(!pending)return;
+    n.appendChild(E('span',null,'ستُضاف إلى مواعيد الملف عند الحفظ: جلسة '+fd(pending.d)+(pending.t?' على الساعة '+pending.t:'')+(pending.r?' — القاعة '+pending.r:'')));
+    var x=E('button','btn sm','عدم الإضافة');x.type='button';x.addEventListener('click',function(){pending=null;note();});n.appendChild(x);}
+  function start(file){
+    var box=$i('mimpbox');if(!box)return;box.hidden=false;box.textContent='';
+    var st=E('p','fimps','…'),bar=E('div','fimpbar'),fill=E('i');bar.appendChild(fill);box.appendChild(st);box.appendChild(bar);
+    var priv=E('p','note','يُقرأ النص على هذا الجهاز ولا يُرسل إلى أي جهة.');box.appendChild(priv);
+    function step(t,f){if(t)st.textContent=t;if(f!=null)fill.style.width=Math.round(Math.max(0,Math.min(1,f))*100)+'%';}
+    readFile(file,step).then(async function(res){lastText=res.text;
+      if(letters(res.text)>=20){var r=parse(res.text);
+        if(!r.hd&&res.cs&&/جلسة|الحضور|موعد/.test(res.text)){step('قراءة الأرقام والتواريخ …',0.98);try{r.hd=lateDate(norm(await ocr(res.cs,null,['fra'])),res.text);}catch(e){}}
+        return review(box,r,res.how,file);}
+      if(letters(res.text)<20){box.textContent='';box.appendChild(E('p','msg','تعذرت قراءة نص كافٍ من الوثيقة. جرّبوا صورة أوضح (إضاءة جيدة، الورقة مستوية وكاملة في الصورة) أو ملف PDF أصلي.'));var c=E('button','btn sm','إغلاق');c.type='button';c.addEventListener('click',function(){box.hidden=true;});box.appendChild(c);return;}
+    },
+    function(e){box.textContent='';box.appendChild(E('p','msg',e&&e.message==='net'?'تعذر تحميل أداة التعرف على النص. تحققوا من الاتصال بالإنترنت (تُحمَّل مرة واحدة) ثم أعيدوا المحاولة.':'تعذرت قراءة الملف. تأكدوا أنه PDF أو صورة سليمة.'));var c=E('button','btn sm','إغلاق');c.type='button';c.addEventListener('click',function(){box.hidden=true;});box.appendChild(c);});
+  }
+  function init(){var b=$i('mimp');if(!b||b.dataset.ok)return;b.dataset.ok='1';
+    var fi=E('input');fi.type='file';fi.accept='application/pdf,.pdf,image/*';fi.hidden=true;b.parentNode.appendChild(fi);
+    b.addEventListener('click',function(){fi.value='';fi.click();});
+    fi.addEventListener('change',function(){var f=fi.files&&fi.files[0];if(f)start(f);});}
+  init();
+  return {
+    apply:function(o){if(!pending)return;(o.acts=o.acts||[]).push({d:pending.d,t:pending.t||'',r:pending.r||o.room||'',a:'جلسة',k:'جلسة'});pending=null;note();},
+    clear:function(){pending=null;note();},
+    _t:{parse:parse,norm:norm,fileNo:fileNo,court:court,hearing:hearing,start:start,read:readFile,ocr:ocr,lateDate:lateDate}
+  };
+})();
 var NAV=(function(){
   var idx=0,st=[],busy=false,ready=false,skip=0,ovs=[];
   function curTab(){var b=document.querySelector('.tabs button[aria-selected=true]');return b?b.getAttribute('data-tab'):'agenda';}
@@ -4787,7 +5116,7 @@ $('msave').addEventListener('click',function(){
   if(!o.no||!o.yr){mm('mmsg','أدخلوا رقم الملف وسنته على الأقل.');return;}
   rememberCourt(o.court);
   var k=editId||('f'+Date.now().toString(36)+Math.random().toString(36).slice(2,6));
-  items[k]=o;mm('mmsg',editId?'تم حفظ التعديل.':'تمت إضافة الملف.',true);clearForm();$('madd').open=false;window.FSOLO=k;var mc=$('mcards');if(mc&&!mc.open){mc._go=1;mc.open=true;}persist();
+  if(!editId&&window.FIMP)FIMP.apply(o);items[k]=o;mm('mmsg',editId?'تم حفظ التعديل.':'تمت إضافة الملف.',true);clearForm();$('madd').open=false;window.FSOLO=k;var mc=$('mcards');if(mc&&!mc.open){mc._go=1;mc.open=true;}persist();
 });
 $('exall').addEventListener('click',function(){var up=events().filter(isUp).sort(function(a,b){return a.start-b.start;});download('mawaid-malafat.ics',buildICS(up));mm('amsg','تم إنشاء الملف. افتحوه من التنزيلات ليضيفه تطبيق الأجندة.',true);});
 $('notif').addEventListener('click',askNotif);$('notif2').addEventListener('click',askNotif);
