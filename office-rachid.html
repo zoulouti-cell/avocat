@@ -508,6 +508,14 @@ td.cdc{white-space:nowrap;font-size:.95rem}
 .lhsubh{display:flex;align-items:center;gap:.45rem;margin:.1rem 0 .25rem;color:#e6c873;font-size:.95rem;font-weight:700}
 .lhnum.lhnum2{min-width:2.3rem;height:1.5rem;border-radius:999px;font-size:.78rem}
 .lhsub>textarea{width:100%;box-sizing:border-box;margin:.2rem 0}
+/* the portal, archive and letterhead sheets on a phone: the panel reaches the side edges and starts below the status bar and the camera hole */
+@media (max-width:820px){
+.lxsheet.lhsheet,.lxsheet.posheet{padding:max(56px,calc(env(safe-area-inset-top,0px) + 22px)) 0 calc(70px + env(safe-area-inset-bottom,0px))}
+.lhsheet .lxsc,.posheet .lxsc{max-width:none;border-left:0;border-right:0;border-radius:0;padding:1rem .8rem}
+}
+/* the letterhead: the wording of the addressee as a long bar, the addressee under it */
+.lxsc .trf.lhone{grid-template-columns:1fr}
+@media (max-width:560px){.lxsc .trf.lhg0{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -3960,7 +3968,7 @@ var LH=(function(){
     /* the type of request stays in the middle of the page: a narrow block, lines balanced, as many lines as it needs */
     +'.lhp .lh-title{left:'+((595.3-TITLE_W)/2)+'pt;width:'+TITLE_W+'pt;text-align:center;font-weight:700;font-size:18pt;line-height:1.6;white-space:normal;text-wrap:balance}'
     +'.lhp .lh-info{position:absolute;left:46pt;right:46pt;border:.9pt solid '+c3+';border-radius:5pt;padding:5pt 12pt;display:grid;grid-template-columns:1fr 1fr;column-gap:22pt;font-size:12pt;line-height:1.65;color:#111}'
-    +'.lhp .lh-info div{white-space:normal;overflow-wrap:anywhere}.lhp .lh-info b{font-weight:700}.lhp .lh-info.lh-nb b{font-weight:400}.lhp .lh-info.lh-vb span{font-weight:700}.lhp .lh-info.lh-iv{left:auto;right:46pt;width:'+COLW+'pt;grid-template-columns:1fr}.lhp .lh-to.lh-tv{right:auto;left:46pt;width:'+COLW+'pt}.lhp .lh-dots{letter-spacing:1pt;color:#777;font-weight:400}'
+    +'.lhp .lh-info div{white-space:normal;overflow-wrap:anywhere}.lhp .lh-info b{font-weight:700}.lhp .lh-info.lh-nb b{font-weight:400}.lhp .lh-info.lh-nf{border-color:transparent}.lhp .lh-info.lh-vb span{font-weight:700}.lhp .lh-info.lh-iv{left:auto;right:46pt;width:'+COLW+'pt;grid-template-columns:1fr}.lhp .lh-to.lh-tv{right:auto;left:46pt;width:'+COLW+'pt}.lhp .lh-dots{letter-spacing:1pt;color:#777;font-weight:400}'
     +'.lhp .lh-to{position:absolute;left:46pt;right:46pt;text-align:center;font-weight:700;font-size:16pt;line-height:1.6;color:#111;white-space:normal}.lhp .lh-to b{font-weight:inherit}'
     +'.lhp .lh-par{position:absolute;left:58pt;right:58pt;line-height:1.75;color:#111}.lhp .lh-par div{white-space:normal}'
     +'.lhp .lh-par .lh-pl{font-weight:700;font-size:14pt}.lhp .lh-par .lh-pv{font-weight:400;font-size:14.5pt}'
@@ -4048,7 +4056,7 @@ var LH=(function(){
   function measureBlock(html,b,width){var p=host(b);p.innerHTML=html;var el=p.firstChild;if(!el)return 0;el.style.position='static';el.style.width=width+'pt';return el.getBoundingClientRect().height*PT;}
   function bodyStyle(d){return fst(d.bF,FS)+'font-size:'+(+d.bS||14)+'pt;font-weight:'+(d.bB?700:400);}
   /* the file frame: two columns across the page (horizontal model) or one column on the right (vertical model) */
-  function infoBox(d,html,v,top){return '<div class="lh-info'+(v?' lh-iv':'')+(d.iB===false?' lh-nb':'')+(d.iV?' lh-vb':'')+'"'+(top!=null?' data-mv="info"':'')+' style="'+(top!=null?'top:'+top+'pt;':'')+fst(d.iF,FS)+'font-size:'+(+d.iS||12)+'pt">'+html+'</div>';}
+  function infoBox(d,html,v,top){return '<div class="lh-info'+(v?' lh-iv':'')+(d.iB===false?' lh-nb':'')+(d.iV?' lh-vb':'')+(d.nf?' lh-nf':'')+'"'+(top!=null?' data-mv="info"':'')+' style="'+(top!=null?'top:'+top+'pt;':'')+fst(d.iF,FS)+'font-size:'+(+d.iS||12)+'pt">'+html+'</div>';}
   function measure(text,b,d){return measureBlock('<div class="lh-body" style="'+bodyStyle(d)+'">'+X(text)+'</div>',b,479.3);}
   function paginate(text,b,d,first,rest){
     var pages=[],paras=String(text||'').replace(/\r/g,'').split('\n'),cur='',cap=first;
@@ -4234,12 +4242,12 @@ var LH=(function(){
       var CW=Math.round(COLW*20);
       if(V&&(il.length||tls.length)){
         /* vertical model: the file frame on the right, the addressee on the left, a space between them */
-        var box=il.length?table(il.map(function(x){return [icell(x,1.25)];}),[CW],{b:{top:1,left:1,bottom:1,right:1},sz:7,c:c3,pt:4,ph:10}):para('');
+        var box=il.length?table(il.map(function(x){return [icell(x,1.25)];}),[CW],{b:d.nf?{}:{top:1,left:1,bottom:1,right:1},sz:7,c:c3,pt:4,ph:10}):para('');
         body.push(para('',{before:gap('info',10),line:0.5,keep:1}));
         body.push(table([[box,para(''),(tls.length?toParas(Math.max(0,+M.to||0)):para(''))]],[CW,TW-2*CW,CW],{va:'center'}));
       }else{
         if(il.length){var rows=[];for(var i=0;i<il.length;i+=2)rows.push([icell(il[i]),icell(il[i+1])]);
-          body.push(para('',{before:gap('info',8),line:0.5}));body.push(table(rows,[TW/2,TW/2],{b:{top:1,left:1,bottom:1,right:1},sz:7,c:c3,pt:4,ph:12}));}
+          body.push(para('',{before:gap('info',8),line:0.5}));body.push(table(rows,[TW/2,TW/2],{b:d.nf?{}:{top:1,left:1,bottom:1,right:1},sz:7,c:c3,pt:4,ph:12}));}
         if(tls.length)body.push(toParas(gap('to',12)));
       }
       var pl=partyList(d),ps=+d.pS||14;
@@ -4359,7 +4367,7 @@ var LH=(function(){
     var dt=inp('date');dt.value=todayIso();dt.hidden=true;
     var dbox=E('label');dbox.appendChild(E('span',null,'التاريخ'));dbox.appendChild(dm);dbox.appendChild(dt);
     var cpk=sel([['','نسخة فقط'],['تنفيذية','نسخة تنفيذية'],['تبليغية','نسخة تبليغية'],['عادية','نسخة عادية']]),cpf=field('النسخة المطلوبة',cpk);cpf.hidden=true;
-    var g0=E('div','trf');g0.appendChild(field('نموذج الرأسية',mdl));g0.appendChild(dbox);card.appendChild(g0);
+    var g0=E('div','trf lhg0');g0.appendChild(field('نموذج الرأسية',mdl));g0.appendChild(dbox);card.appendChild(g0);
     /* the form follows the page: 1 title, 2 references of the file, 3 addressee, 4 parties, 5 body (its heading and text), 6 attachments, 7 signature */
     function sec(n,t){var x=E('section','lhblk'),h=E('h4','lhsec');h.appendChild(E('span','lhnum',n));h.appendChild(document.createTextNode(t));x.appendChild(h);card.appendChild(x);return x;}
     var tgt=sec('1','العنوان');
@@ -4380,7 +4388,7 @@ var LH=(function(){
     var g4=E('div','trf'),hdt=inp('date'),room=inp('text',''),tm=inp('time');g4.appendChild(field('تاريخ الجلسة',hdt));g4.appendChild(field('القاعة',room));g4.appendChild(field('الساعة',tm));tgt.appendChild(g4);
     var iS=sizes(10,16,12),iB=shape([['l','العناوين غامقة'],['n','الكل عادي'],['a','الكل غامق']],'l'),iF=fontSel();fontBar('مراجع الملف',iB,iS,iF);
     tgt=sec('3','وجهة الملف');
-    var g9=E('div','trf lhpair'),toP=sel(['إلى','مرفوع إلى','مرفوعة إلى']),to=ta(2,'السيد رئيس المحكمة الابتدائية ...\n(سطر ثان اختياري، مثل: لدى المحكمة الابتدائية بمراكش)');g9.appendChild(field('الصيغة',toP));g9.appendChild(field('الجهة المرفوع إليها',to));tgt.appendChild(g9);
+    var g9=E('div','trf lhone'),toP=sel(['إلى','مرفوع إلى','مرفوعة إلى']),to=ta(2,'السيد رئيس المحكمة الابتدائية ...\n(سطر ثان اختياري، مثل: لدى المحكمة الابتدائية بمراكش)');g9.appendChild(field('الصيغة',toP));g9.appendChild(field('الجهة المرفوع إليها',to));tgt.appendChild(g9);
     var toS=sizes(12,22,16),toB=shape(BOLD,'1'),toF=fontSel();fontBar('وجهة الملف',toB,toS,toF);
     tgt=sec('4','أطراف الملف');
     var g5=E('div','trf lhpair'),pr=inp('text'),dlr=E('datalist');dlr.id='lhroles'+Date.now();ROLES.forEach(function(t){var o=E('option');o.value=t;dlr.appendChild(o);});pr.setAttribute('list',dlr.id);pr.value='لفائدة';tgt.appendChild(dlr);
@@ -4404,12 +4412,12 @@ var LH=(function(){
     var att=ta(3,'مرفق في كل سطر');tgt.appendChild(field('المرفقات (مرفق في كل سطر)',att));
     var aS=sel([['10','10 نقاط'],['11','11 نقطة'],['12','12 نقطة'],['12.5','12.5 نقطة'],['13','13 نقطة'],['14','14 نقطة'],['15','15 نقطة'],['16','16 نقطة']],'12.5'),aB=shape(BOLD,'0'),aF=fontSel();fontBar('المرفقات',aB,aS,aF);
     tgt=sec('7','التوقيع والطابع');
-    var g11=E('div','trf'),sg=sel([['stamp','الطابع'],['both','التوقيع والطابع'],['name','الاسم مكتوبًا'],['none','فارغ للتوقيع باليد']],b.stamp?'stamp':'name');
+    var g11=E('div','trf'),sg=sel([['name','الاسم'],['stamp','الطابع'],['both','الاسم والطابع']],b.stamp?'stamp':'name');
     var pro=inp('text','','ltr');pro.value=b.pro||'';pro.readOnly=true;pro.title='يُعدَّل من «هوية المكتب» في الإعدادات';
     g11.appendChild(field('توقيع المذكرة'+(b.stamp?'':' (لا طابع في الهوية)'),sg));g11.appendChild(field('الرقم الوطني',pro));tgt.appendChild(g11);
     var stw=[];for(var q=100;q<=220;q+=10)stw.push([String(q),q+' نقطة'+(q===160?' (الأصل)':'')]);var stW=sel(stw,'160');
     var sS=sizes(10,18,12),sB=shape(BOLD,'1'),sF=fontSel('الخط الافتراضي (نسخ)');fontBar('التوقيع والطابع',sB,sS,sF,field('عرض الطابع',stW));
-    var ops=E('div','lhops'),cpro=ck('إظهار الرقم الوطني',!!b.pro,ops),blanks=ck('إظهار الحقول الفارغة سطورًا للملء باليد',false,ops),plain=ck('دون الرأسية والتذييل (للطباعة على ورق المكتب المطبوع)',false,ops);card.appendChild(ops);
+    var ops=E('div','lhops'),cpro=ck('إظهار الرقم الوطني',!!b.pro,ops),blanks=ck('إظهار الحقول فارغة',false,ops),plain=ck('حذف الرأسية والتذييل',false,ops),nfr=ck('حذف إطارات المراجع',false,ops);card.appendChild(ops);
     /* positions: drag a block in the preview (or use the arrows); the blocks below follow it */
     var MVK=['title','info','to','par','op','body','sig'],MVL={title:'نوع الطلب',info:'إطار الملف',to:'الجهة',par:'الأطراف',op:'المستهل',body:'المتن',sig:'التوقيع والطابع'},MK='zl_lhmv:'+location.pathname,MV={},SC=1;
     try{MV=JSON.parse(localStorage.getItem(MK)||'{}')||{};}catch(e){MV={};}
@@ -4442,7 +4450,7 @@ var LH=(function(){
     function data(){var m=dm.value,jd=jOn();return {model:mdl.value,tF:tF.value,iS:+iS.value,iB:iB.value!=='n',iV:iB.value==='a',iF:iF.value,toF:toF.value,pF:pF.value,opF:opF.value,bF:bF.value,sS:+sS.value,sB:sB.value==='1',sF:sF.value,stW:+stW.value,aS:+aS.value,aB:aB.value==='1',aF:aF.value,jd:jd,dk:dk.value,dn:jd?dn.value.trim():'',dd:jd?ddt.value:'',mv:MV,type:type.value.trim(),dateMode:m,date:m==='pick'?dt.value:todayIso(),no:no.value.trim(),our:our.value.trim(),jl:jl.value,judge:judge.value.trim(),hd:hdt.value,room:room.value.trim(),time:tm.value,
       toP:toP.value,to:to.value,pr:pr.value.trim()||'لفائدة',pfor:pfor.value.trim(),r1t:r1t.value,r1:r1.value.trim(),vt:vt.value,vs:vs.value.trim(),r2t:r2t.value,r2:r2.value.trim(),
       op:op.value,opS:+opS.value,opB:opB.value==='1',body:body.value,bS:+bS.value,bB:bB.value==='1',att:att.value,
-      tS:+tS.value,tB:tB.value==='1',toS:+toS.value,toB:toB.value==='1',pS:+pS.value,pLB:pSh.value==='l'||pSh.value==='a',pNB:pSh.value==='v'||pSh.value==='a',sig:sg.value,showPro:cpro.checked,blanks:blanks.checked,plain:plain.checked};}
+      tS:+tS.value,tB:tB.value==='1',toS:+toS.value,toB:toB.value==='1',pS:+pS.value,pLB:pSh.value==='l'||pSh.value==='a',pNB:pSh.value==='v'||pSh.value==='a',sig:sg.value,showPro:cpro.checked,blanks:blanks.checked,plain:plain.checked,nf:nfr.checked};}
     var pt=null;function refresh(){clearTimeout(pt);pt=setTimeout(function(){ensureFonts().then(function(){var pg=build(data()),ef=pg.mv||{},ch=false;MVK.forEach(function(k){if(MV[k]!=null&&ef[k]!=null&&ef[k]!==MV[k]){if(ef[k])MV[k]=ef[k];else delete MV[k];ch=true;}});if(ch)mvSave();pv.textContent='';pg.forEach(function(h){var w=E('div','lhpw');w.innerHTML=h;pv.appendChild(w);});fit();});},220);}
     function fit(){var w=pv.clientWidth||300,s=Math.min(1,(w-2)/793.7);SC=s;[].slice.call(pv.querySelectorAll('.lhpw')).forEach(function(x){x.style.height=(1122.5*s)+'px';var p=x.querySelector('.lhp');if(p){p.style.transform='scale('+s+')';p.style.transformOrigin='top right';}});}
     function kit(fid){kitBox.textContent='';var f=all[fid],k=(f&&f.kit)||[];if(!k.length||!window.KIT)return;if(!k.some(function(it){return KIT.art(it.a);}))return;kitBox.appendChild(E('span','lhkh','إدراج نص من مواد الملف:'));
@@ -4452,7 +4460,7 @@ var LH=(function(){
     fs.addEventListener('change',function(){fill(fs.value);});
     dm.addEventListener('change',function(){dt.hidden=dm.value!=='pick';refresh();});
     [type,dt,no,our,dk,dn,ddt,jl,judge,hdt,room,tm,toP,to,pr,pfor,r1t,r1,vt,vs,r2t,r2,op,body,att,sg,cpro,blanks,plain].forEach(function(x){x.addEventListener('input',refresh);x.addEventListener('change',refresh);});
-    var STY={model:mdl,tS:tS,tSh:tB,tF:tF,iS:iS,iSh:iB,iF:iF,toS:toS,toSh:toB,toF:toF,pS:pS,pSh:pSh,pF:pF,opS:opS,opSh:opB,opF:opF,bS:bS,bSh:bB,bF:bF,aS:aS,aSh:aB,aF:aF,sS:sS,sSh:sB,sF:sF,stW:stW},SK='zl_lhstyle:'+location.pathname;
+    var STY={model:mdl,tS:tS,tSh:tB,tF:tF,iS:iS,iSh:iB,iF:iF,toS:toS,toSh:toB,toF:toF,pS:pS,pSh:pSh,pF:pF,opS:opS,opSh:opB,opF:opF,bS:bS,bSh:bB,bF:bF,aS:aS,aSh:aB,aF:aF,sS:sS,sSh:sB,sF:sF,stW:stW,nf:nfr},SK='zl_lhstyle:'+location.pathname;
     try{var sv=JSON.parse(localStorage.getItem(SK)||'null');if(sv)Object.keys(STY).forEach(function(k){if(sv[k]==null)return;if(STY[k].type==='checkbox')STY[k].checked=!!sv[k];else if([].some.call(STY[k].options,function(o){return o.value===String(sv[k]);}))STY[k].value=String(sv[k]);});}catch(e){}
     Object.keys(STY).forEach(function(k){STY[k].addEventListener('change',function(){var o={};Object.keys(STY).forEach(function(j){o[j]=STY[j].type==='checkbox'?STY[j].checked:(STY[j].value===''||isNaN(+STY[j].value)?STY[j].value:+STY[j].value);});try{localStorage.setItem(SK,JSON.stringify(o));}catch(e){}refresh();});});
     pb.addEventListener('click',function(){pb.disabled=true;output(data()).then(function(){pb.disabled=false;});});
