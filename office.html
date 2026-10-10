@@ -4401,9 +4401,14 @@ var LH=(function(){
     function run(t,o){o=o||{};var f=o.f||F_TXT,lf=o.fl||f,sz=Math.round((o.s||14)*2);
       var rp='<w:rFonts w:ascii="'+E(lf)+'" w:hAnsi="'+E(lf)+'" w:cs="'+E(f)+'" w:eastAsia="'+E(f)+'"/>'+(o.b?'<w:b/><w:bCs/>':'')+(o.c?'<w:color w:val="'+o.c+'"/>':'')+'<w:sz w:val="'+sz+'"/><w:szCs w:val="'+sz+'"/>'+(o.u?'<w:u w:val="single"/>':'');
       function one(x,rtl){return String(x).split('\n').map(function(l,i){return '<w:r><w:rPr>'+rp+(rtl?'<w:rtl/>':'')+'</w:rPr>'+(i?'<w:br/>':'')+'<w:t xml:space="preserve">'+E(l)+'</w:t></w:r>';}).join('');}
-      var str=String(t==null?'':t);if(o.ltr)return one(str,false);
-      /* inside Arabic text, numbers (01/5192, 2025/2103/702, 10:00) and Latin words keep their own order: Word reverses a «/» number in a right-to-left run */
-      return str.split(/([0-9][0-9\/:.\-]*[0-9]|[A-Za-z][A-Za-z0-9@._'\-]*(?: [A-Za-z][A-Za-z0-9@._'\-]*)*)/).map(function(x,i){return x?one(x,i%2===0):'';}).join('');}
+      /* Word (on a computer and on a phone) may lay out a paragraph right to left whatever it is told: a French line is wrapped in a
+         left-to-right embedding (LRE … PDF) so that it keeps its order either way */
+      var str=String(t==null?'':t);if(o.ltr)return one(str?'\u202A'+str+'\u202C':str,false);
+      /* inside Arabic text, numbers (01/5192, 2025/2103/702, 11/10/2026, 10:00) are held between two left-to-right marks: after Arabic letters
+         Word turns them into «Arabic numbers» and reverses the parts around «/»; Latin words keep their own run */
+      return str.split(/([0-9][0-9\/:.\-]*[0-9]|[A-Za-z][A-Za-z0-9@._'\-]*(?: [A-Za-z][A-Za-z0-9@._'\-]*)*)/).map(function(x,i){if(!x)return '';if(i%2&&/^[0-9]/.test(x)&&/[\/:.\-]/.test(x))x='\u200E'+x+'\u200E';return one(x,i%2===0);}).join('');}
+    /* a run holding only a direction mark (RLE, LRE, PDF) */
+    function mark(ch){return '<w:r><w:rPr><w:sz w:val="2"/><w:szCs w:val="2"/></w:rPr><w:t xml:space="preserve">'+ch+'</w:t></w:r>';}
     function para(runs,o){o=o||{};var p='';if(o.keep)p+='<w:keepNext/>';if(o.kl)p+='<w:keepLines/>';
       p+=o.ltr?'<w:bidi w:val="0"/>':'<w:bidi/>';
       p+='<w:spacing w:before="'+tw(o.before||0)+'" w:after="'+tw(o.after||0)+'" '+(o.exact?'w:line="'+tw(o.exact)+'" w:lineRule="exact"':'w:line="'+Math.round((o.line||1.15)*240)+'" w:lineRule="auto"')+'/>';
@@ -4457,14 +4462,14 @@ var LH=(function(){
         hx=table([[ar,para(pic(h1,logo,lf[0],lf[1]),{jc:'center',line:1}),fr]],[4500,2340,4500],{va:'center',b:{bottom:{sz:32,c:c3}},cm:{b:5}})+para('',{exact:2});}
       /* first-page footer: the QR codes on both sides, the address in the middle, a thin rule above */
       var fx=para('',{exact:2});
-      if(!plain){var tl=[];if(b.email)tl.push('EMAIL : '+String(b.email).toUpperCase());if(b.tel)tl.push('Tél : '+b.tel+' :');
-        var mid=(b.addr_ar?para(run(b.addr_ar,{f:afont?F_AR:F_FOOT,b:afont?0:1,s:10}),{jc:'center',line:1.05}):'')+(b.addr_fr?para(run(b.addr_fr,{b:1,s:9.5,ltr:1}),{jc:'center',ltr:1,line:1.05}):'')+(tl.length?para(run(tl.join(' – ')+' ',{b:1,s:9.5,ltr:1})+(b.tel?run('الهاتف',{f:afont?F_AR:F_FOOT,b:afont?0:1,s:9.5}):''),{jc:'center',ltr:1,line:1.05}):'');
+      if(!plain){var tl=[];if(b.email)tl.push('EMAIL : '+String(b.email).toUpperCase());if(b.tel)tl.push('Tél : '+b.tel);
+        var mid=(b.addr_ar?para(run(b.addr_ar,{f:afont?F_AR:F_FOOT,b:afont?0:1,s:10}),{jc:'center',line:1.05}):'')+(b.addr_fr?para(run(b.addr_fr,{b:1,s:9.5,ltr:1}),{jc:'center',ltr:1,line:1.05}):'')+(tl.length?para(mark('\u202B')+(b.tel?run('الهاتف',{f:afont?F_AR:F_FOOT,b:afont?0:1,s:9.5})+run(' : ',{b:1,s:9.5}):'')+run(tl.join(' – '),{b:1,s:9.5,ltr:1})+mark('\u202C'),{jc:'center',line:1.05}):'');
         fx=table([[para(pic(f1,q2,38,38),{jc:'center',line:1}),mid,para(pic(f1,q1,38,38),{jc:'center',line:1})]],[1400,8540,1400],{va:'center',b:{top:{sz:7,c:'000000'}},cm:{t:3}});}
       var pn=para('<w:r><w:fldChar w:fldCharType="begin"/></w:r><w:r><w:instrText xml:space="preserve"> PAGE </w:instrText></w:r><w:r><w:fldChar w:fldCharType="separate"/></w:r>'+run('2',{s:10,ltr:1})+'<w:r><w:fldChar w:fldCharType="end"/></w:r>',{jc:'center',ltr:1});
       /* date line: national number (right), date (middle), office reference (left) */
       var dt=d.dateMode==='blank'?'....../....../..........':ymd(d.date||todayIso());
       var rC=(d.showPro!==false&&b.pro)?para(run('الرقم الوطني : ',{b:1,s:11})+run(b.pro,{s:11}),{jc:'center',line:1}):'';
-      var mC=para(run((b.city_fr||'')+' Le : '+dt+' : ',{f:F_FR,s:13.5,ltr:1})+run((b.city_ar||'')+' في',{f:afont?F_AR:F_FOOT,b:afont?0:1,s:12}),{jc:'center',ltr:1,line:1});
+      var mC=para(mark('\u202B')+run((b.city_ar||'')+' في',{f:afont?F_AR:F_FOOT,b:afont?0:1,s:12})+run(' : ',{f:F_FR,s:13.5})+run((b.city_fr||'')+' Le : '+dt,{f:F_FR,s:13.5,ltr:1})+mark('\u202C'),{jc:'center',line:1});
       var lC=d.our?para(run('مرجع المكتب : ',{b:1,s:11})+run(d.our,{s:11}),{jc:'center',line:1}):(d.blanks?para(run('مرجع المكتب : ',{b:1,s:11})+run('..............',{s:11,c:'777777'}),{jc:'center',line:1}):'');
       body.push(table([[rC,mC,lC]],[2650,5440,2650],{va:'center'}));
       var title=String(d.type||'').trim(),V=d.model==='v';
@@ -4593,7 +4598,8 @@ var LH=(function(){
     function ctx(d){var f=(d.fid&&typeof items==='object'&&items&&items[d.fid])||{},b=window.BRAND?BRAND.get():{};
       var court=f.court||String(d.to||'').split('\n')[0].replace(/^(?:السيد\s+)?(?:الرئيس\s+الأول\s+ل|رئيس\s+|وكيل\s+)/,'').trim();
       return {d:d,f:f,b:b,court:court,fp:split(d.no,f)};}
-    function valueOf(c,k){var f=fieldOf(k);if(!f)return null;var v=String(f[2](c)||'').trim();return v||(f[3]?'':DOTS);}
+    /* numbers with «/» (file numbers, dates) held between left-to-right marks, else Word reverses their parts in Arabic text */
+    function valueOf(c,k){var f=fieldOf(k);if(!f)return null;var v=String(f[2](c)||'').trim();if(!v)return f[3]?'':DOTS;return v.replace(/[0-9][0-9\/:.\-]*[0-9]/g,function(m){return /[\/:.\-]/.test(m)?'\u200E'+m+'\u200E':m;});}
     /* ---- the fields in the paragraphs: Word cuts a «{{…}}» into several pieces, so the text of a paragraph is read whole */
     var PH=/\{\{\s*([^{}]{1,40}?)\s*\}\}/g;
     function own(p){return [].slice.call(p.getElementsByTagNameNS(WNS,'t')).filter(function(t){for(var a=t.parentNode;a&&a!==p;a=a.parentNode)if(a.localName==='p'&&a.namespaceURI===WNS)return false;return true;});}
