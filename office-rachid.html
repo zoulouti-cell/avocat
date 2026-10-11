@@ -686,10 +686,12 @@ html.lhvon,html.lhvon body{overflow:hidden}
         <p class="msg" id="amsg"></p>
         <div class="card" id="rpbox"><h3>طباعة المواعيد الإجرائية وتواريخ الجلسات</h3>
           <div class="trf"><label><span>المطلوب</span><select id="rprange"><option value="day">يوم محدد</option><option value="week">أسبوع محدد (من الاثنين إلى الأحد)</option></select></label>
-          <label><span>التاريخ</span><input id="rpdate" type="date"></label></div>
+          <label><span>التاريخ</span><input id="rpdate" type="date"></label>
+          <label><span>المحكمة</span><select id="rpcourt"><option value="">كل المحاكم</option></select></label></div>
           <p class="meta" id="rpinfo"></p>
           <div class="pk" id="rpk"><label><input type="checkbox" data-rk="جلسة" checked> الجلسات</label><label><input type="checkbox" data-rk="إجراء" checked> الإجراءات</label><label><input type="checkbox" data-rk="أجل" checked> الآجال</label></div>
-          <div class="row2"><button class="btn p" id="rpprint" type="button">طباعة</button></div></div>
+          <div class="row2 rpact"><button class="btn p" id="rpprint" type="button">طباعة</button><button class="btn" id="rpcal" type="button" title="إضافة المواعيد المختارة إلى أجندة الهاتف أو الحاسوب">أجندة</button><button class="btn" id="rpwa" type="button" title="إرسال المواعيد المختارة عبر واتساب">إرسال</button></div>
+          <p class="meta">عند اختيار الجلسات، يتضمن المطبوع خانة «النتيجة» لتدوين ما جرى في كل جلسة.</p></div>
         <div id="agl"></div>
       </div>
       <div id="dpane-misc" hidden>
@@ -1621,7 +1623,7 @@ function renderAgenda(){
   box.textContent='';
   var due=dueList(),soon=$('soon');
   var dueIds=due.map(function(x){return x.uid;}),dl3=events().filter(function(e){return isUp(e)&&/^آخر موعد آمن/.test(e.a.a||'')&&refTime(e).getTime()-Date.now()<=72*3600000&&dueIds.indexOf(e.uid)<0;}).sort(function(x,y){return x.start-y.start;});
-  if(window.OUTC)OUTC.render();soon.hidden=!(due.length||dl3.length);soon.textContent='';
+  if(window.OUTC)OUTC.render();if(window.RPUI)RPUI();soon.hidden=!(due.length||dl3.length);soon.textContent='';
   if(due.length){
     soon.appendChild(el('b',null,'خلال 24 ساعة ('+due.length+')'));
     due.forEach(function(e){soon.appendChild(el('div','meta',fd(e.a.d)+(e.a.t?' | '+e.a.t:'')+' — '+summary(e)));});
@@ -3591,7 +3593,7 @@ var RPT=(function(){
   var CSS0='<style>.pg,.fl{background:#fff;color:#14211e;font-family:'+FONT+';direction:rtl;font-size:13.5px;line-height:1.55}.pg{width:'+W+'px;height:'+H+'px;padding:40px 46px;position:relative;overflow:hidden;box-sizing:border-box}.fl{padding:10mm 12mm}'
    +'.hd{display:flex;align-items:center;gap:14px;background:#fff;border-bottom:3px solid #4a3306;padding:0 0 10px;margin-bottom:16px}.hd img{width:60px;height:60px;border-radius:50%;border:3px solid #4a3306;background:#fff;padding:5px;box-sizing:border-box;object-fit:contain}.hd .tt{flex:1}.firm{font-size:22px;font-weight:700;color:#0b5a4a}.lw{font-size:13px;color:#4a3306;font-weight:700}.dt{font-size:11.5px;color:#555;direction:ltr}.kdp{font-size:11px;font-weight:700;margin-top:2px}.kdp-جلسة{color:#4a3306}.kdp-أجل{color:#b3402a}'
    +'h1{font-size:21px;margin:6px 0 2px;color:#0b5a4a}.sub{font-size:12.5px;color:#555;margin-bottom:12px}table{width:100%;border-collapse:collapse;margin:6px 0 12px}th{background:#fff;color:#0b5a4a;border:2px solid #0b5a4a;font-size:12.5px;text-align:right;padding:6px 8px}'
-   +'td{border-bottom:1px solid #d9d2b6;padding:6px 8px;vertical-align:top;text-align:right}tr.day td{background:#fff;color:#0b5a4a;font-weight:700;border:1.5px solid #0b5a4a}.tm{width:64px;font-weight:700;white-space:nowrap}.rf{font-size:11.5px;color:#666}'
+   +'td{border-bottom:1px solid #d9d2b6;padding:6px 8px;vertical-align:top;text-align:right}th.rs,td.rs{width:150px}th.rm,td.rm{width:64px}.wl{height:22px;border-bottom:1px dotted #8f8a7a}tr.day td{background:#fff;color:#0b5a4a;font-weight:700;border:1.5px solid #0b5a4a}.tm{width:64px;font-weight:700;white-space:nowrap}.rf{font-size:11.5px;color:#666}'
    +'h2{font-size:15px;color:#0b2420;border-right:4px solid #4a3306;padding-right:8px;margin:14px 0 6px}.kv td{border:0;padding:2px 8px}.kv td:first-child{width:130px;color:#6b5a1f;font-weight:700}'
    +'.ft{position:absolute;left:46px;right:46px;bottom:22px;border-top:1px solid #d9d2b6;padding-top:6px;font-size:11px;color:#777;display:flex;justify-content:space-between}.empty{padding:40px 0;text-align:center;color:#777;font-size:15px}'
    +'.it{page-break-inside:avoid;border:1px solid #d9d2b6;border-right:4px solid #4a3306;border-radius:6px;padding:8px 12px;margin:0 0 10px}.it .t{font-weight:700;color:#0b2420}.it .m{font-size:11.5px;color:#666;margin:2px 0 4px}.it .b{white-space:pre-wrap}.ft2{margin-top:14px;border-top:1px solid #d9d2b6;padding-top:6px;font-size:11px;color:#777;text-align:center}</style>';
@@ -3602,24 +3604,32 @@ var RPT=(function(){
   function fixed(inner,n,t){return CSS+'<div class="pg">'+inner+foot(n,t)+'</div>';}
   function flow(inner){return CSS+'<div class="fl">'+inner+'<div class="ft2">'+E(CFG.firm)+' — '+E(CFG.tel)+'</div></div>';}
   /* ---------- procedural appointments ---------- */
-  function agendaData(range,iso,kinds){
-    var r=rangeOf(range,iso);
-    var ev=events().filter(function(e){return !(e.f&&e.f.diary)&&e.a.d>=r.from&&e.a.d<=r.to&&(!kinds||kinds.indexOf(kindOf(e.a))>=0);}).sort(function(a,b){return a.start-b.start;});
-    return {ev:ev,from:r.from,to:r.to,kinds:kinds||null};
+  function ckey(s){return String(s||'').replace(/\s+/g,' ').trim();}
+  function agendaData(range,iso,kinds,court){
+    var r=rangeOf(range,iso);court=ckey(court);
+    var ev=events().filter(function(e){return !(e.f&&e.f.diary)&&e.a.d>=r.from&&e.a.d<=r.to&&(!kinds||kinds.indexOf(kindOf(e.a))>=0)&&(!court||ckey(e.f.court)===court);}).sort(function(a,b){return a.start-b.start;});
+    return {ev:ev,from:r.from,to:r.to,kinds:kinds||null,court:court,res:!kinds||kinds.indexOf('جلسة')>=0};
   }
   function kdp(a){var k=kindOf(a);return (k==='جلسة'||k==='أجل')?'<div class="kdp kdp-'+k+'">'+k+'</div>':'';}
-  function evRow(e){var f=e.f;return '<tr><td class="tm">'+E(e.a.t||'—')+kdp(e.a)+'</td><td><b>'+E(fname(f))+'</b><div class="rf">'+E(refLine(f))+'</div></td><td>'+E(place(e))+'</td><td>'+E(e.a.a||'')+'</td></tr>';}
-  function agendaUnits(ev){var u=[],cur='';ev.forEach(function(e){if(e.a.d!==cur){cur=e.a.d;u.push({h:'<tr class="day"><td colspan="4">'+E(longDate(cur))+'</td></tr>',c:.6});}u.push({h:evRow(e),c:((e.a.a||'').length+(refLine(e.f)||'').length>110)?1.6:1});});return u;}
-  var THEAD='<tr><th>الساعة</th><th>الملف</th><th>المحكمة والقاعة</th><th>الإجراء</th></tr>';
-  function agendaTitle(range,d){return range==='day'?'المواعيد الإجرائية ليوم '+longDate(d.from):'المواعيد الإجرائية للأسبوع';}
-  function agendaSub(range,d){return (range==='day'?'':'من الاثنين '+fd(d.from)+' إلى الأحد '+fd(d.to)+' | ')+(d.ev.length?d.ev.length+(d.ev.length===1?' موعد':' مواعيد'):'لا مواعيد')+' ('+(d.kinds&&d.kinds.length&&d.kinds.length<3?d.kinds.join(' و'):'جلسات وإجراءات وآجال')+')';}
-  function agendaFixed(range,iso,kinds){
-    var d=agendaData(range,iso,kinds),title=agendaTitle(range,d),sub=agendaSub(range,d),u=agendaUnits(d.ev),pages=[],cur=[],cost=0;
+  function refNC(f){return [f.type,fnoS(f)].filter(Boolean).join(' | ');}
+  function evRow(e,d){var f=e.f,c=d&&d.court,h=kindOf(e.a)==='جلسة';return '<tr><td class="tm">'+E(e.a.t||'—')+kdp(e.a)+'</td><td><b>'+E(fname(f))+'</b><div class="rf">'+E(refNC(f))+'</div></td><td'+(c?' class="rm"':'')+'>'+E(c?(room(e)||'—'):place(e))+'</td><td>'+E(e.a.a||'')+'</td>'+(d&&d.res?'<td class="rs">'+(h?'<div class="wl"></div><div class="wl"></div>':'<div class="wl"></div>')+'</td>':'')+'</tr>';}
+  function agendaUnits(ev,d){var u=[],cur='',cs=d&&d.res?5:4;ev.forEach(function(e){if(e.a.d!==cur){cur=e.a.d;u.push({h:'<tr class="day"><td colspan="'+cs+'">'+E(longDate(cur))+'</td></tr>',c:.6});}var c=((e.a.a||'').length+(refLine(e.f)||'').length>110)?1.6:1;if(d&&d.res)c=Math.max(c,kindOf(e.a)==='جلسة'?1.45:1.15);u.push({h:evRow(e,d),c:c});});return u;}
+  function thead(d){return '<tr><th>الساعة</th><th>الملف</th><th'+(d.court?' class="rm"':'')+'>'+(d.court?'القاعة':'المحكمة والقاعة')+'</th><th>الإجراء</th>'+(d.res?'<th class="rs">النتيجة</th>':'')+'</tr>';}
+  function what(d){var k=d.kinds&&d.kinds.length===1?d.kinds[0]:'';return k==='جلسة'?'الجلسات':k==='أجل'?'الآجال':k==='إجراء'?'الإجراءات':'المواعيد الإجرائية';}
+  function agendaTitle(range,d){return range==='day'?what(d)+' ليوم '+longDate(d.from):what(d)+' للأسبوع';}
+  function agendaSub(range,d){return (d.court?d.court+' | ':'')+(range==='day'?'':'من الاثنين '+fd(d.from)+' إلى الأحد '+fd(d.to)+' | ')+(d.ev.length?d.ev.length+(d.ev.length===1?' موعد':' مواعيد'):'لا مواعيد')+' ('+(d.kinds&&d.kinds.length&&d.kinds.length<3?d.kinds.join(' و'):'جلسات وإجراءات وآجال')+')';}
+  /* the same list as a message (WhatsApp) */
+  function agendaText(range,d){var L=['*'+agendaTitle(range,d)+(range==='day'?'':' (من '+fd(d.from)+' إلى '+fd(d.to)+')')+'*'];if(d.court)L.push('المحكمة: '+d.court);var cur='';
+    d.ev.forEach(function(e){var f=e.f;if(e.a.d!==cur){cur=e.a.d;L.push('');if(range!=='day')L.push('*'+longDate(cur)+'*');}
+      L.push('• '+[e.a.t||'',fname(f),refNC(f),d.court?(room(e)?'القاعة '+room(e):''):place(e),e.a.a||''].filter(Boolean).join(' | '));});
+    L.push('');L.push('— '+CFG.firm);return L.join('\n');}
+  function agendaFixed(range,iso,kinds,court){
+    var d=agendaData(range,iso,kinds,court),title=agendaTitle(range,d),sub=agendaSub(range,d),u=agendaUnits(d.ev,d),pages=[],cur=[],cost=0;
     u.forEach(function(x){if(cost+x.c>CAP&&cur.length){pages.push(cur);cur=[];cost=0;}cur.push(x);cost+=x.c;});if(cur.length||!pages.length)pages.push(cur);
-    var html=pages.map(function(p,i){return fixed(head(title,sub)+(d.ev.length?'<table>'+THEAD+p.map(function(x){return x.h;}).join('')+'</table>':'<div class="empty">لا توجد مواعيد إجرائية في هذه الفترة.</div>'),i+1,pages.length);});
+    var html=pages.map(function(p,i){return fixed(head(title,sub)+(d.ev.length?'<table>'+thead(d)+p.map(function(x){return x.h;}).join('')+'</table>':'<div class="empty">لا توجد مواعيد إجرائية في هذه الفترة.</div>'),i+1,pages.length);});
     return {pages:html,name:(range==='day'?'مواعيد-يوم-':'مواعيد-أسبوع-')+d.from+'.pdf'};
   }
-  function agendaFlow(range,iso,kinds){var d=agendaData(range,iso,kinds),u=agendaUnits(d.ev);return flow(head(agendaTitle(range,d),agendaSub(range,d))+(d.ev.length?'<table>'+THEAD+u.map(function(x){return x.h;}).join('')+'</table>':'<div class="empty">لا توجد مواعيد إجرائية في هذه الفترة.</div>'));}
+  function agendaFlow(range,iso,kinds,court){var d=agendaData(range,iso,kinds,court),u=agendaUnits(d.ev,d);return flow(head(agendaTitle(range,d),agendaSub(range,d))+(d.ev.length?'<table>'+thead(d)+u.map(function(x){return x.h;}).join('')+'</table>':'<div class="empty">لا توجد مواعيد إجرائية في هذه الفترة.</div>'));}
   /* ---------- file sheet ---------- */
   function fileInner(f){
     var kv=function(k,v){return v?'<tr><td>'+E(k)+'</td><td>'+E(v)+'</td></tr>':'';};
@@ -3707,7 +3717,8 @@ var RPT=(function(){
   }
   return {
     cfg:CFG,toast:toast,recolor:recolor,makePDF:makePDF,toCanvas:toCanvas,save:save,
-    agenda:function(range,mode,iso,kinds){run(agendaFixed(range,iso,kinds),mode,agendaFlow(range,iso,kinds));},
+    agenda:function(range,mode,iso,kinds,court){run(agendaFixed(range,iso,kinds,court),mode,agendaFlow(range,iso,kinds,court));},
+    agendaData:agendaData,agendaText:agendaText,
     rangeLabel:rangeLabel,
     file:function(fid,mode){var f=items[fid];if(!f)return;run(fileFixedPages(f),mode,fileFlow(f));},
     printFlow:function(title,inner){
@@ -5659,7 +5670,46 @@ function show(tab,silent){
 }
 document.querySelectorAll('.tabs button').forEach(function(b){b.addEventListener('click',function(){show(b.dataset.tab);});});
 $('mflt').addEventListener('change',renderFiles);
-  (function(){var r=$('rprange'),d=$('rpdate'),i=$('rpinfo');d.value=today();function u(){i.textContent=RPT.rangeLabel(r.value,d.value||today());}r.addEventListener('change',u);d.addEventListener('change',u);u();$('rpprint').addEventListener('click',function(){var ks=[].slice.call(document.querySelectorAll('#rpk input:checked')).map(function(x){return x.getAttribute('data-rk');});if(!ks.length){RPT.toast('اختاروا نوعًا واحدًا على الأقل: الجلسات أو الإجراءات أو الآجال.');return;}RPT.agenda(r.value,'print',d.value||today(),ks);});})();
+  (function(){var r=$('rprange'),d=$('rpdate'),i=$('rpinfo'),c=$('rpcourt');d.value=today();
+    function ck(s){return String(s||'').replace(/\s+/g,' ').trim();}
+    function ks(){return [].slice.call(document.querySelectorAll('#rpk input:checked')).map(function(x){return x.getAttribute('data-rk');});}
+    /* the courts of the files, those with appointments in the chosen period first (with their number) */
+    function courts(){if(!c)return;var v=c.value,all={},cnt={},k=ks(),dd=RPT.agendaData(r.value,d.value||today(),k.length?k:['__'],'');
+      Object.keys(items).forEach(function(id){var f=items[id];if(!f||f.diary)return;var n=ck(f.court);if(n)all[n]=1;});
+      dd.ev.forEach(function(e){var n=ck(e.f.court);if(n)cnt[n]=(cnt[n]||0)+1;});
+      var names=Object.keys(all).sort(function(a,b){return (cnt[b]||0)-(cnt[a]||0)||a.localeCompare(b,'ar');});
+      c.textContent='';var o=document.createElement('option');o.value='';o.textContent='كل المحاكم'+(dd.ev.length?' ('+dd.ev.length+')':'');c.appendChild(o);
+      names.forEach(function(n){var o=document.createElement('option');o.value=n;o.textContent=n+(cnt[n]?' ('+cnt[n]+')':'');c.appendChild(o);});
+      c.value=all[v]?v:'';}
+    window.RPUI=courts;
+    function u(){i.textContent=RPT.rangeLabel(r.value,d.value||today());courts();}
+    r.addEventListener('change',u);d.addEventListener('change',u);[].forEach.call(document.querySelectorAll('#rpk input'),function(x){x.addEventListener('change',courts);});
+    function pick(){var k=ks();if(!k.length){RPT.toast('اختاروا نوعًا واحدًا على الأقل: الجلسات أو الإجراءات أو الآجال.');return null;}return {range:r.value,iso:d.value||today(),kinds:k,court:c?c.value:''};}
+    function nm(n){return n===1?'موعد واحد':n===2?'موعدان':n<=10?n+' مواعيد':n+' موعدًا';}
+    function none(s){RPT.toast('لا توجد مواعيد'+(s.court?' في '+s.court:'')+' في هذه الفترة.');}
+    $('rpprint').addEventListener('click',function(){var s=pick();if(!s)return;RPT.agenda(s.range,'print',s.iso,s.kinds,s.court);});
+    /* «أجندة»: the chosen appointments written into the phone's calendar in one go (a calendar file on the computer) */
+    async function toCal(list){
+      var CI=(NATIVE&&window.Capacitor.Plugins)?window.Capacitor.Plugins.CalendarInsert:null,n=list.length;
+      if(!NATIVE){download('mawaid-'+list[0].a.d+'.ics',buildICS(list));RPT.toast('تم إنشاء ملف الأجندة ('+nm(n)+'). افتحوه ليضيفه تطبيق الأجندة.');return;}
+      if(CI&&CI.insertMany){
+        try{var res=await CI.insertMany({events:list.map(function(e){var st=e.start.getTime(),en=endOf(e).getTime();if(e.allday){var p=e.a.d.split('-');st=Date.UTC(+p[0],+p[1]-1,+p[2]);en=st+86400000;}
+            return {key:e.fid+'|'+e.a.d+'|'+(e.a.t||'')+'|'+(e.a.a||''),title:summary(e),description:describe(e),location:place(e),start:String(st),end:String(en),allDay:!!e.allday};})});
+          var a=+res.added||0,up=+res.updated||0,t=[];if(a)t.push('أُضيف إلى الأجندة '+nm(a));if(up)t.push((a?'وحُدِّث ':'حُدِّث ')+nm(up)+' سبقت إضافته');
+          RPT.toast((t.join('، ')||'لم يُضف أي موعد')+(res.calendar?' ('+res.calendar+')':'')+'.');return;}
+        catch(x){var m=String(x&&(x.message||x)||'');
+          if(/permission/.test(m)){RPT.toast('اسمحوا للتطبيق بالوصول إلى الأجندة ثم أعيدوا المحاولة.');return;}
+          if(/no_calendar/.test(m)){RPT.toast('لا توجد في الهاتف أجندة يمكن الكتابة فيها. أضيفوا حساب Google في تطبيق الأجندة.');return;}}
+      }
+      if(n===1){addToCalendar(list[0]);return;}
+      RPT.toast('إضافة عدة مواعيد دفعة واحدة تتطلب تحديث التطبيق بآخر إصدار.');
+    }
+    $('rpcal').addEventListener('click',function(){var s=pick();if(!s)return;var dd=RPT.agendaData(s.range,s.iso,s.kinds,s.court);if(!dd.ev.length){none(s);return;}
+      var up=dd.ev.filter(function(e){return e.a.d>=today();});if(!up.length){RPT.toast('مواعيد هذه الفترة مضت كلها، فلا تضاف إلى الأجندة.');return;}toCal(up);});
+    /* «إرسال»: the same list as a WhatsApp message (the contact is chosen in WhatsApp) */
+    $('rpwa').addEventListener('click',function(){var s=pick();if(!s)return;var dd=RPT.agendaData(s.range,s.iso,s.kinds,s.court);if(!dd.ev.length){none(s);return;}
+      var url='https://wa.me/?text='+encodeURIComponent(RPT.agendaText(s.range,dd));try{window.open(url,'_blank');}catch(e){location.href=url;}});
+    u();})();
   $('dsave').addEventListener('click',saveDiary);$('dcancel').addEventListener('click',clearDForm);clearDForm();
   [].slice.call(document.querySelectorAll('#dseg button')).forEach(function(b){b.addEventListener('click',function(){showDiaryPane(b.getAttribute('data-d'));});});
 $('mcancel').addEventListener('click',clearForm);
