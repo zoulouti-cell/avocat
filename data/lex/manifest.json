@@ -1,5 +1,5 @@
 {
- "v": 7,
+ "v": 8,
  "texts": [
   {
    "id": "zl-cpc",
@@ -50,6 +50,12 @@
  "cases": [
   {
    "file": "jur-refs.json",
+   "v": 1
+  }
+ ],
+ "docs": [
+  {
+   "file": "zl-models.json",
    "v": 1
   }
  ]
