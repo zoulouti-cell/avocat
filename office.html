@@ -632,6 +632,14 @@ html.lhvon,html.lhvon body{overflow:hidden}
 .docn{margin:.4rem 0 .1rem}.fcst2{margin-top:.4rem}
 .cmta{width:100%;box-sizing:border-box;line-height:1.7;font-size:.95rem}
 .osheet .lxsc{max-width:620px;margin-inline:auto}
+/* Google Drive: the box of the client's folder under the documents of a file, and the card of the settings */
+details.drvbox{margin:.7rem 0 .2rem}
+details.drvbox>summary{display:flex;align-items:center;gap:.45rem}
+details.drvbox>summary::after{content:'';flex:0 0 auto;width:18px;height:18px;margin-inline-start:.2rem;background:no-repeat center/contain url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e6c873' stroke-width='1.7' stroke-linejoin='round'><path d='M8.2 3.8h7.6l5.4 9.4-3.8 6.6H6.6l-3.8-6.6z'/><path d='M8.2 3.8l5.6 9.4h7.4M2.8 13.2l5.4-9.4M6.6 19.8l3.8-6.6'/></svg>")}
+.drvb .drvpath{color:#e6c873}
+.drvb .drvup{margin-top:.5rem}
+#drvcard label{display:grid;gap:.25rem;margin:.4rem 0}
+#drvcard input{direction:ltr;text-align:left}
 /* a sheet keeps its title on one line and its «إغلاق» in place, under the status bar */
 .lxsheet.osheet{padding-top:0}
 .lxsheet.osheet::before{content:'';display:block;position:sticky;top:0;height:var(--sat,env(safe-area-inset-top,0px));background:#071a16;z-index:6}
@@ -903,6 +911,7 @@ details.card#mcards[open]{background:none;border-color:transparent;box-shadow:no
 
   <section id="p-set" hidden>
     <h2>الإعدادات</h2>
+  <div class="card" id="drvcard" hidden><h3>Google Drive</h3><p class="note" id="drvinfo"></p><label id="drvcidl" hidden><span>معرّف Google (Client ID)</span><input id="drvcid" autocomplete="off" spellcheck="false" placeholder="….apps.googleusercontent.com"></label><div class="row2"><button class="btn p" id="drvgo" type="button">الاتصال بـ Google Drive</button><button class="btn" id="drvsync" type="button" hidden>مزامنة الآن</button><button class="btn" id="drvoff" type="button" hidden>قطع الاتصال</button></div><p class="msg" id="drvmsg"></p></div>
   <div class="card" id="bkcard"><h3>نسخة احتياطية مشفرة</h3>
     <p class="note">تنزّل ملفًا واحدًا فيه كل ملفات هذا الفضاء ومواعيده وإعداداته ومحتوى المكتبة المحلي (دون ملفات PDF المرفقة). ينصح بكلمة سر لتشفيره لأنه يحوي بيانات موكلين. والنسخة الأصلية تبقى مشفرة في مستودع البيانات على GitHub.</p>
     <label><span>كلمة سر للتشفير (اختيارية)</span><input id="bkpw" type="password" autocomplete="new-password"></label>
@@ -1754,6 +1763,7 @@ var ICS={
   open:'<svg class="ln" viewBox="0 0 24 24" aria-hidden="true"><path d="M13.6 4.4h6v6"/><path d="M19.6 4.4l-8 8"/><path d="M17.6 13.6v4.2a2 2 0 0 1-2 2H6.2a2 2 0 0 1-2-2V8.4a2 2 0 0 1 2-2h4.2"/></svg>',
   share:'<svg class="ln" viewBox="0 0 24 24" aria-hidden="true"><circle cx="17.6" cy="5.6" r="2.5"/><circle cx="6.4" cy="12" r="2.5"/><circle cx="17.6" cy="18.4" r="2.5"/><path d="M8.6 10.8l6.8-3.9M8.6 13.2l6.8 3.9"/></svg>',
   text:'<svg class="ln" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3.6H7.2A2.2 2.2 0 0 0 5 5.8v12.4a2.2 2.2 0 0 0 2.2 2.2h9.6a2.2 2.2 0 0 0 2.2-2.2V8.6z"/><path d="M14 3.6v5h5"/><path d="M8.6 12h6.8M8.6 15h6.8M8.6 18h4.2"/></svg>',
+  pull:'<svg class="ln" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.8v11"/><path d="M7.6 10.6l4.4 4.4 4.4-4.4"/><path d="M4.4 15.6v2.6a2 2 0 0 0 2 2h11.2a2 2 0 0 0 2-2v-2.6"/></svg>',
   scan:'<svg class="ln" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8V5.5A1.5 1.5 0 0 1 5.5 4H8M16 4h2.5A1.5 1.5 0 0 1 20 5.5V8M20 16v2.5a1.5 1.5 0 0 1-1.5 1.5H16M8 20H5.5A1.5 1.5 0 0 1 4 18.5V16"/><path d="M8.5 9h7M12 9v7"/></svg>'
 };
 /* a text button becomes an icon (only in the app); its listeners stay as they are */
@@ -1792,7 +1802,11 @@ var MFD=(function(){
   async function ensure(){if(!can())return {ok:false};await status();if(st.ok)return st;return ask();}
   function b64(u8){var s='',CH=0x8000;for(var i=0;i<u8.length;i+=CH)s+=String.fromCharCode.apply(null,u8.subarray(i,i+CH));return btoa(s);}
   function unb64(s){var b=atob(s),u=new Uint8Array(b.length);for(var i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return u;}
-  async function write(path,name,mime,blob){var u8=new Uint8Array(await blob.arrayBuffer());return P().writeTo({path:path,name:safe(name)||'وثيقة',mime:mime||blob.type||'application/octet-stream',data:b64(u8)});}
+  /* a file in the phone's folder, and the same file in Drive when Drive is connected */
+  async function write(path,name,mime,blob,noMirror){var u8=new Uint8Array(await blob.arrayBuffer()),nm=safe(name)||'وثيقة',mt=mime||blob.type||'application/octet-stream';
+    var r=await P().writeTo({path:path,name:nm,mime:mt,data:b64(u8)});
+    if(!noMirror&&window.DRV&&DRV.isOn())DRV.upload(path,nm,mt,blob,{interactive:false}).catch(function(){});
+    return r;}
   async function list(path){var r=await P().listIn({path:path});return (r&&r.files)||[];}
   async function read(path,name,mime){var r=await P().readFrom({path:path,name:name});return new File([unb64(r.data)],name,{type:mime||''});}
   /* documents picked anywhere on the phone, read one by one */
@@ -1804,6 +1818,84 @@ var MFD=(function(){
     setTimeout(function(){status().then(function(s){if(!s.ok&&!asked&&!document.querySelector('.lxsheet')){asked=true;ask();}});},2600);}
   status();
   return {can:can,safe:safe,clientDir:clientDir,clientPath:clientPath,label:label,status:status,pick:pick,ask:ask,ensure:ensure,write:write,list:list,read:read,pickFiles:pickFiles,readUri:readUri,delUri:delUri,firstRun:firstRun,b64:b64,get ok(){return st.ok;},get path(){return st.path;}};
+})();
+/* ---------- Google Drive: the folder MALAFATI of the lawyer's Drive (MALAFATI / الموكلين / <client>, النسخ-الاحتياطية…), the same as on the phone.
+   The app gets its access from Google Play services, the page from Google's own sign-in window. The access asked (drive.file) covers only what
+   the app and the page put in Drive. The key of access stays in memory: closing the page leaves nothing of it in the browser ---------- */
+var DRV=(function(){
+  var GCID='',SCOPE='https://www.googleapis.com/auth/drive.file',API='https://www.googleapis.com/drive/v3/',UP='https://www.googleapis.com/upload/drive/v3/files';
+  var tok=null,exp=0,FOLD={},gisP=null,busy=false,FOLDER='application/vnd.google-apps.folder';
+  function P(){return (window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.FileSaver)||null;}
+  function nat(){var p=P();return !!(p&&p.driveToken);}
+  function cid(){try{return localStorage.getItem('drv_cid')||GCID;}catch(e){return GCID;}}
+  function ready(){return nat()||!!cid();}
+  function store(){return nat()?localStorage:sessionStorage;}
+  function setOn(v){try{if(v)store().setItem('drv_on','1');else store().removeItem('drv_on');}catch(e){}}
+  function isOn(){try{return store().getItem('drv_on')==='1';}catch(e){return false;}}
+  function live(){return !!(tok&&Date.now()<exp-60000);}
+  function gis(){if(window.google&&google.accounts&&google.accounts.oauth2)return Promise.resolve();
+    if(!gisP)gisP=new Promise(function(res,rej){var s=document.createElement('script');s.src='https://accounts.google.com/gsi/client';s.async=true;s.onload=function(){res();};s.onerror=function(){gisP=null;s.remove();rej(new Error('net'));};document.head.appendChild(s);});return gisP;}
+  async function token(interactive){
+    if(live())return tok;
+    if(nat()){var r;try{r=await P().driveToken({interactive:!!interactive});}catch(e){var m=String(e&&(e.message||e)||'');throw new Error(/needs_consent/.test(m)?'consent':/cancel/.test(m)?'cancel':'auth');}
+      tok=r&&r.token;if(!tok)throw new Error('auth');exp=Date.now()+50*60000;setOn(true);return tok;}
+    if(!cid())throw new Error('nocid');
+    if(!interactive)throw new Error('consent');
+    await gis();
+    return new Promise(function(res,rej){var tc=google.accounts.oauth2.initTokenClient({client_id:cid(),scope:SCOPE,
+        callback:function(t){if(t&&t.access_token){tok=t.access_token;exp=Date.now()+((+t.expires_in||3600)*1000);setOn(true);res(tok);}else rej(new Error('auth'));},
+        error_callback:function(e){rej(new Error(e&&/popup_closed|popup_failed/.test(e.type||'')?'cancel':'auth'));}});
+      tc.requestAccessToken({prompt:''});});}
+  async function req(method,url,o){o=o||{};var t=await token(o.interactive!==false),h=Object.assign({},o.headers||{});h.Authorization='Bearer '+t;
+    var r=await fetch(url,{method:method,headers:h,body:o.body});
+    if(r.status===401){tok=null;t=await token(o.interactive!==false);h.Authorization='Bearer '+t;r=await fetch(url,{method:method,headers:h,body:o.body});}
+    if(!r.ok)throw new Error('http'+r.status);if(o.raw)return r;return r.status===204?null:r.json();}
+  function q(s){return "'"+String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'")+"'";}
+  async function child(parent,name,dir,o){var qs='name='+q(name)+' and '+q(parent)+' in parents and trashed=false and mimeType'+(dir?'=':'!=')+q(FOLDER);
+    var r=await req('GET',API+'files?q='+encodeURIComponent(qs)+'&fields=files(id,name,size,modifiedTime,mimeType)&pageSize=10',o);return (r.files||[])[0]||null;}
+  /* the folder MALAFATI/<path> of Drive, made when asked */
+  async function folder(path,create,o){var parts=('MALAFATI/'+(path||'')).split('/').map(function(x){return x.trim();}).filter(Boolean),id='root',key='';
+    for(var i=0;i<parts.length;i++){key+='/'+parts[i];if(FOLD[key]){id=FOLD[key];continue;}var f=await child(id,parts[i],true,o);
+      if(!f){if(!create)return null;f=await req('POST',API+'files?fields=id',Object.assign({headers:{'Content-Type':'application/json'},body:JSON.stringify({name:parts[i],mimeType:FOLDER,parents:[id]})},o||{}));}
+      id=FOLD[key]=f.id;}
+    return id;}
+  async function list(path,o){var id=await folder(path,false,o);if(!id)return [];var out=[],pt='';
+    do{var r=await req('GET',API+'files?q='+encodeURIComponent(q(id)+' in parents and trashed=false')+'&fields=nextPageToken,files(id,name,size,modifiedTime,mimeType)&pageSize=200'+(pt?'&pageToken='+encodeURIComponent(pt):''),o);
+      (r.files||[]).forEach(function(f){out.push({id:f.id,name:f.name,size:+f.size||0,at:Date.parse(f.modifiedTime)||0,mime:f.mimeType,dir:f.mimeType===FOLDER});});pt=r.nextPageToken;}while(pt);
+    return out;}
+  /* a file put in MALAFATI/<path> of Drive; a file of the same name is replaced */
+  async function upload(path,name,mime,blob,o){var pid=await folder(path,true,o),ex=await child(pid,name,false,o);mime=mime||blob.type||'application/octet-stream';
+    if(ex)return req('PATCH',UP+'/'+ex.id+'?uploadType=media&fields=id,name,size,modifiedTime',Object.assign({headers:{'Content-Type':mime},body:blob},o||{}));
+    var b='zl'+Math.random().toString(36).slice(2),meta=JSON.stringify({name:name,parents:[pid],mimeType:mime});
+    var body=new Blob(['--'+b+'\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'+meta+'\r\n--'+b+'\r\nContent-Type: '+mime+'\r\n\r\n',blob,'\r\n--'+b+'--\r\n']);
+    return req('POST',UP+'?uploadType=multipart&fields=id,name,size,modifiedTime',Object.assign({headers:{'Content-Type':'multipart/related; boundary='+b},body:body},o||{}));}
+  async function download(f,o){var r=await req('GET',API+'files/'+encodeURIComponent(f.id)+'?alt=media',Object.assign({raw:true},o||{}));var bl=await r.blob();return new File([bl],f.name,{type:f.mime||bl.type||''});}
+  async function trash(f){return req('PATCH',API+'files/'+encodeURIComponent(f.id)+'?fields=id',{headers:{'Content-Type':'application/json'},body:JSON.stringify({trashed:true})});}
+  async function connect(){tok=null;exp=0;await token(true);await folder('',true);return true;}
+  async function disconnect(){var t=tok;tok=null;exp=0;FOLD={};setOn(false);try{localStorage.removeItem('drv_last');}catch(e){}
+    if(t){try{await fetch('https://oauth2.googleapis.com/revoke?token='+encodeURIComponent(t),{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'}});}catch(e){}}}
+  /* the phone: MALAFATI of the phone and MALAFATI of Drive made alike, file by file (nothing is deleted on either side; of two different copies, the newer wins) */
+  async function sync(step){if(busy)throw new Error('busy');if(!(window.MFD&&MFD.can()))throw new Error('nophone');var st=await MFD.status();if(!st.ok)throw new Error('nofolder');
+    busy=true;step=step||function(){};var o={interactive:false},up=0,down=0;
+    try{await token(false);
+      async function walkPhone(path){var r=await P().listIn({path:path,dirs:true}),out=[];for(var i=0;i<((r&&r.files)||[]).length;i++){var f=r.files[i];
+          if(f.dir)out=out.concat(await walkPhone(path?path+'/'+f.name:f.name));else out.push({path:path,name:f.name,size:+f.size||0,at:+f.at||0,mime:f.mime});}return out;}
+      async function walkDrive(path){var ls=await list(path,o),out=[];for(var i=0;i<ls.length;i++){var f=ls[i];if(f.dir)out=out.concat(await walkDrive(path?path+'/'+f.name:f.name));else{f.path=path;out.push(f);}}return out;}
+      step('قراءة محتوى المجلدين …');var A=await walkPhone(''),B=await walkDrive(''),KA={},KB={};
+      A.forEach(function(f){KA[f.path+'/'+f.name]=f;});B.forEach(function(f){KB[f.path+'/'+f.name]=f;});
+      var toUp=A.filter(function(f){var d=KB[f.path+'/'+f.name];return !d||(d.size!==f.size&&f.at>d.at);}),toDown=B.filter(function(f){var p=KA[f.path+'/'+f.name];return !p||(p.size!==f.size&&f.at>p.at);});
+      var n=toUp.length+toDown.length,k=0;
+      for(var i=0;i<toUp.length;i++){var f=toUp[i];step('إلى Drive: '+f.name,++k,n);if(f.size>60*1024*1024)continue;try{var file=await MFD.read(f.path,f.name,f.mime);await upload(f.path,f.name,f.mime,file,o);up++;}catch(e){}}
+      for(var j=0;j<toDown.length;j++){var g=toDown[j];step('إلى الهاتف: '+g.name,++k,n);if(g.size>60*1024*1024)continue;try{var fl=await download(g,o);await MFD.write(g.path,g.name,g.mime||fl.type,fl,true);down++;}catch(e){}}
+      try{localStorage.setItem('drv_last',String(Date.now()));}catch(e){}
+      return {up:up,down:down};}
+    finally{busy=false;}}
+  /* on the phone, a quiet synchronisation when the app opens, at most every half hour */
+  function auto(){if(!nat()||!isOn())return;var last=0;try{last=+localStorage.getItem('drv_last')||0;}catch(e){}if(Date.now()-last<30*60000)return;
+    setTimeout(function(){sync().then(function(r){if(r&&(r.up||r.down)&&window.RPT)RPT.toast('Google Drive: '+(r.down?'وصلت '+r.down+' وثيقة إلى الهاتف':'')+(r.up&&r.down?' و':'')+(r.up?'رُفعت '+r.up+' إلى Drive':'')+'.');},function(){});},4000);}
+  function err(e){var m=String(e&&e.message||e||'');return m==='nocid'?'لم يُدخل بعد معرّف Google (Client ID) في الإعدادات.':m==='cancel'?'أُلغي الاتصال.':m==='consent'?'يلزم الاتصال بـ Google Drive من الإعدادات أولًا.':m==='net'?'تعذر الوصول إلى Google. تحققوا من الاتصال بالإنترنت.':m==='nofolder'?'اختاروا أولًا مجلد MALAFATI في الهاتف.':/http40[13]/.test(m)?'رفض Google الوصول. أعيدوا الاتصال من الإعدادات.':'تعذرت العملية مع Google Drive.';}
+  return {ready:ready,nat:nat,isOn:isOn,live:live,connect:connect,disconnect:disconnect,token:token,folder:folder,list:list,upload:upload,download:download,trash:trash,sync:sync,auto:auto,err:err,cid:cid,builtin:!!GCID,
+    setCid:function(v){try{if(v)localStorage.setItem('drv_cid',v);else localStorage.removeItem('drv_cid');}catch(e){}},get busy(){return busy;}};
 })();
 /* ---------- files ---------- */
 var editReq=null;
@@ -5332,6 +5424,9 @@ var ZDOC=(function(){
   /* «حفظ»: the chosen documents copied into the client's folder (a download in a browser) */
   async function saveSel(fid,f,btn){var ms=(META[fid]||[]).filter(function(m){return SEL[m.id];});
     if(!ms.length){otoast('اختاروا وثيقة أو أكثر بالضغط على الدائرة الصغيرة في كل وثيقة.');return;}
+    if(!(window.MFD&&MFD.can())&&window.DRV&&DRV.ready()){btn.disabled=true;btn.textContent='جارٍ الرفع…';var k=0;
+      try{if(!DRV.live())await DRV.connect();for(var q=0;q<ms.length;q++){var bq=await blob(ms[q]);if(bq){await DRV.upload(MFD.clientPath(f),ms[q].name,ms[q].type,bq);k++;delete SEL[ms[q].id];}}}catch(e){otoast(DRV.err(e));}
+      renderFiles();if(k)otoast('حُفظت '+docsN(k)+' في Google Drive / '+where(f)+'.');return;}
     if(!(window.MFD&&MFD.can())){for(var j=0;j<ms.length;j++){var bb=await blob(ms[j]);if(!bb)continue;var u=URL.createObjectURL(bb),a=el('a');a.href=u;a.download=ms[j].name;document.body.appendChild(a);a.click();setTimeout((function(a,u){return function(){a.remove();URL.revokeObjectURL(u);};})(a,u),4000);}
       ms.forEach(function(m){delete SEL[m.id];});otoast('نُزِّلت '+docsN(ms.length)+'.');renderFiles();return;}
     var st=await MFD.ensure();if(!st.ok)return;btn.disabled=true;btn.textContent='جارٍ الحفظ…';var n=0,path=MFD.clientPath(f);
@@ -5341,18 +5436,47 @@ var ZDOC=(function(){
   async function pull(fid,f,fi,btn){
     if(!(window.MFD&&MFD.can())){fi.value='';fi.click();return;}
     var st=await MFD.ensure();if(!st.ok)return;var path=MFD.clientPath(f),ls=[];try{ls=await MFD.list(path);}catch(e){ls=[];}
+    if(window.DRV&&DRV.isOn()){try{var onPhone={};ls.forEach(function(x){onPhone[x.name]=1;});(await DRV.list(path,{interactive:false})).forEach(function(x){if(!x.dir&&!onPhone[x.name]){x.drv=1;ls.push(x);}});}catch(e){}}
     if(!ls.length){otoast('لا توجد وثائق في مجلد «'+where(f)+'».');return;}
     var have={};(META[fid]||[]).forEach(function(m){have[m.name]=1;});var pick={};ls.forEach(function(x){if(!have[x.name])pick[x.name]=1;});
     var S=osheet('سحب من مجلد الموكل'),c=S.card;c.appendChild(el('p','meta',where(f)));
     var ul=el('ul','al docl docpull');ls.sort(function(a,b){return (b.at||0)-(a.at||0);}).forEach(function(x){var li=el('li','docli'),sc=el('button','docsel'+(pick[x.name]?' on':''));sc.type='button';sc.setAttribute('aria-label','اختيار');
       sc.addEventListener('click',function(){if(pick[x.name])delete pick[x.name];else pick[x.name]=1;sc.classList.toggle('on',!!pick[x.name]);go._u();});li.appendChild(sc);
-      var t=el('div','doct');t.appendChild(el('b',null,x.name));t.appendChild(el('span','meta',(x.at?fd(new Date(x.at).toISOString().slice(0,10))+' — ':'')+size(x.size||0)+(have[x.name]?' — موجودة في الملف':'')));li.appendChild(t);ul.appendChild(li);});c.appendChild(ul);
+      var t=el('div','doct');t.appendChild(el('b',null,x.name));t.appendChild(el('span','meta',(x.at?fd(new Date(x.at).toISOString().slice(0,10))+' — ':'')+size(x.size||0)+(x.drv?' — في Drive':'')+(have[x.name]?' — موجودة في الملف':'')));li.appendChild(t);ul.appendChild(li);});c.appendChild(ul);
     var row=el('div','row2'),go=el('button','btn p','سحب'),cx=el('button','btn','إلغاء');go.type=cx.type='button';row.appendChild(go);row.appendChild(cx);c.appendChild(row);
     go._u=function(){var k=Object.keys(pick).length;go.textContent=k?'سحب ('+k+')':'سحب';go.disabled=!k;};go._u();cx.addEventListener('click',function(){S.close();});
     go.addEventListener('click',async function(){go.disabled=cx.disabled=true;var names=Object.keys(pick),n=0;
       for(var i=0;i<names.length;i++){go.textContent='جارٍ السحب… '+(i+1)+' / '+names.length;var x=ls.filter(function(y){return y.name===names[i];})[0];
-        try{var file=await MFD.read(path,x.name,x.mime);await add(fid,file,await quickText(file),'pull');n++;}catch(e){}}
+        try{var file=x.drv?await DRV.download(x):await MFD.read(path,x.name,x.mime);if(x.drv){try{await MFD.write(path,x.name,x.mime,file,true);}catch(e2){}}await add(fid,file,await quickText(file),'pull');n++;}catch(e){}}
       S.close();if(typeof openD==='object')openD['doc'+fid]=true;renderFiles();otoast(n?'سُحبت '+docsN(n)+' إلى الملف.':'تعذر سحب الوثائق.');});}
+  /* the client's folder in Google Drive: open a document there (in memory), bring it into the file, delete it, or put a document there
+     straight from this device (nothing is then kept in this browser) */
+  async function drvLoad(fid,f,box){box.textContent='';var path=MFD.clientPath(f),dir=MFD.clientDir(f);
+    if(!DRV.live()){try{if(DRV.nat()&&DRV.isOn())await DRV.token(false);}catch(e){}}
+    if(!DRV.live()){box.appendChild(el('p','meta','الوثائق المحفوظة في Google Drive داخل «MALAFATI / الموكلين / '+dir+'». يُفتح منها ما تريدون دون أن يُحفظ في هذا الجهاز، إلا ما تسحبونه إلى الملف.'));
+      var cb=el('button','btn p sm','الاتصال بـ Google Drive');cb.type='button';box.appendChild(cb);
+      cb.addEventListener('click',async function(){cb.disabled=true;try{await DRV.connect();drvLoad(fid,f,box);}catch(e){cb.disabled=false;otoast(DRV.err(e));}});return;}
+    box.appendChild(el('p','meta','جارٍ القراءة من Drive …'));var ls;
+    try{ls=(await DRV.list(path)).filter(function(x){return !x.dir;});}catch(e){box.textContent='';box.appendChild(el('p','msg',DRV.err(e)));return;}
+    box.textContent='';box.appendChild(el('p','meta drvpath','MALAFATI / الموكلين / '+dir));
+    if(!ls.length)box.appendChild(el('p','meta','لا وثائق في هذا المجلد بعد.'));
+    var have={};(META[fid]||[]).forEach(function(m){have[m.name]=1;});var ul=el('ul','al docl drvl');
+    ls.sort(function(a,b){return (b.at||0)-(a.at||0);}).forEach(function(x){var li=el('li','docli'),t=el('div','doct');t.appendChild(el('b',null,x.name));
+      t.appendChild(el('span','meta',(x.at?fd(new Date(x.at).toISOString().slice(0,10))+' — ':'')+size(x.size||0)+(have[x.name]?' — موجودة في الملف':'')));li.appendChild(t);
+      var bs=el('div','docb'),bo=el('button','btn sm','فتح'),bp=el('button','btn sm','سحب إلى الملف'),bd=el('button','btn sm x','حذف');[bo,bp,bd].forEach(function(b){b.type='button';bs.appendChild(b);});
+      bo.addEventListener('click',function(){bo.disabled=true;DRV.download(x).then(function(file){bo.disabled=false;return oOpen(file,x.name,x.mime);},function(e){bo.disabled=false;otoast(DRV.err(e));});});
+      bp.addEventListener('click',async function(){bp.disabled=true;try{var file=await DRV.download(x);await add(fid,file,await quickText(file),'drive');if(window.MFD&&MFD.can()&&MFD.ok){try{await MFD.write(path,x.name,x.mime,file,true);}catch(e){}}
+          if(typeof openD==='object'){openD['doc'+fid]=true;openD['drv'+fid]=true;}otoast('سُحبت «'+x.name+'» إلى الملف.');renderFiles();}catch(e){bp.disabled=false;otoast(DRV.err(e));}});
+      var arm=false;bd.addEventListener('click',async function(){if(!arm){arm=true;ARM(bd,1);setTimeout(function(){arm=false;ARM(bd,0);},3000);return;}bd.disabled=true;try{await DRV.trash(x);otoast('نُقلت «'+x.name+'» إلى سلة Drive.');drvLoad(fid,f,box);}catch(e){bd.disabled=false;otoast(DRV.err(e));}});
+      if(typeof ICON_UI!=='undefined'&&ICON_UI){bs.classList.add('icr');ICN(bo,'open','فتح');ICN(bp,'pull','سحب إلى الملف');ICN(bd,'trash','حذف من Drive','del');}
+      li.appendChild(bs);ul.appendChild(li);
+    });
+    box.appendChild(ul);
+    var ufi=el('input');ufi.type='file';ufi.multiple=true;ufi.hidden=true;box.appendChild(ufi);var up=el('button','btn sm drvup','رفع وثيقة إلى Drive');up.type='button';box.appendChild(up);
+    up.addEventListener('click',function(){ufi.value='';ufi.click();});
+    ufi.addEventListener('change',async function(){var fs=ufi.files?[].slice.call(ufi.files):[];if(!fs.length)return;up.disabled=true;up.textContent='جارٍ الرفع…';var n=0;
+      for(var i=0;i<fs.length;i++){try{await DRV.upload(path,fs[i].name,fs[i].type,fs[i]);n++;}catch(e){otoast(DRV.err(e));}}
+      if(n)otoast('رُفعت '+docsN(n)+' إلى Drive.');drvLoad(fid,f,box);});}
   /* the box of the file card */
   function section(fid,f){var ms=META[fid]||[],q=(document.getElementById('msearch')||{}).value||'',h=q.trim()?hit(fid,q):null;
     var det=el('details','fcfees fcdocs');var sm=el('summary',null,'وثائق الملف'+(ms.length?' ('+ms.length+')':''));det.appendChild(sm);
@@ -5381,7 +5505,10 @@ var ZDOC=(function(){
     det._sel=function(){var n=(META[fid]||[]).filter(function(m){return SEL[m.id];}).length;sv.textContent='حفظ'+(n?' ('+n+')':'');sv.classList.toggle('p',!!n);};det._sel();
     ad.addEventListener('click',function(){addFlow(fid,f,fi,ad);});
     sv.addEventListener('click',function(){saveSel(fid,f,sv);});
-    pl.addEventListener('click',function(){pull(fid,f,fi,pl);});
+    pl.addEventListener('click',function(){if(!(window.MFD&&MFD.can())&&dd){dd.open=true;try{dd.scrollIntoView({behavior:'smooth',block:'start'});}catch(e){}return;}pull(fid,f,fi,pl);});
+    var dd=null;if(window.DRV&&DRV.ready()){dd=el('details','fcfees drvbox');dd.appendChild(el('summary',null,'Google Drive — مجلد الموكل'));var dbody=el('div','drvb');dd.appendChild(dbody);det.appendChild(dd);
+      if(typeof openD==='object'&&openD['drv'+fid]){dd.open=true;drvLoad(fid,f,dbody);}
+      dd.addEventListener('toggle',function(){if(typeof openD==='object')openD['drv'+fid]=dd.open;if(dd.open)drvLoad(fid,f,dbody);});}
     fi.addEventListener('change',async function(){var fs=fi.files?[].slice.call(fi.files):[];if(!fs.length)return;ad.disabled=true;ad.textContent='جارٍ الحفظ…';
       for(var i=0;i<fs.length;i++){var tx2=await quickText(fs[i]);await add(fid,fs[i],tx2,'add');}
       if(typeof openD==='object')openD['doc'+fid]=true;otoast('حُفظت '+docsN(fs.length)+' في الملف');renderFiles();});
@@ -6030,6 +6157,20 @@ $('mflt').addEventListener('change',renderFiles);
   (function(){var c=$('mfdcard');if(!c||!window.MFD||!MFD.can())return;c.hidden=false;var i=$('mfdinfo'),b=$('mfdpick');
     function up(){MFD.status().then(function(s){i.textContent=s.ok?'المجلد: '+s.path.split('/').join(' / ')+'. فيه «الموكلين / اسم الموكل» لوثائق كل موكل (ومنها ما يرسله الموكلون)، و«النسخ-الاحتياطية»، وملفات Word والهوية.':'لم يُختر بعد. تُحفظ الملفات إلى حين اختياره في «التنزيلات / Malafati». اختاروا مجلدًا في الذاكرة الداخلية (أو أنشئوا مجلدًا باسم MALAFATI) ليُنظَّم فيه كل شيء.';b.textContent=s.ok?'تغيير المجلد':'اختيار المجلد';});}
     b.addEventListener('click',function(){MFD.ask().then(up);});up();MFD.firstRun();})();
+  /* Google Drive in the settings: connect, synchronise (phone), disconnect; on the page, the Client ID when none is built in */
+  (function(){var c=$('drvcard');if(!c||!window.DRV)return;c.hidden=false;var info=$('drvinfo'),go=$('drvgo'),sy=$('drvsync'),off=$('drvoff'),msg=$('drvmsg'),cl=$('drvcidl'),ci=$('drvcid');
+    function m(t,ok){msg.textContent=t||'';msg.style.color=ok?'#9be3b4':'#ffb59e';}
+    function when(){var t=0;try{t=+localStorage.getItem('drv_last')||0;}catch(e){}if(!t)return '';var d=new Date(t);return ' آخر مزامنة: '+fd(d.toISOString().slice(0,10))+' '+('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2)+'.';}
+    function up(){var n=DRV.nat(),on=DRV.isOn(),lv=DRV.live();cl.hidden=n||DRV.builtin;if(!cl.hidden&&!ci.value)ci.value=DRV.cid()||'';
+      if(n)info.textContent=on?'متصل. مجلد MALAFATI في الهاتف ومجلد MALAFATI في Google Drive يُزامَنان عند فتح التطبيق (مرة كل نصف ساعة على الأكثر) وعند «مزامنة الآن»، وكل وثيقة تُحفظ في مجلد موكل تُرفع إلى Drive في الحين. لا يُحذف شيء من أي جهة.'+when():'غير متصل. بعد الاتصال يصير لمجلد MALAFATI نظير في Google Drive: ما يُحفظ في الهاتف يُرفع إليه، وما يوضع فيه من صفحة المكتب يصل إلى الهاتف.';
+      else info.textContent=lv?'متصل في هذه الصفحة. يظهر مجلد كل موكل في Drive داخل «وثائق الملف». يُنسى الاتصال بإغلاق الصفحة.':'الاتصال يفتح نافذة Google لتسجيل الدخول، ويبقى مفتاح الوصول في ذاكرة هذه الصفحة فقط. على حاسوب ليس لكم: افتحوا الصفحة في نافذة تصفح خاص، واخرجوا من حساب Google بعد الانتهاء.';
+      go.hidden=n?on:lv;sy.hidden=!(n&&on);off.hidden=!(n?on:lv);}
+    ci.addEventListener('change',function(){DRV.setCid(ci.value.trim());up();});
+    go.addEventListener('click',async function(){if(!DRV.nat()&&!DRV.cid()){m('أدخلوا أولًا معرّف Google (Client ID).');return;}go.disabled=true;m('جارٍ الاتصال …',true);
+      try{await DRV.connect();m('تم الاتصال بـ Google Drive، وأُنشئ فيه مجلد MALAFATI.',true);if(DRV.nat()&&window.MFD&&MFD.ok)sy.click();}catch(e){m(DRV.err(e));}go.disabled=false;up();});
+    sy.addEventListener('click',async function(){if(DRV.busy)return;sy.disabled=true;try{var r=await DRV.sync(function(t,k,n){m(t+(n?' ('+k+' / '+n+')':''),true);});m('اكتملت المزامنة: '+(r.up?'رُفع إلى Drive '+r.up:'لا شيء جديد للرفع')+'، و'+(r.down?'وصل إلى الهاتف '+r.down:'لا شيء جديد في Drive')+'.',true);}catch(e){m(DRV.err(e));}sy.disabled=false;up();});
+    off.addEventListener('click',async function(){await DRV.disconnect();m('قُطع الاتصال. تبقى الملفات في Drive وفي الهاتف كما هي.',true);up();});
+    up();DRV.auto();})();
   /* the three boxes at the top of the agenda lead to what they count */
   (function(){var S=document.querySelectorAll('#p-agenda .stats .st');if(S.length<3)return;
     /* the target comes to rest just under the bar at the top, whatever its height on the device (the status bar adds to it) */
