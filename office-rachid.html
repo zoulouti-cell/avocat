@@ -632,6 +632,32 @@ html.lhvon,html.lhvon body{overflow:hidden}
 .docn{margin:.4rem 0 .1rem}.fcst2{margin-top:.4rem}
 .cmta{width:100%;box-sizing:border-box;line-height:1.7;font-size:.95rem}
 .osheet .lxsc{max-width:620px;margin-inline:auto}
+/* the decisions: the year beside the search, the search as wide as «المفضلة» and «أدوات», the year as «إضافة» */
+.lxbar.lxjbar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.5rem;align-items:center}
+.lxbar.lxjbar #lxjq{grid-column:span 2;width:100%;height:44px;min-height:44px;box-sizing:border-box}
+.lxbar.lxjbar input.lxyr{grid-column:span 1;width:100%;height:44px;min-height:44px;box-sizing:border-box;padding:0 .6rem;text-align:center;font-weight:700;letter-spacing:.02em}
+.lxbar input.lxyr::placeholder{color:rgba(240,214,138,.5);font-weight:700}
+.lxpb{margin-bottom:1rem!important}.lxc .lxpb{margin-bottom:.2rem!important}
+/* the Word templates of the letterhead: the three buttons on one line */
+.tplbar{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:.4rem}
+.tplbar .btn{min-width:0;margin:0;padding-inline:.3rem;font-size:.84rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* the kinds to print: tiles with a switch, as for the elements of the letterhead */
+#rpk.rptogs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.5rem;margin:.35rem 0 .2rem}
+#rpk label.rptog{display:flex;flex-direction:column;align-items:stretch;gap:.4rem;margin:0;padding:.55rem .65rem .5rem;box-sizing:border-box;border-radius:14px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.035);cursor:pointer;transition:border-color .2s,background .2s}
+#rpk label.rptog.on{border-color:rgba(230,200,115,.55);background:rgba(230,200,115,.08)}
+#rpk label.rptog b{font-size:.88rem;font-weight:700;color:#f3e7c4;line-height:1.3;text-align:start}
+#rpk input.rpsw{-webkit-appearance:none;appearance:none;align-self:flex-end;flex:0 0 auto;width:36px;height:21px;min-height:0;margin:0;padding:0;border-radius:999px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.12);position:relative;cursor:pointer;transition:background .2s,border-color .2s}
+#rpk input.rpsw::before{content:'';position:absolute;top:2px;right:2px;width:15px;height:15px;border-radius:50%;background:#cfdcd6;box-shadow:0 1px 3px rgba(0,0,0,.4);transition:transform .2s,background .2s}
+#rpk input.rpsw:checked{background:#c8a24a;border-color:#e6c873}
+#rpk input.rpsw:checked::before{transform:translateX(-15px);background:#fff}
+#rpk input.rpsw:focus-visible{outline:2px solid #f0d68a;outline-offset:2px}
+/* the time of an appointment stands in the middle of its gold frame */
+.ev .tm{display:inline-flex;align-items:center;justify-content:center;line-height:1;padding:.34rem .85rem .26rem;min-height:1.75rem;box-sizing:border-box}
+/* the three boxes of the agenda lead to what they count */
+.stats .st.stgo{cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .3s cubic-bezier(.34,1.56,.64,1),border-color .2s}
+.stats .st.stgo:active{transform:scale(.96)}
+.stats .st.stgo:focus-visible{outline:2px solid #f0d68a;outline-offset:2px}
+.stflash{box-shadow:0 0 0 2px rgba(255,226,143,.95),0 12px 30px rgba(0,0,0,.28)!important;transition:box-shadow .3s}
 /* a card inside a card is drawn flat: no stacked frames, no milky glass on glass */
 details.card#mcards[open]{background:none;border-color:transparent;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;padding-inline:0}
 .fc .pbox{background:none;border:0;border-top:1px solid rgba(230,200,115,.28);border-radius:0;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;padding:.8rem 0 0;margin-top:.5rem}
@@ -725,7 +751,7 @@ details.card#mcards[open]{background:none;border-color:transparent;box-shadow:no
           <label class="rpc"><span>المحكمة</span><select id="rpcourt"><option value="">كل المحاكم</option></select></label>
           <label class="rpr"><span>القاعة</span><select id="rproom"><option value="">كل القاعات</option></select></label></div>
           <p class="meta" id="rpinfo"></p>
-          <div class="pk" id="rpk"><label><input type="checkbox" data-rk="جلسة" checked> الجلسات</label><label><input type="checkbox" data-rk="إجراء" checked> الإجراءات</label><label><input type="checkbox" data-rk="أجل" checked> الآجال</label></div>
+          <div class="pk rptogs" id="rpk"><label class="rptog on"><b>الجلسات</b><input type="checkbox" class="rpsw" data-rk="جلسة" checked></label><label class="rptog on"><b>الإجراءات</b><input type="checkbox" class="rpsw" data-rk="إجراء" checked></label><label class="rptog on"><b>الآجال</b><input type="checkbox" class="rpsw" data-rk="أجل" checked></label></div>
           <div class="row2 rpact"><button class="btn" id="rpview" type="button" title="معاينة الصفحات قبل الطباعة">معاينة</button><button class="btn p" id="rpprint" type="button">طباعة</button><button class="btn" id="rpcal" type="button" title="إضافة المواعيد المختارة إلى أجندة الهاتف أو الحاسوب">أجندة</button><button class="btn" id="rpwa" type="button" title="إرسال المواعيد المختارة عبر واتساب">إرسال</button></div></div>
         <div id="agl"></div>
       </div>
@@ -1671,13 +1697,38 @@ function renderAgenda(){
   if(!up.length){box.appendChild(el('p','meta','لا توجد مواعيد إجرائية قادمة. سجّلوا إجراءً بتاريخ لاحق داخل أي ملف وسيظهر هنا.'));return;}
   up.forEach(function(e){
     if(e.a.d!==cur){cur=e.a.d;box.appendChild(el('div','day',dayLabel(cur)));}
-    var c=el('div','ev'),h=el('div','ah');h.appendChild(kdChip(e.a));h.appendChild(el('span','tm',e.a.t||'طوال اليوم'));c.appendChild(h);
+    var c=el('div','ev'),h=el('div','ah');c.dataset.uid=e.uid;h.appendChild(kdChip(e.a));h.appendChild(el('span','tm',e.a.t||'طوال اليوم'));c.appendChild(h);
     var rm=[room(e)?'القاعة: '+room(e):'',e.f.judge?'القاضي(ة): '+e.f.judge:''].filter(Boolean).join(' | ');if(rm)c.appendChild(el('div','ar',rm));
     c.appendChild(el('h4',null,fname(e.f)));c.appendChild(el('p','meta',refLine(e.f)));c.appendChild(el('div','at',e.a.a));
     c.appendChild(actBtns(e,{cal:true}));box.appendChild(c);
   });
 }
 
+/* ---------- icons for the action buttons of the cards (the library's icons, in the agenda and the files) ---------- */
+var ICON_UI=false;
+var ICS={
+  cal:'<svg class="ln" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.6" y="5" width="16.8" height="15.4" rx="2.4"/><path d="M3.6 9.6h16.8M8.2 3v3.8M15.8 3v3.8"/><path d="M12 12.4v5M9.5 14.9h5"/></svg>',
+  edit:'<svg class="ln" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.2 19.8l1-4.3L15.9 4.8a2.1 2.1 0 0 1 3 0l.3.3a2.1 2.1 0 0 1 0 3L8.5 18.8z"/><path d="M14.2 6.5l3.3 3.3"/><path d="M13 19.8h6.8"/></svg>',
+  trash:'<svg class="ln" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.4 6.6h15.2"/><path d="M9.4 6.6V4.9a1.2 1.2 0 0 1 1.2-1.2h2.8a1.2 1.2 0 0 1 1.2 1.2v1.7"/><path d="M6.4 6.6l.9 12.2a1.7 1.7 0 0 0 1.7 1.6h6a1.7 1.7 0 0 0 1.7-1.6l.9-12.2"/><path d="M10.2 10.4v6.2M13.8 10.4v6.2"/></svg>',
+  binoc:'<svg class="ln" viewBox="0 0 24 24" aria-hidden="true"><circle cx="6.6" cy="15.6" r="3.6"/><circle cx="17.4" cy="15.6" r="3.6"/><path d="M10.2 15.3c1.1-.9 2.5-.9 3.6 0"/><path d="M3.3 14.1L5.6 6.6a1.7 1.7 0 0 1 3.3.5v5.3"/><path d="M20.7 14.1l-2.3-7.5a1.7 1.7 0 0 0-3.3.5v5.3"/><path d="M9 9.3h6"/></svg>',
+  print:'<svg class="ln" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 8.3V3.8h10v4.5"/><rect x="3.4" y="8.3" width="17.2" height="8.2" rx="2.2"/><path d="M7 13.4h10v6.8H7z"/><path d="M9.4 16.2h5.2M9.4 18.2h3.2"/><path d="M17.2 11h.01" stroke-width="2.6"/></svg>',
+  copy:'<svg class="ln" viewBox="0 0 24 24" aria-hidden="true"><rect x="8.5" y="8" width="11.5" height="12.5" rx="2.2"/><path d="M15.5 8V5.8a2.2 2.2 0 0 0-2.2-2.2H6.2A2.2 2.2 0 0 0 4 5.8v8.4a2.2 2.2 0 0 0 2.2 2.2h2.3"/><path d="M11.6 12.3h5.3M11.6 15.6h3.6"/></svg>',
+  court:'<svg class="ln" viewBox="0 0 24 24" aria-hidden="true"><path d="M3.4 9L12 4l8.6 5"/><path d="M4.4 9.4h15.2"/><path d="M6.6 10.2v6.9M10.2 10.2v6.9M13.8 10.2v6.9M17.4 10.2v6.9"/><path d="M4 17.6h16M3 20.3h18"/></svg>',
+  book:'<svg class="ln" viewBox="0 0 24 24" aria-hidden="true"><path d="M4.2 5.4c2.7-1.3 5.3-1.2 7.8.5v13.6c-2.5-1.7-5.1-1.8-7.8-.5z"/><path d="M19.8 5.4c-2.7-1.3-5.3-1.2-7.8.5v13.6c2.5-1.7 5.1-1.8 7.8-.5z"/></svg>',
+  chat:'<svg class="ln" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 11.6c0 4-3.7 7.2-8.2 7.2-1.2 0-2.3-.2-3.3-.6L4 19.6l1.3-3.7c-1-1.2-1.5-2.7-1.5-4.3 0-4 3.7-7.2 8.2-7.2s8.2 3.2 8.2 7.2z"/><path d="M8.4 11.7h.01M12 11.7h.01M15.6 11.7h.01" stroke-width="2.4"/></svg>',
+  lock:'<svg class="ln" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10.6" width="14" height="9.6" rx="2.2"/><path d="M8.2 10.6V7.8a3.8 3.8 0 0 1 7.6 0v2.8"/><path d="M12 14.4v2.4"/></svg>',
+  receipt:'<svg class="ln" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.6h12v16.8l-2-1.4-2 1.4-2-1.4-2 1.4-2-1.4-2 1.4z"/><path d="M9 8.2h6M9 11.4h6M9 14.6h3.6"/></svg>',
+  open:'<svg class="ln" viewBox="0 0 24 24" aria-hidden="true"><path d="M13.6 4.4h6v6"/><path d="M19.6 4.4l-8 8"/><path d="M17.6 13.6v4.2a2 2 0 0 1-2 2H6.2a2 2 0 0 1-2-2V8.4a2 2 0 0 1 2-2h4.2"/></svg>',
+  share:'<svg class="ln" viewBox="0 0 24 24" aria-hidden="true"><circle cx="17.6" cy="5.6" r="2.5"/><circle cx="6.4" cy="12" r="2.5"/><circle cx="17.6" cy="18.4" r="2.5"/><path d="M8.6 10.8l6.8-3.9M8.6 13.2l6.8 3.9"/></svg>',
+  scan:'<svg class="ln" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8V5.5A1.5 1.5 0 0 1 5.5 4H8M16 4h2.5A1.5 1.5 0 0 1 20 5.5V8M20 16v2.5a1.5 1.5 0 0 1-1.5 1.5H16M8 20H5.5A1.5 1.5 0 0 1 4 18.5V16"/><path d="M8.5 9h7M12 9v7"/></svg>'
+};
+/* a text button becomes an icon (only in the app); its listeners stay as they are */
+function ICN(b,k,label,cls){if(!ICON_UI||!b||!ICS[k])return b;b.classList.remove('btn','sm','x','p','fcpo','fcwa');b.classList.add('lxi');if(cls)b.classList.add(cls);b.innerHTML=ICS[k];b.setAttribute('aria-label',label);b.setAttribute('data-tip',label);b.removeAttribute('title');return b;}
+/* the delete button asks for a second tap: an icon opens into «تأكيد الحذف», a text button changes its words */
+function ARM(b,on,label){if(!b)return;label=label||'حذف';if(!b.classList.contains('lxi')){b.textContent=on?'تأكيد الحذف':label;return;}
+  if(on){b.classList.add('arm');b.innerHTML=ICS.trash+'<span>تأكيد الحذف</span>';b.setAttribute('aria-label','تأكيد الحذف');b.removeAttribute('data-tip');}
+  else{b.classList.remove('arm');b.innerHTML=ICS.trash;b.setAttribute('aria-label',label);b.setAttribute('data-tip',label);}}
+function icRow(cls){return el('div','icr'+(cls?' '+cls:''));}
 /* ---------- files ---------- */
 var editReq=null;
 function editAct(e){editReq={fid:e.fid,i:e.i};openD[e.fid]=true;window.FSOLO=e.fid;var mc=$('mcards');if(mc&&!mc.open){mc._go=1;mc.open=true;}show('files');renderFiles();}
@@ -1685,7 +1736,8 @@ function kdChip(a){var k=kindOf(a);return el('span','kd kd-'+k,k);}
 function actBtns(e,o){o=o||{};var f=el('div','af'),cal,eb=el('button','btn sm','تعديل'),db=el('button','btn sm x','حذف');
   if(o.cal){cal=el('button','btn sm','أجندة');cal.addEventListener('click',function(){if(NATIVE)addToCalendar(e);else download('rendez-vous-'+e.a.d+'.ics',buildICS([e]));});}else cal=el('span','sp');
   eb.addEventListener('click',function(){if(o.edit)o.edit();else editAct(e);});
-  db.addEventListener('click',function(){var key=e.uid;if(armed!==key){armed=key;db.textContent='تأكيد الحذف';setTimeout(function(){if(armed===key){armed=null;db.textContent='حذف';}},3000);return;}armed=null;if(o.del)o.del();else{items[e.fid].acts.splice(e.i,1);openD[e.fid]=true;persist();}});
+  db.addEventListener('click',function(){var key=e.uid;if(armed!==key){armed=key;ARM(db,1);setTimeout(function(){if(armed===key){armed=null;ARM(db,0);}},3000);return;}armed=null;if(o.del)o.del();else{items[e.fid].acts.splice(e.i,1);openD[e.fid]=true;persist();}});
+  if(ICON_UI){f.classList.add('icr');if(o.cal)ICN(cal,'cal','أجندة');ICN(eb,'edit','تعديل');ICN(db,'trash','حذف','del');}
   f.appendChild(cal);f.appendChild(eb);f.appendChild(db);return f;}
 function entryLi(e,upcoming){var li=el('li','act'),h=el('div','ah');h.appendChild(kdChip(e.a));h.appendChild(el('span','tm',fd(e.a.d)));if(e.a.t)h.appendChild(el('span','tm',e.a.t));li.appendChild(h);
   if(e.a.r)li.appendChild(el('div','ar','القاعة: '+e.a.r));li.appendChild(el('div','at',e.a.a));
@@ -1760,7 +1812,7 @@ function renderFiles(){
     sel.addEventListener('change',function(){f.st=+sel.value;f.u=today();persist();});top.appendChild(sel);c.appendChild(top);
     var r1=el('div','fca fca1'),bd=el('button','btn sm x','حذف'),be=el('button','btn sm','تعديل'),ban=el('button','btn sm','تحليل'),bp=el('button','btn sm','طباعة');
     bd.addEventListener('click',function(){
-      if(armed!==x.id){armed=x.id;bd.textContent='تأكيد الحذف';setTimeout(function(){if(armed===x.id){armed=null;bd.textContent='حذف';}},3000);return;}
+      if(armed!==x.id){armed=x.id;ARM(bd,1);setTimeout(function(){if(armed===x.id){armed=null;ARM(bd,0);}},3000);return;}
       armed=null;delete items[x.id];persist();
     });
     be.addEventListener('click',function(){
@@ -1769,12 +1821,12 @@ function renderFiles(){
     });
     ban.addEventListener('click',function(){AN.analyzeFile(x);});
     bp.addEventListener('click',function(){RPT.file(x.id,'print');});
-    [bd,be,ban,bp].forEach(function(b){b.type='button';r1.appendChild(b);});c.appendChild(r1);
+    if(ICON_UI){r1.classList.add('icr');ICN(bd,'trash','حذف','del');ICN(be,'edit','تعديل');ICN(ban,'binoc','تحليل');ICN(bp,'print','طباعة');}[bd,be,ban,bp].forEach(function(b){b.type='button';r1.appendChild(b);});c.appendChild(r1);
     var r2=el('div','fca fca3'),bc=el('button','btn sm','نسخ المرجع'),bm=el('a','btn sm','محاكم');bc.type='button';
     bc.addEventListener('click',async function(){try{await navigator.clipboard.writeText(refText(f));RPT.toast('تم نسخ المرجع');}catch(e){mm('mmsg',refText(f),true);}});
     bm.href=MK_TRACK;bm.target='_blank';bm.rel='noopener';bm.title='تتبع الملف في بوابة محاكم';
-    r2.appendChild(bc);r2.appendChild(bm);if(window.KIT&&KIT.textsBtn)r2.appendChild(KIT.textsBtn(f));c.appendChild(r2);
-    var bpo=el('button','btn sm fcpo');bpo.type='button';bpo.innerHTML=ICO.portal+'<span>بوابة الموكل</span>';bpo.addEventListener('click',function(){PORTAL.open(x.id);});if(window.CMSG){var pw2=el('div','fcpw'),bwa=el('button','btn sm fcpo fcwa');bwa.type='button';bwa.innerHTML=(ICO.chat||'')+'<span>إخبار الموكل</span>';bwa.addEventListener('click',function(){CMSG.open(x.id);});pw2.appendChild(bwa);pw2.appendChild(bpo);c.appendChild(pw2);}else c.appendChild(bpo);
+    var btx=window.KIT&&KIT.textsBtn?KIT.textsBtn(f):null;if(ICON_UI){r2.classList.add('icr');ICN(bc,'copy','نسخ المرجع');ICN(bm,'court','محاكم');if(btx)ICN(btx,'book','نصوص');}r2.appendChild(bc);r2.appendChild(bm);if(btx)r2.appendChild(btx);c.appendChild(r2);
+    var bpo=el('button','btn sm fcpo');bpo.type='button';bpo.innerHTML=ICO.portal+'<span>بوابة الموكل</span>';bpo.addEventListener('click',function(){PORTAL.open(x.id);});if(window.CMSG){var pw2=el('div','fcpw'),bwa=el('button','btn sm fcpo fcwa');bwa.type='button';bwa.innerHTML=(ICO.chat||'')+'<span>إخبار الموكل</span>';bwa.addEventListener('click',function(){CMSG.open(x.id);});if(ICON_UI){pw2.classList.add('icr');ICN(bwa,'chat','إخبار الموكل');ICN(bpo,'lock','بوابة الموكل');}pw2.appendChild(bwa);pw2.appendChild(bpo);c.appendChild(pw2);}else if(ICON_UI){var pw3=icRow('fcpw');ICN(bpo,'lock','بوابة الموكل');pw3.appendChild(bpo);c.appendChild(pw3);}else c.appendChild(bpo);
     c.appendChild(feesBox(x.id,f));if(window.ZDOC)c.appendChild(ZDOC.section(x.id,f));c.appendChild(actions(x.id,f));box.appendChild(c);
   }
   function more(){var end=Math.min(LST.length,RN+PG);for(;RN<end;RN++)card(LST[RN]);PG=10;if(RN<LST.length){var s=el('div','fsent');box.appendChild(s);if('IntersectionObserver' in window){var io=new IntersectionObserver(function(en){if(en[0].isIntersecting){io.disconnect();s.remove();more();}},{rootMargin:'900px'});io.observe(s);}else{s.remove();more();}}}
@@ -1801,9 +1853,9 @@ function feesBox(id,f){
   pays.forEach(function(p,i){
     var li=el('li');li.appendChild(el('span','tm',fd(p.d)));li.appendChild(el('span',null,money(p.a)+' د.م'));if(p.n)li.appendChild(el('span','meta',p.n));
     var x=el('button','btn sm x','حذف');
-    x.addEventListener('click',function(){var key='p'+id+i;if(armed!==key){armed=key;x.textContent='تأكيد الحذف';setTimeout(function(){if(armed===key){armed=null;x.textContent='حذف';}},3000);return;}armed=null;f.pays.splice(i,1);openD['fee'+id]=true;persist();});
+    x.addEventListener('click',function(){var key='p'+id+i;if(armed!==key){armed=key;ARM(x,1);setTimeout(function(){if(armed===key){armed=null;ARM(x,0);}},3000);return;}armed=null;f.pays.splice(i,1);openD['fee'+id]=true;persist();});
     if(window.FEES){var rc=el('button','btn sm','وصل');rc.type='button';rc.title='وصل أداء على رأسية المكتب';rc.addEventListener('click',function(){FEES.receipt(id,i);});li.appendChild(rc);}
-    li.appendChild(x);ul.appendChild(li);
+    if(ICON_UI){var ir=icRow();ICN(x,'trash','حذف','del');[].slice.call(li.querySelectorAll(':scope>button')).forEach(function(b){if(b!==x){ICN(b,'receipt','وصل');ir.appendChild(b);}});ir.appendChild(x);li.appendChild(ir);}else li.appendChild(x);ul.appendChild(li);
   });
   det.appendChild(ul);
   var g=el('div','trf'),dd=el('input'),am=el('input'),nn=el('input'),ad=el('button','btn p sm','تسجيل دفعة'),em=el('p','msg');
@@ -1888,7 +1940,7 @@ function calc(){
   box.hidden=false;
 }
 function fillFiles(){var sel=$('dfile'),keep=sel.value;sel.textContent='';Object.keys(items).filter(function(k){return !items[k].diary;}).forEach(function(k){var o=document.createElement('option');o.value=k;o.textContent=fname(items[k])+' ('+[items[k].yr,items[k].no].filter(Boolean).join('/')+')';sel.appendChild(o);});if(keep&&items[keep])sel.value=keep;$('dadd').disabled=!sel.options.length;}
-function renderHols(){var ul=$('hlist');ul.textContent='';hols().forEach(function(h,i){var li=el('li');li.appendChild(el('span','tm',fd(h.d)));li.appendChild(el('span',null,h.n||'عطلة'));var x=el('button','btn sm x','حذف');x.addEventListener('click',function(){var l=hols();l.splice(i,1);try{localStorage.setItem(HK,JSON.stringify(l));}catch(e){}renderHols();calc();});li.appendChild(x);ul.appendChild(li);});}
+function renderHols(){var ul=$('hlist');ul.textContent='';hols().forEach(function(h,i){var li=el('li');li.appendChild(el('span','tm',fd(h.d)));li.appendChild(el('span',null,h.n||'عطلة'));var x=ICN(el('button','btn sm x','حذف'),'trash','حذف','del');x.addEventListener('click',function(){var l=hols();l.splice(i,1);try{localStorage.setItem(HK,JSON.stringify(l));}catch(e){}renderHols();calc();});li.appendChild(x);ul.appendChild(li);});}
 
 /* ---------- weekly report ---------- */
 function weekText(){
@@ -2671,7 +2723,7 @@ function pArt(a){var t=TX(a.tid)||{};return pItem('المادة '+a.no+' — '+(
 function pCase(c){return pItem('قرار عدد '+(c.num||'—')+(c.date?' بتاريخ '+c.date:''),[c.chamber,c.fileno?'ملف عدد '+c.fileno:'',c.title,c.source].filter(Boolean).join(' | '),[c.principle?'القاعدة: '+c.principle:'',c.summary||'',c.body||''].filter(Boolean).join('\n\n')+(c.refs?'\n\nنصوص مستند إليها: '+c.refs:''));}
 function pDoc(d){return pItem(d.title,[d.type,d.author,d.date,d.subject].filter(Boolean).join(' | '),d.body||'');}
 function printItems(title,htmls){if(!window.RPT){window.print();return;}RPT.printFlow(title,htmls.join(''));}
-function printBtn(label,fn){var b=E('button','btn sm',label);b.type='button';b.addEventListener('click',fn);return b;}
+function printBtn(label,fn){var b=E('button','btn sm lxpb',label);b.type='button';b.addEventListener('click',fn);return b;}
 function actions(card,key,citation,printFn,fullFn,item,kind){
   var row=E('div','row2 lxa'),b1=E('button','btn sm','نسخ مع الإحالة'),b2=E('button','btn sm',FAV[key]?'★ في المفضلة':'☆ مفضلة'),b3=E('button','btn sm',NOTES[key]?'ملاحظتي ✎':'أضف ملاحظة'),nt=E('textarea','lxn');
   nt.rows=3;nt.placeholder='ملاحظتكم الخاصة (تبقى على هذا الجهاز)';nt.hidden=!NOTES[key];nt.value=NOTES[key]||'';
@@ -3142,7 +3194,7 @@ UI.build=function(){
   /* --- case-law panel --- */
   var jbox=E('div','lxbar'),jq=mkInput('رقم القرار أو كلمات مثل: التعويض عن الضرر، الإخلاء، النفقة');jq.id='lxjq';jbox.appendChild(jq);pj.appendChild(jbox);
   var jlk=E('p','lxsrc'),ja=E('a',null,'البحث الرسمي في قرارات محكمة النقض');ja.href='https://juriscassation.cspj.ma';ja.target='_blank';ja.rel='noopener';jlk.appendChild(ja);jlk.appendChild(document.createTextNode(' (ابحثوا هناك ثم الصقوا القرار في «إدارة القاعدة» ليدخل مكتبتكم)'));pj.appendChild(jlk);
-  var jf=E('div','trf'),jc=E('select'),jy=mkInput('السنة','text');jy.inputMode='numeric';jy.maxLength=4;var jcat=E('select');opt(jcat,CATS,'كل الأقسام');jf.appendChild(labelled('القسم',jcat));opt(jc,CH,'كل الغرف');jf.appendChild(labelled('الغرفة',jc));jf.appendChild(labelled('السنة',jy));pj.appendChild(jf);
+  var jf=E('div','trf'),jc=E('select'),jy=mkInput('السنة','text');jy.inputMode='numeric';jy.maxLength=4;var jcat=E('select');opt(jcat,CATS,'كل الأقسام');jf.appendChild(labelled('القسم',jcat));opt(jc,CH,'كل الغرف');jf.appendChild(labelled('الغرفة',jc));jy.className='lxyr';jy.setAttribute('aria-label','السنة');jbox.appendChild(jy);jbox.classList.add('lxjbar');pj.appendChild(jf);
   var jout=E('div','lxout');jout.id='lxjout';pj.appendChild(jout);
   var jform=E('details','card');jform.id='lxjform';pj.appendChild(jform);
   function runJ(){var v=jq.value.trim(),f={cat:jcat.value,chamber:jc.value,year:jy.value.trim()};jout.textContent='';
@@ -3500,7 +3552,7 @@ var LEX_SEED={"v":6,"texts":[],"cases":[]};
 /* ---------- diary: manual appointments (stored as flagged items, so synchronisation keeps them) ---------- */
 var dEditId=null;
 function isDiary(f){return !!(f&&f.diary);}
-function diaryCard(e){var f=e.f,c=el('div','ev'),h=el('div','ah');h.appendChild(el('span','tm',e.a.t||'طوال اليوم'));c.appendChild(h);
+function diaryCard(e){var f=e.f,c=el('div','ev');c.dataset.uid=e.uid;var h=el('div','ah');h.appendChild(el('span','tm',e.a.t||'طوال اليوم'));c.appendChild(h);
   if(e.a.r)c.appendChild(el('div','ar','المكان: '+e.a.r));c.appendChild(el('h4',null,f.label));if(e.a.a&&e.a.a!=='موعد')c.appendChild(el('div','at',e.a.a));
   c.appendChild(actBtns(e,{cal:true,edit:function(){fillDForm(e.fid);},del:function(){delete items[e.fid];persist();}}));return c;}
 function renderDiary(){
@@ -5163,10 +5215,11 @@ var ZDOC=(function(){
     ms.forEach(function(m){var li=el('li','docli'),t=el('div','doct');t.appendChild(el('b',null,m.name));t.appendChild(el('span','meta',fd(m.at)+' — '+size(m.size)+(m.src==='import'?' — من الاستيراد':'')+(m.text?'':' — دون نص')));li.appendChild(t);
       var bs=el('div','docb'),bo=el('button','btn sm','فتح'),bsh=el('button','btn sm','مشاركة'),bd=el('button','btn sm x','حذف');[bo,bsh,bd].forEach(function(b){b.type='button';bs.appendChild(b);});
       if(!m.text&&(/pdf|image/i.test(m.type)||/\.(pdf|jpe?g|png|webp)$/i.test(m.name))){var bt=el('button','btn sm','قراءة النص');bt.type='button';bt.title='التعرف على نص الوثيقة ليُبحث فيه';bs.insertBefore(bt,bd);
-        bt.addEventListener('click',function(){bt.disabled=true;bt.textContent='جارٍ القراءة…';blob(m).then(function(b){return FIMP._t.read([new File([b],m.name,{type:m.type})],function(){});}).then(function(r){return setText(m,r.text);}).then(function(){otoast('قُرئ نص الوثيقة');renderFiles();},function(){bt.disabled=false;bt.textContent='قراءة النص';otoast('تعذرت قراءة النص');});});}
+        bt.addEventListener('click',function(){bt.disabled=true;if(bt.classList.contains('lxi'))bt.classList.add('busy');else bt.textContent='جارٍ القراءة…';blob(m).then(function(b){return FIMP._t.read([new File([b],m.name,{type:m.type})],function(){});}).then(function(r){return setText(m,r.text);}).then(function(){otoast('قُرئ نص الوثيقة');renderFiles();},function(){bt.disabled=false;if(bt.classList.contains('lxi'))bt.classList.remove('busy');else bt.textContent='قراءة النص';otoast('تعذرت قراءة النص');});});}
       bo.addEventListener('click',function(){blob(m).then(function(b){if(b)oOpen(b,m.name,m.type);});});
       bsh.addEventListener('click',function(){blob(m).then(function(b){if(b)oSend(b,m.name,m.type,fname(f));});});
-      var arm=false;bd.addEventListener('click',function(){if(!arm){arm=true;bd.textContent='تأكيد الحذف';setTimeout(function(){arm=false;bd.textContent='حذف';},3000);return;}del(m).then(function(){if(typeof openD==='object')openD['doc'+fid]=true;renderFiles();});});
+      var arm=false;bd.addEventListener('click',function(){if(!arm){arm=true;ARM(bd,1);setTimeout(function(){arm=false;ARM(bd,0);},3000);return;}del(m).then(function(){if(typeof openD==='object')openD['doc'+fid]=true;renderFiles();});});
+      if(ICON_UI){bs.classList.add('icr');ICN(bo,'open','فتح');ICN(bsh,'share','مشاركة');ICN(bd,'trash','حذف','del');var bt2=bs.querySelector('button:not(.lxi)');if(bt2)ICN(bt2,'scan','قراءة النص');}
       li.appendChild(bs);ul.appendChild(li);});
     if(ms.length)det.appendChild(ul);else det.appendChild(el('p','meta','لا وثائق بعد. الاستدعاء أو المقال المستورد يُحفظ هنا تلقائيًا.'));
     var fi=el('input');fi.type='file';fi.multiple=true;fi.accept='application/pdf,.pdf,image/*,.doc,.docx';fi.hidden=true;det.appendChild(fi);
@@ -5757,7 +5810,7 @@ $('mflt').addEventListener('change',renderFiles);
       m.value=all[v]?v:'';}
     window.RPUI=courts;
     function u(){i.textContent=RPT.rangeLabel(r.value,d.value||today());courts();}
-    r.addEventListener('change',u);d.addEventListener('change',u);if(c)c.addEventListener('change',rooms);[].forEach.call(document.querySelectorAll('#rpk input'),function(x){x.addEventListener('change',courts);});
+    r.addEventListener('change',u);d.addEventListener('change',u);if(c)c.addEventListener('change',rooms);[].forEach.call(document.querySelectorAll('#rpk input'),function(x){function on(){var l=x.closest('label');if(l)l.classList.toggle('on',x.checked);}x.addEventListener('change',on);on();x.addEventListener('change',courts);});
     function pick(){var k=ks();if(!k.length){RPT.toast('اختاروا نوعًا واحدًا على الأقل: الجلسات أو الإجراءات أو الآجال.');return null;}return {range:r.value,iso:d.value||today(),kinds:k,court:c?c.value:'',room:m?m.value:''};}
     function nm(n){return n===1?'موعد واحد':n===2?'موعدان':n<=10?n+' مواعيد':n+' موعدًا';}
     function none(s){RPT.toast('لا توجد مواعيد'+(s.court?' في '+s.court:'')+(s.room?' بالقاعة '+s.room:'')+' في هذه الفترة.');}
@@ -5786,6 +5839,23 @@ $('mflt').addEventListener('change',renderFiles);
     $('rpwa').addEventListener('click',function(){var s=pick();if(!s)return;var dd=RPT.agendaData(s.range,s.iso,s.kinds,s.court,s.room);if(!dd.ev.length){none(s);return;}
       var url='https://wa.me/?text='+encodeURIComponent(RPT.agendaText(s.range,dd));try{window.open(url,'_blank');}catch(e){location.href=url;}});
     u();})();
+  /* the three boxes at the top of the agenda lead to what they count */
+  (function(){var S=document.querySelectorAll('#p-agenda .stats .st');if(S.length<3)return;
+    function to(n,mid){if(!n)return;var r=n.getBoundingClientRect(),top=r.top+(window.scrollY||0)-(mid?Math.max(90,(window.innerHeight-r.height)/2):96);try{window.scrollTo({top:Math.max(0,top),behavior:'smooth'});}catch(e){window.scrollTo(0,Math.max(0,top));}}
+    function flash(n){if(!n)return;n.classList.add('stflash');setTimeout(function(){n.classList.remove('stflash');},1800);}
+    function pane(k){var b=document.querySelector('#dseg [data-d="'+k+'"]');if(b&&b.getAttribute('aria-selected')!=='true')b.click();}
+    function next(){var up=events().filter(function(e){return isUp(e);}).sort(function(x,y){return x.start-y.start;});return up[0]||null;}
+    function go(i){
+      if(i===0){if(typeof show==='function')show('files');var m=$('mopen');if(m){m.open=true;setTimeout(function(){to(m);flash(m);},120);}return;}
+      var e=next();if(!e){if(window.RPT)RPT.toast('لا توجد مواعيد قادمة.');return;}
+      pane(isDiary(e.f)?'misc':'proc');
+      setTimeout(function(){
+        if(i===1){var b=$('agl'),d=b&&b.querySelector('.day');to(d||b);flash(b&&b.querySelector('.ev'));return;}
+        var c=document.querySelector('#p-agenda .ev[data-uid="'+String(e.uid).replace(/"/g,'\\"')+'"]');if(c){to(c,true);flash(c);}else to($('agl'));
+      },80);}
+    [].forEach.call(S,function(s,i){s.setAttribute('role','button');s.tabIndex=0;s.classList.add('stgo');s.setAttribute('aria-label',(s.textContent||'').replace(/\s+/g,' ').trim());
+      s.addEventListener('click',function(){go(i);});s.addEventListener('keydown',function(ev){if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();go(i);}});});
+  })();
   $('dsave').addEventListener('click',saveDiary);$('dcancel').addEventListener('click',clearDForm);clearDForm();
   [].slice.call(document.querySelectorAll('#dseg button')).forEach(function(b){b.addEventListener('click',function(){showDiaryPane(b.getAttribute('data-d'));});});
 $('mcancel').addEventListener('click',clearForm);
