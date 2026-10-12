@@ -5956,7 +5956,9 @@ var FIMP=(function(){
   setTimeout(shareIn,700);document.addEventListener('visibilitychange',function(){if(!document.hidden)setTimeout(shareIn,300);});
   init();
   return {
-    apply:function(o,k){if(pdocs&&k&&window.ZDOC){var pd=pdocs;Promise.all(pd.files.map(function(f,i){return ZDOC.add(k,f,i===0?pd.text:'','import');})).then(function(){if(typeof renderFiles==='function')renderFiles();},function(){});}pdocs=null;
+    apply:function(o,k){if(pdocs&&k&&window.ZDOC){var pd=pdocs;Promise.all(pd.files.map(function(f,i){return ZDOC.add(k,f,i===0?pd.text:'','import');})).then(function(){if(typeof renderFiles==='function')renderFiles();
+        /* in the app, the imported summons or claim goes into the client's folder too (and so into Drive), like any document added to the file */
+        if(window.MFD&&MFD.can()&&MFD.ok&&typeof items==='object'&&items[k]){var path=MFD.clientPath(items[k]);pd.files.forEach(function(f){MFD.write(path,f.name,f.type,f).catch(function(){});});}},function(){});}pdocs=null;
       if(!pending)return;var acts=o.acts=(o.acts||[]).slice();
       pending.forEach(function(p){if(acts.some(function(a){return a.d===p.d&&(a.k||'')===p.k&&(a.t||'')===(p.t||'');}))return;acts.push({d:p.d,t:p.t||'',r:p.k==='جلسة'?(p.r||o.room||''):'',a:p.a||p.k,k:p.k});});
       pending=null;note();},
@@ -6110,7 +6112,7 @@ var PORTAL=(function(){
   function genRef(f){var y=String(f.yr||new Date().getFullYear()),r=crypto.getRandomValues(new Uint8Array(3)),n=((r[0]<<16)|(r[1]<<8)|r[2])%1000000;return y+'-'+('00000'+n).slice(-6);}
   function genCode(){var al='ABCDEFGHJKMNPQRSTUVWXYZ23456789',b=crypto.getRandomValues(new Uint8Array(10)),x='';for(var i=0;i<10;i++)x+=al[b[i]%al.length];return x.slice(0,5)+'-'+x.slice(5);}
   function site(){try{if(typeof trackUrl==='function')return trackUrl();var s=typeof SITE==='function'?SITE():'';return /\.html$/.test(s)?s+'#track':s+'/#track';}catch(e){return '';}}
-  function msgText(f){var b=window.BRAND?BRAND.get():{};return 'السلام عليكم، من '+(b.firm||'المكتب')+'.\nبوابة ملفكم (مرحلة الملف والوثائق المشتركة معكم):\n'+site()+'\nرقم الاطلاع: '+f.cref+'\nرمز الاطلاع: '+f.ccode+'\nالرمز سري، يرجى عدم مشاركته.';}
+  function msgText(f){var b=window.BRAND?BRAND.get():{};return 'السلام عليكم، من '+(b.firm||'المكتب')+'.\nبوابة ملفكم (مرحلة الملف والوثائق المشتركة معكم):\n'+(site()?site()+'='+encodeURIComponent(f.cref):'')+'\nرقم الاطلاع: '+f.cref+'\nرمز الاطلاع: '+f.ccode+'\nالرمز سري، يرجى عدم مشاركته.';}
   function open(fid){
     var f=items[fid];if(!f)return;var c=io();
     var ov=E('div','lxsheet posheet'),card=E('div','lxsc');ov.setAttribute('data-ov','1');ov.appendChild(card);
