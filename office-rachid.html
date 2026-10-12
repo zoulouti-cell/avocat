@@ -1823,7 +1823,7 @@ var MFD=(function(){
    The app gets its access from Google Play services, the page from Google's own sign-in window. The access asked (drive.file) covers only what
    the app and the page put in Drive. The key of access stays in memory: closing the page leaves nothing of it in the browser ---------- */
 var DRV=(function(){
-  var GCID='',SCOPE='https://www.googleapis.com/auth/drive.file',API='https://www.googleapis.com/drive/v3/',UP='https://www.googleapis.com/upload/drive/v3/files';
+  var GCID='938357500083-ots2bu33hvifpcp0lnc44h11pqjlrm01.apps.googleusercontent.com',SCOPE='https://www.googleapis.com/auth/drive.file',API='https://www.googleapis.com/drive/v3/',UP='https://www.googleapis.com/upload/drive/v3/files';
   var tok=null,exp=0,FOLD={},gisP=null,busy=false,FOLDER='application/vnd.google-apps.folder';
   function P(){return (window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.FileSaver)||null;}
   function nat(){var p=P();return !!(p&&p.driveToken);}
