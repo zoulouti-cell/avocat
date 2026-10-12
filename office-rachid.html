@@ -3751,21 +3751,21 @@ async function resetOnce(){var K='zlr_lib3';try{if(localStorage.getItem(K)==='1'
 async function init(seed){
   try{await openDb();await resetOnce();await applySeed(seed);await load();UI.build();UI.stats();applyRemote().then(async function(rs){if(rs.added){await load();UI.stats();}}).catch(function(){});}catch(e){var r=$('p-lex');if(r)r.appendChild(E('p','msg','تعذر فتح قاعدة البيانات المحلية في هذا المتصفح.'));}
 }
-/* ---------- the search of the settings menu, in the library: the laws of the index (by their Arabic name or their French one), the articles,
+/* ---------- the search of the settings menu, in the library: the laws of the index, the articles,
    the decisions, the memos and the studies; each found item opens in the library ---------- */
 function FIND(q,nz,lim){lim=lim||6;var qs=String(q||'').trim(),out=[];if(!qs)return out;
-  var tr=(window.I18N&&I18N.lang==='fr'&&I18N.t)?I18N.t:null,toks=nz(qs).split(' ').filter(Boolean),hasAr=/[ء-ي]/.test(qs);if(!toks.length)return out;
+  var toks=nz(qs).split(' ').filter(Boolean),hasAr=/[ء-ي]/.test(qs);if(!toks.length)return out;
   function hit(s){var h=nz(s);return toks.every(function(t){return h.indexOf(t)>=0;});}
-  function both(x){return x+(tr?' '+tr(x):'');}
+  function both(x){return String(x||'');}
   function lib(fn){return function(){if(typeof show==='function')show('lex');setTimeout(function(){try{fn();}catch(e){}},60);};}
   function cut(s,n){s=String(s||'').replace(/\s+/g,' ').trim();return s.length>n?s.slice(0,n-1)+'…':s;}
   function around(body){var b=String(body||'').replace(/\s+/g,' '),nb=nz(b),k=toks[0],i=nb.indexOf(k);if(i<0)return cut(b,90);var st=Math.max(0,i-30);return (st?'…':'')+cut(b.slice(st),90);}
   /* the laws */
   var laws=[],seen={};
   TEXTS.forEach(function(t){var nm=t._sl||t.short||t.name;if(!hit(both(t.name)+' '+both(t.short||'')+' '+(t.aliases||[]).join(' ')+' '+(t.number||'')+' '+(t.ref||'')+' '+both(t._m||'')))return;seen[t._m+'|'+t._sl]=1;
-    laws.push({k:'law',t:tr?tr(nm):nm,s:tr?tr(t._m||''):[t._m,t.ref].filter(Boolean).join(' | '),go:lib(function(){UI.openText(t.id);})});});
+    laws.push({k:'law',t:nm,s:[t._m,t.ref].filter(Boolean).join(' | '),go:lib(function(){UI.openText(t.id);})});});
   INDEX.forEach(function(m){m.l.forEach(function(n){if(seen[m.m+'|'+n])return;if(!hit(both(n)+' '+both(m.m)))return;seen[m.m+'|'+n]=1;
-    laws.push({k:'law',t:tr?tr(n):n,s:(tr?tr(m.m):m.m)+' — '+(tr?tr('لم يُضف نصه بعد'):'لم يُضف نصه بعد'),go:lib(function(){UI.openMatter(m.m);})});});});
+    laws.push({k:'law',t:n,s:m.m+' — لم يُضف نصه بعد',go:lib(function(){UI.openMatter(m.m);})});});});
   out=out.concat(laws.slice(0,lim));
   /* the articles, the decisions, the memos and the studies (their texts are Arabic) */
   if(hasAr||/\d/.test(qs)){
