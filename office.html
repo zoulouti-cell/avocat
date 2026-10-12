@@ -755,6 +755,47 @@ details.card#mcards[open]{background:none;border-color:transparent;box-shadow:no
 .lhplace .lhpc{position:relative;top:auto;inset-inline-end:auto;flex:0 0 auto}
 /* the judge's title in the file form starts where the other titles start (its arrow after the words) */
 .trf label.jrl select#mjrole{padding-right:0!important;padding-inline-start:0!important;padding-left:1.6rem!important;text-align:start;margin-inline-start:0}
+/* the client portal: what the client reads, switch by switch */
+details.poview{margin:.9rem 0 .4rem;padding:.6rem .85rem .75rem;border-radius:18px;border:1px solid rgba(230,200,115,.35);background:linear-gradient(180deg,rgba(230,200,115,.07),rgba(255,255,255,.02))}
+details.poview>summary{color:#f0d68a;font-weight:700;padding:.2rem 0 .35rem;cursor:pointer}
+.pvrow{display:flex;align-items:center;justify-content:space-between;gap:.8rem;padding:.62rem .1rem;border-top:1px solid rgba(255,255,255,.09);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.pvt{display:grid;gap:.1rem;min-width:0}
+.pvt b{color:#f3e7c4;font-size:.97rem;font-weight:700}
+.pvt small{color:#9fb3ab;font-size:.8rem;line-height:1.45}
+.pvrow.on .pvt b{color:#ffe28f}
+.pvsw{flex:0 0 auto;position:relative;width:46px;height:27px;min-height:0;padding:0;margin:0;border-radius:999px;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.1);cursor:pointer;transition:background .2s,border-color .2s}
+.pvsw::before{content:'';position:absolute;top:3px;right:3px;width:19px;height:19px;border-radius:50%;background:#cfdcd6;box-shadow:0 1px 4px rgba(0,0,0,.45);transition:transform .22s,background .2s}
+.pvsw.on{background:linear-gradient(145deg,#ffe28f,#c8a24a 60%,#a67e26);border-color:#e6c873}
+.pvsw.on::before{transform:translateX(-19px);background:#fff}
+.pvopt{margin:.05rem 0 .55rem;padding:.6rem .7rem;border-radius:14px;border:1px dashed rgba(230,200,115,.5);background:rgba(230,200,115,.06);display:grid;gap:.45rem}
+.pvopt[hidden]{display:none!important}
+.pvopt textarea{width:100%;box-sizing:border-box;min-height:0;resize:vertical;unicode-bidi:plaintext}
+.pvol{color:#b9c9c2;font-size:.82rem}
+.pvseg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.4rem}
+.pvseg button{min-height:38px;border-radius:999px;border:1px solid rgba(230,200,115,.45);background:rgba(255,255,255,.05);color:#f0d68a;font-family:inherit;font-weight:700;font-size:.88rem;cursor:pointer}
+.pvseg button.on{background:linear-gradient(145deg,#ffe28f,#c8a24a 60%,#a67e26);color:#0b2420;border-color:transparent}
+.pvfrow{display:flex;align-items:center;gap:.6rem;padding:.35rem 0;cursor:pointer}
+.pvfrow>span{flex:0 0 auto;color:#f3e7c4;font-weight:700;font-size:.9rem}
+.pvfrow>b{flex:1 1 auto;min-width:0;color:#b9c9c2;font-weight:500;font-size:.88rem;text-align:left}
+.pvfrow .pvc{position:relative;top:auto;inset-inline-end:auto;flex:0 0 auto}
+.pvprevb{width:100%;margin-top:.7rem}
+/* the preview: the client's page as the client reads it */
+.pvprev h3{color:#f0d68a;margin:.2rem 0 .5rem}
+.pvprev .pcstep{display:flex;flex-direction:column;gap:.15rem;padding:.55rem 0;border-top:1px solid rgba(230,200,115,.22)}
+.pvprev .pcstep span{font-size:.82rem;color:#b9c9c2}
+.pvprev .pcstep b{font-size:1rem;color:#f6f1e2;line-height:1.6}
+.pvprev .pvcourt,.pvprev .pvmsg,.pvprev .pvreq,.pvprev .pvline,.pvprev .pvfees,.pvprev .pvdocs{margin:.7rem 0;padding:.65rem .8rem;border-radius:14px;border:1px solid rgba(230,200,115,.3);background:rgba(255,255,255,.04)}
+.pvprev .pvcourt{display:grid;gap:.3rem}.pvprev .pvcourt div{display:flex;justify-content:space-between;gap:.6rem}.pvprev .pvcourt span{color:#b9c9c2;font-size:.85rem}.pvprev .pvcourt b{color:#f6f1e2}
+.pvprev .pvmsg{border-inline-start:3px solid #e6c873}.pvprev .pvmsg p{margin:.3rem 0 0;color:#f6f1e2;white-space:pre-wrap;line-height:1.75}
+.pvprev .pvmsg>b,.pvprev .pvreq>b,.pvprev .pvline>b,.pvprev .pvfees>b,.pvprev .pvdocs>b{color:#f0d68a;font-size:.95rem}
+.pvprev .pvreq ul{margin:.4rem 0;padding-inline-start:1.2rem;color:#f6f1e2}.pvprev .pvreq small{color:#b9c9c2}
+.pvprev .pvline ol{list-style:none;margin:.5rem 0 0;padding:0;border-inline-start:2px solid rgba(230,200,115,.45)}
+.pvprev .pvline li{position:relative;display:grid;gap:.1rem;padding:.25rem .9rem .5rem 0}
+.pvprev .pvline li::before{content:'';position:absolute;top:.55rem;inset-inline-start:-6px;width:10px;height:10px;border-radius:50%;background:#e6c873}
+.pvprev .pvd{color:#e6c873;font-size:.82rem;direction:ltr;text-align:right}.pvprev .pva{color:#f6f1e2;line-height:1.6}
+.pvprev .pvfg{display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:.45rem;margin-top:.45rem}
+.pvprev .pvf{display:grid;gap:.15rem;padding:.5rem;border-radius:12px;background:rgba(230,200,115,.08);text-align:center}.pvprev .pvf span{color:#b9c9c2;font-size:.78rem}.pvprev .pvf b{color:#ffe28f;font-size:.95rem}
+.pvprev .pvdocs div{color:#f6f1e2;padding:.2rem 0}
 </style>
 </head>
 <body>
@@ -6037,6 +6078,27 @@ var NAV=(function(){
 })();
 
 /* ---------- client portal (prototype): documents encrypted per file, expiring access, exchange log ---------- */
+/* ---------- «مستجدات ملفكم»: what the client reads of the file, drawn the same way in the client's page and in the office's preview ---------- */
+var PVT_AR={sh:'مستجدات ملفكم',nx:'الجلسة المقبلة',ls:'آخر ما جرى في الملف',tm:'على الساعة',rm:'القاعة',nonew:'لا جديد مسجل في الملف بعد',court:'المحكمة',fno:'رقم الملف',
+  hist:'سجل الجلسات',proc:'الإجراءات المنجزة',msg:'رسالة من المكتب',req:'وثائق مطلوبة منكم',reqh:'أرسلوها من «إرسال وثيقة إلى المكتب» أسفله.',fees:'الأتعاب',fee:'المتفق عليه',paid:'المؤدى',rest:'الباقي',cur:'درهم'};
+function PVR(ix,t,box){
+  function E(tg,c,x){var e=document.createElement(tg);if(c)e.className=c;if(x!=null)e.textContent=x;return e;}
+  function dmy(s){return s?String(s).slice(0,10).split('-').reverse().join('/'):'';}
+  function bdi(v){var b=E('bdi',null,v);return b;}
+  var s=(ix&&ix.steps)||{},v=s.view||{};
+  box.appendChild(E('h3',null,t('sh')));
+  if(v.court){var c=E('div','pvcourt');[[t('court'),v.court.c],[t('fno'),v.court.no]].forEach(function(x){if(!x[1])return;var d=E('div');d.appendChild(E('span',null,x[0]));var b=E('b');b.appendChild(bdi(x[1]));d.appendChild(b);c.appendChild(d);});box.appendChild(c);}
+  function row(l,val,cls){var r=E('div','pcstep'+(cls?' '+cls:''));r.appendChild(E('span',null,l));var x=E('b');x.appendChild(bdi(val));r.appendChild(x);box.appendChild(r);}
+  if(s.next)row(t('nx'),dmy(s.next.d)+(s.next.t?' '+t('tm')+' '+s.next.t:'')+(s.next.r?' — '+t('rm')+' '+s.next.r:''),'pvnext');
+  if(s.last)row(t('ls'),dmy(s.last.d)+' — '+s.last.a);
+  if(!s.next&&!s.last&&!v.hist&&!v.proc)row(t('ls'),t('nonew'));
+  if(v.msg){var m=E('div','pvmsg');m.appendChild(E('b',null,t('msg')));m.appendChild(E('p',null,v.msg));box.appendChild(m);}
+  if(v.req&&v.req.length){var q=E('div','pvreq');q.appendChild(E('b',null,t('req')));var ul=E('ul');v.req.forEach(function(x){ul.appendChild(E('li',null,x));});q.appendChild(ul);q.appendChild(E('small',null,t('reqh')));box.appendChild(q);}
+  function line(title,list){var w=E('div','pvline');w.appendChild(E('b',null,title));var ol=E('ol');list.forEach(function(x){var li=E('li');li.appendChild(E('span','pvd',dmy(x.d)));li.appendChild(E('span','pva',x.a));ol.appendChild(li);});w.appendChild(ol);box.appendChild(w);}
+  if(v.hist&&v.hist.length)line(t('hist'),v.hist);
+  if(v.proc&&v.proc.length)line(t('proc'),v.proc);
+  if(v.fees){var f=E('div','pvfees');f.appendChild(E('b',null,t('fees')));var g=E('div','pvfg');[['fee',t('fee')],['paid',t('paid')],['rest',t('rest')]].forEach(function(k){if(v.fees[k[0]]==null)return;var c=E('div','pvf pvf-'+k[0]);c.appendChild(E('span',null,k[1]));var n=E('b');n.appendChild(bdi(Number(v.fees[k[0]]).toLocaleString('fr-FR')+' '+t('cur')));c.appendChild(n);g.appendChild(c);});f.appendChild(g);box.appendChild(f);}
+}
 var PORTAL=(function(){
   var ITER=310000,SALT='zoulouti-portal-v1',enc=new TextEncoder(),dec=new TextDecoder(),kc={},MAXB=10*1024*1024;
   var PFX=(typeof KEY==='string'&&KEY.indexOf('zlr_')===0)?'zlr_':'zl_',PK=PFX+'portal_v1';
@@ -6076,10 +6138,49 @@ var PORTAL=(function(){
   async function seal(key,u8){var iv=crypto.getRandomValues(new Uint8Array(12)),c=new Uint8Array(await crypto.subtle.encrypt({name:'AES-GCM',iv:iv},key,u8)),o=new Uint8Array(12+c.length);o.set(iv);o.set(c,12);return o;}
   function active(f){var t=iso();return (f.pdocs||[]).filter(function(d){return !d.exp||d.exp>=t;});}
   function log(f,e,n){f.plog=(f.plog||[]).concat([{t:Date.now(),e:e,n:n||''}]).slice(-200);}
-  function stepsOf(f){var t=iso(),acts=(f.acts||[]).filter(function(a){return a&&a.d;}),H=function(a){return (a.k||'')==='جلسة'||(!a.k&&/جلسة|مداولة/.test(a.a||''));};
+  /* ---- what the client reads under «مستجدات ملفكم», chosen file by file (the next hearing and the last step shown unless switched off) ---- */
+  var PVK=[['next','الجلسة المقبلة','تاريخها وساعتها وقاعتها',1],['last','آخر ما جرى في الملف','نتيجة آخر جلسة سجلتموها',1],['court','المحكمة ورقم الملف','ليتأكد الموكل أنه ملفه',0],
+    ['hist','سجل الجلسات السابقة','الجلسات الماضية ونتائجها',0,'hn'],['proc','الإجراءات المنجزة','الإجراءات التي حلّ تاريخها، كإيداع مذكرة',0,'pn'],['verdict','منطوق الحكم','نص الحكم حين تسجلون «صدر الحكم»',0],
+    ['msg','رسالة إلى الموكل','نص قصير يقرؤه في صفحته',0,'mt'],['req','الوثائق المطلوبة من الموكل','يرسلها من صفحته مشفرة',0,'rt'],['fees','الأتعاب','ما تختارونه من المبالغ',0,'ff']];
+  function pvOf(f){var p=f.pview||{},o={};PVK.forEach(function(k){o[k[0]]=p[k[0]]!=null?!!p[k[0]]:!!k[3];});
+    o.hn=p.hn!=null?+p.hn:3;o.pn=p.pn!=null?+p.pn:3;o.mt=String(p.mt||'');o.rt=String(p.rt||'');o.ff=p.ff!=null?!!p.ff:true;o.fp=p.fp!=null?!!p.fp:true;o.fr=p.fr!=null?!!p.fr:true;return o;}
+  function stepsOf(f){var t=iso(),p=pvOf(f),acts=(f.acts||[]).filter(function(a){return a&&a.d;}),H=function(a){return (a.k||'')==='جلسة'||(!a.k&&/جلسة|مداولة/.test(a.a||''));};
+    function otx(a){if(!a.o||!window.OUTC)return '';var o=a.o;if(o.r==='حكم'&&!p.verdict)o=Object.assign({},o,{n:''});return OUTC.text(Object.assign({},a,{o:o}));}
     var nx=acts.filter(function(a){return a.d>=t&&H(a);}).sort(function(x,y){return (x.d+(x.t||'')).localeCompare(y.d+(y.t||''));})[0],ls=acts.filter(function(a){return a.o&&a.d<=t;}).sort(function(x,y){return y.d.localeCompare(x.d);})[0];
-    var lt=ls&&window.OUTC?OUTC.text(Object.assign({},ls,{o:Object.assign({},ls.o,ls.o.r==='حكم'?{n:''}:{})})):'';
-    return {next:nx?{d:nx.d,t:nx.t||'',r:nx.r||''}:null,last:ls?{d:ls.d,a:lt}:null};}
+    var out={next:p.next&&nx?{d:nx.d,t:nx.t||'',r:nx.r||''}:null,last:p.last&&ls?{d:ls.d,a:otx(ls)}:null},v={};
+    if(p.court&&(f.court||f.no))v.court={c:f.court||'',no:f.no&&typeof fnoS==='function'?fnoS(f):''};
+    function desc(x,y){return (y.d+(y.t||'')).localeCompare(x.d+(x.t||''));}
+    if(p.hist){var hs=acts.filter(function(a){return H(a)&&a.d<=t;}).sort(desc);if(p.hn>0)hs=hs.slice(0,p.hn);if(hs.length)v.hist=hs.map(function(a){return {d:a.d,a:otx(a)||((a.a&&a.a!=='جلسة'?a.a:'جلسة')+(a.r?' — القاعة '+a.r:''))};});}
+    if(p.proc){var K=function(a){return typeof kindOf==='function'?kindOf(a):(a.k||'');},ps=acts.filter(function(a){return K(a)==='إجراء'&&a.d<=t;}).sort(desc);if(p.pn>0)ps=ps.slice(0,p.pn);if(ps.length)v.proc=ps.map(function(a){return {d:a.d,a:a.a||'إجراء'};});}
+    if(p.msg&&p.mt.trim())v.msg=p.mt.trim().slice(0,600);
+    if(p.req){var rq=p.rt.split(/\n+/).map(function(x){return x.trim();}).filter(Boolean).slice(0,20);if(rq.length)v.req=rq;}
+    if(p.fees){var fee=+String(f.fee||'').replace(/[^\d.]/g,'')||0,paid=(f.pays||[]).reduce(function(a,x){return a+(+x.a||0);},0),fs={};if(p.ff&&fee)fs.fee=fee;if(p.fp&&(paid||fee))fs.paid=paid;if(p.fr&&fee)fs.rest=Math.max(0,fee-paid);if(Object.keys(fs).length)v.fees=fs;}
+    if(Object.keys(v).length)out.view=v;return out;}
+  function viewCard(f,c,say){var p=pvOf(f),box=E('details','poview');box.open=true;var sm=E('summary',null,'ما يظهر للموكل في «مستجدات ملفكم»');box.appendChild(sm);
+    var tm=null,live=c.on&&c.tok&&f.cref&&f.ccode;
+    function save(soon){f.pview=p;clearTimeout(tm);tm=setTimeout(function(){c.save();if(!live)return;writeIndex(f).then(function(){f.psg=JSON.stringify(stepsOf(f));say('وصل التعديل إلى صفحة الموكل.',true);},function(e){say(err(e),false);});},soon?300:1400);}
+    function seg(key,opts){var w=E('div','pvseg');opts.forEach(function(o){var b=E('button',null,o[1]);b.type='button';b.classList.toggle('on',p[key]===o[0]);b.addEventListener('click',function(){p[key]=o[0];[].forEach.call(w.children,function(x){x.classList.remove('on');});b.classList.add('on');save(true);});w.appendChild(b);});return w;}
+    function area(key,rows,ph,max){var a=E('textarea');a.rows=rows;a.maxLength=max;a.placeholder=ph;a.value=p[key];a.addEventListener('input',function(){p[key]=a.value;save();});return a;}
+    function money(n){return Number(n||0).toLocaleString('fr-FR')+' درهم';}
+    PVK.forEach(function(k){var key=k[0],row=E('div','pvrow'),tx=E('div','pvt');tx.appendChild(E('b',null,k[1]));tx.appendChild(E('small',null,k[2]));row.appendChild(tx);
+      var sw=E('button','pvsw');sw.type='button';sw.setAttribute('role','switch');sw.setAttribute('aria-label',k[1]);row.appendChild(sw);box.appendChild(row);
+      var opt=null;
+      if(k[4]==='hn'||k[4]==='pn'){opt=E('div','pvopt');opt.appendChild(E('span','pvol','العدد'));opt.appendChild(seg(k[4],[[3,'آخر 3'],[5,'آخر 5'],[0,'الكل']]));}
+      else if(k[4]==='mt'){opt=E('div','pvopt');opt.appendChild(area('mt',3,'مثال: نرجو الحضور إلى المكتب يوم الاثنين لتوقيع الوكالة.',600));}
+      else if(k[4]==='rt'){opt=E('div','pvopt');opt.appendChild(E('span','pvol','وثيقة في كل سطر'));opt.appendChild(area('rt',4,'نسخة من عقد الكراء\nشهادة السكنى',800));}
+      else if(k[4]==='ff'){opt=E('div','pvopt pvfo');var fee=+String(f.fee||'').replace(/[^\d.]/g,'')||0,paid=(f.pays||[]).reduce(function(a,x){return a+(+x.a||0);},0);
+        [['ff','المتفق عليه',fee?money(fee):'غير محدد'],['fp','المؤدى',money(paid)],['fr','الباقي',fee?money(Math.max(0,fee-paid)):'—']].forEach(function(x){var r=E('div','pvfrow'),cb=E('button','docsel pvc');cb.type='button';cb.setAttribute('aria-label',x[1]);
+          r.appendChild(E('span',null,x[1]));r.appendChild(E('b',null,x[2]));r.appendChild(cb);function u(){cb.classList.toggle('on',!!p[x[0]]);cb.setAttribute('aria-pressed',p[x[0]]?'true':'false');}u();
+          r.addEventListener('click',function(e){e.preventDefault();p[x[0]]=!p[x[0]];u();save(true);});opt.appendChild(r);});
+        if(!fee)opt.appendChild(E('small','pvol','أدخلوا مبلغ الأتعاب في «تعديل» الملف ليظهر المتفق عليه والباقي.'));}
+      if(opt)box.appendChild(opt);
+      function upd(){var on=!!p[key];sw.classList.toggle('on',on);sw.setAttribute('aria-checked',on?'true':'false');row.classList.toggle('on',on);if(opt)opt.hidden=!on;}
+      row.addEventListener('click',function(e){e.preventDefault();p[key]=!p[key];upd();save(true);});upd();});
+    var pr=E('button','btn sm pvprevb','معاينة ما يراه الموكل');pr.type='button';box.appendChild(pr);
+    pr.addEventListener('click',function(){f.pview=p;var S=typeof osheet==='function'?osheet('ما يراه الموكل'):null;if(!S)return;var w=E('div','pvprev pcsteps');S.card.appendChild(w);PVR({steps:stepsOf(f)},function(k){return PVT_AR[k]||k;},w);
+      if(active(f).length){var d=E('div','pvdocs');d.appendChild(E('b',null,'وثائق ملفكم ('+active(f).length+')'));active(f).forEach(function(x){d.appendChild(E('div',null,x.name));});w.appendChild(d);}});
+    box.appendChild(E('p','note',live?'يصل كل تغيير إلى صفحة الموكل بعد لحظات.':'تُحفظ الاختيارات في الملف، وتصل إلى صفحة الموكل عند ربط التطبيق بفضاء المكتب.'));
+    return box;}
   async function writeIndex(f){var k=await fileKeys(f),ix={v:1,at:new Date().toISOString(),steps:stepsOf(f),docs:active(f).map(function(d){return {id:d.id,name:d.name,type:d.type,size:d.size,at:d.at,exp:d.exp,note:d.note||''};})};
     await putBin('portal/'+k.fid+'/i',await seal(k.key,enc.encode(JSON.stringify(ix))),'portal: index');}
   async function share(f,file,days,note){
@@ -6148,6 +6249,7 @@ var PORTAL=(function(){
         var cp=E('button','btn sm','نسخ رسالة للموكل');cp.type='button';cp.addEventListener('click',async function(){var t=msgText(f);try{await navigator.clipboard.writeText(t);say('نُسخت الرسالة، الصقوها في واتساب.',true);}catch(e){say(t,true);}});cr.appendChild(cp);body.appendChild(cr);
       }
       if(window.FUI)body.appendChild(FUI.contacts(f,say));
+      if(f.cref&&f.ccode)body.appendChild(viewCard(f,c,say));
       if(!c.on||!c.tok){body.appendChild(E('p','note','لتفعيل مشاركة الوثائق يجب الدخول إلى فضاء المكتب المرتبط بمستودع البيانات (أو ربط التطبيق به من الإعدادات).'));}
       var act=active(f);
       body.appendChild(E('h4',null,'الوثائق المتاحة للموكل ('+act.length+')'));

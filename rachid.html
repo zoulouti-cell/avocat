@@ -319,7 +319,22 @@ html:not([lang=ar]) .firm{font-family:"Playfair Display",Georgia,serif;font-weig
 @media(max-width:430px){html:not([lang=ar]) .bar{flex-wrap:wrap;row-gap:.4rem;position:relative;z-index:20}html:not([lang=ar]) .bar>.who{order:9;flex:1 1 100%}html:not([lang=ar]) .bar>.who a{flex:1;text-align:center}html:not([lang=ar]) .chips{top:calc(env(safe-area-inset-top,0px) + 8px)}}
 .pcbox{margin-top:1.1rem;padding-top:.9rem;border-top:1px solid rgba(230,200,115,.35)}
 .pcbox h3{margin:.1rem 0 .5rem;font-size:1.08rem}
-.pcsteps{margin:0 0 1rem}.pcstep{display:flex;flex-direction:column;gap:.15rem;padding:.55rem 0;border-top:1px solid rgba(230,200,115,.22)}.pcstep span{font-size:.82rem;opacity:.8}.pcstep b{font-size:1rem;line-height:1.6}
+.pcsteps{margin:0 0 1rem}
+.pcsteps h3{margin:.1rem 0 .4rem}
+.pvcourt,.pvmsg,.pvreq,.pvline,.pvfees{margin:.75rem 0;padding:.7rem .85rem;border:1px solid var(--line);border-radius:12px;background:var(--paper)}
+.pvcourt{display:grid;gap:.35rem}.pvcourt div{display:flex;justify-content:space-between;align-items:baseline;gap:.8rem}.pvcourt span{font-size:.82rem;color:var(--muted)}.pvcourt b{text-align:end}
+.pvmsg{border-inline-start:3px solid var(--gold)}.pvmsg p{margin:.35rem 0 0;white-space:pre-wrap;line-height:1.8;unicode-bidi:plaintext}
+.pvmsg>b,.pvreq>b,.pvline>b,.pvfees>b{color:var(--gt);font-size:.98rem}
+.pvreq ul{margin:.45rem 0 .3rem;padding-inline-start:1.2rem}.pvreq li{margin:.2rem 0}.pvreq small{color:var(--muted);font-size:.82rem}
+.pvline ol{list-style:none;margin:.55rem 0 0;padding:0;border-inline-start:2px solid var(--gold)}
+.pvline li{position:relative;display:grid;gap:.1rem;padding:.2rem 1rem .6rem 0}
+html[dir=ltr] .pvline li{padding:.2rem 0 .6rem 1rem}
+.pvline li::before{content:'';position:absolute;top:.5rem;inset-inline-start:-6px;width:10px;height:10px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 3px var(--paper)}
+.pvd{font-size:.8rem;color:var(--gt);font-weight:700;unicode-bidi:isolate}.pva{line-height:1.65}
+.pvfg{display:grid;grid-template-columns:repeat(auto-fit,minmax(92px,1fr));gap:.5rem;margin-top:.5rem}
+.pvf{display:grid;gap:.2rem;padding:.55rem .4rem;border-radius:10px;background:var(--band,rgba(200,162,74,.1));text-align:center}.pvf span{font-size:.78rem;color:var(--muted)}.pvf b{font-size:1rem;color:var(--gt)}
+.pvf-rest b{color:var(--terra,#a8452a)}
+.pcstep{display:flex;flex-direction:column;gap:.15rem;padding:.55rem 0;border-top:1px solid rgba(230,200,115,.22)}.pcstep span{font-size:.82rem;opacity:.8}.pcstep b{font-size:1rem;line-height:1.6}
 .pcdoc{display:flex;align-items:center;justify-content:space-between;gap:.8rem;padding:.6rem 0;border-top:1px solid rgba(230,200,115,.22)}
 .pcdoc div{display:grid;gap:.15rem;min-width:0}.pcdoc b{overflow-wrap:anywhere}.pcdoc small{opacity:.8;font-size:.85rem}
 .pcsend{margin-top:.8rem}.pcsend summary{cursor:pointer;font-weight:700;padding:.3rem 0}
@@ -1532,12 +1547,33 @@ async function loadReg(){
 }
 window.PC_REPO_KEY="repo_r";
 /* ---------- client portal: documents shared by the firm, and sending a document to the firm (encrypted on this device) ---------- */
+/* ---------- «مستجدات ملفكم»: what the client reads of the file, drawn the same way in the client's page and in the office's preview ---------- */
+var PVT_AR={sh:'مستجدات ملفكم',nx:'الجلسة المقبلة',ls:'آخر ما جرى في الملف',tm:'على الساعة',rm:'القاعة',nonew:'لا جديد مسجل في الملف بعد',court:'المحكمة',fno:'رقم الملف',
+  hist:'سجل الجلسات',proc:'الإجراءات المنجزة',msg:'رسالة من المكتب',req:'وثائق مطلوبة منكم',reqh:'أرسلوها من «إرسال وثيقة إلى المكتب» أسفله.',fees:'الأتعاب',fee:'المتفق عليه',paid:'المؤدى',rest:'الباقي',cur:'درهم'};
+function PVR(ix,t,box){
+  function E(tg,c,x){var e=document.createElement(tg);if(c)e.className=c;if(x!=null)e.textContent=x;return e;}
+  function dmy(s){return s?String(s).slice(0,10).split('-').reverse().join('/'):'';}
+  function bdi(v){var b=E('bdi',null,v);return b;}
+  var s=(ix&&ix.steps)||{},v=s.view||{};
+  box.appendChild(E('h3',null,t('sh')));
+  if(v.court){var c=E('div','pvcourt');[[t('court'),v.court.c],[t('fno'),v.court.no]].forEach(function(x){if(!x[1])return;var d=E('div');d.appendChild(E('span',null,x[0]));var b=E('b');b.appendChild(bdi(x[1]));d.appendChild(b);c.appendChild(d);});box.appendChild(c);}
+  function row(l,val,cls){var r=E('div','pcstep'+(cls?' '+cls:''));r.appendChild(E('span',null,l));var x=E('b');x.appendChild(bdi(val));r.appendChild(x);box.appendChild(r);}
+  if(s.next)row(t('nx'),dmy(s.next.d)+(s.next.t?' '+t('tm')+' '+s.next.t:'')+(s.next.r?' — '+t('rm')+' '+s.next.r:''),'pvnext');
+  if(s.last)row(t('ls'),dmy(s.last.d)+' — '+s.last.a);
+  if(!s.next&&!s.last&&!v.hist&&!v.proc)row(t('ls'),t('nonew'));
+  if(v.msg){var m=E('div','pvmsg');m.appendChild(E('b',null,t('msg')));m.appendChild(E('p',null,v.msg));box.appendChild(m);}
+  if(v.req&&v.req.length){var q=E('div','pvreq');q.appendChild(E('b',null,t('req')));var ul=E('ul');v.req.forEach(function(x){ul.appendChild(E('li',null,x));});q.appendChild(ul);q.appendChild(E('small',null,t('reqh')));box.appendChild(q);}
+  function line(title,list){var w=E('div','pvline');w.appendChild(E('b',null,title));var ol=E('ol');list.forEach(function(x){var li=E('li');li.appendChild(E('span','pvd',dmy(x.d)));li.appendChild(E('span','pva',x.a));ol.appendChild(li);});w.appendChild(ol);box.appendChild(w);}
+  if(v.hist&&v.hist.length)line(t('hist'),v.hist);
+  if(v.proc&&v.proc.length)line(t('proc'),v.proc);
+  if(v.fees){var f=E('div','pvfees');f.appendChild(E('b',null,t('fees')));var g=E('div','pvfg');[['fee',t('fee')],['paid',t('paid')],['rest',t('rest')]].forEach(function(k){if(v.fees[k[0]]==null)return;var c=E('div','pvf pvf-'+k[0]);c.appendChild(E('span',null,k[1]));var n=E('b');n.appendChild(bdi(Number(v.fees[k[0]]).toLocaleString('fr-FR')+' '+t('cur')));c.appendChild(n);g.appendChild(c);});f.appendChild(g);box.appendChild(f);}
+}
 var PC=(function(){
   var ITER=310000,SALT='zoulouti-portal-v1',enc=new TextEncoder(),dec=new TextDecoder(),cur=null,repo=null,MAXB=10*1024*1024;
   var L={
-    ar:{nonew:'لا جديد مسجل في الملف بعد',sh:'مستجدات ملفكم',nx:'الجلسة المقبلة',ls:'آخر ما جرى في الملف',tm:'على الساعة',rm:'القاعة',wait:'جارٍ فتح وثائق الملف…',none:'لا توجد وثائق مشتركة معكم حاليًا.',err:'تعذر جلب الوثائق الآن. أعيدوا المحاولة بعد قليل.',dl:'تنزيل',until:'متاحة حتى',busy:'جارٍ التنزيل…',bad:'تعذر فك الوثيقة.',pick:'اختاروا وثيقة أولًا.',big:'الحد الأقصى 10 م.ب.',nokey:'المكتب لم يفعّل استلام الوثائق بعد. تواصلوا معه.',made:'جاهز. أرسلوا الملف المشفر إلى المكتب عبر واتساب أو البريد.',shared:'أُرسل الملف المشفر.',encr:'جارٍ التشفير…'},
-    fr:{nonew:'Aucune nouvelle étape pour le moment',sh:'Suivi de votre dossier',nx:'Prochaine audience',ls:'Dernière étape',tm:'à',rm:'salle',wait:'Ouverture des documents…',none:'Aucun document partagé pour le moment.',err:'Impossible de récupérer les documents. Réessayez plus tard.',dl:'Télécharger',until:'Disponible jusqu’au',busy:'Téléchargement…',bad:'Impossible de déchiffrer le document.',pick:'Choisissez d’abord un document.',big:'10 Mo maximum.',nokey:'Le cabinet n’a pas encore activé la réception. Contactez-le.',made:'Prêt. Envoyez le fichier chiffré au cabinet par WhatsApp ou e-mail.',shared:'Fichier chiffré envoyé.',encr:'Chiffrement…'},
-    en:{nonew:'No new step recorded yet',sh:'Your case update',nx:'Next hearing',ls:'Latest step',tm:'at',rm:'room',wait:'Opening documents…',none:'No documents shared with you yet.',err:'Could not fetch documents now. Please retry later.',dl:'Download',until:'Available until',busy:'Downloading…',bad:'Could not decrypt the document.',pick:'Choose a document first.',big:'10 MB maximum.',nokey:'The firm has not enabled receiving yet. Please contact it.',made:'Ready. Send the encrypted file to the firm by WhatsApp or e-mail.',shared:'Encrypted file sent.',encr:'Encrypting…'}
+    ar:{nonew:'لا جديد مسجل في الملف بعد',court:'المحكمة',fno:'رقم الملف',hist:'سجل الجلسات',proc:'الإجراءات المنجزة',msg:'رسالة من المكتب',req:'وثائق مطلوبة منكم',reqh:'أرسلوها من «إرسال وثيقة إلى المكتب» أسفله.',fees:'الأتعاب',fee:'المتفق عليه',paid:'المؤدى',rest:'الباقي',cur:'درهم',sh:'مستجدات ملفكم',nx:'الجلسة المقبلة',ls:'آخر ما جرى في الملف',tm:'على الساعة',rm:'القاعة',wait:'جارٍ فتح وثائق الملف…',none:'لا توجد وثائق مشتركة معكم حاليًا.',err:'تعذر جلب الوثائق الآن. أعيدوا المحاولة بعد قليل.',dl:'تنزيل',until:'متاحة حتى',busy:'جارٍ التنزيل…',bad:'تعذر فك الوثيقة.',pick:'اختاروا وثيقة أولًا.',big:'الحد الأقصى 10 م.ب.',nokey:'المكتب لم يفعّل استلام الوثائق بعد. تواصلوا معه.',made:'جاهز. أرسلوا الملف المشفر إلى المكتب عبر واتساب أو البريد.',shared:'أُرسل الملف المشفر.',encr:'جارٍ التشفير…'},
+    fr:{nonew:'Aucune nouvelle étape pour le moment',court:'Tribunal',fno:'N° du dossier',hist:'Historique des audiences',proc:'Actes accomplis',msg:'Message du cabinet',req:'Documents demandés',reqh:'Envoyez-les avec « Envoyer un document au cabinet » ci-dessous.',fees:'Honoraires',fee:'Convenus',paid:'Versés',rest:'Reste',cur:'DH',sh:'Suivi de votre dossier',nx:'Prochaine audience',ls:'Dernière étape',tm:'à',rm:'salle',wait:'Ouverture des documents…',none:'Aucun document partagé pour le moment.',err:'Impossible de récupérer les documents. Réessayez plus tard.',dl:'Télécharger',until:'Disponible jusqu’au',busy:'Téléchargement…',bad:'Impossible de déchiffrer le document.',pick:'Choisissez d’abord un document.',big:'10 Mo maximum.',nokey:'Le cabinet n’a pas encore activé la réception. Contactez-le.',made:'Prêt. Envoyez le fichier chiffré au cabinet par WhatsApp ou e-mail.',shared:'Fichier chiffré envoyé.',encr:'Chiffrement…'},
+    en:{nonew:'No new step recorded yet',court:'Court',fno:'File number',hist:'Hearing history',proc:'Steps completed',msg:'Message from the firm',req:'Documents requested',reqh:'Send them with “Send a document to the firm” below.',fees:'Fees',fee:'Agreed',paid:'Paid',rest:'Balance',cur:'MAD',sh:'Your case update',nx:'Next hearing',ls:'Latest step',tm:'at',rm:'room',wait:'Opening documents…',none:'No documents shared with you yet.',err:'Could not fetch documents now. Please retry later.',dl:'Download',until:'Available until',busy:'Downloading…',bad:'Could not decrypt the document.',pick:'Choose a document first.',big:'10 MB maximum.',nokey:'The firm has not enabled receiving yet. Please contact it.',made:'Ready. Send the encrypted file to the firm by WhatsApp or e-mail.',shared:'Encrypted file sent.',encr:'Encrypting…'}
   };
   function t(k){var l=document.documentElement.lang||'ar';return (L[l]||L.ar)[k]||L.ar[k];}
   function $p(i){return document.getElementById(i);}
@@ -1563,13 +1599,7 @@ var PC=(function(){
   }
   async function open(key,u8){return new Uint8Array(await crypto.subtle.decrypt({name:'AES-GCM',iv:u8.slice(0,12)},key,u8.slice(12)));}
   /* the next hearing and the latest step, written by the office into the file's encrypted index */
-  function steps(ix){var b=$p('pcsteps');if(!b)return;b.textContent='';if(!ix){b.hidden=true;return;}var s=ix.steps||{};
-    b.appendChild(E('h3',null,t('sh')));
-    function row(l,v){var r=E('div','pcstep');r.appendChild(E('span',null,l));var x=E('b');x.appendChild(E('bdi',null,v));r.appendChild(x);b.appendChild(r);}
-    if(s.next)row(t('nx'),dmy(s.next.d)+(s.next.t?' '+t('tm')+' '+s.next.t:'')+(s.next.r?' — '+t('rm')+' '+s.next.r:''));
-    if(s.last)row(t('ls'),dmy(s.last.d)+' — '+s.last.a);
-    if(!s.next&&!s.last)row(t('ls'),t('nonew'));
-    b.hidden=false;}
+  function steps(ix){var b=$p('pcsteps');if(!b)return;b.textContent='';if(!ix){b.hidden=true;return;}PVR(ix,t,b);b.hidden=false;}
   function st(x){var s=$p('pcst');if(s){s.textContent=x||'';s.hidden=!x;}}
   async function load(list){
     var box=$p('pcbox');if(!box)return {found:false};box.hidden=false;$p('pclist').textContent='';st(t('wait'));cur=null;
