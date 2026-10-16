@@ -3834,7 +3834,7 @@ function FIND(q,nz,lim){lim=lim||6;var qs=String(q||'').trim(),out=[];if(!qs)ret
     try{searchBooks(qs).res.slice(0,lim).forEach(function(r){var b=r.b;if(!r.s)return;out.push({k:'book',t:b.title,s:cut([b.author,b.year].filter(Boolean).join(' | '),90),go:lib(function(){if(UI.showBook)UI.showBook(b.id);else UI.panel('b');})});});}catch(e){}
   }
   return out;}
-return {find:FIND,libHost:function(h){LIB.host(h);},libSync:function(f){return LIB.sync(f);},libStatus:function(){return LIB.status();},UI:UI,art:function(id){for(var i=0;i<ARTS.length;i++)if(ARTS[i].id===id)return ARTS[i];return null;},tx:TX,cite:function(a){var t=TX(a.tid)||{};return 'المادة '+a.no+' من '+(t.name||'')+':\n«'+a.body+'»';},init:init,dump:dump,restore:restore,files:fileRecords,openPdf:openPdf,_t:{pdfLib:pdfLib,pdfText:pdfText,lib:LIB,setNote:setNote,toggleFav:toggleFav,known:known,exact:exact,laFix:laFix,setDoc:function(o){PDOC=o;},ordWords:ordWords,ordQ:ordQ,refMatches:refMatches,fixText:pdfFix,lineFix:lineFix,rowReadings:rowReadings,lineScore:lineScore,htmlToText:htmlToText,mdToText:mdToText,cleanDoc:cleanDoc,fetchPage:fetchPage,discoverLinks:discoverLinks,importFromUrls:importFromUrls,parseDecision:parseDecision,splitDecisions:splitDecisions,resolveRef:resolveRef,applyRemote:applyRemote,importPack:importPack,nrm:nrm,stem:stem,parseArticles:parseArticles,parseCsv:parseCsv,searchTexts:searchTexts,searchCases:searchCases,state:function(){return {TEXTS:TEXTS,ARTS:ARTS,CASES:CASES};},addText:addText,load:load,putMany:putMany}};
+return {find:FIND,readTextFile:readTextFile,libHost:function(h){LIB.host(h);},libSync:function(f){return LIB.sync(f);},libStatus:function(){return LIB.status();},UI:UI,art:function(id){for(var i=0;i<ARTS.length;i++)if(ARTS[i].id===id)return ARTS[i];return null;},tx:TX,cite:function(a){var t=TX(a.tid)||{};return 'المادة '+a.no+' من '+(t.name||'')+':\n«'+a.body+'»';},init:init,dump:dump,restore:restore,files:fileRecords,openPdf:openPdf,_t:{pdfLib:pdfLib,pdfText:pdfText,lib:LIB,setNote:setNote,toggleFav:toggleFav,known:known,exact:exact,laFix:laFix,setDoc:function(o){PDOC=o;},ordWords:ordWords,ordQ:ordQ,refMatches:refMatches,fixText:pdfFix,lineFix:lineFix,rowReadings:rowReadings,lineScore:lineScore,htmlToText:htmlToText,mdToText:mdToText,cleanDoc:cleanDoc,fetchPage:fetchPage,discoverLinks:discoverLinks,importFromUrls:importFromUrls,parseDecision:parseDecision,splitDecisions:splitDecisions,resolveRef:resolveRef,applyRemote:applyRemote,importPack:importPack,nrm:nrm,stem:stem,parseArticles:parseArticles,parseCsv:parseCsv,searchTexts:searchTexts,searchCases:searchCases,state:function(){return {TEXTS:TEXTS,ARTS:ARTS,CASES:CASES};},addText:addText,load:load,putMany:putMany}};
 })();
 
 var LEX_SEED={"v":6,"texts":[],"cases":[]};
@@ -5620,7 +5620,7 @@ var LH=(function(){
     b1.addEventListener('click',function(){panel('spell');});b2.addEventListener('click',function(){panel('re');});
     return w;
   }
-  function open(fid){
+  function open(fid,pre){
     ensureFonts();
     var all=(typeof items==='object'&&items)?items:{},ov=E('div','lxsheet lhsheet'),card=E('div','lxsc');ov.setAttribute('data-ov','1');ov.appendChild(card);
     var b=window.BRAND?BRAND.get():{};
@@ -5876,6 +5876,9 @@ var LH=(function(){
     if(b.stamp&&!SR[b.stamp]){var si=new Image();si.onload=function(){if(si.naturalWidth){SR[b.stamp]=si.naturalHeight/si.naturalWidth;refresh();}};si.src=b.stamp;}
     fsync();
     if(fid&&all[fid]){fs.value=fid;fill(fid);}else refresh();
+    /* a text brought from elsewhere (a document shared to the app): its opening and its text in their places */
+    if(pre){if(pre.model==='f'){mdl.value='f';fsync();if(pre.obj!=null)fObj.value=pre.obj;if(pre.op)fOp.value=pre.op;if(pre.body!=null)fBody.value=pre.body;}
+      else{if(pre.type){type.value=pre.type;syncType();}if(pre.op!=null)op.value=pre.op;if(pre.body!=null)body.value=pre.body;}refresh();}
     return ov;
   }
   fontList().then(function(){return packInstall();}).catch(function(){});
