@@ -4920,7 +4920,7 @@ var LH=(function(){
     if(FONTCSS&&!document.getElementById('lhfonts')){var st=document.createElement('style');st.id='lhfonts';st.textContent=FONTCSS;document.head.appendChild(st);}
     var want=[['700','LhAlmarai','عربي'],['800','LhAlmarai','عربي'],['800','LhAlmarai','AB'],['400','LhSans','عربي'],['700','LhSans','عربي'],['400','LhSans','AB1'],['700','LhSans','AB1'],['700','LhNaskh','عربي'],['400','LhSerif','AB1']];
     fontsReady=Promise.all([(document.fonts&&document.fonts.load)?Promise.all(want.map(function(w){return document.fonts.load(w[0]+' 16px '+w[1],w[2]).catch(function(){});})):Promise.resolve(),
-      packInstall().catch(function(){}).then(function(){return fontList();}).then(function(){return XU[HF]?loadFont(HF).catch(function(){}):0;})]);
+      packInstall().catch(function(){}).then(function(){return fontList();}).then(function(){return XU[HF]?loadFont(HF).catch(function(){}):0;}).then(function(){return XU[DLF]?loadFont(DLF).catch(function(){}):0;})]);
     return fontsReady;
   }
   /* Arabic fonts offered for each part of the text (SIL Open Font License), fetched when first chosen and kept on the device.
@@ -5047,10 +5047,10 @@ var LH=(function(){
     ['u:geeza-pro','جيزة برو — Geeza Pro','Geeza Pro','geeza-pro-bold.woff2'],['u:bbc-nassim','نسيم — BBC Nassim','BBCNassim','bbc-nassim-bold.woff2'],
     ['u:sf-mada','مدى — SF Mada','SF-Mada','sf-mada-bold.woff2'],['u:harmony-naskh','نسخ هارموني — HarmonyOS Naskh','HarmonyOS Sans Naskh Arabic UI Light','harmony-naskh-light.woff2'],
     ['u:almarai-light','المراعي خفيف — Almarai Light','Almarai Light','almarai-light.woff2'],['u:almarai-extrabold','المراعي عريض — Almarai ExtraBold','Almarai ExtraBold','almarai-extrabold.woff2'],
-    ['u:sultan-normal','سلطان — Sultan','Sultan normal','sultan-normal.woff2'],['u:sultan-medium','سلطان متوسط — Sultan Medium','Sultan medium','sultan-medium.woff2'],
+    ['u:sultan-normal','سلطان — Sultan','Sultan Normal','sultan-normal.ttf'],['u:sultan-medium','سلطان متوسط — Sultan Medium','Sultan medium','sultan-medium.woff2'],
     ['u:samir-khouaja-maghribi','مغربي — Samir Khouaja','Samir_Khouaja_Maghribi','samir-khouaja-maghribi.woff2'],['u:mcs-shamal-out','الشمال المحدد — MCS Shamal','MCS AL SHAMAL 2 OUT','mcs-shamal-out.woff2'],
     ['u:mcs-nask-out','نسخ محدد — MCS Nask','MCS NASK OUT','mcs-nask-out.woff2'],['u:arabswell-color','عربسويل ملون — Arabswell','arabswell color green red','arabswell-color.woff2']];
-  var HF='u:air-strip-arabic';
+  var HF='u:air-strip-arabic',DLF='u:sultan-normal';
   function isApp(){return !!(window.Capacitor&&typeof Capacitor.isNativePlatform==='function'&&Capacitor.isNativePlatform());}
   function jget(k){try{return JSON.parse(localStorage.getItem(k)||'{}')||{};}catch(e){return {};}}
   function jset(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
@@ -5059,7 +5059,9 @@ var LH=(function(){
   var packP=null;
   function packInstall(force){if(!isApp())return Promise.resolve(0);if(packP&&!force)return packP;
     packP=(async function(){var del=jget('zl_fdel'),ks=await xkeys(),n=0;if(force){del={};jset('zl_fdel',del);}
-      for(var i=0;i<PACK.length;i++){var p=PACK[i];if(del[p[0]]||ks.indexOf('file:'+p[0])>=0)continue;
+      for(var i=0;i<PACK.length;i++){var p=PACK[i];if(del[p[0]])continue;
+        /* a font of the pack now given as TrueType (it travels inside the Word documents): the older copy of this device is replaced */
+        if(ks.indexOf('file:'+p[0])>=0){if(!/\.ttf$/.test(p[3]))continue;var ex=null;try{ex=await xget('file:'+p[0]);}catch(e){}if(!ex||!ex.pack||ex.fmt==='truetype')continue;}
         try{var src=await packFile(p[3]),rec={fam:p[2],label:p[1],fmt:/\.ttf$/.test(p[3])?'truetype':'woff2',src:src,pack:1};if(p[4])rec.srcB=await packFile(p[4]);
           await xput('file:'+p[0],rec);XU[p[0]]={fam:rec.fam,label:rec.label};XOK[p[0]]=0;XP[p[0]]=null;n++;}catch(e){}}
       if(n){FSELS.forEach(function(s){refill(s);});if(window.ZLX)ZLX.changed();}return n;})();
@@ -5117,7 +5119,7 @@ var LH=(function(){
     +'.lhp .lh-ar{left:368pt;width:212pt;text-align:center;font-family:'+(XOK[HF]?"'LhF-"+HF+"',"+FB:FB)+';font-weight:800}'+(XOK[HF]?'.lhp .lh-ar{-webkit-text-stroke-width:.024em!important}':'')
     +'.lhp .lh-logo{position:absolute;left:237.8pt;top:11.5pt;width:119.6pt;height:90pt;object-fit:contain}'
     +'.lhp .lh-rule{position:absolute;left:9pt;width:575pt;top:105.8pt;height:4.2pt;border-radius:3pt;box-sizing:border-box;border-top:4.2pt solid '+c3+';background:'+c3+';-webkit-print-color-adjust:exact;print-color-adjust:exact}'
-    +'.lhp .lh-date{left:110pt;width:375pt;top:125.5pt;text-align:center;direction:ltr}.lhp .lh-dfr{font:16pt '+FT+';color:#111}.lhp .lh-dar{font:700 12pt '+FB+';direction:rtl;unicode-bidi:isolate;color:#111}'+(XOK[HF]?".lhp .lh-dar.lh-dair{font-family:'LhF-"+HF+"',"+FB+";font-weight:400;-webkit-text-stroke:0}":'')
+    +'.lhp .lh-date{left:110pt;width:375pt;top:125.5pt;text-align:center;direction:ltr}.lhp .lh-dfr{font:16pt '+FT+';color:#111}.lhp .lh-dar{font:700 12pt '+FB+';direction:rtl;unicode-bidi:isolate;color:#111}'+(XOK[DLF]?".lhp .lh-dar.lh-dair{font-family:'LhF-"+DLF+"',"+FB+";font-weight:400;-webkit-text-stroke:0}.lhp .lh-dsx{display:inline-block;transform-origin:left center;white-space:pre}":'')
     +'.lhp .lh-side{top:128pt;font-size:12pt;line-height:1.3;color:#111}.lhp .lh-side b{font-weight:700}.lhp .lh-side span{direction:ltr;unicode-bidi:isolate}'
     /* the type of request stays in the middle of the page: a narrow block, lines balanced, as many lines as it needs */
     +'.lhp .lh-title{left:'+((595.3-TITLE_W)/2)+'pt;width:'+TITLE_W+'pt;text-align:center;font-weight:700;font-size:18pt;line-height:1.6;white-space:normal;text-wrap:balance}'
@@ -5151,6 +5153,12 @@ var LH=(function(){
       for(var i=0;i<3;i++){var a=ar[i]?tw(ar[i]):0,f=fr[i]?tw(fr[i]):0;out[i]=a>4&&f>4?Math.max(.7,Math.min(1.45,f/a)):1;}
       w.remove();if(!document.fonts||document.fonts.status==='loaded')HRC[k]=out;}catch(e){}
     return out;}
+  /* kashidas (ـ) put into an Arabic phrase to make it wider, where the letters join: the places nearest the end of each word first */
+  function kash(t,n){t=String(t||'');if(!(n>0))return t;var NJ='اأإآٱدذرزوؤةءى',AL=/[\u0621-\u064A]/,sl=[];
+    for(var i=0;i<t.length-1;i++){var a=t[i],b=t[i+1];if(!AL.test(a)||!AL.test(b)||NJ.indexOf(a)>=0||b==='ء'||(a==='ل'&&/[اأإآ]/.test(b)))continue;sl.push(i+1);}
+    if(!sl.length)return t;var c=sl.map(function(){return 0;}),ord=sl.map(function(p,j){var r=t.slice(p).search(/\s|$/);return {j:j,d:r};}).sort(function(x,y){return x.d-y.d||y.j-x.j;});
+    n=Math.min(n,sl.length*4);for(var q=0;q<n;q++)c[ord[q%ord.length].j]++;
+    var out='',last=0;sl.forEach(function(p,j){out+=t.slice(last,p)+new Array(c[j]+1).join('\u0640');last=p;});return out+t.slice(last);}
   function header(b,logo,raw){var R=raw?[1,1,1]:hratio(b),SX=function(i){return Math.abs(R[i]-1)>.004?';transform:scaleX('+R[i].toFixed(3)+')':'';};
     return '<div class="lh-a lh-fr" style="top:25.9pt;font-size:14pt">'+X(b.name_fr)+'</div>'
       +'<div class="lh-a lh-fr" style="top:52.1pt;font-size:14pt">'+X(b.title_fr)+'</div>'
@@ -5179,9 +5187,9 @@ var LH=(function(){
     var fr=np?'Le':((b.city_fr||'')+' Le').trim(),mid=' : '+dt+' : ',ar=np?'بتاريخ':((b.city_ar||'')+' في').trim();
     var pro=(d.showPro!==false&&b.pro)?String(b.pro):'',our=d.our?String(d.our):(d.blanks?'..............':'');
     var wR=pro?twPt('الرقم الوطني : ','700 12pt '+FB)+twPt(pro,'12pt '+FB):0,wL=our?twPt('مرجع المكتب : ','700 12pt '+FB)+twPt(our,'12pt '+FB):0;
-    var AF=XOK[HF]?"'LhF-"+HF+"',"+FB:'',C=595.3/2,GAP=8,s1=16,s2=AF?14:12,ks=1,h='';
+    var AF=XOK[DLF]?"'LhF-"+DLF+"',"+FB:'',C=595.3/2,GAP=8,s1=16,s2=AF?14:12,ks=1,h='',SX=1;
     if(!nd){
-      var wm=twPt(mid,s1+'pt '+FT),wf=twPt(fr,s1+'pt '+FT),wa=twPt(ar,(AF?'400 ':'700 ')+s2+'pt '+(AF||FB)),nL=wm/2+wf,nR=wm/2+wa,k=1;
+      var wm=twPt(mid,s1+'pt '+FT),wf=twPt(fr,s1+'pt '+FT),wa=AF?(function(){var f='400 '+s2+'pt '+AF,w0=twPt(ar,f),wk=twPt('\u0640',f);if(wk>0&&wf>w0)ar=kash(ar,Math.round((wf-w0)/wk));var w1=twPt(ar,f);SX=w1>0?Math.max(.85,Math.min(1.2,wf/w1)):1;return w1*SX;})():twPt(ar,'700 '+s2+'pt '+FB),nL=wm/2+wf,nR=wm/2+wa,k=1;
       /* the room on each side of the middle of the page, up to the national number and the office reference: these get a little smaller first,
          then the date line a little (not below 88 %), then the two of them again, and the date line only at the very end */
       var ok=function(){return (!wL||40+wL*ks+GAP<=C-nL*k)&&(!wR||40+wR*ks+GAP<=C-nR*k);};
@@ -5193,7 +5201,7 @@ var LH=(function(){
       h='<div class="lh-a lh-date" style="left:40pt;width:515.3pt;display:grid;grid-template-columns:1fr auto 1fr;align-items:baseline;white-space:pre">'+
         '<span class="lh-dfr" style="text-align:right'+(s1!==16?';font-size:'+s1+'pt':'')+'">'+X(fr)+'</span>'+
         '<span class="lh-dfr" style="text-align:center'+(s1!==16?';font-size:'+s1+'pt':'')+'">'+X(mid)+'</span>'+
-        '<span class="lh-dar'+(AF?' lh-dair':'')+'" style="text-align:left'+(s2!==12?';font-size:'+s2+'pt':'')+'">'+X(ar)+'</span></div>';}
+        '<span class="lh-dar'+(AF?' lh-dair':'')+'" style="text-align:left'+(s2!==12?';font-size:'+s2+'pt':'')+'">'+(AF?'<span class="lh-dsx" style="transform:scaleX('+SX.toFixed(3)+')">'+X(ar)+'</span>':X(ar))+'</span></div>';}
     var sz=Math.floor(12*ks*10)/10,fs=ks<1?';font-size:'+sz+'pt;top:'+(128+1.1*(12-sz)).toFixed(1)+'pt':'';
     if(pro)h+='<div class="lh-a lh-side" style="right:40pt'+fs+'"><b>الرقم الوطني :</b> <span>'+X(pro)+'</span></div>';
     if(d.our)h+='<div class="lh-a lh-side" style="left:40pt'+fs+'"><b>مرجع المكتب :</b> <span>'+X(d.our)+'</span></div>';else if(d.blanks)h+='<div class="lh-a lh-side" style="left:40pt'+fs+'"><b>مرجع المكتب :</b> <span class="lh-dots">..............</span></div>';
@@ -5554,6 +5562,7 @@ var LH=(function(){
       var hx;
       var EMB=plain?[]:await Promise.all(EMBED.map(function(x){return embFont(x[1],['https://cdn.jsdelivr.net/gh/google/fonts@main/ofl/almarai/'+x[2]]);})),hfont=EMB[0]||null,afont=EMB[1]||null,hb=hfont?0:1;
       var AIR=null;if(!plain){try{var hr=await xget('file:'+HF);if(hr&&hr.fmt==='truetype'&&hr.src){var hb64=atob(String(hr.src).split(',')[1]||''),hu=new Uint8Array(hb64.length);for(var hi=0;hi<hb64.length;hi++)hu[hi]=hb64.charCodeAt(hi);AIR=hu;}}catch(e){AIR=null;}}
+      var SUL=null;if(!plain){try{var sr=await xget('file:'+DLF);if(sr&&sr.fmt==='truetype'&&sr.src){var sb64=atob(String(sr.src).split(',')[1]||''),su=new Uint8Array(sb64.length);for(var si=0;si<sb64.length;si++)su[si]=sb64.charCodeAt(si);SUL=su;}}catch(e){SUL=null;}}
       if(plain)hx=para('',{exact:118});
       else if(d.model!=='f'){var lf=fit(logo,112,84);
         var hA=AIR?{f:'Air Strip Arabic',b:0}:{f:afont?F_AR:F_HEAD,b:afont?0:hb},HR=hratio(b).map(function(x){return Math.round(x*100);});var ar=para(run(b.name_ar,{f:hA.f,b:hA.b,s:20,ol:3048,w:HR[0]}),{jc:'center',line:1})+para(run(b.title_ar,{f:hA.f,b:hA.b,s:20,ol:3048,w:HR[1]}),{jc:'center',line:1,before:2})+para(run(b.bar_ar,{f:hA.f,b:hA.b,s:16,ol:2438,w:HR[2]}),{jc:'center',line:1.1,before:1});
@@ -5576,11 +5585,13 @@ var LH=(function(){
         Array.from(String(t)).forEach(function(ch){var c=(ch.normalize?ch.normalize('NFD'):ch).charAt(0);n+=Q[c]!=null?Q[c]:/[0-9a-z]/.test(c)?500:/[A-Z]/.test(c)?722:/[؀-ۿ]/.test(c)?430:500;});return n*pt/1000;};
       var wCv=function(t,fam,pt,bold){try{var g=wCv.g||(wCv.g=document.createElement('canvas').getContext('2d'));g.font=(bold?'700 ':'')+'100px '+fam;return g.measureText(String(t)).width/100*pt;}catch(e){return String(t).length*pt*0.55;}};
       var arFam=null;if(afont&&window.FontFace&&document.fonts){try{if(!window.__zlWAr){var ff=new FontFace('ZLWordAr',afont.slice());await ff.load();document.fonts.add(ff);window.__zlWAr=1;}arFam='"ZLWordAr"';}catch(e){arFam=null;}}
-      var airFam=null;if(AIR&&window.FontFace&&document.fonts){try{if(!window.__zlWAir){var fa=new FontFace('ZLWordAir',AIR.slice());await fa.load();document.fonts.add(fa);window.__zlWAir=1;}airFam='"ZLWordAir"';}catch(e){airFam=null;}}
-      var wAr=function(t,pt){return airFam?wCv(t,airFam,pt,0)*1.02:arFam?wCv(t,arFam,pt,0)*1.02:wCv(t,FB,pt,1)*1.15;};
+      var sulFam=null;if(SUL&&!nd&&window.FontFace&&document.fonts){try{if(!window.__zlWSul){var fs2=new FontFace('ZLWordSul',SUL.slice());await fs2.load();document.fonts.add(fs2);window.__zlWSul=1;}sulFam='"ZLWordSul"';}catch(e){sulFam=null;}}
+      var wAr=function(t,pt){return sulFam?wCv(t,sulFam,pt,0):arFam?wCv(t,arFam,pt,0)*1.02:wCv(t,FB,pt,1)*1.15;};
       var wSide=function(l,v,pt){return v?(wCv(l,'Arial,sans-serif',pt,1)+wCv(v,'Arial,sans-serif',pt,0))*1.06:0;};
       var s1=13,s2=11.5,sf=10,G=4,T=TEXT_W/20;
-      var hM=function(k){return wTNR(dMid,s1*k)/2;},hA=function(k){return hM(k)+G+wAr(dAr,s2*k);},hF=function(k){return hM(k)+G+wTNR(dFr,s1*k);};
+      var dAr2=dAr,WW=100;if(sulFam){var tw0=wTNR(dFr,s1),wa0=wAr(dAr,s2),wk=wAr('\u0640',s2);if(wk>0&&tw0>wa0)dAr2=kash(dAr,Math.round((tw0-wa0)/wk));WW=Math.max(85,Math.min(120,Math.round(100*tw0/wAr(dAr2,s2))));}
+      var wArD=function(pt){return wAr(dAr2,pt)*WW/100;};
+      var hM=function(k){return wTNR(dMid,s1*k)/2;},hA=function(k){return hM(k)+G+wArD(s2*k);},hF=function(k){return hM(k)+G+wTNR(dFr,s1*k);};
       var half=function(k){return nd?0:Math.max(hA(k),hF(k))+4;};
       /* when the national number or the office reference needs the room, they get a little smaller first, then the date line a little
          (not below 90 %), then the two of them again (not below 8 points), then the date line (not below 80 %); past that they go on two lines */
@@ -5598,8 +5609,8 @@ var LH=(function(){
       var rC=pro?para(run('الرقم الوطني : ',{b:1,s:sf})+run(pro,{s:sf}),{jc:'center',line:1}):'';
       var lC=d.our?para(run('مرجع المكتب : ',{b:1,s:sf})+run(d.our,{s:sf}),{jc:'center',line:1}):(d.blanks?para(run('مرجع المكتب : ',{b:1,s:sf})+run('..............',{s:sf,c:'777777'}),{jc:'center',line:1}):'');
       var TAB='<w:r><w:rPr><w:sz w:val="'+Math.round(s1*2)+'"/><w:szCs w:val="'+Math.round(s1*2)+'"/></w:rPr><w:tab/></w:r>';
-      var pA=Math.round(MC-(hM(1)+G+wAr(dAr,s2)/2)*20),pD=Math.round(MC),pF=Math.round(MC+(hM(1)+G+wTNR(dFr,s1)/2)*20);
-      var mC=nd?para(''):para(TAB+run(dAr,airFam?{f:'Air Strip Arabic',b:0,s:s2}:{f:afont?F_AR:F_FOOT,b:afont?0:1,s:s2})+TAB+run(dMid,{f:F_FR,s:s1,ltr:1})+TAB+run(dFr,{f:F_FR,s:s1,ltr:1}),{line:1,tabs:[pA,pD,pF]});
+      var pA=Math.round(MC-(hM(1)+G+wArD(s2)/2)*20),pD=Math.round(MC),pF=Math.round(MC+(hM(1)+G+wTNR(dFr,s1)/2)*20);
+      var mC=nd?para(''):para(TAB+run(dAr2,sulFam?{f:'Sultan Normal',b:0,s:s2,w:WW}:{f:afont?F_AR:F_FOOT,b:afont?0:1,s:s2})+TAB+run(dMid,{f:F_FR,s:s1,ltr:1})+TAB+run(dFr,{f:F_FR,s:s1,ltr:1}),{line:1,tabs:[pA,pD,pF]});
       if(d.model!=='f')body.push(table([[rC,mC,lC]],[SDW,MW,SDW],{va:'center',cm:{h:1}}));
       /* ---------- the French letter in Word: left to right, Calibri; the French letterhead on the first page and the footer without its Arabic lines ---------- */
       var FRD=d.model==='f';
@@ -5704,6 +5715,7 @@ var LH=(function(){
       var settings=XH+'<w:settings xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:zoom w:percent="100"/><w:defaultTabStop w:val="708"/><w:characterSpacingControl w:val="doNotCompress"/><w:compat><w:compatSetting w:name="compatibilityMode" w:uri="http://schemas.microsoft.com/office/word" w:val="15"/></w:compat><w:themeFontLang w:val="fr-FR" w:bidi="ar-MA"/></w:settings>';
       var fonts=[F_TXT,F_HEAD,F_AR,F_FOOT,F_FR,F_SIG,fT,fI,fTo,fP,fO,fB,fS,fA].filter(function(x,i,a){return x&&a.indexOf(x)===i;});
       var FONTS=[],FK={};EMBED.forEach(function(x,i){var u=EMB[i];if(!u||plain)return;var key=guid(),n=FONTS.length+1;FK[x[0]]={key:key,rid:'rIdF'+n};FONTS.push({name:'word/fonts/font'+n+'.odttf',data:obf(u,key)});});
+      if(SUL&&sulFam){var skey=guid(),sn=FONTS.length+1;FK['Sultan Normal']={key:skey,rid:'rIdF'+sn};FONTS.push({name:'word/fonts/font'+sn+'.odttf',data:obf(SUL,skey)});if(fonts.indexOf('Sultan Normal')<0)fonts.push('Sultan Normal');}
       if(AIR){var akey=guid(),an=FONTS.length+1;FK['Air Strip Arabic']={key:akey,rid:'rIdF'+an};FONTS.push({name:'word/fonts/font'+an+'.odttf',data:obf(AIR,akey)});if(fonts.indexOf('Air Strip Arabic')<0)fonts.push('Air Strip Arabic');}
       /* a font missing on the computer falls back to Arial (it has the Arabic letters), not to a narrow font */
       var AR={'Calibri':0,'Times New Roman':0};
