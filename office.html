@@ -866,6 +866,41 @@ details.poview>summary{color:#f0d68a;font-weight:700;padding:.2rem 0 .35rem;curs
 @keyframes zlup{from{transform:scaleX(1)}to{transform:scaleX(0)}}
 .lxgone{display:none!important}
 @media (prefers-reduced-motion:reduce){.zlundo{transition:none}.zlundo .zlup{animation:none}}
+/* dictation */
+.zlmw{position:relative;display:block;width:100%}
+.zlmw>input,.zlmw>textarea{width:100%;box-sizing:border-box;padding-inline-end:46px!important}
+.zlmic{position:absolute;inset-inline-end:5px;top:50%;transform:translateY(-50%);width:36px;height:36px;padding:0;display:grid;place-items:center;border-radius:50%;border:1px solid rgba(230,200,115,.45);background:rgba(230,200,115,.1);color:#f0d68a;cursor:pointer;transition:background-color .18s ease,transform .12s ease}
+.zlmw.ta>.zlmic{top:auto;bottom:7px;transform:none}
+.zlmic svg.ln{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.zlmic:active{transform:translateY(-50%) scale(.9)}.zlmw.ta>.zlmic:active{transform:scale(.9)}
+.zlmic.on{background:#c9a24a;color:#0b2420;border-color:transparent;animation:zlmic 1.1s ease-in-out infinite}
+.zlmic.fr{box-shadow:0 0 0 2px rgba(127,180,255,.75)}
+@keyframes zlmic{0%,100%{box-shadow:0 0 0 0 rgba(240,214,138,.55)}50%{box-shadow:0 0 0 8px rgba(240,214,138,0)}}
+.zlmic.zlmicw{position:static;transform:none;width:auto;height:auto;display:inline-flex;align-items:center;gap:.4rem;padding:.42rem .95rem;border-radius:999px;margin:0 0 .55rem;font:700 .92rem inherit}
+.zlmic.zlmicw:active{transform:scale(.95)}
+/* the next step */
+.nxsheet .nxc{border:1px solid rgba(230,200,115,.35);border-radius:16px;padding:.7rem .8rem;margin:.2rem 0 .7rem;background:rgba(255,255,255,.04)}
+.nxsheet .nxc>b{display:block;color:#f0d68a;font-size:1.02rem;line-height:1.5}
+.nxsheet .nxc>small{display:block;margin-top:.1rem}
+.nxsheet .nxt{margin:.45rem 0 .55rem;line-height:1.65}
+.nxsheet .nxa{display:flex;flex-wrap:wrap;gap:.45rem}
+/* the hearings of the next court day */
+.prep.card{padding:.75rem .9rem}
+.prep .prtop{display:flex;align-items:center;gap:.8rem}
+.prep .prtx{flex:1 1 auto;min-width:0}.prep .prtx b{display:block;font-size:1.05rem}.prep .prtx small{color:#b9c9c2}
+.prep.done .prtx small{color:#7fd3a6}
+.prsheet .prsum{margin:0 0 .6rem}
+.prsheet .prc{border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:.65rem .75rem;margin:0 0 .65rem;background:rgba(255,255,255,.04);transition:border-color .2s ease,background-color .2s ease}
+.prsheet .prc.ok{border-color:rgba(127,211,166,.6);background:rgba(127,211,166,.07)}
+.prsheet .prh{display:flex;align-items:center;gap:.6rem}
+.prsheet .prt{flex:0 0 auto;min-width:3.2rem;text-align:center;font:700 1rem inherit;direction:ltr;color:#f0d68a;padding:.25rem .4rem;border-radius:10px;background:rgba(230,200,115,.1)}
+.prsheet .prti{flex:1 1 auto;min-width:0}.prsheet .prti b{display:block;line-height:1.45}.prsheet .prti small{color:#b9c9c2;line-height:1.4}
+.prsheet .prck{flex:0 0 auto;display:inline-flex;align-items:center;gap:.25rem;border-radius:999px;border:1px solid rgba(255,255,255,.25);background:transparent;color:#d9e3df;padding:.32rem .7rem;font:700 .85rem inherit;cursor:pointer;transition:background-color .18s ease,color .18s ease}
+.prsheet .prck svg.ln{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;opacity:.35}
+.prsheet .prc.ok .prck{background:#7fd3a6;color:#0b2420;border-color:transparent}.prsheet .prc.ok .prck svg.ln{opacity:1}
+.prsheet .prq{margin:.5rem 0 .2rem;line-height:1.6}
+.prsheet .prl{margin:.1rem 0 .3rem}
+.prsheet .prb{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;margin-top:.5rem}
 </style>
 </head>
 <body>
@@ -904,7 +939,8 @@ details.poview>summary{color:#f0d68a;font-weight:700;padding:.2rem 0 .35rem;curs
     <h2>المفكرة</h2>
       <div class="seg" id="dseg" role="tablist"><button type="button" role="tab" aria-selected="true" data-d="proc">مواعيد إجرائية</button><button type="button" role="tab" aria-selected="false" data-d="misc">مواعيد أخرى</button></div>
       <div id="dpane-proc">
-        <div class="outc card" id="outc" hidden></div>
+        <div class="prep card" id="prep" hidden></div>
+      <div class="outc card" id="outc" hidden></div>
       <div class="soon" id="soon" hidden></div>
         <div class="row2">
           <button class="btn p" id="exall">تصدير الكل إلى الأجندة</button>
@@ -1852,7 +1888,7 @@ function renderAgenda(){
   box.textContent='';
   var due=dueList(),soon=$('soon');
   var dueIds=due.map(function(x){return x.uid;}),dl3=events().filter(function(e){return isUp(e)&&/^آخر موعد آمن/.test(e.a.a||'')&&refTime(e).getTime()-Date.now()<=72*3600000&&dueIds.indexOf(e.uid)<0;}).sort(function(x,y){return x.start-y.start;});
-  if(window.OUTC)OUTC.render();if(window.RPUI)RPUI();soon.hidden=!(due.length||dl3.length);soon.textContent='';
+  if(window.OUTC)OUTC.render();if(window.PREP)PREP.render();if(window.RPUI)RPUI();soon.hidden=!(due.length||dl3.length);soon.textContent='';
   if(due.length){
     soon.appendChild(el('b',null,'خلال 24 ساعة ('+due.length+')'));
     due.forEach(function(e){soon.appendChild(el('div','meta',fd(e.a.d)+(e.a.t?' | '+e.a.t:'')+' — '+summary(e)));});
@@ -1917,6 +1953,161 @@ var UNDO=(function(){var cur=null;
 /* a choice (a document's dot, a row), a save: a light tap of the phone */
 document.addEventListener('click',function(e){var t=e.target&&e.target.closest?e.target.closest('.docsel,.pfrow,.pvseg button,#msave,#dsave,#dadd,#sitesave,#bksave,.ocsave,.lhout,.anaio'):null;
   if(t)HAP(/^(msave|dsave|dadd|sitesave|bksave)$/.test(t.id)||t.classList.contains('ocsave')||t.classList.contains('lhout')?'ok':'tap');},true);
+/* ---------- voice dictation: the phone's own speech recognition (in the app), or the browser's (on the site). A small microphone at the end of a field
+   writes what is said at the cursor; a long press dictates in French. In «ماذا جرى في الجلسة؟», what is said fills the form ---------- */
+var DICT=(function(){
+  function FS(){return (window.Capacitor&&Capacitor.Plugins&&Capacitor.Plugins.FileSaver)||null;}
+  function SR(){return window.SpeechRecognition||window.webkitSpeechRecognition||null;}
+  function can(){var F=FS();return !!(F&&F.dictate)||!!SR();}
+  function listen(lang,prompt){var F=FS();lang=lang||'ar-MA';
+    if(F&&F.dictate)return F.dictate({lang:lang,prompt:prompt||(lang.indexOf('fr')===0?'Parlez':'تكلموا')}).then(function(r){return String((r&&r.text)||'');});
+    var S=SR();if(!S)return Promise.reject(new Error('no_speech'));
+    return new Promise(function(res,rej){var r=new S(),got='';r.lang=lang;r.interimResults=false;r.maxAlternatives=1;
+      r.onresult=function(e){try{got=e.results[0][0].transcript||'';}catch(x){}};r.onerror=function(e){rej(new Error(e&&e.error||'speech'));};r.onend=function(){res(got);};
+      try{r.start();}catch(e){rej(e);}});}
+  var MIC='<svg class="ln" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11.4" rx="3"/><path d="M5.6 11.2a6.4 6.4 0 0 0 12.8 0M12 17.6v3.4M8.8 21h6.4"/></svg>';
+  /* the text said, put at the cursor of a field */
+  function put(inp,t){t=String(t||'').trim();if(!t)return;var v=inp.value||'',a=inp.selectionStart!=null?inp.selectionStart:v.length,b=inp.selectionEnd!=null?inp.selectionEnd:v.length;
+    var pre=v.slice(0,a),post=v.slice(b),sp1=pre&&!/\s$/.test(pre)?' ':'',sp2=post&&!/^\s/.test(post)?' ':'';var nv=pre+sp1+t+sp2+post;
+    if(inp.maxLength>0&&nv.length>inp.maxLength)nv=nv.slice(0,inp.maxLength);inp.value=nv;try{var c=(pre+sp1+t).length;inp.setSelectionRange(c,c);}catch(e){}
+    inp.dispatchEvent(new Event('input',{bubbles:true}));inp.dispatchEvent(new Event('change',{bubbles:true}));}
+  function button(onText,label){var b=document.createElement('button');b.type='button';b.className='zlmic';b.innerHTML=MIC;b.setAttribute('aria-label',label||'إملاء صوتي');b.title=(label||'إملاء صوتي')+' — الضغط المطوّل: بالفرنسية';
+    var t0=0,lt=null,fr=false;
+    b.addEventListener('pointerdown',function(){fr=false;clearTimeout(lt);lt=setTimeout(function(){fr=true;if(typeof HAP==='function')HAP('tap');b.classList.add('fr');},550);});
+    ['pointerup','pointercancel','pointerleave'].forEach(function(ev){b.addEventListener(ev,function(){clearTimeout(lt);});});
+    b.addEventListener('contextmenu',function(e){e.preventDefault();});
+    b.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();if(b.classList.contains('on'))return;var lang=fr?'fr-FR':'ar-MA';fr=false;
+      b.classList.add('on');if(typeof HAP==='function')HAP('tap');
+      listen(lang).then(function(t){b.classList.remove('on','fr');if(t)onText(t,lang);},function(){b.classList.remove('on','fr');
+        try{if(window.RPT&&RPT.toast)RPT.toast('الإملاء الصوتي غير متاح على هذا الجهاز.');}catch(x){}});});
+    return b;}
+  /* a microphone at the end of a field */
+  function attach(inp,o){o=o||{};if(!inp||inp._mic||!can())return null;inp._mic=1;
+    var w=document.createElement('span');w.className='zlmw'+(inp.tagName==='TEXTAREA'?' ta':'');inp.parentNode.insertBefore(w,inp);w.appendChild(inp);
+    var b=button(function(t,lang){if(o.onText&&o.onText(t,lang)===false)return;put(inp,t);try{inp.focus();}catch(e){}},o.label);w.appendChild(b);return b;}
+  /* ---- what was said about a hearing: its outcome, the next date and hour, the reason ---- */
+  var MO={'يناير':1,'جانفي':1,'فبراير':2,'فيفري':2,'مارس':3,'أبريل':4,'ابريل':4,'إبريل':4,'ماي':5,'مايو':5,'يونيو':6,'جوان':6,'يوليوز':7,'يوليو':7,'جويلية':7,'غشت':8,'أغسطس':8,'اغسطس':8,'أوت':8,'شتنبر':9,'سبتمبر':9,'أكتوبر':10,'اكتوبر':10,'نونبر':11,'نوفمبر':11,'دجنبر':12,'ديسمبر':12};
+  function digits(s){return String(s||'').replace(/[٠-٩]/g,function(d){return String(d.charCodeAt(0)-1632);}).replace(/[۰-۹]/g,function(d){return String(d.charCodeAt(0)-1776);});}
+  function iso(y,m,d){var dt=new Date(y,m-1,d);if(dt.getMonth()!==m-1||dt.getDate()!==d)return '';return y+'-'+('0'+m).slice(-2)+'-'+('0'+d).slice(-2);}
+  function future(m,d,y){var now=new Date(),t=now.getFullYear()+'-'+('0'+(now.getMonth()+1)).slice(-2)+'-'+('0'+now.getDate()).slice(-2);
+    if(y){y=+y;if(y<100)y+=2000;return iso(y,m,d);}var a=iso(now.getFullYear(),m,d);if(a&&a>t)return a;return iso(now.getFullYear()+1,m,d);}
+  function outcome(text){var s=digits(text),r={said:String(text||'').trim()},rest=s;
+    if(/مداول/.test(s))r.kind='مداولة';else if(/خبر[ةه]|بحث/.test(s))r.kind='خبرة';else if(/حكم|حكمت|قضت|صدر/.test(s))r.kind='حكم';else if(/[أا]خر|تأخير|تاخير|تأجيل|تاجيل|[أا]جل|مؤجل|مأجل/.test(s))r.kind='تأخير';
+    var m=/(\d{1,2})\s*[\/\-.]\s*(\d{1,2})(?:\s*[\/\-.]\s*(\d{2,4}))?/.exec(s);
+    if(m){r.date=future(+m[2],+m[1],m[3]);rest=rest.replace(m[0],' ');}
+    else{var mn=new RegExp('(\\d{1,2})\\s+('+Object.keys(MO).join('|')+')(?:\\s+(\\d{4}))?').exec(s);if(mn){r.date=future(MO[mn[2]],+mn[1],mn[3]);rest=rest.replace(mn[0],' ');}}
+    var tm=/(?:الساعة|ساعة|على)\s*(\d{1,2})(?:\s*(?:[:h.]|و)\s*(\d{1,2}|النصف|نص|الربع|ربع))?/.exec(rest)||/\b(\d{1,2})[:h](\d{2})\b/.exec(rest);
+    if(tm){var h=+tm[1],mi=tm[2]==null?0:/نص|النصف/.test(tm[2])?30:/ربع|الربع/.test(tm[2])?15:+tm[2];if(h>=1&&h<=7)h+=12;if(h<24&&mi<60)r.time=('0'+h).slice(-2)+':'+('0'+mi).slice(-2);rest=rest.replace(tm[0],' ');}
+    rest=rest.replace(/(?:^|\s)(?:تم\s+)?(?:ال)?(?:تأخير|تاخير|تأجيل|تاجيل|[أا]خرت?|[أا]جلت?|مؤجل[ةه]?|الملف|القضية|الجلسة|جلسة|إلى|الى|ليوم|يوم|حتى|بتاريخ|في|و)(?=\s|$)/g,' ').replace(/\s+/g,' ').trim();
+    var rs=/(?:^|\s)(ل[ء-ي]{2,}(?:\s+[ء-ي]{2,}){0,5})/.exec(rest);r.reason=(rs?rs[1]:rest).trim().slice(0,80);
+    return r;}
+  return {can:can,listen:listen,attach:attach,button:button,put:put,outcome:outcome};
+})();
+(function(){function go(){var n=document.getElementById('mnote');if(n)DICT.attach(n);}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',go);else setTimeout(go,0);})();
+/* ---------- the next step, when a document enters a file and is read: a judgment (the deadline of appeal, the appeal, a letter to the client),
+   an expert's report (the memo after the report, its review, the next hearing), a summons (the hearing in the agenda, a request for postponement) ---------- */
+var NEXT=(function(){
+  var SK='zl_next',Q=[],tm=null;
+  function seenGet(){try{return JSON.parse(localStorage.getItem(SK)||'{}')||{};}catch(e){return {};}}
+  function seenSet(o){try{var k=Object.keys(o);if(k.length>400)k.slice(0,k.length-400).forEach(function(x){delete o[x];});localStorage.setItem(SK,JSON.stringify(o));}catch(e){}}
+  function digits(s){return String(s||'').replace(/[٠-٩]/g,function(d){return String(d.charCodeAt(0)-1632);});}
+  function isoOf(d,m,y){y=+y;if(y<100)y+=2000;var dt=new Date(y,m-1,d);if(y<2000||y>2100||dt.getMonth()!==m-1||dt.getDate()!==+d)return '';return y+'-'+('0'+m).slice(-2)+'-'+('0'+d).slice(-2);}
+  function dates(t){var s=digits(t),out=[],rx=/(\d{1,2})\s*[\/\-.]\s*(\d{1,2})\s*[\/\-.]\s*(\d{4})/g,m;while((m=rx.exec(s))){var x=isoOf(+m[1],+m[2],m[3]);if(x)out.push({d:x,at:m.index});}return out;}
+  /* the hearing of a summons: the first date to come, with its hour */
+  function hearing(t){var s=digits(t),td=today(),ds=dates(s).filter(function(x){return x.d>=td;}).sort(function(a,b){return a.d.localeCompare(b.d);});if(!ds.length)return null;
+    var near=s.slice(ds[0].at,ds[0].at+160),h=/(?:الساعة|ساعة)\s*(\d{1,2})(?:\s*[:h.]\s*(\d{2}))?|(\d{1,2})\s*[:h]\s*(\d{2})/.exec(near),tm='';
+    if(h){var hh=+(h[1]||h[3]),mi=+(h[2]||h[4]||0);if(hh<24&&mi<60)tm=('0'+hh).slice(-2)+':'+('0'+mi).slice(-2);}
+    var rm=/القاعة\s*(?:رقم\s*)?([\dء-ي]{1,12})/.exec(s);return {d:ds[0].d,t:tm,r:rm?rm[1]:''};}
+  /* the date of a judgment: the one after «بتاريخ» near its head, else the first one */
+  function judged(t){var s=digits(t).slice(0,6000),m=/(?:بتاريخ|يوم)\s*:?\s*(\d{1,2})\s*[\/\-.]\s*(\d{1,2})\s*[\/\-.]\s*(\d{4})/.exec(s);if(m){var x=isoOf(+m[1],+m[2],m[3]);if(x)return x;}var ds=dates(s);return ds.length?ds[0].d:'';}
+  function stem(n){n=String(n||'');var i=n.lastIndexOf('.');return i>0&&n.length-i<=6?n.slice(0,i):n;}
+  function an(d,mode,ty,tpl){if(!window.AN)return;var f=items[d.fid];if(!f)return;
+    AN.open({title:fname(f),text:String(d.text).slice(0,140000)+'\n\n=== معطيات الملف (للسياق) ===\n'+AN.fileText(f),kind:'file',names:AN.names(f),mode:mode,type:ty,tplId:tpl,fid:d.fid,
+      headA:ty==='memo'?'دراسة المذكرة':'دراسة الوثيقة',docName:stem(d.name)});}
+  /* a hearing put in the agenda of the file */
+  function addAct(fid,na){var f=items[fid];if(!f)return false;f.acts=f.acts||[];if(f.acts.some(function(b){return b.d===na.d&&(b.t||'')===(na.t||'')&&kindOf(b)==='جلسة';}))return false;
+    f.acts.push(na);f.u=today();persist();return true;}
+  function hearSheet(fid,a,q){var S=osheet('الجلسة المقبلة'),c=S.card,g=el('div','trf');c.appendChild(g);
+    var d=el('input'),t=el('input');d.dir=t.dir='ltr';d.inputMode=t.inputMode='numeric';d.maxLength=10;t.maxLength=5;d.placeholder='25/10/2026';t.placeholder='09:30';
+    d.addEventListener('input',function(){d.value=maskDate(d.value);});t.addEventListener('input',function(){t.value=maskTime(t.value);});
+    g.appendChild(field('التاريخ',d));g.appendChild(field('الساعة',t));var m=el('p','msg');
+    var r=el('div','row2'),ok=el('button','btn p','إضافة إلى المفكرة'),cx=el('button','btn','إلغاء');ok.type=cx.type='button';r.appendChild(ok);r.appendChild(cx);c.appendChild(r);c.appendChild(m);
+    cx.addEventListener('click',function(){S.close();});
+    ok.addEventListener('click',function(){var x=parseDate(d.value),tm=parseTime(t.value);if(!x){m.textContent='اكتبوا التاريخ هكذا: 25102026';return;}if(tm===null){m.textContent='اكتبوا الساعة هكذا: 0930 أو اتركوها فارغة.';return;}
+      var f=items[fid],na={d:x,t:tm||'',r:(f&&f.room)||'',a:a,k:'جلسة'};if(q)na.q=q;S.close();if(addAct(fid,na)){if(typeof HAP==='function')HAP('ok');otoast('أُضيفت الجلسة إلى المفكرة.');}else otoast('هذه الجلسة مسجلة من قبل.');});
+    setTimeout(function(){try{d.focus();}catch(e){}},260);}
+  function btn(t,cls,fn){var b=el('button','btn sm'+(cls?' '+cls:''),t);b.type='button';b.addEventListener('click',fn);return b;}
+  function card(S,d){var f=items[d.fid];if(!f)return null;var w=el('div','nxc'),ty=d.ty,acts=el('div','nxa');
+    var L={judgment:'حكم أو قرار',expert:'تقرير خبرة',summons:'استدعاء'};
+    w.appendChild(el('b',null,'«'+stem(d.name)+'» — '+L[ty]));w.appendChild(el('small','meta',fname(f)));
+    if(ty==='judgment'){var jd=judged(d.text);w.appendChild(el('p','nxt',(jd?'صدر بتاريخ '+fd(jd)+'. ':'')+'احسبوا أجل الطعن من تاريخ التبليغ، ثم الطعن أو إخبار الموكل.'));
+      if(window.OUTC&&OUTC.calcFrom&&document.getElementById('dd'))acts.appendChild(btn('أجل الطعن','p',function(){S.close();OUTC.calcFrom(d.fid,jd||today());}));
+      acts.appendChild(btn('مقال استئنافي','',function(){S.close();an(d,'D','judgment','j_app');}));
+      acts.appendChild(btn('رسالة إلى الموكل','',function(){S.close();an(d,'D','judgment','j_client');}));}
+    else if(ty==='expert'){w.appendChild(el('p','nxt','تقرير الخبرة: مذكرة بعد الخبرة، ومراجعة التقرير، والجلسة المقبلة.'));
+      acts.appendChild(btn('مذكرة بعد الخبرة','p',function(){S.close();an(d,'D','expert','e_memo');}));
+      acts.appendChild(btn('مراجعة التقرير','',function(){S.close();an(d,'A','expert','e_crit');}));
+      acts.appendChild(btn('الجلسة المقبلة','',function(){S.close();hearSheet(d.fid,'جلسة بعد الخبرة','تقديم مذكرة بعد الخبرة');}));}
+    else if(ty==='summons'){var h=hearing(d.text);
+      if(h){w.appendChild(el('p','nxt','الجلسة: '+fd(h.d)+(h.t?' على الساعة '+h.t:'')+(h.r?' — القاعة '+h.r:'')+'.'));
+        acts.appendChild(btn('إضافة الجلسة إلى المفكرة','p',function(){S.close();var na={d:h.d,t:h.t||'',r:h.r||f.room||'',a:'جلسة',k:'جلسة'};if(addAct(d.fid,na)){if(typeof HAP==='function')HAP('ok');otoast('أُضيفت الجلسة إلى المفكرة.');}else otoast('هذه الجلسة مسجلة من قبل.');}));}
+      else{w.appendChild(el('p','nxt','لم يُعثر على تاريخ الجلسة في النص.'));acts.appendChild(btn('تسجيل الجلسة','p',function(){S.close();hearSheet(d.fid,'جلسة','');}));}
+      acts.appendChild(btn('طلب تأخير','',function(){S.close();an(d,'D','summons','s_post');}));}
+    w.appendChild(acts);return w;}
+  function show(){tm=null;var list=Q.splice(0);if(!list.length||typeof osheet!=='function')return;
+    /* not over the page of the analysis, nor over the letterhead: a little later */
+    if(document.querySelector('.anv,.lhsheet,.lhprev')){Q=list.concat(Q);tm=setTimeout(show,4000);return;}
+    var S=osheet('الخطوة التالية');S.ov.classList.add('nxsheet');var c=S.card;
+    list.forEach(function(d){var w=card(S,d);if(w)c.appendChild(w);});
+    var later=el('button','btn','لاحقًا');later.type='button';later.addEventListener('click',function(){S.close();});c.appendChild(later);}
+  /* a document of a file whose text is known (read by the reader, or a PDF with its text) */
+  function consider(fid,name,text,src){if(!fid||!text||src==='ai'||!window.AN||!AN.docType||typeof items!=='object'||!items[fid])return;
+    var k=fid+'|'+name,o=seenGet();if(o[k])return;var ty=AN.docType(text,name);if(ty!=='judgment'&&ty!=='expert'&&ty!=='summons')return;
+    o[k]=Date.now();seenSet(o);Q.push({fid:fid,name:name,text:String(text),ty:ty});clearTimeout(tm);tm=setTimeout(show,900);}
+  return {consider:consider,_t:{hearing:hearing,judged:judged}};
+})();
+/* ---------- «تحضير جلسات الغد»: the hearings of the next court day (Monday after a Friday), each with what is required, the last thing that happened,
+   and what to open; a hearing ticked «جاهز» when it is prepared ---------- */
+var PREP=(function(){
+  var RK='zl_prep',DAYS=['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+  function iso(d){return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);}
+  function next(){var d=new Date();d.setDate(d.getDate()+1);while(d.getDay()===0||d.getDay()===6)d.setDate(d.getDate()+1);return d;}
+  function label(d){var t=new Date();t.setDate(t.getDate()+1);return iso(d)===iso(t)?'جلسات الغد':'جلسات '+DAYS[d.getDay()];}
+  function rget(){try{return JSON.parse(localStorage.getItem(RK)||'{}')||{};}catch(e){return {};}}
+  function rset(o){var td=today();Object.keys(o).forEach(function(k){if(k.slice(0,10)<td)delete o[k];});try{localStorage.setItem(RK,JSON.stringify(o));}catch(e){}}
+  function list(day){var out=[];Object.keys(items||{}).forEach(function(fid){var f=items[fid];if(!f||+f.st===3)return;(f.acts||[]).forEach(function(a,i){if(a&&a.d===day&&kindOf(a)==='جلسة')out.push({fid:fid,f:f,a:a,i:i});});});
+    return out.sort(function(x,y){return String(x.a.t||'99').localeCompare(String(y.a.t||'99'))||String(x.f.court||'').localeCompare(String(y.f.court||''),'ar');});}
+  function last(f,day){var p=(f.acts||[]).filter(function(a){return a&&a.o&&a.d<day;}).sort(function(x,y){return y.d.localeCompare(x.d);})[0];return p&&window.OUTC&&OUTC.text?OUTC.text(p):'';}
+  function key(day,h){return day+'|'+h.fid+'|'+(h.a.t||'')+'|'+h.i;}
+  function textOf(day,hs){var d=new Date(day+'T12:00:00');return ['جلسات '+DAYS[d.getDay()]+' '+fd(day)+':'].concat(hs.map(function(h,j){
+      return (j+1)+'. '+(h.a.t?h.a.t+' — ':'')+fname(h.f)+' ('+fnoS(h.f)+')'+(h.f.court?' — '+h.f.court:'')+(h.a.r?' — القاعة '+h.a.r:'')+(h.a.q?'\n   المطلوب: '+h.a.q:'');})).join('\n');}
+  function open(){var d=next(),day=iso(d),hs=list(day),R=rget();var S=osheet('تحضير '+label(d)+' — '+fd(day)),c=S.card;S.ov.classList.add('prsheet');
+    if(!hs.length){c.appendChild(el('p','meta','لا جلسات مسجلة في هذا اليوم.'));return;}
+    var top=el('p','meta prsum');c.appendChild(top);
+    function sum(){var n=hs.filter(function(h){return R[key(day,h)];}).length;top.textContent=n===hs.length?'كل الجلسات جاهزة.':(n?n+' من '+hs.length+' جاهزة. ':'')+'المسوا «جاهز» كلما حضّرتم جلسة.';}
+    hs.forEach(function(h){var k=key(day,h),w=el('div','prc'+(R[k]?' ok':'')),hd=el('div','prh');
+      var ck=el('button','prck');ck.type='button';ck.setAttribute('aria-pressed',R[k]?'true':'false');ck.innerHTML='<svg class="ln" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.5 12.5l4.2 4.2 8.8-9.4"/></svg><span>جاهز</span>';
+      hd.appendChild(el('span','prt',h.a.t||'—'));var ti=el('div','prti');ti.appendChild(el('b',null,fname(h.f)));ti.appendChild(el('small',null,[fnoS(h.f),h.f.court,h.a.r?'القاعة '+h.a.r:''].filter(Boolean).join(' — ')));hd.appendChild(ti);hd.appendChild(ck);w.appendChild(hd);
+      w.appendChild(el('p','prq',h.a.q?'المطلوب: '+h.a.q:'المطلوب: لم يُحدَّد'));var ls=last(h.f,day);if(ls)w.appendChild(el('p','meta prl','آخر ما جرى: '+ls));
+      var bs=el('div','prb');
+      function b(t,fn,cls){var x=el('button','btn sm'+(cls?' '+cls:''),t);x.type='button';x.addEventListener('click',fn);bs.appendChild(x);}
+      if(window.PF&&PF.open)b('المحفظة',function(){S.close();PF.open(h.fid);});
+      b('البطاقة',function(){S.close();if(window.FUI&&FUI.go)FUI.go(h.fid);});
+      if(window.CMSG&&CMSG.open)b('إخبار الموكل',function(){CMSG.open(h.fid);});
+      if(window.LH&&LH.open)b('طلب تأخير',function(){S.close();LH.open(h.fid,{type:'طلب تأخير'});});
+      w.appendChild(bs);c.appendChild(w);
+      ck.addEventListener('click',function(){if(R[k])delete R[k];else R[k]=1;rset(R);var on=!!R[k];w.classList.toggle('ok',on);ck.setAttribute('aria-pressed',on?'true':'false');if(typeof HAP==='function')HAP(on?'ok':'tap');sum();render();});});
+    sum();
+    var r=el('div','row2 prft'),cp=el('button','btn','نسخ القائمة'),sh=el('button','btn','مشاركة');cp.type=sh.type='button';r.appendChild(cp);r.appendChild(sh);c.appendChild(r);
+    cp.addEventListener('click',function(){var t=textOf(day,hs);if(window.AN&&AN.copy)AN.copy(t);});
+    sh.addEventListener('click',function(){var t=textOf(day,hs);if(window.AN&&AN.share)AN.share(t,'جلسات '+fd(day));});}
+  /* the card at the top of the agenda */
+  function render(){var box=document.getElementById('prep');if(!box)return;var d=next(),day=iso(d),hs=list(day);box.hidden=!hs.length;box.textContent='';if(!hs.length)return;
+    var R=rget(),n=hs.filter(function(h){return R[key(day,h)];}).length;
+    var t=el('div','prtop'),tx=el('div','prtx');tx.appendChild(el('b',null,label(d)));tx.appendChild(el('small',null,fd(day)+' — '+(n===hs.length?'كلها جاهزة':(n?n+' من '+hs.length+' جاهزة':(hs.length===1?'جلسة واحدة':hs.length===2?'جلستان':hs.length+' جلسات')))));t.appendChild(tx);
+    var go=el('button','btn p sm','تحضير');go.type='button';go.addEventListener('click',open);t.appendChild(go);box.appendChild(t);box.classList.toggle('done',n===hs.length);}
+  return {render:render,open:open,_t:{list:list,next:next}};
+})();
 function icRow(cls){return el('div','icr'+(cls?' '+cls:''));}
 /* a number with its noun, as Arabic counts it: 1, 2, 3 to 10, 11 to 99, then 100, 101… */
 function arN(n,f){n=+n||0;var m=n%100;return n===1?f[0]:n===2?f[1]:(m>=3&&m<=10)?n+' '+f[2]:(m>=11&&m<=99)?n+' '+f[3]:n+' '+f[4];}
@@ -2086,6 +2277,7 @@ function actions(id,f){
   if(editing){var cn=el('button','btn sm','إلغاء التعديل');cn.addEventListener('click',function(){editReq=null;renderFiles();});q.appendChild(cn);}
   [['اليوم',0],['غدًا',1],['أسبوع',7]].forEach(function(k){var b=el('button','btn sm',k[0]);b.addEventListener('click',function(){idt.value=fd(addDays(k[1]));});q.appendChild(b);});
   [field('النوع',ik),field('التاريخ',dateBox(idt)),field('الساعة',itm),field('القاعة',irm),field('الإجراء',iac),field('المطلوب (اختياري)',iq),add].forEach(function(x){g.appendChild(x);});
+  if(window.DICT){DICT.attach(iac);DICT.attach(iq);}
   add.addEventListener('click',function(){
     var d=parseDate(idt.value),t=parseTime(itm.value),a=iac.value.trim();
     if(!d){em.textContent='التاريخ غير صحيح. اكتبوه أرقامًا هكذا: 25102026';return;}
@@ -4104,7 +4296,7 @@ var AN=(function(){
     $('an_n').checked=strict;$('an_d').checked=strict;$('an_m').checked=false;$('an_t').checked=false;
     function fillT(){var sp=$('an_p');sp.textContent='';var L=ty?DT[$('an_k').value][mode]:TPL;L.forEach(function(x){var o=document.createElement('option');o.value=x[0];o.textContent=x[1];if(x[2])PRX[x[0]]=x[2];sp.appendChild(o);});}
     if(ty){DTO.forEach(function(k){var o=document.createElement('option');o.value=k;o.textContent=DT[k].l;$('an_k').appendChild(o);});$('an_k').value=ty;}
-    fillT();if(!ty)$('an_p').value=cfg.tpl!=null?cfg.tpl:(strict?'legal':'');
+    fillT();if(!ty)$('an_p').value=cfg.tpl!=null?cfg.tpl:(strict?'legal':'');else if(cfg.tplId&&PRX[cfg.tplId])$('an_p').value=cfg.tplId;
     function head(){var h=cfg.head;if(ty){var lb=$('an_p').selectedOptions[0]?$('an_p').selectedOptions[0].textContent:'';h=mode==='D'?(/مذكرة/.test(lb)?'صياغة مذكرة':'صياغة وثيقة'):(cfg.headA||'دراسة الوثيقة');}ov.querySelector('h3').textContent=h||'نسخ للتحليل';}
     function gen(){var o={names:$('an_n').checked?(cfg.names||[]):null,nums:$('an_d').checked,money:$('an_m').checked,dates:$('an_t').checked};if($('an_n').checked&&!o.names)o.names=[];
       var body=($('an_n').checked||$('an_d').checked||$('an_m').checked||$('an_t').checked)?anonFull(raw,{names:$('an_n').checked?(cfg.names||[]):[],nums:$('an_d').checked,money:$('an_m').checked,dates:$('an_t').checked}):raw;
@@ -6104,6 +6296,9 @@ var OUTC=(function(){
     var cur=kind||'تأخير',F={};
     KINDS.forEach(function(k){var b=el('button','ocsb'+(k[0]===cur?' on':''),k[1]);b.type='button';b.addEventListener('click',function(){cur=k[0];[].forEach.call(seg.children,function(x){x.classList.remove('on');});b.classList.add('on');draw();});seg.appendChild(b);});
     var dl=el('datalist');dl.id='ocr'+Date.now();REASONS.forEach(function(r){var o=el('option');o.value=r;dl.appendChild(o);});w.appendChild(dl);
+    if(window.DICT&&DICT.can()){var vb=DICT.button(function(t){var r=DICT.outcome(t);if(r.kind){cur=r.kind;[].forEach.call(seg.children,function(x,j){x.classList.toggle('on',KINDS[j][0]===cur);});}draw();
+        if(r.date&&F.x)F.x.value=fd(r.date);if(r.time&&F.t)F.t.value=r.time;if(r.reason&&F.n){F.n.value=r.reason;F.n.dispatchEvent(new Event('input',{bubbles:true}));}
+        msg.className='msg ok';msg.textContent='سُمع: «'+r.said+'». راجعوا الحقول ثم «حفظ النتيجة».';},'إملاء النتيجة');vb.classList.add('zlmicw');vb.insertAdjacentHTML('beforeend','<span>إملاء النتيجة</span>');w.insertBefore(vb,seg);}
     function draw(){body.textContent='';msg.textContent='';F={};var g=el('div','trf');body.appendChild(g);
       if(cur==='تأخير'){F.x=dateIn('');F.t=timeIn(a.t||'');F.n=el('input');F.n.setAttribute('list',dl.id);F.n.placeholder='لإعداد الجواب…';F.n.maxLength=80;
         F.q=reqIn('');F.n.addEventListener('input',function(){if(!F.q._ed)F.q.value=req(F.n.value);});
@@ -6115,6 +6310,7 @@ var OUTC=(function(){
       else if(cur==='حكم'){F.n=el('textarea');F.n.rows=2;F.n.maxLength=300;F.n.placeholder='منطوق الحكم باختصار (اختياري)';var l=field('منطوق الحكم',F.n);l.classList.add('w');g.appendChild(l);
         body.appendChild(el('p','note','بعد الحفظ يمكنكم حساب أجل الطعن في «الآجال» انطلاقًا من تاريخ التبليغ أو النطق.'));}
       else{F.n=el('input');F.n.maxLength=120;F.n.placeholder='ما جرى في الجلسة';F.x=dateIn('');F.t=timeIn('');F.q=reqIn('');g.appendChild(field('ما جرى',F.n));g.appendChild(field('موعد مقبل (اختياري)',F.x));g.appendChild(field('الساعة',F.t));var lq3=field('المطلوب في الموعد المقبل (اختياري)',F.q);lq3.classList.add('w');g.appendChild(lq3);}
+      if(window.DICT){if(F.n)DICT.attach(F.n);if(F.q)DICT.attach(F.q);}
       var r=el('div','row2'),sv=el('button','btn p sm','حفظ النتيجة'),cx=el('button','btn sm','إلغاء');sv.type=cx.type='button';r.appendChild(sv);r.appendChild(cx);body.appendChild(r);
       cx.addEventListener('click',function(){host.textContent='';host.hidden=true;});
       sv.addEventListener('click',save);}
@@ -6189,13 +6385,13 @@ var ZDOC=(function(){
   function init(){return tx(['m'],'readonly',function(t){return {req:t.objectStore('m').getAll()};}).then(function(rs){META={};(rs||[]).forEach(function(m){(META[m.fid]=META[m.fid]||[]).push(m);});Object.keys(META).forEach(function(k){META[k].sort(function(a,b){return String(b.at).localeCompare(String(a.at));});rebuild(k);});ready=true;if(Object.keys(META).length&&typeof renderFiles==='function')renderFiles();});}
   function add(fid,file,text,src){var id='d'+Date.now().toString(36)+Math.random().toString(36).slice(2,6);
     return file.arrayBuffer().then(function(buf){var m={id:id,fid:fid,name:file.name||'وثيقة',type:file.type||'',size:buf.byteLength,at:today(),text:String(text||'').slice(0,200000),src:src||'add'};
-      return tx(['m','b'],'readwrite',function(t){t.objectStore('m').put(m);t.objectStore('b').put(buf,id);return null;}).then(function(){(META[fid]=META[fid]||[]).unshift(m);rebuild(fid);return id;});});}
+      return tx(['m','b'],'readwrite',function(t){t.objectStore('m').put(m);t.objectStore('b').put(buf,id);return null;}).then(function(){(META[fid]=META[fid]||[]).unshift(m);rebuild(fid);if(m.text&&window.NEXT)NEXT.consider(fid,m.name,m.text,m.src);return id;});});}
   function blob(m){return tx(['b'],'readonly',function(t){return {req:t.objectStore('b').get(m.id)};}).then(function(buf){return buf?new Blob([buf],{type:m.type||'application/octet-stream'}):null;});}
   function del(m){return tx(['m','b'],'readwrite',function(t){t.objectStore('m').delete(m.id);t.objectStore('b').delete(m.id);return null;}).then(function(){META[m.fid]=(META[m.fid]||[]).filter(function(x){return x.id!==m.id;});rebuild(m.fid);});}
   function delU(list,msg,after){return Promise.all(list.map(function(m){return tx(['b'],'readonly',function(t){return {req:t.objectStore('b').get(m.id)};}).then(function(buf){return {m:m,buf:buf};});}))
     .then(function(keep){return Promise.all(list.map(del)).then(function(){if(after)after();if(!window.UNDO)return;UNDO.show(msg,{undo:function(){
       Promise.all(keep.map(function(k){if(!k.buf)return null;return tx(['m','b'],'readwrite',function(t){t.objectStore('m').put(k.m);t.objectStore('b').put(k.buf,k.m.id);return null;}).then(function(){var L=META[k.m.fid]=(META[k.m.fid]||[]).filter(function(z){return z.id!==k.m.id;});L.push(k.m);L.sort(function(a,b){return String(b.at).localeCompare(String(a.at));});rebuild(k.m.fid);});})).then(function(){if(after)after();});}});});});}
-  function setText(m,text,rd){m.text=String(text||'').slice(0,400000);if(rd)m.rd=rd;return tx(['m'],'readwrite',function(t){t.objectStore('m').put(m);return null;}).then(function(){rebuild(m.fid);});}
+  function setText(m,text,rd){m.text=String(text||'').slice(0,400000);if(rd)m.rd=rd;return tx(['m'],'readwrite',function(t){t.objectStore('m').put(m);return null;}).then(function(){rebuild(m.fid);if(m.text&&window.NEXT)NEXT.consider(m.fid,m.name,m.text,m.src);});}
   function idx(fid){return IDX[fid]||'';}
   function size(n){return n>=1048576?(n/1048576).toFixed(1)+' م.ب':Math.max(1,Math.round(n/1024))+' ك.ب';}
   /* the place of the searched words in the text of a document */
