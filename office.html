@@ -3838,12 +3838,13 @@ function showDiaryPane(k){
 
 /* ===== analysis and sharing with automatic anonymisation (the lawyer decides what leaves the phone) ===== */
 var AN=(function(){
-  var TPL=[['','بدون قالب (النص وحده)'],['legal','تحليل قانوني وتكييف الوقائع'],['defense','اقتراح خطة دفاع وحجج'],['memo','هيكل مذكرة جوابية'],['sum','تلخيص في نقاط'],['crit','مراجعة نقدية للنص']];
+  var TPL=[['','بدون قالب (النص وحده)'],['legal','تحليل قانوني وتكييف الوقائع'],['defense','اقتراح خطة دفاع وحجج'],['memo','هيكل مذكرة جوابية'],['sum','تلخيص في نقاط'],['crit','مراجعة نقدية للنص'],['draft','صياغة مذكرة من معطيات الملف ووثائقه']];
   var PR={legal:'أنت مساعد قانوني متخصص في القانون المغربي. حلّل المعطيات التالية: (1) تكييف الوقائع قانونًا. (2) النصوص الواجبة التطبيق مع بيان الفصول والمواد. (3) نقاط القوة والضعف. (4) الآجال والإجراءات المطلوبة. (5) ما ينقص من معطيات. نبّه صراحة إلى كل ما يلزم التحقق منه في النص الرسمي.\n\n',
     defense:'أنت مساعد قانوني متخصص في القانون المغربي. اقترح خطة دفاع مرتبة للمعطيات التالية: الدفوع الشكلية، ثم الدفوع الموضوعية، ثم الطلبات الاحتياطية، مع الاستناد إلى النصوص والاجتهاد القضائي المعروف، وبيان مخاطر كل خيار.\n\n',
     memo:'اقترح هيكلًا تفصيليًا لمذكرة جوابية في القضية الآتية: الوقائع، الدفوع الشكلية، الدفوع الموضوعية، الطلبات. وبيّن الحجج التي تحتاج إلى سند قانوني.\n\n',
     sum:'لخّص النص التالي في نقاط موجزة ومرتبة، مع إبراز التواريخ والآجال والمبالغ إن وُجدت:\n\n',
-    crit:'راجع النص التالي مراجعة نقدية: الثغرات القانونية، ضعف الصياغة، الحجج الناقصة، ثم اقترح تحسينات محددة:\n\n'};
+    crit:'راجع النص التالي مراجعة نقدية: الثغرات القانونية، ضعف الصياغة، الحجج الناقصة، ثم اقترح تحسينات محددة:\n\n',
+    draft:'أنت محام مغربي متمرس. اعتمادًا على معطيات الملف ونصوص وثائقه الآتية، حرّر مسودة مذكرة كاملة بأسلوب قانوني مغربي رصين: المستهل (المحكمة، رقم الملف، الأطراف ومن ينوب عنهم)، ثم الوقائع، ثم الدفوع الشكلية، ثم الدفوع الموضوعية مع النصوص القانونية والاجتهاد القضائي، ثم الطلبات. أبق الرموز التي بين معقوفين، مثل [الموكل]، كما هي، ونبّه في آخر المسودة إلى كل ما يلزم التحقق منه في النص الرسمي أو في وثائق الملف:\n\n'};
   function say(t){try{if(window.RPT)RPT.toast(t);else alert(t);}catch(e){}}
   function copy(t){
     function fb(){var a=document.createElement('textarea');a.value=t;a.style.cssText='position:fixed;opacity:0';document.body.appendChild(a);a.select();try{document.execCommand('copy');say('تم النسخ');}catch(e){window.prompt('انسخوا النص',t);}a.remove();}
@@ -3856,6 +3857,11 @@ var AN=(function(){
     if(navigator.share){return navigator.share({title:title||'',text:t}).catch(function(){});}
     copy(t);
   }
+  /* the text sent to the Claude app on the phone (copied too, to paste it if the app does not receive it); in a browser, claude.ai */
+  function toClaude(t,title){var FS=window.Capacitor&&window.Capacitor.Plugins?window.Capacitor.Plugins.FileSaver:null;
+    try{if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).catch(function(){});}catch(e){}
+    if(FS&&FS.shareText)return FS.shareText({text:t,title:title||'Claude',package:'com.anthropic.claude'}).catch(function(){copy(t);});
+    var u='https://claude.ai/new?q='+encodeURIComponent(t);if(u.length>7000){u='https://claude.ai/new';say('النص طويل: نُسخ، الصقوه في المحادثة الجديدة.');}try{window.open(u,'_blank','noopener');}catch(e){location.href=u;}}
   var ADDR=/(?:ال)?(?:سيد|سيدة|أستاذ|أستاذة|الأستاذ|الأستاذة|السيد|السيدة|المسمى|المسماة|المدعو|المدعوة|الشركة|شركة|ورثة|السادة)\s+(?:[\u0621-\u064A]{2,}\s?){1,3}/g;
   var PARTY=/(المدعي|المدعى عليه|المدعى عليها|المدعية|الموكل|الموكلة|الطالب|الطالبة|المطلوب|المطلوبة|المشتكي|المشتكية|المتهم|المتهمة|المستأنف|المستأنفة|الطاعن|الطاعنة|المطعون ضده|المطعون ضدها|الزوج|الزوجة|المكري|المكتري|البائع|المشتري|الأجير|المشغل)((?:\s+[\u0621-\u064A]{3,}){1,2})/g;
   var STOPW=/^(في|من|على|علي|إلى|الى|عن|أن|إن|قد|لم|لن|لا|ما|هو|هي|كان|كانت|بأن|التي|الذي|حيث|وقد|ثم|أو|عند|لدى|بعد|قبل|يتمسك|يطالب|يدعي|يطلب|يؤكد|يتقدم|تقدم|طلب|دفع|أدلى|وأن|فإن|لكن|ولم|ولا|بحقه|بحقها|ضد|تجاه|الذي|التي|وهو|وهي|لكون|بسبب)$/;
@@ -3911,16 +3917,16 @@ var AN=(function(){
     var raw=String(cfg.text||''),ov=document.createElement('div');ov.className='anv';
     ov.innerHTML='<h3>نسخ للتحليل</h3><div class="w">السر المهني: لا ترسلوا معطيات موكل إلى أي خدمة خارجية قبل تجهيلها أو الحصول على موافقته. يحجب هذا الحوار المعطيات المعروفة تلقائيًا، لكنه لا يكتشف كل اسم أو عبارة تدل على الهوية، فراجعوا النص كلمة كلمة قبل النسخ.</div>'
      +'<label><input type="checkbox" id="an_n"> إخفاء الأسماء</label><label><input type="checkbox" id="an_d"> إخفاء الهواتف والبطاقة الوطنية وأرقام الملفات</label><label><input type="checkbox" id="an_m"> إخفاء المبالغ</label><label><input type="checkbox" id="an_t"> إخفاء التواريخ <small>(قد تحتاجونها لحساب الآجال)</small></label>'
-     +'<label style="display:block">القالب المطلوب<select id="an_p"></select></label><textarea id="an_x" dir="auto"></textarea><div class="r"><button class="p" id="an_c" type="button">نسخ</button><button id="an_s" type="button">مشاركة</button><button id="an_g" type="button">إعادة التوليد</button><button id="an_q" type="button">إغلاق</button></div>';
+     +'<label style="display:block">القالب المطلوب<select id="an_p"></select></label><textarea id="an_x" dir="auto"></textarea><div class="r">'+(cfg.claude?'<button class="p" id="an_cl" type="button">فتح في Claude</button><button id="an_c" type="button">نسخ</button>':'<button class="p" id="an_c" type="button">نسخ</button>')+'<button id="an_s" type="button">مشاركة</button><button id="an_g" type="button">إعادة التوليد</button><button id="an_q" type="button">إغلاق</button></div>';
     document.body.appendChild(ov);
     var $=function(i){return ov.querySelector('#'+i);},dirty=false;
     $('an_n').checked=strict;$('an_d').checked=strict;$('an_m').checked=false;$('an_t').checked=false;
-    TPL.forEach(function(x){var o=document.createElement('option');o.value=x[0];o.textContent=x[1];$('an_p').appendChild(o);});$('an_p').value=strict?'legal':'';
+    TPL.forEach(function(x){var o=document.createElement('option');o.value=x[0];o.textContent=x[1];$('an_p').appendChild(o);});$('an_p').value=cfg.tpl!=null?cfg.tpl:(strict?'legal':'');if(cfg.head)ov.querySelector('h3').textContent=cfg.head;
     function gen(){var o={names:$('an_n').checked?(cfg.names||[]):null,nums:$('an_d').checked,money:$('an_m').checked,dates:$('an_t').checked};if($('an_n').checked&&!o.names)o.names=[];
       var body=($('an_n').checked||$('an_d').checked||$('an_m').checked||$('an_t').checked)?anonFull(raw,{names:$('an_n').checked?(cfg.names||[]):[],nums:$('an_d').checked,money:$('an_m').checked,dates:$('an_t').checked}):raw;
       $('an_x').value=(PR[$('an_p').value]||'')+body;dirty=false;}
     ['an_n','an_d','an_m','an_t','an_p'].forEach(function(i){$(i).addEventListener('change',gen);});$('an_g').addEventListener('click',gen);$('an_x').addEventListener('input',function(){dirty=true;});
-    $('an_c').addEventListener('click',function(){copy($('an_x').value);});$('an_s').addEventListener('click',function(){share($('an_x').value,cfg.title);});$('an_q').addEventListener('click',function(){ov.remove();});
+    $('an_c').addEventListener('click',function(){copy($('an_x').value);});$('an_s').addEventListener('click',function(){share($('an_x').value,cfg.title);});$('an_q').addEventListener('click',function(){ov.remove();});if(cfg.claude)$('an_cl').addEventListener('click',function(){toClaude($('an_x').value,cfg.title);});
     gen();return ov;
   }
   return {open:open,share:share,copy:copy,anon:anonFull,fileText:fileText,names:names,analyzeFile:function(f){return open({title:'تحليل ملف',text:fileText(f),kind:'file',names:names(f)});}};
@@ -4081,9 +4087,9 @@ var RPT=(function(){
   }
   function makePDF(pages,sc){var seq=Promise.resolve([]);pages.forEach(function(h){seq=seq.then(function(a){return toCanvas(h,sc).then(function(c){a.push(c);return a;});});});return seq.then(buildPDF);}
   function b64(blob){return new Promise(function(res){var r=new FileReader();r.onload=function(){res(String(r.result).split(',')[1]);};r.readAsDataURL(blob);});}
-  function save(blob,name){
+  function save(blob,name,folder){
     var FS=(window.Capacitor&&window.Capacitor.Plugins)?window.Capacitor.Plugins.FileSaver:null;
-    if(FS&&FS.saveFile&&FS.openUri){return b64(blob).then(function(d){return FS.saveFile({name:name,data:d,mime:'application/pdf',folder:'Malafati'});}).then(function(r){saved(r,'application/pdf');}).catch(function(){toast('تعذر حفظ الملف');});}
+    if(FS&&FS.saveFile&&FS.openUri){return b64(blob).then(function(d){return FS.saveFile({name:name,data:d,mime:'application/pdf',folder:folder||'Malafati'});}).then(function(r){saved(r,'application/pdf');}).catch(function(){toast('تعذر حفظ الملف');});}
     if(FS){return b64(blob).then(function(d){return FS.savePdf({name:name,data:d});}).then(function(){toast('تم الحفظ في مجلد التنزيلات وفتح الملف');}).catch(function(){toast('تعذر حفظ الملف. حدّثوا التطبيق بآخر إصدار.');});}
     var u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();setTimeout(function(){a.remove();URL.revokeObjectURL(u);},4000);toast('تم إنشاء الملف');return Promise.resolve();
   }
@@ -4152,7 +4158,7 @@ var RPT=(function(){
     if(navigator.clipboard&&navigator.clipboard.writeText)return navigator.clipboard.writeText(t).then(function(){done(true);},function(){done(fb());});
     done(fb());return Promise.resolve();}
   return {
-    cfg:CFG,toast:toast,saved:saved,recolor:recolor,makePDF:makePDF,toCanvas:toCanvas,save:save,
+    cfg:CFG,toast:toast,saved:saved,recolor:recolor,makePDF:makePDF,buildPDF:buildPDF,toCanvas:toCanvas,save:save,
     agenda:function(range,mode,iso,kinds,court,rm){run(agendaFixed(range,iso,kinds,court,rm),mode,agendaFlow(range,iso,kinds,court,rm));},
     agendaView:function(range,iso,kinds,court,rm){function go(m){run(agendaFixed(range,iso,kinds,court,rm),m,agendaFlow(range,iso,kinds,court,rm));}view(agendaFixed(range,iso,kinds,court,rm),function(){go('print');},function(){go('save');});},
     agendaCopy:function(range,iso,kinds,court,rm){return copyText(agendaText(range,agendaData(range,iso,kinds,court,rm)).replace(/[*_]/g,''));},
@@ -5877,7 +5883,7 @@ var ZDOC=(function(){
       if(typeof openD==='object')openD['doc'+fid]=true;otoast('حُفظت '+docsN(fs.length)+' في الملف');renderFiles();});
     return det;}
   init();
-  return {add:add,list:function(fid){return META[fid]||[];},idx:idx,hit:hit,section:section,blob:blob,del:del,ready:function(){return ready;},_t:{init:init,quickText:quickText}};
+  return {add:add,list:function(fid){return META[fid]||[];},idx:idx,hit:hit,section:section,blob:blob,del:del,readIt:readIt,setText:setText,canRead:canRead,viewText:viewText,quickText:quickText,size:size,ready:function(){return ready;},_t:{init:init,quickText:quickText}};
 })();
 
 /* ---------- fees: a receipt for a payment and the statement of account, on the office's letterhead ---------- */
