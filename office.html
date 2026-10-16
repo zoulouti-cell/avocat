@@ -566,7 +566,7 @@ td.cdc{white-space:nowrap;font-size:.95rem}
 .lhvbar{flex:0 0 auto;display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:.5rem;padding:.6rem .8rem calc(.6rem + env(safe-area-inset-bottom,0px));background:#0b2420;border-top:1px solid rgba(230,200,115,.28)}
 @media(min-width:700px){.lhvbar{grid-template-columns:repeat(3,minmax(0,190px));justify-content:center}}
 .lhvbar .btn{width:100%;white-space:nowrap}
-html.lhvon,html.lhvon body{overflow:hidden}
+html.lhvon{overflow:hidden}html.lhvon body{overflow-x:clip;overflow-y:visible}
 /* files: import the data from a summons or a claim */
 .fimp{display:flex;align-items:center;gap:.45rem .8rem;flex-wrap:wrap;margin:.8rem 0 .6rem;padding:.7rem .85rem;border-radius:16px;border:1px dashed rgba(230,200,115,.55);background:rgba(230,200,115,.07)}
 .fimp .btn{flex:0 0 auto;display:inline-flex;align-items:center;gap:.4rem}.fimp .btn svg{width:18px;height:18px;fill:currentColor;flex:0 0 auto}
@@ -856,6 +856,16 @@ details.poview>summary{color:#f0d68a;font-weight:700;padding:.2rem 0 .35rem;curs
 .pvprev .pvfg{display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:.45rem;margin-top:.45rem}
 .pvprev .pvf{display:grid;gap:.15rem;padding:.5rem;border-radius:12px;background:rgba(230,200,115,.08);text-align:center}.pvprev .pvf span{color:#b9c9c2;font-size:.78rem}.pvprev .pvf b{color:#ffe28f;font-size:.95rem}
 .pvprev .pvdocs div{color:#f6f1e2;padding:.2rem 0}
+.zlundo{position:fixed;z-index:10050;left:50%;bottom:calc(96px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;gap:.8rem;max-width:min(92vw,460px);width:max-content;box-sizing:border-box;padding:.55rem .6rem .55rem 1rem;padding-inline-start:1.1rem;border-radius:16px;background:#0e2a25;color:#f6f1e2;border:1px solid rgba(230,200,115,.6);box-shadow:0 10px 28px rgba(0,0,0,.42);font:600 .95rem "Tajawal","Noto Sans Arabic",Tahoma,sans-serif;direction:rtl;overflow:hidden;opacity:0;transform:translate(-50%,18px) scale(.98);transition:opacity .2s ease,transform .26s cubic-bezier(.2,.8,.2,1)}
+.zlundo.on{opacity:1;transform:translate(-50%,0)}
+.zlundo.off{opacity:0;transform:translate(-50%,12px);transition-duration:.2s}
+.zlundo .zlut{flex:1 1 auto;line-height:1.5;min-width:0}
+.zlundo .zlub{flex:0 0 auto;border:0;border-radius:999px;padding:.45rem 1.05rem;background:linear-gradient(180deg,#f3dc95,#c9a24a);color:#0b2420;font:800 .95rem inherit;cursor:pointer;transition:transform .12s ease}
+.zlundo .zlub:active{transform:scale(.94)}
+.zlundo .zlup{position:absolute;left:0;right:0;bottom:0;height:2.5px;background:rgba(240,214,138,.85);transform-origin:right center;animation:zlup linear forwards}
+@keyframes zlup{from{transform:scaleX(1)}to{transform:scaleX(0)}}
+.lxgone{display:none!important}
+@media (prefers-reduced-motion:reduce){.zlundo{transition:none}.zlundo .zlup{animation:none}}
 </style>
 </head>
 <body>
@@ -1885,9 +1895,28 @@ var ICS={
 /* a text button becomes an icon (only in the app); its listeners stay as they are */
 function ICN(b,k,label,cls){if(!ICON_UI||!b||!ICS[k])return b;b.classList.remove('btn','sm','x','p','fcpo','fcwa');b.classList.add('lxi');if(cls)b.classList.add(cls);b.innerHTML=ICS[k];b.setAttribute('aria-label',label);b.setAttribute('data-tip',label);b.removeAttribute('title');return b;}
 /* the delete button asks for a second tap: an icon opens into «تأكيد الحذف», a text button changes its words */
-function ARM(b,on,label){if(!b)return;label=label||'حذف';if(!b.classList.contains('lxi')){b.textContent=on?'تأكيد الحذف':label;return;}
+function ARM(b,on,label){if(!b)return;label=label||'حذف';if(on&&typeof HAP==='function')HAP('tap');if(!b.classList.contains('lxi')){b.textContent=on?'تأكيد الحذف':label;return;}
   if(on){b.classList.add('arm');b.innerHTML=ICS.trash+'<span>تأكيد الحذف</span>';b.setAttribute('aria-label','تأكيد الحذف');b.removeAttribute('data-tip');}
   else{b.classList.remove('arm');b.innerHTML=ICS.trash;b.setAttribute('aria-label',label);b.setAttribute('data-tip',label);}}
+/* ---------- a light vibration (the phone's own haptics in the app) on a choice, a save and a deletion ---------- */
+function HAP(k){try{var F=window.Capacitor&&Capacitor.Plugins&&Capacitor.Plugins.FileSaver;if(F&&F.haptic){F.haptic({kind:k||'tap'}).catch(function(){});return;}
+  if(navigator.vibrate&&window.matchMedia&&matchMedia('(pointer:coarse)').matches)navigator.vibrate(k==='warn'?[10,40,10]:k==='ok'?14:8);}catch(e){}}
+/* ---------- «تراجع»: after a deletion confirmed by the second tap, a few seconds to bring it back. A deletion in the app's data is put back;
+   a deletion in a store (the phone's folder, the library, the fonts) can also wait for those seconds before it is done (commit) ---------- */
+var UNDO=(function(){var cur=null;
+  function done(c,undo){if(!c||c.over)return;c.over=true;clearTimeout(c.tm);var d=c.el;d.classList.remove('on');d.classList.add('off');setTimeout(function(){if(d.parentNode)d.remove();},260);if(cur===c)cur=null;
+    try{if(undo){if(c.o.undo)c.o.undo();}else if(c.o.commit)c.o.commit();}catch(e){}}
+  function show(msg,o){o=o||{};if(cur)done(cur,false);var ms=o.ms||6000,d=document.createElement('div');d.className='zlundo';d.setAttribute('role','status');d.setAttribute('aria-live','polite');
+    d.innerHTML='<span class="zlut"></span><button type="button" class="zlub">تراجع</button><i class="zlup"></i>';d.firstChild.textContent=msg;d.lastChild.style.animationDuration=ms+'ms';
+    var c={el:d,o:o,over:false};cur=c;d.querySelector('button').addEventListener('click',function(){HAP('ok');done(c,true);});
+    document.body.appendChild(d);requestAnimationFrame(function(){requestAnimationFrame(function(){d.classList.add('on');});});c.tm=setTimeout(function(){done(c,false);},ms);HAP('warn');return c;}
+  /* a deletion still waiting is done before the app goes to the background */
+  document.addEventListener('visibilitychange',function(){if(document.hidden&&cur)done(cur,false);});
+  return {show:show,flush:function(){if(cur)done(cur,false);}};
+})();
+/* a choice (a document's dot, a row), a save: a light tap of the phone */
+document.addEventListener('click',function(e){var t=e.target&&e.target.closest?e.target.closest('.docsel,.pfrow,.pvseg button,#msave,#dsave,#dadd,#sitesave,#bksave,.ocsave,.lhout,.anaio'):null;
+  if(t)HAP(/^(msave|dsave|dadd|sitesave|bksave)$/.test(t.id)||t.classList.contains('ocsave')||t.classList.contains('lhout')?'ok':'tap');},true);
 function icRow(cls){return el('div','icr'+(cls?' '+cls:''));}
 /* a number with its noun, as Arabic counts it: 1, 2, 3 to 10, 11 to 99, then 100, 101… */
 function arN(n,f){n=+n||0;var m=n%100;return n===1?f[0]:n===2?f[1]:(m>=3&&m<=10)?n+' '+f[2]:(m>=11&&m<=99)?n+' '+f[3]:n+' '+f[4];}
@@ -2020,7 +2049,7 @@ function kdChip(a){var k=kindOf(a);return el('span','kd kd-'+k,k);}
 function actBtns(e,o){o=o||{};var f=el('div','af'),cal,eb=el('button','btn sm','تعديل'),db=el('button','btn sm x','حذف');
   if(o.cal){cal=el('button','btn sm','أجندة');cal.addEventListener('click',function(){if(NATIVE)addToCalendar(e);else download('rendez-vous-'+e.a.d+'.ics',buildICS([e]));});}else cal=el('span','sp');
   eb.addEventListener('click',function(){if(o.edit)o.edit();else editAct(e);});
-  db.addEventListener('click',function(){var key=e.uid;if(armed!==key){armed=key;ARM(db,1);setTimeout(function(){if(armed===key){armed=null;ARM(db,0);}},3000);return;}armed=null;if(o.del)o.del();else{items[e.fid].acts.splice(e.i,1);openD[e.fid]=true;persist();}});
+  db.addEventListener('click',function(){var key=e.uid;if(armed!==key){armed=key;ARM(db,1);setTimeout(function(){if(armed===key){armed=null;ARM(db,0);}},3000);return;}armed=null;if(o.del)o.del();else{var ka=items[e.fid].acts.splice(e.i,1)[0];openD[e.fid]=true;persist();UNDO.show('حُذف «'+String(ka&&ka.a||'الإجراء').slice(0,40)+'».',{undo:function(){var f=items[e.fid];if(!f||!ka)return;f.acts=f.acts||[];f.acts.splice(Math.min(e.i,f.acts.length),0,ka);openD[e.fid]=true;persist();}});}});
   if(ICON_UI){f.classList.add('icr');if(o.cal)ICN(cal,'cal','أجندة');ICN(eb,'edit','تعديل');ICN(db,'trash','حذف','del');}
   f.appendChild(cal);f.appendChild(eb);f.appendChild(db);return f;}
 function entryLi(e,upcoming){var li=el('li','act'),h=el('div','ah');h.appendChild(kdChip(e.a));h.appendChild(el('span','tm',fd(e.a.d)));if(e.a.t)h.appendChild(el('span','tm',e.a.t));li.appendChild(h);
@@ -2099,7 +2128,8 @@ function renderFiles(){
     var r1=el('div','fca fca1'),bd=el('button','btn sm x','حذف'),be=el('button','btn sm','تعديل'),ban=el('button','btn sm','تحليل'),bp=el('button','btn sm','طباعة');
     bd.addEventListener('click',function(){
       if(armed!==x.id){armed=x.id;ARM(bd,1);setTimeout(function(){if(armed===x.id){armed=null;ARM(bd,0);}},3000);return;}
-      armed=null;delete items[x.id];persist();
+      armed=null;var keep=items[x.id];delete items[x.id];persist();
+      UNDO.show('حُذف الملف «'+String(fname(keep)).slice(0,40)+'».',{undo:function(){if(items[x.id])return;items[x.id]=keep;if(typeof tomb==='object'&&tomb){delete tomb[x.id];try{localStorage.setItem(TOMBK,JSON.stringify(tomb));}catch(e){}}persist();}});
     });
     be.addEventListener('click',function(){
       $('mlabel').value=f.label||'';$('mcourt').value=f.court||'';$('mroom').value=f.room||'';$('mjudge').value=f.judge||'';$('mno').value=f.no;$('mcode').value=f.code||'';$('myr').value=f.yr;$('mst').value=String(f.st);$('mnote').value=f.note||'';$('mour').value=f.our||'';$('mtype').dataset.m='1';$('mcref').value=f.cref||'';$('mccode').value=f.ccode||'';$('mcli').value=f.cli||'';$('mtel').value=f.tel||'';$('madv').value=f.adv||'';$('madvl').value=f.advl||'';$('mfee').value=f.fee||'';$('mfeeby').value=f.feeby||'';CTBL.load(f);
@@ -2139,7 +2169,7 @@ function feesBox(id,f){
   pays.forEach(function(p,i){
     var li=el('li');li.appendChild(el('span','tm',fd(p.d)));li.appendChild(el('span',null,money(p.a)+' د.م'));if(p.n)li.appendChild(el('span','meta',p.n));
     var x=el('button','btn sm x','حذف');
-    x.addEventListener('click',function(){var key='p'+id+i;if(armed!==key){armed=key;ARM(x,1);setTimeout(function(){if(armed===key){armed=null;ARM(x,0);}},3000);return;}armed=null;f.pays.splice(i,1);openD['fee'+id]=true;persist();});
+    x.addEventListener('click',function(){var key='p'+id+i;if(armed!==key){armed=key;ARM(x,1);setTimeout(function(){if(armed===key){armed=null;ARM(x,0);}},3000);return;}armed=null;var kp=f.pays.splice(i,1)[0];openD['fee'+id]=true;persist();UNDO.show('حُذف الأداء.',{undo:function(){var g=items[id];if(!g||!kp)return;g.pays=g.pays||[];g.pays.splice(Math.min(i,g.pays.length),0,kp);openD['fee'+id]=true;persist();}});});
     if(window.FEES){var rc=el('button','btn sm','وصل');rc.type='button';rc.title='وصل أداء على رأسية المكتب';rc.addEventListener('click',function(){FEES.receipt(id,i);});li.appendChild(rc);}
     if(ICON_UI){var ir=icRow();ICN(x,'trash','حذف','del');[].slice.call(li.querySelectorAll(':scope>button')).forEach(function(b){if(b!==x){ICN(b,'receipt','وصل');ir.appendChild(b);}});ir.appendChild(x);li.appendChild(ir);}else li.appendChild(x);ul.appendChild(li);
   });
@@ -3971,24 +4001,132 @@ var AN=(function(){
   function names(f){return [{v:f.cli,tag:'[الموكل]'},{v:f.adv,tag:'[الخصم]'},{v:f.advl,tag:'[محامي الخصم]'}];}
   var css=false;
   function style(){if(css)return;css=true;var s=document.createElement('style');s.textContent='.anv{position:fixed;left:0;top:0;right:0;bottom:0;z-index:9997;background:rgba(6,22,19,.97);color:#f6f1e2;overflow:auto;padding:14px 14px 40px;font-family:"Tajawal","Noto Sans Arabic",Tahoma,sans-serif;direction:rtl}.anv h3{margin:.2rem 0 .6rem;font-size:1.3rem;color:#f0d68a}.anv .w{background:rgba(255,157,128,.14);border:1px solid rgba(255,157,128,.7);border-radius:14px;padding:.6rem .8rem;margin:.5rem 0;font-size:.92rem;line-height:1.7}.anv label{display:flex;gap:.5rem;align-items:center;margin:.35rem 0;font-size:.98rem}.anv select,.anv textarea{width:100%;box-sizing:border-box;border-radius:14px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.09);color:#fff;padding:.6rem .8rem;font:inherit;margin:.3rem 0}.anv select option{color:#14211e}.anv textarea{min-height:260px;line-height:1.7}.anv .r{display:flex;gap:.5rem;flex-wrap:wrap;margin:.6rem 0}.anv button{border-radius:999px;border:1.5px solid rgba(200,162,74,.8);background:rgba(255,255,255,.07);color:#f0d68a;font:700 1rem inherit;padding:.6rem 1.2rem;cursor:pointer}.anv button.p{border:0;background:linear-gradient(145deg,#ffe28f,#c8a24a 60%,#a67e26);color:#0b2420}.anv small{color:#b9c9c2}';document.head.appendChild(s);}
+  /* ---------- the kinds of documents, read from their text, and what can be asked of each: a study («دراسة») or a draft («صياغة») ---------- */
+  var ROLE='أنت محام مغربي متمرس، تعتمد القانون المغربي والعمل القضائي لمحكمة النقض. ',TAIL=' اعتمد على نص الوثيقة، ونبّه صراحة إلى كل ما يلزم التحقق منه في النص الرسمي أو في وثائق الملف. أبق الرموز التي بين معقوفين، مثل [الموكل]، كما هي.\n\nنص الوثيقة:\n';
+  function T(id,l,p){return [id,l,ROLE+p+TAIL];}
+  var DT={
+    judgment:{l:'حكم أو قرار',A:[T('j_sum','ملخص الحكم: الوقائع والأسباب والمنطوق','لخّص الحكم أو القرار الآتي: المحكمة والتاريخ والأطراف، الوقائع، الطلبات، الأسباب التي اعتمدتها المحكمة، المنطوق، ثم ما يترتب عليه عمليًا لـ[الموكل].'),
+        T('j_appeal','أوجه الطعن وفرص نجاحه','ادرس الحكم أو القرار الآتي واستخرج أوجه الطعن الممكنة فيه: خرق القانون، انعدام التعليل أو نقصانه، تحريف الوقائع، خرق حقوق الدفاع، عدم الاختصاص، الخطأ في تطبيق القانون. قيّم فرص نجاح كل وجه، واذكر النصوص والاجتهاد الذي يسنده.'),
+        T('j_dead','آجال الطعن والتنفيذ والإجراءات','حدّد طرق الطعن المتاحة ضد الحكم أو القرار الآتي وآجالها ونقطة انطلاقها وأثرها على التنفيذ، ثم الإجراءات العملية الواجبة (التبليغ، النسخة التنفيذية، الصعوبة في التنفيذ…).')],
+      D:[T('j_app','مقال استئنافي','حرّر مسودة مقال استئنافي لفائدة [الموكل] ضد الحكم الآتي: البيانات، الوقائع، أسباب الاستئناف مرتبة (في الشكل ثم في الموضوع) مع النصوص، ثم الطلبات.'),
+        T('j_cass','مقال الطعن بالنقض','حرّر مسودة مقال الطعن بالنقض لفائدة [الموكل] ضد القرار الآتي: البيانات، الوقائع والمسطرة، ثم وسائل النقض بصياغة محكمة النقض (الوسيلة الأولى… مع بيان الجزء المنتقد من القرار ووجه الخرق)، ثم الطلبات.'),
+        T('j_exec','طلب تنفيذ الحكم','حرّر مسودة طلب تنفيذ الحكم الآتي أو طلب نسخته التنفيذية، مع بيان الوثائق الواجب إرفاقها.'),
+        T('j_client','رسالة إلى الموكل تشرح الحكم','اكتب رسالة قصيرة وواضحة إلى [الموكل] تشرح له منطوق الحكم الآتي وما يترتب عليه، وطرق الطعن وآجالها، وما هو مطلوب منه، بلغة بسيطة.')]},
+    expert:{l:'تقرير خبرة',A:[T('e_crit','مراجعة نقدية لتقرير الخبرة','راجع تقرير الخبرة الآتي مراجعة نقدية: مدى التقيد بالمهمة المحددة في الحكم التمهيدي، احترام الحضورية واستدعاء الأطراف ونوابهم، سلامة المنهج والحسابات، التناقضات، النقط التي في غير صالح [الموكل]، وأوجه الطعن في التقرير.'),
+        T('e_sum','ملخص نتائج الخبرة','لخّص تقرير الخبرة الآتي: المهمة، الإجراءات، المعاينات، الخلاصات والأرقام، وأثرها على طلبات الأطراف.')],
+      D:[T('e_memo','مذكرة بعد الخبرة','حرّر مسودة مذكرة بعد الخبرة لفائدة [الموكل] بناءً على التقرير الآتي: الملاحظات الشكلية على الخبرة، ثم الملاحظات الموضوعية، ثم الطلبات (المصادقة أو الاستبعاد أو خبرة مضادة أو تكميلية).'),
+        T('e_counter','طلب خبرة مضادة أو تكميلية','حرّر مسودة طلب خبرة مضادة أو تكميلية معللًا بالعيوب المستخرجة من التقرير الآتي، واقترح النقط التي تحددها المحكمة للخبير.')]},
+    claim:{l:'مقال الطرف الخصم',A:[T('c_def','الدفوع الشكلية والموضوعية','ادرس المقال الآتي المقدم من الطرف الخصم: ملخص الطلبات وأسانيدها، الدفوع الشكلية الممكنة (الصفة، المصلحة، الأهلية، الاختصاص، التقادم، شكل المقال)، ثم الدفوع الموضوعية، والوثائق التي نحتاجها للرد.'),
+        T('c_sum','ملخص الطلبات والأسانيد','لخّص المقال الآتي: الأطراف، الوقائع، الطلبات، الأسانيد القانونية، الوثائق المدلى بها.')],
+      D:[T('c_ans','مذكرة جوابية','حرّر مسودة مذكرة جوابية لفائدة [الموكل] ردًا على المقال الآتي: في الشكل، ثم في الموضوع ردًا على كل طلب، ثم الطلبات.'),
+        T('c_counter','مقال مضاد','حرّر مسودة مقال مضاد (طلب مقابل) لفائدة [الموكل] مرتبط بالمقال الآتي، مع بيان الأساس القانوني لكل طلب.')]},
+    memo:{l:'مذكرة',A:[T('m_reply','الرد على الدفوع نقطة نقطة','استخرج من المذكرة الآتية كل دفع أو حجة، وضع أمام كل واحد الرد الممكن لفائدة [الموكل] مع النص أو الاجتهاد الذي يسنده.'),
+        T('m_crit','مراجعة نقدية للمذكرة','راجع المذكرة الآتية مراجعة نقدية: الثغرات القانونية، ضعف الصياغة، الحجج الناقصة، ثم اقترح تحسينات محددة.'),
+        T('m_sum','تلخيص المذكرة','لخّص المذكرة الآتية في نقاط: الدفوع الشكلية، الدفوع الموضوعية، الطلبات.')],
+      D:[T('m_tq','مذكرة تعقيبية','حرّر مسودة مذكرة تعقيبية لفائدة [الموكل] على المذكرة الآتية: الرد على الدفوع الشكلية ثم الموضوعية، ثم التأكيد على الطلبات.'),
+        T('m_rewrite','إعادة صياغة المذكرة وتجويدها','أعد صياغة المذكرة الآتية بأسلوب قانوني مغربي رصين، مع تقوية الحجج وترتيبها، دون تغيير الوقائع أو الطلبات.')]},
+    summons:{l:'استدعاء أو تبليغ',A:[T('s_info','بيانات الاستدعاء والآجال','استخرج من الوثيقة الآتية: المحكمة، رقم الملف، تاريخ الجلسة وساعتها وقاعتها، الأطراف، موضوع الدعوى، الآجال، وما يجب فعله قبل الجلسة.'),
+        T('s_form','سلامة التبليغ والدفوع الشكلية','تحقق من سلامة الاستدعاء أو التبليغ الآتي (البيانات الإلزامية، أجل الحضور، الموطن، الصفة) واذكر الدفوع الشكلية الممكنة.')],
+      D:[T('s_post','طلب تأخير لإعداد الجواب','حرّر مسودة طلب تأخير الملف لإعداد الجواب والاطلاع على المقال والوثائق، مختصرًا ومهذبًا.'),
+        T('s_ans','مذكرة جوابية أولية','حرّر مسودة مذكرة جوابية أولية بناءً على ما يرد في الوثيقة الآتية، مع ترك فراغات لما يحتاج إلى معطيات إضافية.')]},
+    contract:{l:'عقد',A:[T('k_obl','التزامات الطرفين والشروط الأساسية','حلّل العقد الآتي: الأطراف، المحل، الثمن أو المقابل، الالتزامات، المدة، الفسخ، الشرط الجزائي، الاختصاص والتحكيم.'),
+        T('k_risk','الشروط المجحفة والمخاطر','استخرج من العقد الآتي الشروط المجحفة أو الغامضة أو الباطلة، والمخاطر على [الموكل]، واقترح تعديلات محددة.')],
+      D:[T('k_notice','إنذار بالتنفيذ أو بالفسخ','حرّر مسودة إنذار موجه إلى الطرف الآخر في العقد الآتي من أجل التنفيذ أو الفسخ، مع تحديد الأجل والآثار.'),
+        T('k_claim','مقال افتتاحي مبني على العقد','حرّر مسودة مقال افتتاحي لفائدة [الموكل] مبني على العقد الآتي: الوقائع، الأساس القانوني، الطلبات.')]},
+    report:{l:'محضر',A:[T('r_sum','ملخص المحضر','لخّص المحضر الآتي: الجهة المحررة، التاريخ، الأشخاص، التصريحات، المعاينات، الحجوزات.'),
+        T('r_nul','أوجه البطلان والدفوع الشكلية','ابحث في المحضر الآتي عن أوجه البطلان والإخلالات المسطرية (الحراسة النظرية، إشعار العائلة، حضور المحامي، التوقيع، الآجال) والدفوع الممكنة.')],
+      D:[T('r_memo','مذكرة دفاعية','حرّر مسودة مذكرة دفاعية لفائدة [الموكل] بناءً على المحضر الآتي: الدفوع الشكلية ثم الموضوعية ثم الطلبات.')]},
+    complaint:{l:'شكاية',A:[T('p_qual','التكييف القانوني والأركان والإثبات','حلّل الشكاية الآتية: التكييف القانوني للأفعال، أركان الجريمة، وسائل الإثبات، التقادم، والمسطرة الملائمة.')],
+      D:[T('p_def','مذكرة دفاعية','حرّر مسودة مذكرة دفاعية لفائدة [الموكل] ردًا على الشكاية الآتية.'),T('p_cpl','شكاية مباشرة','حرّر مسودة شكاية مباشرة لفائدة [الموكل] بناءً على الوقائع الواردة في الوثيقة الآتية.')]},
+    notice:{l:'إنذار',A:[T('n_val','صحة الإنذار وآثاره والآجال','ادرس الإنذار الآتي: صحته الشكلية، الأجل الممنوح، الآثار القانونية، وما يجب على [الموكل] فعله.')],
+      D:[T('n_reply','جواب على الإنذار','حرّر مسودة جواب على الإنذار الآتي لفائدة [الموكل].')]},
+    generic:{l:'وثيقة أخرى',A:[['g_legal','تحليل قانوني وتكييف الوقائع',PR.legal],['g_sum','تلخيص في نقاط',PR.sum],['g_crit','مراجعة نقدية',PR.crit]],
+      D:[['g_draft','صياغة مذكرة',PR.draft],T('g_client','رسالة إلى الموكل تشرح الوثيقة','اكتب رسالة قصيرة وواضحة إلى [الموكل] تشرح له مضمون الوثيقة الآتية وما يترتب عليها وما هو مطلوب منه، بلغة بسيطة.')]}};
+  var DTO=['judgment','expert','claim','memo','summons','contract','report','complaint','notice','generic'];
+  /* the kind of a document from its first pages */
+  function docType(t,name){var s=String(t||'').slice(0,8000),h=s.slice(0,900)+' '+String(name||'');
+    if(/باسم\s+جلالة\s+الملك|حكمت\s+المحكمة|قضت\s+المحكمة|قررت\s+المحكمة|وهي\s+تبت|منطوق\s+(?:الحكم|القرار)|(?:الحكم|القرار)\s+عدد/.test(s))return 'judgment';
+    if(/تقرير\s+(?:ال)?خبرة|الخبير\s+(?:المعين|المنتدب)|الخبرة\s+المأمور|خلاصة\s+الخبرة|الخبير/.test(h))return 'expert';
+    if(/محضر\s+(?:معاينة|استجواب|الاستماع|حجز|تبليغ|الضابطة|الشرطة|الدرك|إخباري|قضائي)/.test(h))return 'report';
+    if(/شهادة\s+التسليم|طي\s+التبليغ|استدعاء/.test(h)&&s.length<5000)return 'summons';
+    if(/شكاية/.test(h))return 'complaint';
+    if(/إنذار/.test(h))return 'notice';
+    if(/مذكرة/.test(h))return 'memo';
+    if(/مقال\s+(?:افتتاحي|استئنافي|إصلاحي|مضاد|من\s+أجل)|يتشرف\s+العارض|لأجله\s+يلتمس/.test(s))return 'claim';
+    if(/(?:^|\s)(?:عقد|اتفاقية)\s|الطرف\s+الأول|الطرف\s+الثاني|اتفق\s+الطرفان|البند\s+(?:الأول|1)/.test(h))return 'contract';
+    return 'generic';}
+  /* ---------- the AI tools offered for a text: the app when it is on the phone, else its site; the text is copied too ---------- */
+  var AIS=[['claude','Claude','com.anthropic.claude','https://claude.ai/new?q='],['chatgpt','ChatGPT','com.openai.chatgpt','https://chatgpt.com/?q='],['gemini','Gemini','com.google.android.apps.bard','https://gemini.google.com/app'],
+    ['copilot','Copilot','com.microsoft.copilot','https://copilot.microsoft.com/?q='],['perplexity','Perplexity','ai.perplexity.app.android','https://www.perplexity.ai/search?q='],['deepseek','DeepSeek','com.deepseek.chat','https://chat.deepseek.com/']];
+  function FSx(){return window.Capacitor&&window.Capacitor.Plugins?window.Capacitor.Plugins.FileSaver:null;}
+  function haptic(k){var F=FSx();try{if(F&&F.haptic)F.haptic({kind:k||'tap'});else if(navigator.vibrate)navigator.vibrate(k==='warn'?[12,40,12]:8);}catch(e){}}
+  function openWeb(u){var F=FSx();if(F&&F.openUrl)return F.openUrl({url:u}).catch(function(){try{window.open(u,'_blank','noopener');}catch(e){}});try{window.open(u,'_blank','noopener');}catch(e){location.href=u;}}
+  function toAI(a,t,title,on){try{if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).catch(function(){});}catch(e){}
+    try{localStorage.setItem('zl_ai',a[0]);}catch(e){}var F=FSx();
+    if(on&&F&&F.shareText)return F.shareText({text:t,title:title||a[1],package:a[2]}).catch(function(){copy(t);});
+    var u=/\?q=$/.test(a[3])?a[3]+encodeURIComponent(t):a[3];if(u.length>7000||!/\?q=$/.test(a[3])){u=a[3].replace(/\?q=$/,'');say('نُسخ النص: الصقوه في المحادثة.');}openWeb(u);}
+  function aiMenu(t,title){var last='';try{last=localStorage.getItem('zl_ai')||'';}catch(e){}
+    var ov=document.createElement('div');ov.className='anai';ov.setAttribute('data-ov','1');var pn=document.createElement('div');pn.className='anaip';ov.appendChild(pn);
+    pn.innerHTML='<h4>أداة الذكاء الاصطناعي</h4><p>يُرسل النص كما يظهر في الخانة، بعد الإخفاء. ويُنسخ أيضًا.</p>';var ls=document.createElement('div');ls.className='anail';pn.appendChild(ls);
+    var x=document.createElement('button');x.type='button';x.className='anaix';x.textContent='إلغاء';x.setAttribute('data-close','1');pn.appendChild(x);
+    function close(){ov.classList.add('out');setTimeout(function(){ov.remove();},180);}
+    x.addEventListener('click',close);ov.addEventListener('click',function(e){if(e.target===ov)close();});
+    var order=AIS.slice().sort(function(a,b){return (b[0]===last)-(a[0]===last);});
+    function draw(inst){ls.textContent='';order.forEach(function(a){var on=inst?!!inst[a[2]]:false,b=document.createElement('button');b.type='button';b.className='anaio'+(a[0]===last?' last':'');
+        b.innerHTML='<span class="anaim">'+a[1].charAt(0)+'</span><span class="anait"><b>'+a[1]+'</b><small>'+(inst?(on?'التطبيق على الهاتف':'يُفتح في المتصفح'):'')+(a[0]===last?' — الأخير':'')+'</small></span>';
+        b.addEventListener('click',function(){haptic('tap');close();toAI(a,t,title,on);});ls.appendChild(b);});}
+    draw(null);document.body.appendChild(ov);var F=FSx();
+    if(F&&F.appsInstalled)F.appsInstalled({packages:AIS.map(function(a){return a[2];})}).then(function(r){draw((r&&r.installed)||{});},function(){draw({});});else draw({});}
+  /* the answer of the AI tool, pasted back: the names come back in place of their tags */
+  function unmask(t,names){(names||[]).filter(function(n){return n&&n.v&&n.tag;}).forEach(function(n){t=String(t).split(n.tag).join(String(n.v).trim());});return t;}
+  var SVA=function(p){return '<svg class="ln" viewBox="0 0 24 24" aria-hidden="true">'+p+'</svg>';};
+  var AIC={ai:SVA('<path d="M12 5.4A2.8 2.8 0 0 0 7 4.2a3 3 0 0 0-2.6 3.2 3.1 3.1 0 0 0-1 4.7 3.2 3.2 0 0 0 .8 4.5A3.1 3.1 0 0 0 9 19.8a2.7 2.7 0 0 0 3-1.3z"/><path d="M12 5.4a2.8 2.8 0 0 1 5-1.2 3 3 0 0 1 2.6 3.2 3.1 3.1 0 0 1 1 4.7 3.2 3.2 0 0 1-.8 4.5A3.1 3.1 0 0 1 15 19.8a2.7 2.7 0 0 1-3-1.3z"/><path d="M8.3 9.3c1.1.2 2 1 2.2 2.1M15.7 9.3c-1.1.2-2 1-2.2 2.1M8 14.6c1.3 0 2.4.7 3 1.8M16 14.6c-1.3 0-2.4.7-3 1.8"/>'),
+    copy:SVA('<rect x="8.5" y="8" width="11.5" height="12.5" rx="2.2"/><path d="M15.5 8V5.8a2.2 2.2 0 0 0-2.2-2.2H6.2A2.2 2.2 0 0 0 4 5.8v8.4a2.2 2.2 0 0 0 2.2 2.2h2.3"/>'),
+    share:SVA('<circle cx="17.6" cy="5.6" r="2.5"/><circle cx="6.4" cy="12" r="2.5"/><circle cx="17.6" cy="18.4" r="2.5"/><path d="M8.6 10.8l6.8-3.9M8.6 13.2l6.8 3.9"/>'),
+    gen:SVA('<path d="M19.6 11a7.6 7.6 0 0 0-13.6-4.6L4.4 8.2"/><path d="M4.4 4v4.2h4.2"/><path d="M4.4 13a7.6 7.6 0 0 0 13.6 4.6l1.6-1.8"/><path d="M19.6 20v-4.2h-4.2"/>'),
+    ins:SVA('<path d="M9 4.2h6M9.6 3h4.8a1 1 0 0 1 1 1v1.4H8.6V4a1 1 0 0 1 1-1z"/><path d="M15.4 4.6h1.8a2 2 0 0 1 2 2v12.6a2 2 0 0 1-2 2H6.8a2 2 0 0 1-2-2V6.6a2 2 0 0 1 2-2h1.8"/><path d="M12 9.2v7.4M8.9 13.5l3.1 3.1 3.1-3.1"/>'),
+    close:SVA('<path d="M6.5 6.5l11 11M17.5 6.5l-11 11"/>')};
+  /* the buttons at the foot of the page: icons in the app, words on the site */
+  var ANICO=0;
+  function bb(id,k,l,p){return '<button'+(p?' class="p"':'')+' id="'+id+'" type="button" aria-label="'+l+'" title="'+l+'">'+(ANICO?AIC[k]:l)+'</button>';}
+  var css2=false;function style2(){if(css2)return;css2=true;var s=document.createElement('style');s.textContent=".anv{animation:anin .24s cubic-bezier(.2,.8,.2,1) both;padding-bottom:calc(40px + env(safe-area-inset-bottom,0px))!important}\n.anv.out{animation:anout .18s ease-in both;pointer-events:none}\n@keyframes anin{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}\n@keyframes anout{to{opacity:0;transform:translateY(10px)}}\n.anv .and{margin:-.3rem 0 .5rem;color:#b9c9c2;font-size:.92rem;line-height:1.5;word-break:break-word}\n.anv .anbar{display:flex;gap:.5rem;flex-wrap:wrap;margin:.6rem 0}\n.anv .anbar.ico{position:sticky;bottom:8px;z-index:2;flex-wrap:nowrap;justify-content:space-between;gap:.35rem;padding:.45rem;margin:.7rem -2px;border-radius:999px;background:#0e2a25;border:1px solid rgba(200,162,74,.45);box-shadow:0 6px 18px rgba(0,0,0,.35)}\n.anv .anbar.ico button{flex:0 0 auto;width:46px;height:46px;padding:0;display:grid;place-items:center;border-radius:50%;transition:transform .14s ease,background-color .18s ease}\n.anv .anbar.ico button:active{transform:scale(.9)}\n.anv .anbar.ico button.p{width:54px;height:54px;margin-top:-6px;margin-bottom:-6px;box-shadow:0 4px 14px rgba(200,162,74,.35)}\n.anv .anbar.ico button.on{background:rgba(240,214,138,.2)}\n.anv .anbar svg.ln{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}\n.anv .anbar.ico button.p svg.ln{width:29px;height:29px;stroke-width:1.6}\n.anv .anrep{margin:.4rem 0 1rem;padding:.7rem .8rem;border-radius:16px;border:1px solid rgba(200,162,74,.5);background:rgba(255,255,255,.05);animation:anin .22s ease-out both}\n.anv .anrep h4{margin:.1rem 0 .3rem;color:#f0d68a;font-size:1.08rem}\n.anv .anrep p{margin:0 0 .4rem;font-size:.9rem;line-height:1.6;color:#d9e3df}\n.anv .anrep textarea{min-height:180px}\n.anv .anrb{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:.3rem}\n.anv .anrb button{padding:.5rem 1rem;font-size:.95rem}\n.anv .anrb button[disabled]{opacity:.5}\n.anai{position:fixed;inset:0;z-index:9998;background:rgba(3,12,10,.55);display:flex;align-items:flex-end;justify-content:center;animation:anfade .18s ease-out both;direction:rtl;font-family:\"Tajawal\",\"Noto Sans Arabic\",Tahoma,sans-serif}\n.anai.out{animation:anfadeo .16s ease-in both}\n@keyframes anfade{from{opacity:0}}\n@keyframes anfadeo{to{opacity:0}}\n.anaip{width:100%;max-width:520px;box-sizing:border-box;background:#0b2420;color:#f6f1e2;border-radius:22px 22px 0 0;border-top:1px solid rgba(200,162,74,.6);padding:14px 14px calc(14px + env(safe-area-inset-bottom,0px));animation:anup .26s cubic-bezier(.2,.8,.2,1) both}\n.anai.out .anaip{animation:andn .16s ease-in both}\n@keyframes anup{from{transform:translateY(40px);opacity:.4}}\n@keyframes andn{to{transform:translateY(30px);opacity:0}}\n.anaip h4{margin:.1rem 0 .2rem;color:#f0d68a;font-size:1.15rem}\n.anaip p{margin:0 0 .6rem;color:#b9c9c2;font-size:.88rem;line-height:1.55}\n.anail{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}\n.anaio{display:flex;align-items:center;gap:.55rem;text-align:start;border-radius:16px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:#f6f1e2;padding:.55rem .6rem;font:inherit;cursor:pointer;transition:transform .12s ease,background-color .18s ease}\n.anaio:active{transform:scale(.96)}\n.anaio.last{border-color:rgba(240,214,138,.75);background:rgba(240,214,138,.12)}\n.anaim{flex:0 0 34px;height:34px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#ffe28f,#c8a24a 60%,#a67e26);color:#0b2420;font-weight:800;font-size:1.05rem;font-family:Arial,sans-serif}\n.anait{display:flex;flex-direction:column;min-width:0}\n.anait b{font-size:1rem;font-family:Arial,\"Tajawal\",sans-serif;direction:ltr;text-align:right}\n.anait small{font-size:.75rem;color:#b9c9c2;line-height:1.3}\n.anaix{display:block;width:100%;margin-top:.7rem;border-radius:999px;border:1.5px solid rgba(200,162,74,.8);background:transparent;color:#f0d68a;font:700 1rem inherit;padding:.6rem}\n@media (prefers-reduced-motion:reduce){.anv,.anv.out,.anai,.anaip,.anv .anrep{animation:none!important}}\n";document.head.appendChild(s);}
   function open(cfg){
-    style();var kind=cfg.kind||'lib',strict=(kind==='file'||kind==='memo');
+    style();style2();var kind=cfg.kind||'lib',strict=(kind==='file'||kind==='memo'),mode=cfg.mode||'A',ty=cfg.type&&DT[cfg.type]?cfg.type:null;
     var raw=String(cfg.text||''),ov=document.createElement('div');ov.className='anv';
-    ov.innerHTML='<h3>نسخ للتحليل</h3><div class="w">السر المهني: لا ترسلوا معطيات موكل إلى أي خدمة خارجية قبل تجهيلها أو الحصول على موافقته. يحجب هذا الحوار المعطيات المعروفة تلقائيًا، لكنه لا يكتشف كل اسم أو عبارة تدل على الهوية، فراجعوا النص كلمة كلمة قبل النسخ.</div>'
+    ov.innerHTML='<h3></h3>'+(cfg.docName?'<p class="and">'+String(cfg.docName).replace(/[<>&]/g,'')+'</p>':'')+'<div class="w">السر المهني: لا ترسلوا معطيات موكل إلى أي خدمة خارجية قبل تجهيلها أو الحصول على موافقته. يحجب هذا الحوار المعطيات المعروفة تلقائيًا، لكنه لا يكتشف كل اسم أو عبارة تدل على الهوية، فراجعوا النص كلمة كلمة قبل الإرسال.</div>'
      +'<label><input type="checkbox" id="an_n"> إخفاء الأسماء</label><label><input type="checkbox" id="an_d"> إخفاء الهواتف والبطاقة الوطنية وأرقام الملفات</label><label><input type="checkbox" id="an_m"> إخفاء المبالغ</label><label><input type="checkbox" id="an_t"> إخفاء التواريخ <small>(قد تحتاجونها لحساب الآجال)</small></label>'
-     +'<label style="display:block">القالب المطلوب<select id="an_p"></select></label><textarea id="an_x" dir="auto"></textarea><div class="r">'+(cfg.claude?'<button class="p" id="an_cl" type="button">فتح في Claude</button><button id="an_c" type="button">نسخ</button>':'<button class="p" id="an_c" type="button">نسخ</button>')+'<button id="an_s" type="button">مشاركة</button><button id="an_g" type="button">إعادة التوليد</button><button id="an_q" type="button">إغلاق</button></div>';
+     +(ty?'<label style="display:block">نوع الوثيقة<select id="an_k"></select></label>':'')
+     +'<label style="display:block">'+(ty?(mode==='D'?'ما يُصاغ':'ما يُدرس'):'القالب المطلوب')+'<select id="an_p"></select></label><textarea id="an_x" dir="auto"></textarea>'
+     +'<div class="anbar'+(ANICO?' ico':'')+'">'+bb('an_ai','ai',ANICO?'أداة الذكاء الاصطناعي':'الذكاء الاصطناعي',1)+bb('an_c','copy','نسخ')+bb('an_s','share','مشاركة')+bb('an_g','gen','إعادة التوليد')+bb('an_i','ins','إدراج الجواب')+bb('an_q','close','إغلاق')+'</div>'
+     +'<div class="anrep" id="an_rp" hidden><h4>إدراج الجواب</h4><p>الصقوا جواب الذكاء الاصطناعي هنا: تُعاد الأسماء مكان الرموز، ثم ضعوه في الرأسية أو احفظوه في «المذكرات».</p><textarea id="an_r" dir="auto" placeholder="جواب الذكاء الاصطناعي"></textarea><div class="anrb"><button type="button" id="an_rv">لصق</button><button type="button" class="p" id="an_rl">في الرأسية</button><button type="button" id="an_rs">حفظ في «المذكرات»</button><button type="button" id="an_rc">نسخ</button></div></div>';
     document.body.appendChild(ov);
-    var $=function(i){return ov.querySelector('#'+i);},dirty=false;
+    var $=function(i){return ov.querySelector('#'+i);},dirty=false,PRX={};
     $('an_n').checked=strict;$('an_d').checked=strict;$('an_m').checked=false;$('an_t').checked=false;
-    TPL.forEach(function(x){var o=document.createElement('option');o.value=x[0];o.textContent=x[1];$('an_p').appendChild(o);});$('an_p').value=cfg.tpl!=null?cfg.tpl:(strict?'legal':'');if(cfg.head)ov.querySelector('h3').textContent=cfg.head;
+    function fillT(){var sp=$('an_p');sp.textContent='';var L=ty?DT[$('an_k').value][mode]:TPL;L.forEach(function(x){var o=document.createElement('option');o.value=x[0];o.textContent=x[1];if(x[2])PRX[x[0]]=x[2];sp.appendChild(o);});}
+    if(ty){DTO.forEach(function(k){var o=document.createElement('option');o.value=k;o.textContent=DT[k].l;$('an_k').appendChild(o);});$('an_k').value=ty;}
+    fillT();if(!ty)$('an_p').value=cfg.tpl!=null?cfg.tpl:(strict?'legal':'');
+    function head(){var h=cfg.head;if(ty){var lb=$('an_p').selectedOptions[0]?$('an_p').selectedOptions[0].textContent:'';h=mode==='D'?(/مذكرة/.test(lb)?'صياغة مذكرة':'صياغة وثيقة'):(cfg.headA||'دراسة الوثيقة');}ov.querySelector('h3').textContent=h||'نسخ للتحليل';}
     function gen(){var o={names:$('an_n').checked?(cfg.names||[]):null,nums:$('an_d').checked,money:$('an_m').checked,dates:$('an_t').checked};if($('an_n').checked&&!o.names)o.names=[];
       var body=($('an_n').checked||$('an_d').checked||$('an_m').checked||$('an_t').checked)?anonFull(raw,{names:$('an_n').checked?(cfg.names||[]):[],nums:$('an_d').checked,money:$('an_m').checked,dates:$('an_t').checked}):raw;
-      $('an_x').value=(PR[$('an_p').value]||'')+body;dirty=false;}
-    ['an_n','an_d','an_m','an_t','an_p'].forEach(function(i){$(i).addEventListener('change',gen);});$('an_g').addEventListener('click',gen);$('an_x').addEventListener('input',function(){dirty=true;});
-    $('an_c').addEventListener('click',function(){copy($('an_x').value);});$('an_s').addEventListener('click',function(){share($('an_x').value,cfg.title);});$('an_q').addEventListener('click',function(){ov.remove();});if(cfg.claude)$('an_cl').addEventListener('click',function(){toClaude($('an_x').value,cfg.title);});
+      $('an_x').value=(PRX[$('an_p').value]||PR[$('an_p').value]||'')+body;dirty=false;head();}
+    ['an_n','an_d','an_m','an_t','an_p'].forEach(function(i){$(i).addEventListener('change',gen);});if(ty)$('an_k').addEventListener('change',function(){fillT();gen();});
+    $('an_g').addEventListener('click',function(){haptic('tap');gen();try{$('an_x').animate([{opacity:.35},{opacity:1}],{duration:260});}catch(e){}});$('an_x').addEventListener('input',function(){dirty=true;});
+    $('an_c').addEventListener('click',function(){haptic('tap');copy($('an_x').value);});$('an_s').addEventListener('click',function(){share($('an_x').value,cfg.title);});
+    $('an_q').addEventListener('click',function(){ov.classList.add('out');setTimeout(function(){ov.remove();},200);});
+    $('an_ai').addEventListener('click',function(){haptic('tap');aiMenu($('an_x').value,cfg.title);});
+    /* the answer back */
+    $('an_i').addEventListener('click',function(){var rp=$('an_rp');rp.hidden=!rp.hidden;$('an_i').classList.toggle('on',!rp.hidden);if(!rp.hidden){try{rp.scrollIntoView({behavior:'smooth',block:'start'});}catch(e){}}});
+    function rtext(){return unmask(String($('an_r').value||'').trim(),cfg.names);}
+    $('an_rv').addEventListener('click',function(){try{navigator.clipboard.readText().then(function(t){$('an_r').value=t;},function(){say('الصقوا الجواب يدويًا في الخانة.');});}catch(e){say('الصقوا الجواب يدويًا في الخانة.');}});
+    $('an_rc').addEventListener('click',function(){var t=rtext();if(t)copy(t);});
+    $('an_rl').hidden=!window.LH;$('an_rs').hidden=!(cfg.fid&&window.PF&&PF.saveReply);
+    $('an_rl').addEventListener('click',function(){var t=rtext().replace(/^\s*#{1,6}\s+/gm,'').replace(/\*\*(.+?)\*\*/g,'$1').replace(/^\s*[-*]\s+/gm,'- ');if(!t){say('الصقوا الجواب أولًا.');return;}var lb=$('an_p').selectedOptions[0]?$('an_p').selectedOptions[0].textContent:'',p=window.SHR&&SHR.split?SHR.split(t):{op:'',body:t};
+      ov.remove();LH.open(cfg.fid||null,p.fr?{model:'f',obj:p.obj,op:p.op,body:p.body}:{type:p.type||(mode==='D'&&ty&&/^(?:مذكرة|مقال|طلب|إنذار|شكاية|جواب)/.test(lb)?lb:''),op:p.op,body:p.body});});
+    $('an_rs').addEventListener('click',function(){var t=rtext();if(!t){say('الصقوا الجواب أولًا.');return;}var lb=$('an_p').selectedOptions[0]?$('an_p').selectedOptions[0].textContent:'';$('an_rs').disabled=true;
+      PF.saveReply(cfg.fid,(mode==='D'?'مسودة':'دراسة')+' — '+lb,t,mode).then(function(){$('an_rs').disabled=false;haptic('ok');},function(){$('an_rs').disabled=false;});});
     gen();return ov;
   }
-  return {open:open,share:share,copy:copy,anon:anonFull,fileText:fileText,names:names,analyzeFile:function(f){return open({title:'تحليل ملف',text:fileText(f),kind:'file',names:names(f)});}};
+  return {open:open,share:share,copy:copy,anon:anonFull,fileText:fileText,names:names,docType:docType,types:DT,aiMenu:aiMenu,haptic:haptic,unmask:unmask,analyzeFile:function(f){return open({title:'تحليل ملف',text:fileText(f),kind:'file',names:names(f)});}};
 })();
 
 /* ===== reports: PDF and print, shared by the office page and the app ===== */
@@ -4757,7 +4895,9 @@ var LH=(function(){
         if(id===HF)t.appendChild(E2('small',null,'خط اسم المكتب في رأس الرأسية'));r.appendChild(t);
         var dl=E2('button','lxi del');dl.type='button';dl.innerHTML=window.ICS&&ICS.trash||'حذف';dl.setAttribute('aria-label','حذف «'+XU[id].label+'»');dl.setAttribute('data-tip','حذف');
         var arm=false;dl.addEventListener('click',function(){if(!arm){arm=true;if(typeof ARM==='function')ARM(dl,1);else dl.textContent='تأكيد الحذف';setTimeout(function(){arm=false;if(typeof ARM==='function')ARM(dl,0);},3000);return;}
-          dl.disabled=true;r.classList.add('gone');delFont(id).then(function(){setTimeout(draw,180);msg.textContent='حُذف الخط.';msg.className='msg ok';});});r.appendChild(dl);list.appendChild(r);});
+          dl.disabled=true;r.classList.add('gone');arm=false;
+          if(!window.UNDO){delFont(id).then(function(){setTimeout(draw,180);msg.textContent='حُذف الخط.';msg.className='msg ok';});return;}
+          UNDO.show('حُذف الخط «'+XU[id].label+'».',{undo:function(){r.classList.remove('gone');dl.disabled=false;if(typeof ARM==='function')ARM(dl,0);},commit:function(){return delFont(id).then(function(){setTimeout(draw,180);});}});});r.appendChild(dl);list.appendChild(r);});
       var std=E2('details','lhfmstd');std.appendChild(E2('summary',null,'الخطوط المرفقة بالرأسية ('+XF.length+')'));
       XF.forEach(function(f){var r=E2('div','lhfmr std'),t=E2('div','lhfmt');t.appendChild(E2('b',null,f[1]));var sm=E2('span','lhfms','بسم الله الرحمن الرحيم — 2026');t.appendChild(sm);r.appendChild(t);std.appendChild(r);
         std.addEventListener('toggle',function(){if(std.open&&f[0]!=='aljazeera')sample(f[0],sm);},{once:true});});
@@ -4805,14 +4945,25 @@ var LH=(function(){
     +'.lhp .lh-body>div,.lhp .lh-op>div{min-height:1em}.lhp .lh-body u,.lhp .lh-op u{text-decoration-thickness:.06em;text-underline-offset:.2em}'
     +'</style>';}
   /* header block, identical on every printed letterhead */
-  function header(b,logo){
+  /* the Arabic name, title and bar as wide as their French counterparts on the left: each line stretched to the width of its French line,
+     its size kept (on the page, in the PDF and in Word) */
+  var HRC={};
+  function hratio(b){var k=[b.name_ar,b.title_ar,b.bar_ar,b.name_fr,b.title_fr,b.bar_fr,XOK[HF]?1:0,b.c3].join('|');if(HRC[k])return HRC[k];
+    var out=[1,1,1];try{var w=document.createElement('div');w.setAttribute('aria-hidden','true');w.style.cssText='position:absolute;left:-99999px;top:0;width:600pt;visibility:hidden;pointer-events:none;contain:layout';
+      w.innerHTML=css(b)+'<div class="lhp">'+header(b,'',true)+'</div>';document.body.appendChild(w);
+      var fr=w.querySelectorAll('.lh-fr'),ar=w.querySelectorAll('.lh-ar');
+      function tw(e){var r=document.createRange();r.selectNodeContents(e);return r.getBoundingClientRect().width;}
+      for(var i=0;i<3;i++){var a=ar[i]?tw(ar[i]):0,f=fr[i]?tw(fr[i]):0;out[i]=a>4&&f>4?Math.max(.7,Math.min(1.45,f/a)):1;}
+      w.remove();if(!document.fonts||document.fonts.status==='loaded')HRC[k]=out;}catch(e){}
+    return out;}
+  function header(b,logo,raw){var R=raw?[1,1,1]:hratio(b),SX=function(i){return Math.abs(R[i]-1)>.004?';transform:scaleX('+R[i].toFixed(3)+')':'';};
     return '<div class="lh-a lh-fr" style="top:25.9pt;font-size:14pt">'+X(b.name_fr)+'</div>'
       +'<div class="lh-a lh-fr" style="top:52.1pt;font-size:14pt">'+X(b.title_fr)+'</div>'
       +'<div class="lh-a lh-fr" style="top:76.9pt;font-size:12pt">'+X(b.bar_fr)+'</div>'
       +(logo?'<img class="lh-logo" src="'+logo+'" alt=""/>':'')
-      +'<div class="lh-a lh-ar" style="top:21.9pt;font-size:20pt;font-weight:700;-webkit-text-stroke:.012em #111">'+X(b.name_ar)+'</div>'
-      +'<div class="lh-a lh-ar" style="top:48.9pt;font-size:20pt;font-weight:700;-webkit-text-stroke:.012em #111">'+X(b.title_ar)+'</div>'
-      +'<div class="lh-a lh-ar" style="top:76.6pt;font-size:16pt;font-weight:700;-webkit-text-stroke:.012em #111">'+X(b.bar_ar)+'</div>'
+      +'<div class="lh-a lh-ar" style="top:21.9pt;font-size:20pt;font-weight:700;-webkit-text-stroke:.012em #111'+SX(0)+'">'+X(b.name_ar)+'</div>'
+      +'<div class="lh-a lh-ar" style="top:48.9pt;font-size:20pt;font-weight:700;-webkit-text-stroke:.012em #111'+SX(1)+'">'+X(b.title_ar)+'</div>'
+      +'<div class="lh-a lh-ar" style="top:76.6pt;font-size:16pt;font-weight:700;-webkit-text-stroke:.012em #111'+SX(2)+'">'+X(b.bar_ar)+'</div>'
       +'<div class="lh-rule"></div>';
   }
   function footer(b){
@@ -5151,7 +5302,7 @@ var LH=(function(){
     var EMBED=[[F_HEAD,'almarai-extrabold.ttf','Almarai-ExtraBold.ttf'],[F_AR,'almarai-bold.ttf','Almarai-Bold.ttf']];
     var PAGE_W=11906,MARG=1134,TEXT_W=PAGE_W-2*MARG,WIDE=11340;   /* A4, 2 cm margins; the header, footer and date line run wider, as on the printed page */
     function run(t,o){o=o||{};var f=o.f||F_TXT,lf=o.fl||f,sz=Math.round((o.s||14)*2);
-      var rp='<w:rFonts w:ascii="'+E(lf)+'" w:hAnsi="'+E(lf)+'" w:cs="'+E(f)+'" w:eastAsia="'+E(f)+'"/>'+(o.b?'<w:b/><w:bCs/>':'')+(o.i?'<w:i/><w:iCs/>':'')+(o.c?'<w:color w:val="'+o.c+'"/>':'')+'<w:sz w:val="'+sz+'"/><w:szCs w:val="'+sz+'"/>'+(o.u?'<w:u w:val="single"/>':'')+(o.ol?'<w14:textOutline w14:w="'+o.ol+'" w14:cap="rnd" w14:cmpd="sng" w14:algn="ctr"><w14:solidFill><w14:srgbClr w14:val="111111"/></w14:solidFill><w14:prstDash w14:val="solid"/><w14:round/></w14:textOutline>':'');
+      var rp='<w:rFonts w:ascii="'+E(lf)+'" w:hAnsi="'+E(lf)+'" w:cs="'+E(f)+'" w:eastAsia="'+E(f)+'"/>'+(o.b?'<w:b/><w:bCs/>':'')+(o.i?'<w:i/><w:iCs/>':'')+(o.c?'<w:color w:val="'+o.c+'"/>':'')+(o.w&&o.w!==100?'<w:w w:val="'+o.w+'"/>':'')+'<w:sz w:val="'+sz+'"/><w:szCs w:val="'+sz+'"/>'+(o.u?'<w:u w:val="single"/>':'')+(o.ol?'<w14:textOutline w14:w="'+o.ol+'" w14:cap="rnd" w14:cmpd="sng" w14:algn="ctr"><w14:solidFill><w14:srgbClr w14:val="111111"/></w14:solidFill><w14:prstDash w14:val="solid"/><w14:round/></w14:textOutline>':'');
       function one(x,rtl){return String(x).split('\n').map(function(l,i){return '<w:r><w:rPr>'+rp+(rtl?'<w:rtl/>':'')+'</w:rPr>'+(i?'<w:br/>':'')+'<w:t xml:space="preserve">'+E(l)+'</w:t></w:r>';}).join('');}
       /* Word (on a computer and on a phone) may lay out a paragraph right to left whatever it is told: a French line is wrapped in a
          left-to-right embedding (LRE … PDF) so that it keeps its order either way */
@@ -5210,7 +5361,7 @@ var LH=(function(){
       var AIR=null;if(!plain){try{var hr=await xget('file:'+HF);if(hr&&hr.fmt==='truetype'&&hr.src){var hb64=atob(String(hr.src).split(',')[1]||''),hu=new Uint8Array(hb64.length);for(var hi=0;hi<hb64.length;hi++)hu[hi]=hb64.charCodeAt(hi);AIR=hu;}}catch(e){AIR=null;}}
       if(plain)hx=para('',{exact:118});
       else if(d.model!=='f'){var lf=fit(logo,112,84);
-        var hA=AIR?{f:'Air Strip Arabic',b:0}:{f:afont?F_AR:F_HEAD,b:afont?0:hb};var ar=para(run(b.name_ar,{f:hA.f,b:hA.b,s:20,ol:3048}),{jc:'center',line:1})+para(run(b.title_ar,{f:hA.f,b:hA.b,s:20,ol:3048}),{jc:'center',line:1,before:2})+para(run(b.bar_ar,{f:hA.f,b:hA.b,s:16,ol:2438}),{jc:'center',line:1.1,before:1});
+        var hA=AIR?{f:'Air Strip Arabic',b:0}:{f:afont?F_AR:F_HEAD,b:afont?0:hb},HR=hratio(b).map(function(x){return Math.round(x*100);});var ar=para(run(b.name_ar,{f:hA.f,b:hA.b,s:20,ol:3048,w:HR[0]}),{jc:'center',line:1})+para(run(b.title_ar,{f:hA.f,b:hA.b,s:20,ol:3048,w:HR[1]}),{jc:'center',line:1,before:2})+para(run(b.bar_ar,{f:hA.f,b:hA.b,s:16,ol:2438,w:HR[2]}),{jc:'center',line:1.1,before:1});
         var fr=para(run(b.name_fr,{f:F_HEAD,b:hb,s:14,ltr:1}),{jc:'center',ltr:1,line:1.3})+para(run(b.title_fr,{f:F_HEAD,b:hb,s:14,ltr:1}),{jc:'center',ltr:1,line:1.3})+para(run(b.bar_fr,{f:F_HEAD,b:hb,s:12,ltr:1}),{jc:'center',ltr:1,line:1.3});
         hx=table([[ar,para(pic(h1,logo,lf[0],lf[1]),{jc:'center',line:1}),fr]],[4500,2340,4500],{va:'center',b:{bottom:{sz:32,c:c3}},cm:{b:5}})+para('',{exact:2});}
       /* first-page footer: the QR codes on both sides, the address in the middle, a thin rule above */
@@ -5376,7 +5527,21 @@ var LH=(function(){
       if(FONTS.length)files.push({name:'word/_rels/fontTable.xml.rels',data:XH+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'+FONTS.map(function(x,i){return '<Relationship Id="rIdF'+(i+1)+'" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/font" Target="fonts/font'+(i+1)+'.odttf"/>';}).join('')+'</Relationships>'});
       return zip(files.concat(MEDIA,FONTS));
     }
-    return {build:build,_t:{zip:zip,crc32:crc32}};
+    /* a plain Word document: an answer pasted back from an AI tool (a title, then its paragraphs; **bold** and # headings kept as bold) */
+    function plainDoc(title,text){
+      function esc(t){return String(t).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g,'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+      function runs(t,b,rtl){return String(t).split(/\*\*(.+?)\*\*/).map(function(x,i){if(!x)return '';var bb=b||i%2===1;
+        return '<w:r><w:rPr><w:rFonts w:ascii="Calibri" w:hAnsi="Calibri" w:cs="Calibri" w:eastAsia="Calibri"/>'+(bb?'<w:b/><w:bCs/>':'')+(rtl?'<w:rtl/>':'')+'<w:sz w:val="28"/><w:szCs w:val="28"/></w:rPr><w:t xml:space="preserve">'+esc(x.replace(/\*\*/g,''))+'</w:t></w:r>';}).join('');}
+      function para(t,o){o=o||{};var rtl=/[؀-ۿ]/.test(t)||(!/[A-Za-zÀ-ÿ]/.test(t)&&o.rtl);
+        return '<w:p><w:pPr>'+(rtl?'<w:bidi/>':'')+'<w:spacing w:after="'+(o.after||120)+'" w:line="312" w:lineRule="auto"/><w:jc w:val="'+(o.c?'center':'both')+'"/></w:pPr>'+runs(t,o.b,rtl)+'</w:p>';}
+      var ar=/[؀-ۿ]/.test(String(text).slice(0,600)),out=[];if(title)out.push(para(title,{b:1,c:1,after:280,rtl:ar}));
+      String(text||'').replace(/\r/g,'').split('\n').forEach(function(l){var h=/^\s*#{1,6}\s+/.test(l);l=l.replace(/^\s*#{1,6}\s+/,'').replace(/^\s*[-*]\s+/,'• ').replace(/\s+$/,'');
+        if(!l.trim()){out.push('<w:p><w:pPr><w:spacing w:after="0"/></w:pPr></w:p>');return;}out.push(para(l,{b:h,rtl:ar}));});
+      var doc=XH+'<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body>'+out.join('')+'<w:sectPr><w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="1418" w:right="1134" w:bottom="1418" w:left="1134" w:header="709" w:footer="709" w:gutter="0"/>'+(ar?'<w:bidi/>':'')+'</w:sectPr></w:body></w:document>';
+      return zip([{name:'[Content_Types].xml',data:XH+'<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/></Types>'},
+        {name:'_rels/.rels',data:XH+'<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>'},
+        {name:'word/document.xml',data:doc}]);}
+    return {build:build,plain:plainDoc,_t:{zip:zip,crc32:crc32}};
   })();
   function outputWord(d){
     return DOCX.build(d).then(function(blob){
@@ -5603,19 +5768,19 @@ var LH=(function(){
       var src=plainT(body.value).trim();pn.textContent='';pn.hidden=false;
       if(!src){pn.appendChild(E('p','msg','اكتبوا متن النص أولًا.'));return;}
       var mk=aiMask(src,names()),txt=AIP[kind]+mk.t;last=mk;
-      pn.appendChild(E('h4',null,kind==='spell'?'التصحيح الإملائي في تطبيق Claude':'إعادة الصياغة في تطبيق Claude'));
+      pn.appendChild(E('h4',null,kind==='spell'?'التصحيح الإملائي بالذكاء الاصطناعي':'إعادة الصياغة بالذكاء الاصطناعي'));
       pn.appendChild(E('p','note','السر المهني: هذا ما سيُرسل، وقد عُوّضت أسماء الأطراف المعروفة برموز'+(mk.map.length?' ('+mk.map.map(function(m){return m[2];}).join('، ')+')':'')+' تُعاد تلقائيًا عند الإدراج. راجعوه وأخفوا كل اسم أو رقم آخر يدل على الموكل قبل الفتح.'));
       var pv=ta(6);pv.value=txt;pn.appendChild(pv);
-      var rr=E('div','row2'),go=E('button','btn p sm','فتح في Claude'),cp=E('button','btn sm','نسخ'),cx=E('button','btn sm','إلغاء');go.type=cp.type=cx.type='button';rr.appendChild(go);rr.appendChild(cp);rr.appendChild(cx);pn.appendChild(rr);
+      var rr=E('div','row2'),go=E('button','btn p sm','أداة الذكاء الاصطناعي'),cp=E('button','btn sm','نسخ'),cx=E('button','btn sm','إلغاء');go.type=cp.type=cx.type='button';rr.appendChild(go);rr.appendChild(cp);rr.appendChild(cx);pn.appendChild(rr);
       var m=E('p','msg ok');pn.appendChild(m);
-      var back=E('div','lhaib');back.hidden=true;back.appendChild(E('h4',null,'إدراج النتيجة'));back.appendChild(E('p','note','انسخوا جواب Claude والصقوه هنا، ثم اضغطوا «إدراج في متن النص»: تُعاد الأسماء مكان الرموز ويُعوَّض المتن.'));
+      var back=E('div','lhaib');back.hidden=true;back.appendChild(E('h4',null,'إدراج النتيجة'));back.appendChild(E('p','note','انسخوا الجواب والصقوه هنا، ثم اضغطوا «إدراج في متن النص»: تُعاد الأسماء مكان الرموز ويُعوَّض المتن.'));
       var res=ta(6);back.appendChild(res);var rb=E('div','row2'),ins=E('button','btn p sm','إدراج في متن النص'),pst=E('button','btn sm','لصق');ins.type=pst.type='button';rb.appendChild(ins);rb.appendChild(pst);back.appendChild(rb);pn.appendChild(back);
-      go.addEventListener('click',function(){var t=pv.value;aiCopy(t).then(function(){var u='https://claude.ai/new?q='+encodeURIComponent(t);if(u.length>7000)u='https://claude.ai/new';
+      go.addEventListener('click',function(){var t=pv.value;if(window.AN&&AN.aiMenu){AN.aiMenu(t,'الرأسية');back.hidden=false;return;}aiCopy(t).then(function(){var u='https://claude.ai/new?q='+encodeURIComponent(t);if(u.length>7000)u='https://claude.ai/new';
         m.textContent=u.length>7000?'النص طويل: نُسخ، الصقوه في المحادثة الجديدة.':'نُسخ النص أيضًا، فإن لم يظهر في التطبيق الصقوه.';back.hidden=false;try{window.open(u,'_blank','noopener');}catch(e){location.href=u;}});});
-      cp.addEventListener('click',function(){aiCopy(pv.value).then(function(){m.textContent='نُسخ النص. الصقوه في تطبيق Claude.';back.hidden=false;});});
+      cp.addEventListener('click',function(){aiCopy(pv.value).then(function(){m.textContent='نُسخ النص. الصقوه في أداة الذكاء الاصطناعي.';back.hidden=false;});});
       cx.addEventListener('click',function(){pn.hidden=true;pn.textContent='';});
       pst.addEventListener('click',function(){try{navigator.clipboard.readText().then(function(t){res.value=t;},function(){m.textContent='الصقوا النص يدويًا في الخانة.';});}catch(e){m.textContent='الصقوا النص يدويًا في الخانة.';}});
-      ins.addEventListener('click',function(){var t=String(res.value||'').trim();if(!t){m.textContent='الصقوا جواب Claude أولًا.';return;}body.value=aiBack(t,last&&last.map);pn.hidden=true;pn.textContent='';if(done)done();});
+      ins.addEventListener('click',function(){var t=String(res.value||'').trim();if(!t){m.textContent='الصقوا الجواب أولًا.';return;}body.value=aiBack(t,last&&last.map);pn.hidden=true;pn.textContent='';if(done)done();});
     }
     b1.addEventListener('click',function(){panel('spell');});b2.addEventListener('click',function(){panel('re');});
     return w;
@@ -5882,7 +6047,7 @@ var LH=(function(){
     return ov;
   }
   fontList().then(function(){return packInstall();}).catch(function(){});
-  return {open:open,build:build,docx:function(d){return DOCX.build(d);},preview:preview,addFontFile:addFontFile,fonts:fontsWin,plain:plainT,rich:rich,ser:ser,tpl:TPL,ensureFonts:ensureFonts,fontCss:allCss,loadFont:loadFont,FONTS:XF,fromFile:fromFile,qr:qr,_t:{paginate:paginate,measure:measure}};
+  return {open:open,build:build,docx:function(d){return DOCX.build(d);},docxPlain:function(t,x){return DOCX.plain(t,x);},preview:preview,addFontFile:addFontFile,fonts:fontsWin,plain:plainT,rich:rich,ser:ser,tpl:TPL,ensureFonts:ensureFonts,fontCss:allCss,loadFont:loadFont,FONTS:XF,fromFile:fromFile,qr:qr,_t:{paginate:paginate,measure:measure}};
 })();
 
 /* ---------- back navigation: browser and phone back return one step (tabs, library levels, open sheets) ---------- */
@@ -6027,6 +6192,9 @@ var ZDOC=(function(){
       return tx(['m','b'],'readwrite',function(t){t.objectStore('m').put(m);t.objectStore('b').put(buf,id);return null;}).then(function(){(META[fid]=META[fid]||[]).unshift(m);rebuild(fid);return id;});});}
   function blob(m){return tx(['b'],'readonly',function(t){return {req:t.objectStore('b').get(m.id)};}).then(function(buf){return buf?new Blob([buf],{type:m.type||'application/octet-stream'}):null;});}
   function del(m){return tx(['m','b'],'readwrite',function(t){t.objectStore('m').delete(m.id);t.objectStore('b').delete(m.id);return null;}).then(function(){META[m.fid]=(META[m.fid]||[]).filter(function(x){return x.id!==m.id;});rebuild(m.fid);});}
+  function delU(list,msg,after){return Promise.all(list.map(function(m){return tx(['b'],'readonly',function(t){return {req:t.objectStore('b').get(m.id)};}).then(function(buf){return {m:m,buf:buf};});}))
+    .then(function(keep){return Promise.all(list.map(del)).then(function(){if(after)after();if(!window.UNDO)return;UNDO.show(msg,{undo:function(){
+      Promise.all(keep.map(function(k){if(!k.buf)return null;return tx(['m','b'],'readwrite',function(t){t.objectStore('m').put(k.m);t.objectStore('b').put(k.buf,k.m.id);return null;}).then(function(){var L=META[k.m.fid]=(META[k.m.fid]||[]).filter(function(z){return z.id!==k.m.id;});L.push(k.m);L.sort(function(a,b){return String(b.at).localeCompare(String(a.at));});rebuild(k.m.fid);});})).then(function(){if(after)after();});}});});});}
   function setText(m,text,rd){m.text=String(text||'').slice(0,400000);if(rd)m.rd=rd;return tx(['m'],'readwrite',function(t){t.objectStore('m').put(m);return null;}).then(function(){rebuild(m.fid);});}
   function idx(fid){return IDX[fid]||'';}
   function size(n){return n>=1048576?(n/1048576).toFixed(1)+' م.ب':Math.max(1,Math.round(n/1024))+' ك.ب';}
@@ -6144,7 +6312,7 @@ var ZDOC=(function(){
             function(){bt.disabled=false;if(ic)bt.classList.remove('busy');else bt.textContent='قراءة النص';pr.hidden=true;otoast('تعذرت قراءة النص');});});}
       bo.addEventListener('click',function(){blob(m).then(function(b){if(b)oOpen(b,m.name,m.type);});});
       bsh.addEventListener('click',function(){blob(m).then(function(b){if(b)oSend(b,m.name,m.type,fname(f));});});
-      var arm=false;bd.addEventListener('click',function(){if(!arm){arm=true;ARM(bd,1);setTimeout(function(){arm=false;ARM(bd,0);},3000);return;}del(m).then(function(){if(typeof openD==='object')openD['doc'+fid]=true;renderFiles();});});
+      var arm=false;bd.addEventListener('click',function(){if(!arm){arm=true;ARM(bd,1);setTimeout(function(){arm=false;ARM(bd,0);},3000);return;}delU([m],'حُذفت الوثيقة «'+String(m.name).slice(0,40)+'».',function(){if(typeof openD==='object')openD['doc'+fid]=true;renderFiles();});});
       if(ICON_UI){bs.classList.add('icr');ICN(bo,'open','فتح');ICN(bsh,'share','مشاركة');ICN(bd,'trash','حذف','del');var bt2=bs.querySelector('.docrd'),bv2=bs.querySelector('.doctx');if(bt2)ICN(bt2,'scan','قراءة النص');if(bv2)ICN(bv2,'text','النص');}
       li.appendChild(bs);ul.appendChild(li);});
     if(ms.length)det.appendChild(ul);else det.appendChild(el('p','meta','لا وثائق بعد. الاستدعاء أو المقال المستورد يُحفظ هنا تلقائيًا.'));
@@ -6162,7 +6330,7 @@ var ZDOC=(function(){
       if(typeof openD==='object')openD['doc'+fid]=true;otoast('حُفظت '+docsN(fs.length)+' في الملف');renderFiles();});
     return det;}
   init();
-  return {add:add,list:function(fid){return META[fid]||[];},idx:idx,hit:hit,section:section,blob:blob,del:del,readIt:readIt,setText:setText,canRead:canRead,viewText:viewText,quickText:quickText,size:size,ready:function(){return ready;},_t:{init:init,quickText:quickText}};
+  return {add:add,list:function(fid){return META[fid]||[];},idx:idx,hit:hit,section:section,blob:blob,del:del,delU:delU,readIt:readIt,setText:setText,canRead:canRead,viewText:viewText,quickText:quickText,size:size,ready:function(){return ready;},_t:{init:init,quickText:quickText}};
 })();
 
 /* ---------- fees: a receipt for a payment and the statement of account, on the office's letterhead ---------- */
