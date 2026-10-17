@@ -5190,12 +5190,29 @@ var LH=(function(){
      whatever stands at its sides: three columns, the date in the middle one, the French words on its left and the Arabic words on its right,
      each against the date; when a side needs the room the date line gets smaller, it never moves */
   function twPt(t,font){try{var e=document.createElement('span');e.style.cssText='position:absolute;left:-9999px;top:0;visibility:hidden;white-space:pre;font:'+font;e.textContent=t;document.body.appendChild(e);var w=e.getBoundingClientRect().width*0.75;e.remove();return w||String(t).length*6.5;}catch(x){return String(t).length*6.5;}}
+  /* «في» beside «Le» (the place hidden): the ink of each read on a canvas, the two dots under the yā' left aside, so that «في» stands as tall
+     as «Le», its letters on the line of «Le», and as far from its colon as «Le» is from its own */
+  function inkBox(t,fam){var k=t+'|'+fam,c=inkBox.c||(inkBox.c={});if(c[k])return c[k];var S=200,W=900,H=520,x0=200,y0=330,r=null;
+    try{var cv=document.createElement('canvas');cv.width=W;cv.height=H;var g=cv.getContext('2d');g.font='400 '+S+'px '+fam;g.textBaseline='alphabetic';g.textAlign='left';g.fillStyle='#000';g.fillText(t,x0,y0);
+      var adv=g.measureText(t).width,D=g.getImageData(0,0,W,H).data,N=W*H,L=new Int32Array(N),cs=[],st=[];
+      for(var p=0;p<N;p++){if(L[p]||D[p*4+3]<110)continue;var cm={n:0,x0:W,x1:0,y0:H,y1:0};L[p]=1;st.push(p);
+        while(st.length){var q=st.pop(),x=q%W,y=(q-x)/W;cm.n++;if(x<cm.x0)cm.x0=x;if(x>cm.x1)cm.x1=x;if(y<cm.y0)cm.y0=y;if(y>cm.y1)cm.y1=y;
+          if(x>0&&!L[q-1]&&D[(q-1)*4+3]>=110){L[q-1]=1;st.push(q-1);}if(x<W-1&&!L[q+1]&&D[(q+1)*4+3]>=110){L[q+1]=1;st.push(q+1);}
+          if(q>=W&&!L[q-W]&&D[(q-W)*4+3]>=110){L[q-W]=1;st.push(q-W);}if(q<N-W&&!L[q+W]&&D[(q+W)*4+3]>=110){L[q+W]=1;st.push(q+W);}}
+        cs.push(cm);}
+      if(cs.length){var big=0;cs.forEach(function(c){if(c.n>big)big=c.n;});var top=H,bb=-1,lx=W,rx=0;
+        cs.forEach(function(c){if(c.y0<top)top=c.y0;if(c.x0<lx)lx=c.x0;if(c.x1>rx)rx=c.x1;if(c.n>=big*0.12&&c.y1>bb)bb=c.y1;});
+        r={top:(y0-top)/S,bot:(bb+1-y0)/S,left:(lx-x0)/S,right:(rx+1-x0)/S,adv:adv/S};}}catch(e){}
+    if(r)c[k]=r;return r;}
+  function fiFit(s1,ft,af){var le=inkBox('Le',ft),co=inkBox(':',ft),fi=inkBox('في',af);if(!le||!co||!fi||fi.top+fi.bot<=0.05)return null;
+    var size=s1*le.top/(fi.top+fi.bot),up=fi.bot*size,dx=((le.adv-le.right)+co.left)*s1-((co.adv-co.right)*s1+fi.left*size);
+    return {size:size,up:up,dx:dx,adv:fi.adv*size};}
   function dateLine(b,d){
     var nd=d.dateMode==='none',np=d.place===false,dt=d.dateMode==='blank'?'....../....../..........':ymd(d.date||todayIso());
     var fr=np?'Le':((b.city_fr||'')+' Le').trim(),mid=' : '+dt+' : ',ar=np?'في':((b.city_ar||'')+' في').trim();
     var pro=(d.showPro!==false&&b.pro)?String(b.pro):'',our=d.our?String(d.our):(d.blanks?'..............':'');
     var wR=pro?twPt('الرقم الوطني : ','700 12pt '+FB)+twPt(pro,'12pt '+FB):0,wL=our?twPt('مرجع المكتب : ','700 12pt '+FB)+twPt(our,'12pt '+FB):0;
-    var CA=np,AF=CA?"'LhF-"+DLS+"','Noto Naskh Arabic',"+FB:XOK[DLF]&&!np?"'LhF-"+DLF+"',"+FB:'',C=595.3/2,GAP=8,s1=16,s2=CA?s1:AF?14:12,ks=1,h='',SX=1,DSC=0;
+    var CA=np,AF=CA?"Arial,'LhF-"+DLS+"','Noto Naskh Arabic',"+FB:XOK[DLF]&&!np?"'LhF-"+DLF+"',"+FB:'',C=595.3/2,GAP=8,s1=16,s2=CA?s1:AF?14:12,ks=1,h='',SX=1,DSC=0,FIT=CA?fiFit(s1,FT,AF):null;if(FIT)s2=Math.round(FIT.size*10)/10;
     if(!nd){
       var wm=twPt(mid,s1+'pt '+FT),wf=twPt(fr,s1+'pt '+FT),wa=CA?twPt(ar,'400 '+s2+'pt '+AF):AF?(function(){var f='400 '+s2+'pt '+AF,w0=twPt(ar,f),wk=twPt('\u0640',f);if(wk>0&&wf>w0)ar=kash(ar,Math.round((wf-w0)/wk));var w1=twPt(ar,f);SX=w1>0?Math.max(.85,Math.min(1.2,wf/w1)):1;return w1*SX;})():twPt(ar,'700 '+s2+'pt '+FB),nL=wm/2+wf,nR=wm/2+wa,k=1;
       /* the room on each side of the middle of the page, up to the national number and the office reference: these get a little smaller first,
@@ -5209,7 +5226,7 @@ var LH=(function(){
       h='<div class="lh-a lh-date" style="left:40pt;width:515.3pt;display:grid;grid-template-columns:1fr auto 1fr;align-items:baseline;white-space:pre">'+
         '<span class="lh-dfr" style="text-align:right'+(s1!==16?';font-size:'+s1+'pt':'')+'">'+X(fr)+'</span>'+
         '<span class="lh-dfr" style="text-align:center'+(s1!==16?';font-size:'+s1+'pt':'')+'">'+X(mid)+'</span>'+
-        '<span class="lh-dar'+(AF?' lh-dair':'')+'" style="text-align:left'+(s2!==12?';font-size:'+s2+'pt':'')+'">'+(AF?'<span class="lh-dsx" style="font-family:'+AF+';font-weight:400;-webkit-text-stroke:0;transform:'+(DSC?'translateY(-'+(DSC*s2).toFixed(2)+'pt) ':'')+'scaleX('+SX.toFixed(3)+')">'+X(ar)+'</span>':X(ar))+'</span></div>';}
+        '<span class="lh-dar'+(AF?' lh-dair':'')+'" style="text-align:left'+(s2!==12?';font-size:'+s2+'pt':'')+'">'+(AF?'<span class="lh-dsx" style="font-family:'+AF+';font-weight:400;-webkit-text-stroke:0;transform:'+(FIT?'translate('+(FIT.dx*s1/16).toFixed(2)+'pt,-'+(FIT.up*s1/16).toFixed(2)+'pt) ':DSC?'translateY(-'+(DSC*s2).toFixed(2)+'pt) ':'')+'scaleX('+SX.toFixed(3)+')">'+X(ar)+'</span>':X(ar))+'</span></div>';}
     var sz=Math.floor(12*ks*10)/10,fs=ks<1?';font-size:'+sz+'pt;top:'+(128+1.1*(12-sz)).toFixed(1)+'pt':'';
     if(pro)h+='<div class="lh-a lh-side" style="right:40pt'+fs+'"><b>الرقم الوطني :</b> <span>'+X(pro)+'</span></div>';
     if(d.our)h+='<div class="lh-a lh-side" style="left:40pt'+fs+'"><b>مرجع المكتب :</b> <span>'+X(d.our)+'</span></div>';else if(d.blanks)h+='<div class="lh-a lh-side" style="left:40pt'+fs+'"><b>مرجع المكتب :</b> <span class="lh-dots">..............</span></div>';
@@ -5593,14 +5610,14 @@ var LH=(function(){
         Array.from(String(t)).forEach(function(ch){var c=(ch.normalize?ch.normalize('NFD'):ch).charAt(0);n+=Q[c]!=null?Q[c]:/[0-9a-z]/.test(c)?500:/[A-Z]/.test(c)?722:/[؀-ۿ]/.test(c)?430:500;});return n*pt/1000;};
       var wCv=function(t,fam,pt,bold){try{var g=wCv.g||(wCv.g=document.createElement('canvas').getContext('2d'));g.font=(bold?'700 ':'')+'100px '+fam;return g.measureText(String(t)).width/100*pt;}catch(e){return String(t).length*pt*0.55;}};
       var arFam=null;if(afont&&window.FontFace&&document.fonts){try{if(!window.__zlWAr){var ff=new FontFace('ZLWordAr',afont.slice());await ff.load();document.fonts.add(ff);window.__zlWAr=1;}arFam='"ZLWordAr"';}catch(e){arFam=null;}}
-      var shImg=null,AMI=null,amiFam=null,calFam=null,CDS=0;if(!plain&&np&&!nd){try{await loadFont(DLS);}catch(e){}calFam=XOK[DLS]?"'LhF-"+DLS+"'":"'Calibri'";}
+      var shImg=null,AMI=null,amiFam=null,calFam=null,CDS=0,FITW=null;if(!plain&&np&&!nd){try{await loadFont(DLS);}catch(e){}calFam="Arial,"+(XOK[DLS]?"'LhF-"+DLS+"',":'')+"'Noto Naskh Arabic',"+FB;}
       var sulFam=null;if(SUL&&!nd&&!np&&window.FontFace&&document.fonts){try{if(!window.__zlWSul){var fs2=new FontFace('ZLWordSul',SUL.slice());await fs2.load();document.fonts.add(fs2);window.__zlWSul=1;}sulFam='"ZLWordSul"';}catch(e){sulFam=null;}}
       var wAr=function(t,pt){return calFam?wCv(t,calFam,pt,0):sulFam?wCv(t,sulFam,pt,0):arFam?wCv(t,arFam,pt,0)*1.02:wCv(t,FB,pt,1)*1.15;};
       var wSide=function(l,v,pt){return v?(wCv(l,'Arial,sans-serif',pt,1)+wCv(v,'Arial,sans-serif',pt,0))*1.06:0;};
-      var s1=13,s2=11.5,sf=10,G=4,T=TEXT_W/20;if(calFam)s2=13;
+      var s1=13,s2=11.5,sf=10,G=4,T=TEXT_W/20,GA=4;if(calFam){FITW=fiFit(s1,FT,calFam);s2=FITW?Math.round(FITW.size*2)/2:13;if(FITW)GA=G+FITW.dx;}
       var dAr2=dAr,WW=100;if(sulFam){var tw0=wTNR(dFr,s1),wa0=wAr(dAr,s2),wk=wAr('\u0640',s2);if(wk>0&&tw0>wa0)dAr2=kash(dAr,Math.round((tw0-wa0)/wk));WW=Math.max(85,Math.min(120,Math.round(100*tw0/wAr(dAr2,s2))));}
       var wArD=function(pt){return shImg?shImg.wpt*pt/s2:wAr(dAr2,pt)*WW/100;};
-      var hM=function(k){return wTNR(dMid,s1*k)/2;},hA=function(k){return hM(k)+G+wArD(s2*k);},hF=function(k){return hM(k)+G+wTNR(dFr,s1*k);};
+      var hM=function(k){return wTNR(dMid,s1*k)/2;},hA=function(k){return hM(k)+GA*k+wArD(s2*k);},hF=function(k){return hM(k)+G+wTNR(dFr,s1*k);};
       var half=function(k){return nd?0:Math.max(hA(k),hF(k))+4;};
       /* when the national number or the office reference needs the room, they get a little smaller first, then the date line a little
          (not below 90 %), then the two of them again (not below 8 points), then the date line (not below 80 %); past that they go on two lines */
@@ -5610,7 +5627,7 @@ var LH=(function(){
       while(!ok()&&k>0.9)k=Math.max(0.9,k-0.02);
       while(!ok()&&sf>8)sf-=0.5;
       while(!ok()&&k>0.8)k=Math.max(0.8,k-0.02);
-      s1=Math.round(s1*k*4)/4;s2=Math.round(s2*k*4)/4;
+      s1=Math.round(s1*k*4)/4;s2=Math.round(s2*k*4)/4;if(FITW&&k<1){FITW=fiFit(s1,FT,calFam)||FITW;s2=Math.round(FITW.size*2)/2;GA=G+FITW.dx;}
       var hk=half(1);
       /* the two side cells just as wide as what they hold (so the national number and the office reference stand at the edges of the page),
          the middle cell takes the rest: it is centred on the page whatever its width */
@@ -5618,8 +5635,8 @@ var LH=(function(){
       var rC=pro?para(run('الرقم الوطني : ',{b:1,s:sf})+run(pro,{s:sf}),{jc:'center',line:1}):'';
       var lC=d.our?para(run('مرجع المكتب : ',{b:1,s:sf})+run(d.our,{s:sf}),{jc:'center',line:1}):(d.blanks?para(run('مرجع المكتب : ',{b:1,s:sf})+run('..............',{s:sf,c:'777777'}),{jc:'center',line:1}):'');
       var TAB='<w:r><w:rPr><w:sz w:val="'+Math.round(s1*2)+'"/><w:szCs w:val="'+Math.round(s1*2)+'"/></w:rPr><w:tab/></w:r>';
-      var pA=Math.round(MC-(hM(1)+G+wArD(s2)/2)*20),pD=Math.round(MC),pF=Math.round(MC+(hM(1)+G+wTNR(dFr,s1)/2)*20);
-      var mC=nd?para(''):para(TAB+run(dAr2,calFam?{f:'Calibri',b:0,s:s2}:sulFam?{f:'Sultan Normal',b:0,s:s2,w:WW}:{f:afont?F_AR:F_FOOT,b:afont?0:1,s:s2})+TAB+run(dMid,{f:F_FR,s:s1,ltr:1})+TAB+run(dFr,{f:F_FR,s:s1,ltr:1}),{line:1,tabs:[pA,pD,pF]});
+      var pA=Math.round(MC-(hM(1)+GA+wArD(s2)/2)*20),pD=Math.round(MC),pF=Math.round(MC+(hM(1)+G+wTNR(dFr,s1)/2)*20);
+      var mC=nd?para(''):para(TAB+run(dAr2,calFam?{f:'Arial',b:0,s:s2,pos:FITW?Math.round(FITW.up*2):0}:sulFam?{f:'Sultan Normal',b:0,s:s2,w:WW}:{f:afont?F_AR:F_FOOT,b:afont?0:1,s:s2})+TAB+run(dMid,{f:F_FR,s:s1,ltr:1})+TAB+run(dFr,{f:F_FR,s:s1,ltr:1}),{line:1,tabs:[pA,pD,pF]});
       if(d.model!=='f')body.push(table([[rC,mC,lC]],[SDW,MW,SDW],{va:'center',cm:{h:1}}));
       /* ---------- the French letter in Word: left to right, Calibri; the French letterhead on the first page and the footer without its Arabic lines ---------- */
       var FRD=d.model==='f';
