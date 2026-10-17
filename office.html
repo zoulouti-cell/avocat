@@ -1204,6 +1204,10 @@ main .card,main details,main .fc{min-width:0}
 main>.zinner{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));max-width:100%;box-sizing:border-box}
 main>.zinner button{min-width:0;white-space:normal;line-height:1.2;padding-inline:.25rem;overflow-wrap:anywhere}
 html.lat main>.zinner button{font-size:.8rem}
+/* the circle at the end of the title of the font tools (as in the app), and the box folded */
+.lhfbh .lhfcirc{position:relative;top:auto;inset-inline-end:auto;margin-inline-start:auto;flex:0 0 auto}
+.lhfbar.off{padding-bottom:.5rem}
+.lhfbar.off .lhfbh{margin-bottom:0}
 
 /* ===== the light look ===== */
 :where(html.lt) body{background:var(--bg);color:var(--fg)}
@@ -9632,6 +9636,13 @@ var I18N=(function(){
     document.addEventListener('click',function(){setTimeout(all,80);},true);document.addEventListener('toggle',function(){setTimeout(all,40);},true);}
   window.ZGROW={fit:fit,all:all};
 })();
+/* ---------- the font tools of the letterhead: a circle at the end of each title opens or hides the box (lit: open), the choice kept on this phone ---------- */
+function fbCirc(w,h,g,lbl){var k='lhfb:'+lbl,on=true;try{on=localStorage.getItem(k)!=='0';}catch(e){}
+  var b=document.createElement('button');b.type='button';b.className='docsel lhfcirc';b.setAttribute('aria-label','إظهار أدوات الخط أو إخفاؤها');
+  function set(v,keep){on=v;b.classList.toggle('on',on);b.setAttribute('aria-pressed',on?'true':'false');g.hidden=!on;w.classList.toggle('off',!on);if(!keep){try{localStorage.setItem(k,on?'1':'0');}catch(e){}}}
+  b.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();set(!on);});
+  h.style.cursor='pointer';h.addEventListener('click',function(e){if(e.target!==b)set(!on);});
+  h.appendChild(b);set(on,true);}
 </script>
 </body>
 </html>
