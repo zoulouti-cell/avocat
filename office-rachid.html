@@ -1956,6 +1956,48 @@ html.lt textarea.zgrow:focus{border-color:#c6a15b!important}
 @media(min-width:1024px){main{max-width:1080px}#p-files{max-width:1000px;margin-inline:auto}}
 @media(max-width:560px){#madd .trf{grid-template-columns:minmax(0,1fr)}.bar #inst{min-height:40px;padding-inline:.6rem;font-size:.84rem}}
 @media(pointer:coarse){button,.btn,select{touch-action:manipulation}}
+
+/* Compact yellow status indicators and responsive party fields in the new-dossier card. */
+#madd .case-parties{position:relative}
+#madd .case-parties>summary{min-height:40px;padding-block:.45rem;cursor:pointer}
+#madd .party-type-controls{position:absolute;inset-inline-start:0;top:2px;display:flex;gap:.5rem;align-items:center;max-width:calc(100% - 95px);min-height:34px}
+#madd .party-type-controls select[hidden]{display:none!important}
+#madd .party-type-control{display:inline-flex;align-items:center;gap:.35rem;white-space:nowrap;font-size:.78rem;font-weight:650;color:var(--fg);cursor:pointer;padding:.2rem .35rem;border:1px solid var(--line);border-radius:9px;background:var(--paper)}
+#madd .party-type-control b{font-size:.75rem;font-weight:600;color:var(--muted)}
+#madd .party-type-control input[type=checkbox]{appearance:none;-webkit-appearance:none;display:grid;place-items:center;flex:none;width:21px;height:21px;min-height:21px;margin:0;padding:0;border:1px solid var(--gold);border-radius:5px;background:var(--bg);cursor:pointer}
+#madd .party-type-control input[type=checkbox]::after{content:"";width:7px;height:7px;border-radius:50%;background:var(--muted);opacity:.55}
+#madd .party-type-control input[type=checkbox]:checked{border-color:#e6bd60;background:rgba(232,183,69,.12);box-shadow:0 0 0 1px rgba(232,183,69,.22)}
+#madd .party-type-control input[type=checkbox]:checked::after{background:#ffd75e;opacity:1;box-shadow:0 0 7px 2px rgba(255,209,63,.8)}
+#madd .party-type-control input[type=checkbox]:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+#madd .party-fields{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:.65rem;align-items:end;margin:.45rem 0 .85rem}
+#madd .party-fields>label{min-width:0;grid-column:span 4}
+#madd .party-fields>label.party-name{grid-column:span 6}
+#madd .party-fields>label.party-id,#madd .party-fields>label.party-phone{grid-column:span 3}
+#madd .party-fields>label.party-email{grid-column:span 4}
+#madd .party-fields>label.party-reg{grid-column:span 4}
+#madd .party-fields>label.party-address,#madd .party-fields>label.party-hq{grid-column:span 8}
+#madd .party-fields>label.party-lawyer{grid-column:span 4}
+#madd .party-fields[data-party-form=client][data-type=legal]>label.party-email{grid-column:span 3}
+#madd .party-fields[data-party-form=opponent][data-type=natural]>label.party-email{grid-column:span 3}
+#madd .party-fields[data-party-form=opponent][data-type=legal]>label.party-name{grid-column:span 4}
+#madd .party-fields[data-party-form=opponent][data-type=legal]>label.party-email{grid-column:span 4}
+#madd .party-fields .party-subhead{grid-column:1/-1;margin:.55rem 0 0;font-size:1rem;color:var(--gt);border-bottom:1px solid var(--line);padding-bottom:.2rem}
+#madd .party-fields>p,#madd .party-fields>div:not(.trf){grid-column:1/-1;min-width:0}
+#madd .party-fields [hidden]{display:none!important}
+#madd .party-fields textarea,#madd .party-fields input{min-width:0;width:100%;box-sizing:border-box}
+@media(max-width:760px){
+ #madd .party-fields{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #madd .party-fields>label{grid-column:span 1!important}
+ #madd .party-fields>label.party-name,#madd .party-fields>label.party-address,#madd .party-fields>label.party-hq{grid-column:1/-1!important}
+}
+@media(max-width:560px){
+ #madd .party-fields{grid-template-columns:minmax(0,1fr)}
+ #madd .party-fields>label{grid-column:1/-1!important}
+}
+@media(max-width:460px){
+ #madd .party-type-controls{position:static;max-width:none;margin:.2rem 0 .45rem;flex-wrap:wrap;gap:.35rem}
+ #madd .party-type-control{font-size:.75rem}
+}
 </style>
 <script src="fullscreen.js" defer></script>
 </head>
@@ -2064,19 +2106,39 @@ html.lt textarea.zgrow:focus{border-color:#c6a15b!important}
       <div class="trf"><label><span id="mklbl">الشعبة</span><select id="mksel"></select></label><label id="mkfree" hidden><span id="mkfl">الشعبة (كتابة يدوية)</span><textarea id="mkind" rows="1" class="zgrow" maxlength="80" autocomplete="off"></textarea></label></div>
       <p class="kind" id="mkindhint"></p>
       <div class="trf"><label><span>ملاحظة خاصة</span><textarea id="mnote" rows="1" class="zgrow" maxlength="160"></textarea></label></div>
-      <details><summary>الأطراف</summary>
-        <div class="trf">
-          <label><span>اسم الموكل</span><textarea id="mcli" rows="1" class="zgrow" maxlength="60"></textarea></label>
-           <label><span>البطاقة الوطنية</span><input id="mcin" type="text" dir="ltr" maxlength="32" autocomplete="off" aria-label="البطاقة الوطنية للموكل"></label>
-          <label><span>هاتف الموكل</span><input id="mtel" dir="ltr" inputmode="tel" maxlength="20" autocomplete="off"></label>
-          <label><span>البريد الإلكتروني للموكل</span><input id="memail" type="email" dir="ltr" inputmode="email" maxlength="80" autocomplete="off"></label>
-          <p id="mclientmatch" class="msg" role="status" aria-live="polite" hidden></p>
-          <label><span>الخصم</span><textarea id="madv" rows="1" class="zgrow" maxlength="60"></textarea></label>
-           <label><span>البطاقة الوطنية</span><input id="madvin" type="text" dir="ltr" maxlength="32" autocomplete="off" aria-label="البطاقة الوطنية للخصم"></label>
-      <label><span>ينوب عنه (محامي الطرف الآخر)</span><textarea id="madvl" rows="1" class="zgrow" maxlength="60"></textarea></label>
-        </div>
-      </details>
-  <details><summary>الأتعاب (اختياري)</summary><div class="trf">
+      <details class="case-parties" open><summary>الأطراف</summary>
+      <div class="party-type-controls" role="group" aria-label="اختيار صفة الموكل والخصم">
+        <label class="party-type-control" title="فعّل لاختيار شخص اعتباري للموكل"><span>الموكل</span><input id="mcliLegalSwitch" type="checkbox" aria-label="الموكل شخص اعتباري"><b id="mcliTypeText" aria-live="polite">طبيعي</b></label>
+        <label class="party-type-control" title="فعّل لاختيار شخص اعتباري للخصم"><span>الخصم</span><input id="madvLegalSwitch" type="checkbox" aria-label="الخصم شخص اعتباري"><b id="madvTypeText" aria-live="polite">طبيعي</b></label>
+        <select id="mclitype" hidden aria-hidden="true" tabindex="-1"><option value="natural">شخص طبيعي</option><option value="legal">شخص اعتباري</option></select>
+        <select id="madvtype" hidden aria-hidden="true" tabindex="-1"><option value="natural">شخص طبيعي</option><option value="legal">شخص اعتباري</option></select>
+      </div>
+      <div class="trf party-fields" data-party-form="client" data-type="natural">
+        <h4 class="party-subhead">الموكل</h4>
+        <label class="party-name"><span>اسم الموكل</span><textarea id="mcli" rows="1" class="zgrow" maxlength="60"></textarea></label>
+        <label class="party-id" data-party="client" data-kind="natural"><span>البطاقة الوطنية</span><input id="mcin" type="text" dir="ltr" maxlength="32" autocomplete="off" aria-label="البطاقة الوطنية للموكل"></label>
+        <label class="party-phone"><span>هاتف الموكل</span><input id="mtel" dir="ltr" inputmode="tel" maxlength="20" autocomplete="off"></label>
+        <label class="party-email"><span>البريد الإلكتروني للموكل</span><input id="memail" type="email" dir="ltr" inputmode="email" maxlength="80" autocomplete="off"></label>
+        <label class="party-reg" data-party="client" data-kind="legal" hidden><span>السجل التجاري</span><input id="mclireg" maxlength="80" autocomplete="off"></label>
+        <label class="party-address" data-party="client" data-kind="natural"><span>العنوان</span><textarea id="mcliaddress" rows="2" maxlength="250"></textarea></label>
+        <label class="party-hq" data-party="client" data-kind="legal" hidden><span>عنوان المقر</span><textarea id="mclihq" rows="2" maxlength="250"></textarea></label>
+        <p id="mclientmatch" class="msg" role="status" aria-live="polite" hidden></p>
+        <div id="mclientactions" hidden></div><div id="mclientsug" class="sug zlive" role="listbox" hidden></div>
+      </div>
+      <div class="trf party-fields" data-party-form="opponent" data-type="natural">
+        <h4 class="party-subhead">الخصم</h4>
+        <label class="party-name"><span>اسم الخصم</span><textarea id="madv" rows="1" class="zgrow" maxlength="60"></textarea></label>
+        <label class="party-id" data-party="opponent" data-kind="natural"><span>البطاقة الوطنية</span><input id="madvin" type="text" dir="ltr" maxlength="32" autocomplete="off" aria-label="البطاقة الوطنية للخصم"></label>
+        <label class="party-email"><span>البريد الإلكتروني للخصم</span><input id="madvemail" type="email" dir="ltr" inputmode="email" maxlength="80" autocomplete="off"></label>
+        <label class="party-lawyer"><span>ينوب عنه (محامي الطرف الآخر)</span><textarea id="madvl" rows="1" class="zgrow" maxlength="60"></textarea></label>
+        <label class="party-reg" data-party="opponent" data-kind="legal" hidden><span>السجل التجاري</span><input id="madvreg" maxlength="80" autocomplete="off"></label>
+        <label class="party-address" data-party="opponent" data-kind="natural"><span>العنوان</span><textarea id="madvaddress" rows="2" maxlength="250"></textarea></label>
+        <label class="party-hq" data-party="opponent" data-kind="legal" hidden><span>عنوان المقر</span><textarea id="madvhq" rows="2" maxlength="250"></textarea></label>
+        <p id="mopponentmatch" class="msg" role="status" aria-live="polite" hidden></p>
+        <div id="mopponentsug" class="sug zlive" role="listbox" hidden></div>
+      </div>
+    </details>
+        <details><summary>الأتعاب (اختياري)</summary><div class="trf">
           <label><span>الأتعاب المتفق عليها (درهم)</span><input id="mfee" dir="ltr" inputmode="decimal" maxlength="10" autocomplete="off"></label>
     <label><span>مقدم الأتعاب</span><input id="mfeeby" maxlength="80" autocomplete="off"></label></div></details>
       <details><summary>بيانات اطلاع الموكل</summary>
@@ -3456,7 +3518,7 @@ function renderFiles(){
     });
     be.addEventListener('click',function(){
       zlClearClientAuto();if($('mclientmatch')){$('mclientmatch').textContent='';$('mclientmatch').hidden=true;}
-      $('mlabel').value=f.label||'';$('mcourt').value=f.court||'';$('mroom').value=f.room||'';$('mjudge').value=f.judge||'';$('mno').value=f.no;$('mcode').value=f.code||'';$('myr').value=f.yr;$('mst').value=String(f.st);$('mnote').value=f.note||'';$('mour').value=f.our||'';$('mtype').dataset.m='1';$('mcref').value=f.cref||'';$('mccode').value=f.ccode||'';$('mcli').value=f.cli||'';$('mcin').value=f.cin||'';$('mtel').value=f.tel||'';$('madv').value=f.adv||'';$('madvin').value=f.advcin||'';$('madvl').value=f.advl||'';$('mfee').value=f.fee||'';$('mfeeby').value=f.feeby||'';$('memail').value=f.email||'';CTBL.load(f);
+      $('mlabel').value=f.label||'';$('mcourt').value=f.court||'';$('mroom').value=f.room||'';$('mjudge').value=f.judge||'';$('mno').value=f.no;$('mcode').value=f.code||'';$('myr').value=f.yr;$('mst').value=String(f.st);$('mnote').value=f.note||'';$('mour').value=f.our||'';$('mtype').dataset.m='1';$('mcref').value=f.cref||'';$('mccode').value=f.ccode||'';$('mcli').value=f.cli||'';$('mcin').value=f.cin||'';$('mtel').value=f.tel||'';$('madv').value=f.adv||'';$('madvin').value=f.advcin||'';$('madvl').value=f.advl||'';$('mfee').value=f.fee||'';$('mfeeby').value=f.feeby||'';$('memail').value=f.email||'';zlLoadPartyExtra(f);CTBL.load(f);
       editId=x.id;$('msave').textContent='حفظ التعديل';$('mcancel').hidden=false;$('madd').open=true;$('madd').scrollIntoView({behavior:'smooth'});
     });
     ban.addEventListener('click',function(){AN.analyzeFile(x);});
@@ -3491,7 +3553,7 @@ function zlClientCardKey(v){
     .replace(/[\s\u200b-\u200f._\/\-\u2010-\u2015]/g,'').toUpperCase();
 }
 function zlClientMatches(){
-  var name=zlClientNameKey($('mcli').value),cin=zlClientCardKey($('mcin').value);
+  var name=zlClientNameKey($('mcli').value),cin=$('mclitype').value==='legal'?'':zlClientCardKey($('mcin').value);
   var state={name:name,cin:cin,key:name&&cin?name+'|'+cin:'',exact:[],sameName:[],sameCard:[]};
   Object.keys(items).forEach(function(id){
     if(id===editId)return;
@@ -3539,7 +3601,43 @@ function zlRefreshClientMatch(){
   return state;
 }
 
-function clearForm(){zlClearClientAuto();if($('mclientmatch')){$('mclientmatch').textContent='';$('mclientmatch').hidden=true;}if(window.FIMP)FIMP.clear();['mlabel','mcourt','mroom','mjudge','mour','mno','mcode','myr','mkind','mnote','mcref','mccode','mcli','mcin','mtel','memail','madv','madvin','madvl','mfee','mfeeby'].forEach(function(i){$(i).value='';});$('mtype').value='مدني';$('mtype').dataset.m='';$('mkind').dataset.auto='';$('mkindhint').textContent='';$('csug').textContent='';$('mst').value='1';editId=null;$('msave').textContent='إضافة الملف';$('mcancel').hidden=true;CTBL.reset();}
+/* Each party may independently be a natural person or a legal entity. */
+function zlUpdatePartyTypes(){
+ [['client','mclitype','mcliLegalSwitch','mcliTypeText'],['opponent','madvtype','madvLegalSwitch','madvTypeText']].forEach(function(a){
+  var sel=$(a[1]);if(!sel)return;var legal=sel.value==='legal';
+  var group=document.querySelector('#madd [data-party-form="'+a[0]+'"]');
+  if(group)group.setAttribute('data-type',legal?'legal':'natural');
+  var sw=$(a[2]);if(sw)sw.checked=legal;
+  var state=$(a[3]);if(state)state.textContent=legal?'اعتباري':'طبيعي';
+  document.querySelectorAll('#madd [data-party="'+a[0]+'"]').forEach(function(field){
+   field.hidden=field.getAttribute('data-kind')!==(legal?'legal':'natural');
+  });
+ });
+}
+function zlLoadPartyExtra(f){
+ ['cliaddress','clihq','clireg','advaddress','advhq','advreg','advemail'].forEach(function(k){
+  var node=$('m'+k);if(node)node.value=f[k]||'';
+ });
+ $('mclitype').value=f.clitype==='legal'?'legal':'natural';
+ $('madvtype').value=f.advtype==='legal'?'legal':'natural';
+ zlUpdatePartyTypes();
+}
+function zlInitPartyTypes(){
+ [['mclitype','mcliLegalSwitch'],['madvtype','madvLegalSwitch']].forEach(function(a){
+  var sel=$(a[0]),sw=$(a[1]);
+  if(sel)sel.addEventListener('change',zlUpdatePartyTypes);
+  if(sw)sw.addEventListener('change',function(){
+   sel.value=sw.checked?'legal':'natural';zlUpdatePartyTypes();
+   if(a[0]==='mclitype')zlRefreshClientMatch();
+   else if(typeof zlRefreshOppMatch==='function')zlRefreshOppMatch();
+  });
+ });
+ zlUpdatePartyTypes();
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',zlInitPartyTypes);
+else zlInitPartyTypes();
+
+function clearForm(){zlClearClientAuto();if($('mclientmatch')){$('mclientmatch').textContent='';$('mclientmatch').hidden=true;}if(window.FIMP)FIMP.clear();['mlabel','mcourt','mroom','mjudge','mour','mno','mcode','myr','mkind','mnote','mcref','mccode','mcli','mcin','mtel','memail','madv','madvin','madvemail','mcliaddress','mclihq','mclireg','madvaddress','madvhq','madvreg','madvl','mfee','mfeeby'].forEach(function(i){$(i).value='';});$('mclitype').value='natural';$('madvtype').value='natural';zlUpdatePartyTypes();$('mtype').value='مدني';$('mtype').dataset.m='';$('mkind').dataset.auto='';$('mkindhint').textContent='';$('csug').textContent='';$('mst').value='1';editId=null;$('msave').textContent='إضافة الملف';$('mcancel').hidden=true;CTBL.reset();}
 function renderAll(){renderAgenda();renderFiles();notifUI();fillFiles();}
 
 
@@ -8734,7 +8832,7 @@ $('sitesave').addEventListener('click',function(){var v=$('siteurl').value.trim(
 $('msave').addEventListener('click',function(){
   var identity=zlRefreshClientMatch();
   if(identity.sameCard.length&&!window.confirm('تحذير: رقم البطاقة الوطنية '+$('mcin').value.trim()+' مسجل باسم موكل آخر («'+identity.sameCard[0].cli+'»). لن يتم استيراد بياناته. هل تريدون حفظ الملف مع هذا التعارض؟')){$('mcin').focus();return;}
-  var o={label:$('mlabel').value.trim(),court:$('mcourt').value.trim(),room:$('mroom').value.trim(),judge:$('mjudge').value.trim(),type:$('mtype').value,no:$('mno').value.trim(),code:$('mcode').value.trim(),yr:$('myr').value.trim(),st:+$('mst').value,note:$('mnote').value.trim(),our:$('mour').value.trim(),kind:$('mkind').value.trim(),cref:$('mcref').value.trim(),ccode:$('mccode').value.trim(),cli:$('mcli').value.trim(),cin:$('mcin').value.trim(),tel:$('mtel').value.trim(),adv:$('madv').value.trim(),advcin:$('madvin').value.trim(),advl:$('madvl').value.trim(),fee:$('mfee').value.trim(),feeby:$('mfeeby').value.trim(),email:$('memail').value.trim(),jrole:$('mjrole').value,u:today(),acts:(editId&&items[editId]&&items[editId].acts)||[],pays:(editId&&items[editId]&&items[editId].pays)||[]};
+  var o={label:$('mlabel').value.trim(),court:$('mcourt').value.trim(),room:$('mroom').value.trim(),judge:$('mjudge').value.trim(),type:$('mtype').value,no:$('mno').value.trim(),code:$('mcode').value.trim(),yr:$('myr').value.trim(),st:+$('mst').value,note:$('mnote').value.trim(),our:$('mour').value.trim(),kind:$('mkind').value.trim(),cref:$('mcref').value.trim(),ccode:$('mccode').value.trim(),cli:$('mcli').value.trim(),cin:$('mclitype').value==='legal'?'':$('mcin').value.trim(),tel:$('mtel').value.trim(),adv:$('madv').value.trim(),advcin:$('madvtype').value==='legal'?'':$('madvin').value.trim(),advl:$('madvl').value.trim(),fee:$('mfee').value.trim(),feeby:$('mfeeby').value.trim(),email:$('memail').value.trim(),advemail:$('madvemail').value.trim(),clitype:$('mclitype').value,cliaddress:$('mcliaddress').value.trim(),clihq:$('mclihq').value.trim(),clireg:$('mclireg').value.trim(),advtype:$('madvtype').value,advaddress:$('madvaddress').value.trim(),advhq:$('madvhq').value.trim(),advreg:$('madvreg').value.trim(),jrole:$('mjrole').value,u:today(),acts:(editId&&items[editId]&&items[editId].acts)||[],pays:(editId&&items[editId]&&items[editId].pays)||[]};
   if(editId&&items[editId])o=Object.assign({},items[editId],o);
   if(!o.no||!o.yr){mm('mmsg','أدخلوا رقم الملف وسنته على الأقل.');return;}
   rememberCourt(o.court);
