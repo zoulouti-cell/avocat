@@ -388,6 +388,8 @@ html[dir=ltr] .pvline li{padding:.2rem 0 .6rem 1rem}
 .bar .qwm{display:flex;align-items:center;line-height:0;text-decoration:none;flex:none}
 .bar .qwm img{display:none;height:50px!important;width:auto;filter:drop-shadow(0 2px 6px rgba(0,0,0,.35))}
 html[lang=ar]:not([data-theme="light"]) .qwm .qw-ad,html[lang=ar][data-theme="light"] .qwm .qw-al,html:not([lang=ar]):not([data-theme="light"]) .qwm .qw-ld,html:not([lang=ar])[data-theme="light"] .qwm .qw-ll{display:block}
+/* Match the visible width of the Arabic Qalam artwork across both themes. */
+html[lang=ar][data-theme="light"] .bar .qwm .qw-al{transform:scaleX(1.13);transform-origin:center center}
 @media(max-width:600px){.bar .bemb{width:44px;height:44px}.bar .bemb img{width:37px!important;height:37px!important}.bar .qwm img{height:44px!important}.bar .thb{width:36px;height:36px;min-height:36px}}
 @media(max-width:350px){.bar .bemb{width:40px;height:40px}.bar .bemb img{width:33px!important;height:33px!important}.bar .qwm img{height:40px!important}}
 /* «Qalam» in Latin letters: a fifth smaller than the frame beside it */
@@ -458,7 +460,6 @@ html:not([lang=ar]) .bar .qwm img{height:40px!important}
 /* the change of look: the colours pass softly */
 .thx,.thx *,.thx *::before,.thx *::after{transition:background-color .45s ease,color .45s ease,border-color .45s ease,fill .45s ease!important}
 </style>
-<script src="fullscreen.js" defer></script>
 </head>
 <body>
 <noscript><main style="font-family:sans-serif;max-width:640px;margin:2rem auto;padding:1rem;line-height:1.9"><h1>مكتب الزلوطي للمحاماة</h1><p>الأستاذ رشيد الزلوطي، محامٍ بهيئة الدار البيضاء وباحث في القانون والمستجدات الرقمية. استشارات قانونية وتمثيل أمام المحاكم.</p><p>العنوان: 72 شارع محمد الزرقطوني، الطابق الثامن، رقم 23، الدار البيضاء.</p><p>الهاتف: <a href="tel:+212661410271">0661410271</a> | البريد: <a href="mailto:rachidzoulouti@gmail.com">rachidzoulouti@gmail.com</a></p><p>أوقات العمل: من الاثنين إلى الجمعة، 09:00 – 12:00 و14:00 – 17:00. الاستقبال: الثلاثاء والخميس ابتداءً من 15:00.</p><p lang="fr">Cabinet d'avocats Zoulouti, Maître Rachid Zoulouti, avocat au Barreau de Casablanca : consultations juridiques et représentation devant les juridictions.</p><p lang="en">Zoulouti Law Office, Casablanca: legal consultations and representation before the courts.</p></main></noscript>
