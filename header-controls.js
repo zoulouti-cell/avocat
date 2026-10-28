@@ -1,0 +1,21 @@
+(function(){'use strict';
+ var paths={full:'M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5',moon:'M20.4 14.6A8.6 8.6 0 0 1 9.4 3.6a8.6 8.6 0 1 0 11 11z',sun:'M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5'};
+ function svg(k){return '<svg viewBox="0 0 24 24" aria-hidden="true">'+(k==='sun'?'<circle cx="12" cy="12" r="4"/>':'')+'<path d="'+paths[k]+'"/></svg>';}
+ function init(){var bar=document.querySelector('header.bar');if(!bar||bar.querySelector('.av-header-tools'))return;var home=!!document.getElementById('lbtn');
+  var tools=document.createElement('div');tools.className='av-header-tools'+(home?'':' av-office-tools');bar.appendChild(tools);
+  var full=document.createElement('button');full.type='button';full.id='avocat-fullscreen';full.className='av-header-icon avocat-fullscreen';full.setAttribute('data-noi18n','');full.innerHTML=svg('full');
+  function label(){var l=document.documentElement.lang||'ar',on=!!document.fullscreenElement;full.title=l==='fr'?(on?'Quitter le plein écran':'Plein écran'):l==='en'?(on?'Exit fullscreen':'Fullscreen'):(on?'الخروج من ملء الشاشة':'ملء الشاشة');full.setAttribute('aria-label',full.title);full.setAttribute('aria-pressed',String(on));}
+  function refused(){full.title=(document.documentElement.lang==='ar'?'ملء الشاشة غير متاح في هذا المتصفح':'Fullscreen unavailable in this browser')+' (F11)';}
+  full.addEventListener('click',function(){try{var promise;if(document.fullscreenElement)promise=document.exitFullscreen();else if(document.documentElement.requestFullscreen)promise=document.documentElement.requestFullscreen();else throw Error('unsupported');Promise.resolve(promise).catch(refused);}catch(e){refused();}});
+  if(home){tools.appendChild(full);var lang=bar.querySelector('.lang'),theme=document.getElementById('thb');if(lang){tools.appendChild(lang);var b=lang.querySelector('button');b.removeAttribute('aria-haspopup');b.removeAttribute('aria-controls');b.title='العربية / Français / English';var cur=document.getElementById('lcur');if(cur)cur.setAttribute('aria-live','polite');}if(theme){theme.classList.add('av-header-icon');tools.appendChild(theme);}}
+  else{var logo=bar.querySelector('.hlogo'),image=bar.querySelector('img.zemb');if(!logo&&image){logo=document.createElement('span');image.parentNode.insertBefore(logo,image);logo.appendChild(image);}if(logo){logo.classList.add('av-office-emblem');tools.appendChild(logo);}tools.appendChild(full);var back=bar.querySelector('a.hb');if(back){back.classList.add('av-header-icon','av-return');tools.appendChild(back);}
+   ['toLocaleDateString','toLocaleString','toLocaleTimeString'].forEach(function(name){var format=Date.prototype[name];Date.prototype[name]=function(locale,options){if(typeof locale==='string'&&/^ar/i.test(locale)){var l=document.documentElement.lang;locale=l==='fr'?'fr-FR':l==='en'?'en-GB':locale;}return format.call(this,locale,options);};});
+   window.addEventListener('zllanguagechange',function(){var date=document.getElementById('odate');if(date)date.textContent=new Intl.DateTimeFormat(document.documentElement.lang==='ar'?'ar-MA':document.documentElement.lang,{weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(new Date());});
+   var toggle=document.createElement('button');toggle.type='button';toggle.className='av-header-icon av-theme';toggle.setAttribute('data-noi18n','');
+   function themeLabel(){var l=document.documentElement.lang||'ar';toggle.innerHTML=svg(window.ZTH&&ZTH.light()?'moon':'sun');toggle.title=l==='fr'?'Changer le thème':l==='en'?'Change theme':'تغيير المظهر';toggle.setAttribute('aria-label',toggle.title);}
+   toggle.addEventListener('click',function(){if(window.ZTH)ZTH.set(ZTH.light()?'dark':'light');themeLabel();});tools.appendChild(toggle);bar.querySelectorAll('.zsetb').forEach(function(e){e.remove();});window.addEventListener('zltheme',themeLabel);window.addEventListener('zllanguagechange',themeLabel);themeLabel();
+  }
+  document.addEventListener('fullscreenchange',label);new MutationObserver(label).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});label();
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();

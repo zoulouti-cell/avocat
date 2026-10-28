@@ -6,7 +6,7 @@
 <title>فضاء المكتب | الزلوطي للمحاماة</title>
 <script>/* the interface in French or in English: the page is laid out left to right from the start, shown once translated, its dates in that language */
 (function(){try{var l=localStorage.getItem('zl_lang');if(l==='fr'||l==='en'){var h=document.documentElement;h.setAttribute('lang',l);h.setAttribute('dir','ltr');h.classList.add('lat');h.style.visibility='hidden';setTimeout(function(){h.style.visibility='';},4000);
-  var loc=l==='fr'?'fr-FR':'en-GB';['toLocaleDateString','toLocaleString','toLocaleTimeString'].forEach(function(f){var o=Date.prototype[f];Date.prototype[f]=function(lc,p){if(typeof lc==='string'&&/^ar/i.test(lc))lc=loc;return o.call(this,lc,p);};});}}catch(e){}})();
+  var loc=l==='fr'?'fr-FR':'en-GB';['toLocaleDateString','toLocaleString','toLocaleTimeString'].forEach(function(f){var o=Date.prototype[f];Date.prototype[f]=function(lc,p){if(typeof lc==='string'&&/^ar/i.test(lc))lc=document.documentElement.lang==='ar'?'ar-MA':document.documentElement.lang==='fr'?'fr-FR':'en-GB';return o.call(this,lc,p);};});}}catch(e){}})();
 </script>
 <script>window.ZAPP=false;</script>
 <script>/* the look, before the page is drawn: the dark one (the office's green and gold), the light one (ivory and emerald, as in Qalam), or the phone's */
@@ -1999,7 +1999,9 @@ html.lt textarea.zgrow:focus{border-color:#c6a15b!important}
  #madd .party-type-control{font-size:.75rem}
 }
 </style>
-<script src="fullscreen.js" defer></script>
+<script src="header-controls.js?v=20261029" defer></script>
+<link rel="stylesheet" href="party-form.css?v=20261029"><script src="party-form.js?v=20261029" defer></script>
+<link rel="stylesheet" href="header-controls.css?v=20261029">
 </head>
 <body>
 <i class="bgorb o1 fixed"></i><i class="bgorb o2 fixed"></i>
@@ -2106,38 +2108,29 @@ html.lt textarea.zgrow:focus{border-color:#c6a15b!important}
       <div class="trf"><label><span id="mklbl">الشعبة</span><select id="mksel"></select></label><label id="mkfree" hidden><span id="mkfl">الشعبة (كتابة يدوية)</span><textarea id="mkind" rows="1" class="zgrow" maxlength="80" autocomplete="off"></textarea></label></div>
       <p class="kind" id="mkindhint"></p>
       <div class="trf"><label><span>ملاحظة خاصة</span><textarea id="mnote" rows="1" class="zgrow" maxlength="160"></textarea></label></div>
-      <details class="case-parties" open><summary>الأطراف</summary>
-      <div class="party-type-controls" role="group" aria-label="اختيار صفة الموكل والخصم">
-        <label class="party-type-control" title="فعّل لاختيار شخص اعتباري للموكل"><span>الموكل</span><input id="mcliLegalSwitch" type="checkbox" aria-label="الموكل شخص اعتباري"><b id="mcliTypeText" aria-live="polite">طبيعي</b></label>
-        <label class="party-type-control" title="فعّل لاختيار شخص اعتباري للخصم"><span>الخصم</span><input id="madvLegalSwitch" type="checkbox" aria-label="الخصم شخص اعتباري"><b id="madvTypeText" aria-live="polite">طبيعي</b></label>
-        <select id="mclitype" hidden aria-hidden="true" tabindex="-1"><option value="natural">شخص طبيعي</option><option value="legal">شخص اعتباري</option></select>
-        <select id="madvtype" hidden aria-hidden="true" tabindex="-1"><option value="natural">شخص طبيعي</option><option value="legal">شخص اعتباري</option></select>
-      </div>
-      <div class="trf party-fields" data-party-form="client" data-type="natural">
-        <h4 class="party-subhead">الموكل</h4>
-        <label class="party-name"><span>اسم الموكل</span><textarea id="mcli" rows="1" class="zgrow" maxlength="60"></textarea></label>
-        <label class="party-id" data-party="client" data-kind="natural"><span>البطاقة الوطنية</span><input id="mcin" type="text" dir="ltr" maxlength="32" autocomplete="off" aria-label="البطاقة الوطنية للموكل"></label>
-        <label class="party-phone"><span>هاتف الموكل</span><input id="mtel" dir="ltr" inputmode="tel" maxlength="20" autocomplete="off"></label>
-        <label class="party-email"><span>البريد الإلكتروني للموكل</span><input id="memail" type="email" dir="ltr" inputmode="email" maxlength="80" autocomplete="off"></label>
-        <label class="party-reg" data-party="client" data-kind="legal" hidden><span>السجل التجاري</span><input id="mclireg" maxlength="80" autocomplete="off"></label>
-        <label class="party-address" data-party="client" data-kind="natural"><span>العنوان</span><textarea id="mcliaddress" rows="2" maxlength="250"></textarea></label>
-        <label class="party-hq" data-party="client" data-kind="legal" hidden><span>عنوان المقر</span><textarea id="mclihq" rows="2" maxlength="250"></textarea></label>
-        <p id="mclientmatch" class="msg" role="status" aria-live="polite" hidden></p>
-        <div id="mclientactions" hidden></div><div id="mclientsug" class="sug zlive" role="listbox" hidden></div>
-      </div>
-      <div class="trf party-fields" data-party-form="opponent" data-type="natural">
-        <h4 class="party-subhead">الخصم</h4>
-        <label class="party-name"><span>اسم الخصم</span><textarea id="madv" rows="1" class="zgrow" maxlength="60"></textarea></label>
-        <label class="party-id" data-party="opponent" data-kind="natural"><span>البطاقة الوطنية</span><input id="madvin" type="text" dir="ltr" maxlength="32" autocomplete="off" aria-label="البطاقة الوطنية للخصم"></label>
-        <label class="party-email"><span>البريد الإلكتروني للخصم</span><input id="madvemail" type="email" dir="ltr" inputmode="email" maxlength="80" autocomplete="off"></label>
-        <label class="party-lawyer"><span>ينوب عنه (محامي الطرف الآخر)</span><textarea id="madvl" rows="1" class="zgrow" maxlength="60"></textarea></label>
-        <label class="party-reg" data-party="opponent" data-kind="legal" hidden><span>السجل التجاري</span><input id="madvreg" maxlength="80" autocomplete="off"></label>
-        <label class="party-address" data-party="opponent" data-kind="natural"><span>العنوان</span><textarea id="madvaddress" rows="2" maxlength="250"></textarea></label>
-        <label class="party-hq" data-party="opponent" data-kind="legal" hidden><span>عنوان المقر</span><textarea id="madvhq" rows="2" maxlength="250"></textarea></label>
-        <p id="mopponentmatch" class="msg" role="status" aria-live="polite" hidden></p>
-        <div id="mopponentsug" class="sug zlive" role="listbox" hidden></div>
-      </div>
-    </details>
+      <details class="case-parties" open><summary>الأطراف</summary><div class="trf party-fields" data-party-form="client" data-type="natural">
+ <div class="party-heading"><h4 class="party-subhead">الموكل</h4><label class="party-legal"><input id="mcliLegalSwitch" type="checkbox" aria-label="الموكل شخص اعتباري"><span>اعتباري</span></label><select id="mclitype" hidden aria-hidden="true" tabindex="-1"><option value="natural">طبيعي</option><option value="legal">اعتباري</option></select></div>
+ <label class="party-name"><span>اسم الموكل</span><textarea id="mcli" rows="1" class="zgrow" maxlength="60"></textarea></label>
+ <label class="party-id" data-party="client" data-kind="natural"><span>البطاقة الوطنية</span><input id="mcin" dir="ltr" maxlength="32" autocomplete="off" aria-label="البطاقة الوطنية للموكل"></label>
+ <label class="party-phone"><span>الهاتف</span><input id="mtel" dir="ltr" inputmode="tel" maxlength="20" autocomplete="off" aria-label="هاتف الموكل"></label>
+ <label class="party-email"><span>البريد الإلكتروني</span><input id="memail" type="email" dir="ltr" inputmode="email" maxlength="80" autocomplete="off" aria-label="البريد الإلكتروني للموكل"></label>
+
+ <label class="party-reg" data-party="client" data-kind="legal" hidden><span>السجل التجاري</span><input id="mclireg" maxlength="80" autocomplete="off"></label>
+ <label class="party-address" data-party="client" data-kind="natural"><span>العنوان</span><textarea id="mcliaddress" class="party-grow" rows="1" maxlength="250"></textarea></label>
+ <label class="party-hq" data-party="client" data-kind="legal" hidden><span>عنوان المقر</span><textarea id="mclihq" class="party-grow" rows="1" maxlength="250"></textarea></label>
+ <p id="mclientmatch" class="msg" role="status" aria-live="polite" hidden></p><div id="mclientactions" hidden></div><div id="mclientsug" class="sug zlive" role="listbox" hidden></div>
+ </div><div class="trf party-fields" data-party-form="opponent" data-type="natural">
+ <div class="party-heading"><h4 class="party-subhead">الخصم</h4><label class="party-legal"><input id="madvLegalSwitch" type="checkbox" aria-label="الخصم شخص اعتباري"><span>اعتباري</span></label><select id="madvtype" hidden aria-hidden="true" tabindex="-1"><option value="natural">طبيعي</option><option value="legal">اعتباري</option></select></div>
+ <label class="party-name"><span>اسم الخصم</span><textarea id="madv" rows="1" class="zgrow" maxlength="60"></textarea></label>
+ <label class="party-id" data-party="opponent" data-kind="natural"><span>البطاقة الوطنية</span><input id="madvin" dir="ltr" maxlength="32" autocomplete="off" aria-label="البطاقة الوطنية للخصم"></label>
+
+ <label class="party-email"><span>البريد الإلكتروني</span><input id="madvemail" type="email" dir="ltr" inputmode="email" maxlength="80" autocomplete="off" aria-label="البريد الإلكتروني للخصم"></label>
+ <label class="party-lawyer"><span>ينوب عنه</span><textarea id="madvl" rows="1" class="zgrow" maxlength="60"></textarea></label>
+ <label class="party-reg" data-party="opponent" data-kind="legal" hidden><span>السجل التجاري</span><input id="madvreg" maxlength="80" autocomplete="off"></label>
+ <label class="party-address" data-party="opponent" data-kind="natural"><span>العنوان</span><textarea id="madvaddress" class="party-grow" rows="1" maxlength="250"></textarea></label>
+ <label class="party-hq" data-party="opponent" data-kind="legal" hidden><span>عنوان المقر</span><textarea id="madvhq" class="party-grow" rows="1" maxlength="250"></textarea></label>
+ <p id="mopponentmatch" class="msg" role="status" aria-live="polite" hidden></p><div id="mopponentsug" class="sug zlive" role="listbox" hidden></div>
+ </div></details>
         <details><summary>الأتعاب (اختياري)</summary><div class="trf">
           <label><span>الأتعاب المتفق عليها (درهم)</span><input id="mfee" dir="ltr" inputmode="decimal" maxlength="10" autocomplete="off"></label>
     <label><span>مقدم الأتعاب</span><input id="mfeeby" maxlength="80" autocomplete="off"></label></div></details>
@@ -9719,12 +9712,12 @@ var ZLNG={get:function(){try{var l=localStorage.getItem('zl_lang');return l==='f
     var c=document.createElement('div');c.innerHTML='<h3 class="zlng-heading"><svg class="zlng-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 8 6 6M4 14l6-6 2-3H2M9 5h12M16 3v3M14 21l5-10 5 10M16 17h6"/></svg>اللغة</h3><p class="note">لغة واجهة التطبيق. بالفرنسية أو الإنجليزية يُكتب اسم «قلم» بالحروف اللاتينية، وتبقى معطيات المكتب (الأسماء والملاحظات والنصوص) كما كُتبت.</p><div class="zthm zlng" role="radiogroup" aria-label="اللغة" data-noi18n></div>';
     var g=c.querySelector('.zlng');L.forEach(function(x){var b=document.createElement('button');b.type='button';b.setAttribute('role','radio');b.setAttribute('data-v',x[0]);var on=x[0]===cur;b.setAttribute('aria-checked',on?'true':'false');b.classList.toggle('on',on);
       b.innerHTML='<i></i><span></span>';b.querySelector('i').textContent=x[2];b.querySelector('span').textContent=x[1];if(x[0]!=='ar')b.lang=x[0];
-      b.addEventListener('click',function(){if(x[0]===cur)return;try{localStorage.setItem('zl_lang',x[0]);}catch(e){}location.reload();});g.appendChild(b);});
+      b.addEventListener('click',function(){if(x[0]===ZLNG.get())return;I18N.set(x[0]);});g.appendChild(b);});
     if(host.classList&&host.classList.contains('card')){host.textContent='';while(c.firstChild)host.appendChild(c.firstChild);host.classList.add('zlngcard');}else host.appendChild(c);return c;}};
 /* the sign-in card: the language of the interface (kept for every visit, the page drawn again in it) and the look (the same choice as in the settings) */
 (function(){var g=document.querySelector('#login .lgtop');if(!g)return;var L='ar';try{L=localStorage.getItem('zl_lang')||'ar';}catch(e){}
   [].forEach.call(g.querySelectorAll('.lseg button'),function(b){var l=b.getAttribute('data-l');b.setAttribute('aria-pressed',l===L?'true':'false');
-    b.addEventListener('click',function(){if(l===L)return;try{localStorage.setItem('zl_lang',l);}catch(e){}location.reload();});});
+    b.addEventListener('click',function(){if(l===ZLNG.get())return;I18N.set(l);});});
   var t=g.querySelector('.lgth');function lbl(){var lt=!!(window.ZTH&&ZTH.light());t.setAttribute('aria-label',lt?'المظهر الداكن':'المظهر الفاتح');t.title=t.getAttribute('aria-label');}
   t.addEventListener('click',function(){if(window.ZTH)ZTH.set(ZTH.light()?'dark':'light');lbl();});lbl();})();
 try{var lc=document.getElementById('zlngcard');if(lc)ZLNG.ui(lc);}catch(e){}
@@ -9734,33 +9727,40 @@ try{var lc=document.getElementById('zlngcard');if(lc)ZLNG.ui(lc);}catch(e){}
    chosen language are read (they wait in the page as plain data); in Arabic nothing is read at all ---------- */
 var I18N=(function(){
   var LANG='ar';try{LANG=localStorage.getItem('zl_lang')||'ar';}catch(e){}if(LANG!=='fr'&&LANG!=='en')LANG='ar';
-  function setLang(l){try{localStorage.setItem('zl_lang',l==='fr'||l==='en'?l:'ar');}catch(e){}}
-  if(LANG==='ar'){document.documentElement.style.visibility='';return {lang:'ar',set:setLang,t:function(s){return s;}};}
+  var originalText=new WeakMap(),originalAttrs=new WeakMap();
+  function setLang(l){LANG=l==='fr'||l==='en'?l:'ar';try{localStorage.setItem('zl_lang',LANG);}catch(e){}
+    if(mo)mo.disconnect();configure();var h=document.documentElement;h.lang=LANG;h.dir=LANG==='ar'?'rtl':'ltr';h.classList.toggle('lat',LANG!=='ar');CACHE.clear();walk(document.body);I18N.lang=LANG;
+    document.querySelectorAll('.zlng [data-v],#login .lseg [data-l]').forEach(function(b){var on=(b.getAttribute('data-v')||b.getAttribute('data-l'))===LANG;b.classList.toggle('on',on);b.setAttribute(b.hasAttribute('data-v')?'aria-checked':'aria-pressed',String(on));});
+    mo.observe(h,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:ATTRS});window.dispatchEvent(new Event('zllanguagechange'));}
   function J(id){var e=document.getElementById(id);try{return e?JSON.parse(e.textContent):null;}catch(x){return null;}}
-  var K=J('zi18n-k')||[],V=J('zi18n-'+LANG)||[],P=J('zi18n-p')||[],D={},TP=[],EX={},X=LANG==='en'?2:1;
+  var K,V,P,D,TP,EX,X,SH,AR,ARL,DN,IDX,NUMB,TPS,norm;
+  function configure(){
+  K=J('zi18n-k')||[],V=J('zi18n-'+LANG)||[],P=J('zi18n-p')||[],D={},TP=[],EX={},X=LANG==='en'?2:1;
   K.forEach(function(k,i){var v=V[i];if(v!=null&&v!=='')D[k]=v;});
   P.forEach(function(p){var v=p[X]||'';if(v)TP.push([p[0],v]);});
-  EX['ملفات']='Qalam';EX['قلم']='Qalam';
+  EX['ملفات']='Qalam';EX['قلم']='Qalam';var added={fr:{'اعتباري':'Personne morale','الهاتف':'Téléphone','البريد الإلكتروني':'E-mail','ينوب عنه':'Représenté par'},en:{'اعتباري':'Legal entity','الهاتف':'Phone','البريد الإلكتروني':'Email','ينوب عنه':'Represented by'}}[LANG]||{};Object.keys(added).forEach(function(k){EX[k]=added[k];});
   /* the names of the spaces in the bar at the bottom: one short enough for its place */
-  var SH={fr:{'المكتبة':'Biblio'},en:{}}[LANG]||{};
-  var AR=/[؀-ۿ]/,ARL=/[ء-يٱ-ۓ]/;
-  function norm(s){return String(s).replace(/[‎‏‪-‮]/g,'').replace(/\s+/g,' ').trim();}
-  var DN={};Object.keys(D).forEach(function(k){DN[norm(k)]=D[k];});
+  SH={fr:{'المكتبة':'Biblio'},en:{}}[LANG]||{};
+  AR=/[؀-ۿ]/,ARL=/[ء-يٱ-ۓ]/;
+  norm=function(s){return String(s).replace(/[‎‏‪-‮]/g,'').replace(/\s+/g,' ').trim();};
+  DN={};Object.keys(D).forEach(function(k){DN[norm(k)]=D[k];});
   /* a piece that begins with punctuation («، والجلسة المقبلة يوم») is also known by its words alone */
   Object.keys(DN).forEach(function(k){var m=/^[\s،,.:;؛\-—–|()«»"]+(?=[ء-ي])/.exec(k);if(!m)return;var c=k.slice(m[0].length);if(c.length<3||DN[c]!=null)return;DN[c]=String(DN[k]).replace(/^[\s,.:;\-—–|()«»"]+/,'');});
   /* the pieces, indexed by their first two letters, the longest first */
-  var IDX={};Object.keys(DN).forEach(function(k){if(k.length<2||!AR.test(k))return;var h=k.slice(0,2);(IDX[h]=IDX[h]||[]).push(k);});
+  IDX={};Object.keys(DN).forEach(function(k){if(k.length<2||!AR.test(k))return;var h=k.slice(0,2);(IDX[h]=IDX[h]||[]).push(k);});
   Object.keys(IDX).forEach(function(h){IDX[h].sort(function(a,b){return b.length-a.length;});});
   function esc(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
   /* the patterns: «المادة {0} من {1}» ↔ «Article {0} de {1}»; a pattern needs enough words of its own, and after «المادة» or «عدد» comes a number */
-  var NUMB=/(المادة|الفصل|عدد|رقم|صفحة|الصفحة|م)\s*$/;
-  var TPS=TP.map(function(p){var src=norm(p[0]),parts=src.split(/\{(\d+)\}/),re='^',ids=[],num=[],lit='',letters=0;
+  NUMB=/(المادة|الفصل|عدد|رقم|صفحة|الصفحة|م)\s*$/;
+  TPS=TP.map(function(p){var src=norm(p[0]),parts=src.split(/\{(\d+)\}/),re='^',ids=[],num=[],lit='',letters=0;
     for(var i=0;i<parts.length;i++){if(i%2){var nb=NUMB.test(parts[i-1]||'');ids.push(+parts[i]);num.push(nb);re+=nb?'((?![\\u0621-\\u064A])[\\s\\S]+?)':'([\\s\\S]*?)';}else{re+=esc(parts[i]);letters+=(parts[i].match(/[ء-ي]/g)||[]).length;if(parts[i].length>lit.length)lit=parts[i];}}
     return {re:new RegExp(re+'$'),ids:ids,num:num,tx:p[1],key:lit.trim(),w:src.replace(/\{\d+\}/g,'').length,letters:letters};}).filter(function(t){return t.key&&AR.test(t.key)&&t.letters>=5;});
   TPS.sort(function(a,b){return b.w-a.w;});
+
+  }configure();
   function punct(s){return s.replace(/،/g,',').replace(/؛/g,';').replace(/؟/g,'?');}
   var CACHE=new Map();
-  function tr(s,depth){if(s==null)return s;var str=String(s);if(!AR.test(str))return str;
+  function tr(s,depth){if(s==null||LANG==='ar')return s;var str=String(s);if(!AR.test(str))return str;
     var c=CACHE.get(str);if(c!==undefined)return c;var r=tr0(str,depth||0);if(CACHE.size>20000)CACHE.clear();CACHE.set(str,r);return r;}
   function tr0(str,depth){
     var n=norm(str);if(!n)return str;
@@ -9792,11 +9792,11 @@ var I18N=(function(){
   var SKIP='.lhp,.lhpw,[data-noi18n],.pvprev,.lxart,script,style,textarea,[contenteditable="true"]';
   var ATTRS=['placeholder','title','aria-label','data-tip','alt'];
   function skip(el){return !!(el&&el.closest&&el.closest(SKIP));}
-  function text(node){var v=node.nodeValue;if(!v||!AR.test(v))return;var p=node.parentNode;if(!p||p.nodeType!==1||skip(p))return;
-    var lead=v.match(/^\s*/)[0],tail=v.match(/\s*$/)[0],core=v.slice(lead.length,v.length-tail.length),t2=SH[core]&&p.closest('.zbot')?SH[core]:tr(core);
-    if(t2!==core){if(p.tagName==='OPTION'&&!p.hasAttribute('value'))p.setAttribute('value',p.value);node.nodeValue=lead+t2+tail;}else if(MISS)MISS.add(core);}
-  function attrs(el){if(skip(el))return;for(var i=0;i<ATTRS.length;i++){var a=ATTRS[i],v=el.getAttribute(a);if(v&&AR.test(v)){var t2=tr(v);if(t2!==v)el.setAttribute(a,t2);else if(MISS)MISS.add(v);}}
-    if((el.tagName==='INPUT'&&/^(button|submit)$/i.test(el.type))&&AR.test(el.value)){var fv=tr(el.value);if(fv!==el.value)el.value=fv;}
+  function sourceText(node){var v=node.nodeValue,old=originalText.get(node);if(!old||old.rendered!==v){old={source:v,rendered:v};originalText.set(node,old);}return old;}
+  function text(node){var p=node.parentNode;if(!p||p.nodeType!==1||skip(p))return;var old=sourceText(node),v=old.source;if(!v)return;
+    var lead=v.match(/^\s*/)[0],tail=v.match(/\s*$/)[0],core=v.slice(lead.length,v.length-tail.length),out=LANG==='ar'?core:SH[core]&&p.closest('.zbot')?SH[core]:tr(core);
+    old.rendered=lead+out+tail;if(node.nodeValue!==old.rendered){if(p.tagName==='OPTION'&&!p.hasAttribute('value'))p.setAttribute('value',p.value);node.nodeValue=old.rendered;}}
+  function attrs(el){if(skip(el))return;var map=originalAttrs.get(el)||{};originalAttrs.set(el,map);ATTRS.forEach(function(a){var v=el.getAttribute(a);if(!v)return;var old=map[a];if(!old||old.rendered!==v)old=map[a]={source:v,rendered:v};old.rendered=tr(old.source);if(v!==old.rendered)el.setAttribute(a,old.rendered);});
     if((el.tagName==='INPUT'||el.tagName==='TEXTAREA')&&!el.hasAttribute('dir'))el.setAttribute('dir','auto');}
   function walk(root){if(!root)return;if(root.nodeType===3){text(root);return;}if(root.nodeType!==1&&root.nodeType!==11)return;if(root.nodeType===1){if(skip(root))return;attrs(root);}
     var w=document.createTreeWalker(root,NodeFilter.SHOW_ELEMENT|NodeFilter.SHOW_TEXT,{acceptNode:function(n){if(n.nodeType===1)return skip(n)?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT;return NodeFilter.FILTER_ACCEPT;}}),n;

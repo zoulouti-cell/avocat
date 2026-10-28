@@ -1,7 +1,7 @@
 'use strict';
 /* Cache only public app shells, never authenticated responses or user records. */
-const CACHE='avocat-qalam-shell-v1';
-const SHELL=['./office.html','./app.webmanifest','./icon-192.png','./icon-512.png'];
+const CACHE='avocat-qalam-shell-v2';
+const SHELL=['./office.html','./app.webmanifest','./icon-192.png','./icon-512.png','./header-controls.js?v=20261029','./header-controls.css?v=20261029','./party-form.js?v=20261029','./party-form.css?v=20261029'];
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(SHELL)).then(()=>self.skipWaiting()));
 });
@@ -12,7 +12,13 @@ self.addEventListener('fetch',event=>{
   const req=event.request;
   if(req.method!=='GET')return;
   const url=new URL(req.url);
-  if(url.origin!==self.location.origin||req.mode!=='navigate')return;
+  if(url.origin!==self.location.origin)return;
+  const asset=url.pathname.split('/').pop();
+  if(['header-controls.js','header-controls.css','party-form.js','party-form.css'].includes(asset)){
+    event.respondWith(fetch(req).then(response=>{if(response.ok){const copy=response.clone();event.waitUntil(caches.open(CACHE).then(cache=>cache.put(req,copy)));}return response;}).catch(()=>caches.match(req)));
+    return;
+  }
+  if(req.mode!=='navigate')return;
   const page=url.pathname.split('/').pop();
   if(page!=='office.html'&&page!=='office-rachid.html')return;
   event.respondWith(fetch(req).then(response=>{

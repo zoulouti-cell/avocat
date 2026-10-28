@@ -1,0 +1,14 @@
+/* Equal-width party fields; the legal-person option belongs to its party. */
+#madd .case-parties .party-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 18px;align-items:start;min-width:0}
+#madd .case-parties .party-heading{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding:8px 0;margin:8px 0 0;min-width:0}
+#madd .case-parties .party-subhead{margin:0;padding:0;border:0;min-width:0;font-size:1rem}
+#madd .case-parties .party-legal{display:inline-flex;flex-direction:row!important;align-items:center;gap:8px;white-space:nowrap;font-size:.85rem;font-weight:600;cursor:pointer;margin:0;padding:4px 8px;border:1px solid var(--line);border-radius:20px;background:rgba(200,162,74,.05)}
+#madd .case-parties .party-legal input{appearance:auto;-webkit-appearance:checkbox;width:18px;height:18px;min-height:18px;margin:0;accent-color:var(--gold,#c8a24a);flex:none}
+#madd .case-parties .party-legal span{font-size:inherit;color:inherit}
+#madd .case-parties .party-fields>label{grid-column:auto!important;min-width:0;display:flex;flex-direction:column;gap:6px;max-width:100%}
+#madd .case-parties .party-fields>label>span{font-size:.84rem;line-height:1.5}
+#madd .case-parties .party-fields :is(input:not([type=checkbox]),textarea){box-sizing:border-box;width:100%;min-width:0;min-height:44px;margin:0;max-width:100%}
+#madd .case-parties .party-fields textarea.party-grow{field-sizing:content;resize:vertical;overflow:hidden;min-height:44px;line-height:1.65;white-space:pre-wrap;overflow-wrap:anywhere}
+#madd .case-parties .party-fields>[id$=match],#madd .case-parties .party-fields>[id$=actions],#madd .case-parties .party-fields>.sug{grid-column:1/-1;min-width:0}
+#madd .case-parties [hidden]{display:none!important}
+@media(max-width:639px){#madd .case-parties .party-fields{grid-template-columns:minmax(0,1fr);gap:12px}#madd .case-parties .party-heading{gap:8px}#madd .case-parties .party-fields :is(input,textarea){font-size:16px}}
