@@ -12,6 +12,9 @@
 
 <meta name="description" content="مكتب الأستاذ عبد الحكيم الزلوطي، محامٍ بهيئة الدار البيضاء: استشارات قانونية وتمثيل أمام المحاكم. العنوان: 72 شارع محمد الزرقطوني، الطابق الثامن، رقم 23، الدار البيضاء. الهاتف: 0661410274.">
 <meta name="theme-color" content="#0b2420">
+<link rel="manifest" href="./app.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="قلم">
 <meta property="og:type" content="website">
 <meta property="og:title" content="مكتب الزلوطي للمحاماة | الأستاذ عبد الحكيم الزلوطي، الدار البيضاء">
 <meta property="og:description" content="مكتب الأستاذ عبد الحكيم الزلوطي، محامٍ بهيئة الدار البيضاء: استشارات قانونية وتمثيل أمام المحاكم. العنوان: 72 شارع محمد الزرقطوني، الطابق الثامن، رقم 23، الدار البيضاء. الهاتف: 0661410274.">
@@ -1754,6 +1757,11 @@ if('IntersectionObserver' in window){
 }else{rv.forEach(function(el){el.classList.add('in');});}
 if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches){document.querySelectorAll('animate').forEach(function(a){a.remove();});}
 })();
+</script>
+<script>
+if('serviceWorker' in navigator && window.isSecureContext){
+window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js',{scope:'./'}).catch(function(){});});
+}
 </script>
 </body>
 </html>

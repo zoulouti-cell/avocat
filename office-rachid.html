@@ -29,8 +29,11 @@
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#0b2420">
 <meta name="mobile-web-app-capable" content="yes">
-<link rel="icon" href="icons/icon-192.png">
-<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="قلم">
+<link rel="manifest" href="./app.webmanifest">
+<link rel="icon" type="image/png" href="./icon-192.png">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@700&family=Tajawal:wght@200;300;400;500;700&display=swap">
 <style>
 :root{--bg:#f6f0e1;--paper:#fbf8f0;--fg:#14211e;--muted:#43524c;--line:#d9cdaa;--gt:#7a5a12;--gold:#c8a24a;--green:#0b2420;--terra:#a8452a;--fh:"Tajawal","Noto Sans Arabic",system-ui,sans-serif}
@@ -1945,6 +1948,12 @@ html.lt #lock .lg-q{border-color:#e2cf9f;box-shadow:0 12px 26px rgba(29,65,47,.1
 html.lt .snabout .snapp{color:#8f6a22}
 html.lt textarea.zgrow{background-color:#fafcf8!important;border-color:rgba(40,75,60,.21)!important}
 html.lt textarea.zgrow:focus{border-color:#c6a15b!important}
+/* Cross-device layout and a translation icon distinct from location. */
+.zlng-heading{display:flex;align-items:center;gap:.55rem}
+.zlng-icon{width:23px;height:23px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+@media(min-width:1024px){main{max-width:1080px}#p-files{max-width:1000px;margin-inline:auto}}
+@media(max-width:560px){#madd .trf{grid-template-columns:minmax(0,1fr)}.bar #inst{min-height:40px;padding-inline:.6rem;font-size:.84rem}}
+@media(pointer:coarse){button,.btn,select{touch-action:manipulation}}
 </style>
 </head>
 <body>
@@ -2055,9 +2064,11 @@ html.lt textarea.zgrow:focus{border-color:#c6a15b!important}
       <details><summary>الأطراف</summary>
         <div class="trf">
           <label><span>اسم الموكل</span><textarea id="mcli" rows="1" class="zgrow" maxlength="60"></textarea></label>
+           <label><span>البطاقة الوطنية</span><input id="mcin" type="text" dir="ltr" maxlength="32" autocomplete="off" aria-label="البطاقة الوطنية للموكل"></label>
           <label><span>هاتف الموكل</span><input id="mtel" dir="ltr" inputmode="tel" maxlength="20" autocomplete="off"></label>
           <label><span>البريد الإلكتروني للموكل</span><input id="memail" type="email" dir="ltr" inputmode="email" maxlength="80" autocomplete="off"></label>
           <label><span>الخصم</span><textarea id="madv" rows="1" class="zgrow" maxlength="60"></textarea></label>
+           <label><span>البطاقة الوطنية</span><input id="madvin" type="text" dir="ltr" maxlength="32" autocomplete="off" aria-label="البطاقة الوطنية للخصم"></label>
       <label><span>ينوب عنه (محامي الطرف الآخر)</span><textarea id="madvl" rows="1" class="zgrow" maxlength="60"></textarea></label>
         </div>
       </details>
@@ -3440,7 +3451,7 @@ function renderFiles(){
       UNDO.show('حُذف الملف «'+String(fname(keep)).slice(0,40)+'».',{undo:function(){if(items[x.id])return;items[x.id]=keep;if(typeof tomb==='object'&&tomb){delete tomb[x.id];try{localStorage.setItem(TOMBK,JSON.stringify(tomb));}catch(e){}}persist();}});
     });
     be.addEventListener('click',function(){
-      $('mlabel').value=f.label||'';$('mcourt').value=f.court||'';$('mroom').value=f.room||'';$('mjudge').value=f.judge||'';$('mno').value=f.no;$('mcode').value=f.code||'';$('myr').value=f.yr;$('mst').value=String(f.st);$('mnote').value=f.note||'';$('mour').value=f.our||'';$('mtype').dataset.m='1';$('mcref').value=f.cref||'';$('mccode').value=f.ccode||'';$('mcli').value=f.cli||'';$('mtel').value=f.tel||'';$('madv').value=f.adv||'';$('madvl').value=f.advl||'';$('mfee').value=f.fee||'';$('mfeeby').value=f.feeby||'';CTBL.load(f);
+      $('mlabel').value=f.label||'';$('mcourt').value=f.court||'';$('mroom').value=f.room||'';$('mjudge').value=f.judge||'';$('mno').value=f.no;$('mcode').value=f.code||'';$('myr').value=f.yr;$('mst').value=String(f.st);$('mnote').value=f.note||'';$('mour').value=f.our||'';$('mtype').dataset.m='1';$('mcref').value=f.cref||'';$('mccode').value=f.ccode||'';$('mcli').value=f.cli||'';$('mcin').value=f.cin||'';$('mtel').value=f.tel||'';$('madv').value=f.adv||'';$('madvin').value=f.advcin||'';$('madvl').value=f.advl||'';$('mfee').value=f.fee||'';$('mfeeby').value=f.feeby||'';$('memail').value=f.email||'';CTBL.load(f);
       editId=x.id;$('msave').textContent='حفظ التعديل';$('mcancel').hidden=false;$('madd').open=true;$('madd').scrollIntoView({behavior:'smooth'});
     });
     ban.addEventListener('click',function(){AN.analyzeFile(x);});
@@ -3450,13 +3461,13 @@ function renderFiles(){
     bc.addEventListener('click',async function(){try{await navigator.clipboard.writeText(refText(f));RPT.toast('تم نسخ المرجع');}catch(e){mm('mmsg',refText(f),true);}});
     bm.href=MK_TRACK;bm.target='_blank';bm.rel='noopener';bm.title='تتبع الملف في بوابة محاكم';
     var btx=window.KIT&&KIT.textsBtn?KIT.textsBtn(f):null;if(ICON_UI){r2.classList.add('icr');ICN(bc,'copy','نسخ المرجع');ICN(bm,'court','محاكم');if(btx)ICN(btx,'book','نصوص');}r2.appendChild(bc);r2.appendChild(bm);if(btx)r2.appendChild(btx);c.appendChild(r2);
-    var bpo=el('button','btn sm fcpo');bpo.type='button';bpo.innerHTML=ICO.portal+'<span>بوابة الموكل</span>';bpo.addEventListener('click',function(){PORTAL.open(x.id);});if(window.CMSG){var pw2=el('div','fcpw'),bwa=el('button','btn sm fcpo fcwa');bwa.type='button';bwa.innerHTML=(ICO.chat||'')+'<span>إخبار الموكل</span>';bwa.addEventListener('click',function(){CMSG.open(x.id);});if(ICON_UI){ICN(bwa,'chat','إخبار الموكل');r2.appendChild(bwa);}else{pw2.appendChild(bwa);pw2.classList.add('zone');c.appendChild(pw2);}}
+    var bpo=el('button','btn sm fcpo');bpo.type='button';bpo.innerHTML=ICO.portal+'<span>بوابة الموكل</span>';bpo.addEventListener('click',function(){PORTAL.open(x.id);});
     c.appendChild(feesBox(x.id,f));if(window.ZDOC)c.appendChild(ZDOC.section(x.id,f));c.appendChild(actions(x.id,f));box.appendChild(c);
   }
   function more(){var end=Math.min(LST.length,RN+PG);for(;RN<end;RN++)card(LST[RN]);PG=10;if(RN<LST.length){var s=el('div','fsent');box.appendChild(s);if('IntersectionObserver' in window){var io=new IntersectionObserver(function(en){if(en[0].isIntersecting){io.disconnect();s.remove();more();}},{rootMargin:'900px'});io.observe(s);}else{s.remove();more();}}}
   more();if(KP){var kc=box.querySelector('.fc[data-fid="'+KP.fid+'"]');if(kc){for(var kq=kc;kq;kq=kq.previousElementSibling){if(kq.classList&&kq.classList.contains('fc'))kq.style.contentVisibility='visible';}var dy=kc.getBoundingClientRect().top-KP.top;if(Math.abs(dy)>2)window.scrollBy(0,dy);}}if(window.FUI)FUI.refresh();
 }
-function clearForm(){if(window.FIMP)FIMP.clear();['mlabel','mcourt','mroom','mjudge','mour','mno','mcode','myr','mkind','mnote','mcref','mccode','mcli','mtel','memail','madv','madvl','mfee','mfeeby'].forEach(function(i){$(i).value='';});$('mtype').value='مدني';$('mtype').dataset.m='';$('mkind').dataset.auto='';$('mkindhint').textContent='';$('csug').textContent='';$('mst').value='1';editId=null;$('msave').textContent='إضافة الملف';$('mcancel').hidden=true;CTBL.reset();}
+function clearForm(){if(window.FIMP)FIMP.clear();['mlabel','mcourt','mroom','mjudge','mour','mno','mcode','myr','mkind','mnote','mcref','mccode','mcli','mcin','mtel','memail','madv','madvin','madvl','mfee','mfeeby'].forEach(function(i){$(i).value='';});$('mtype').value='مدني';$('mtype').dataset.m='';$('mkind').dataset.auto='';$('mkindhint').textContent='';$('csug').textContent='';$('mst').value='1';editId=null;$('msave').textContent='إضافة الملف';$('mcancel').hidden=true;CTBL.reset();}
 function renderAll(){renderAgenda();renderFiles();notifUI();fillFiles();}
 
 
@@ -8648,7 +8659,7 @@ $('mcgen').addEventListener('click',function(){$('mccode').value=genCode();});
 $('siteurl').value=SITE();
 $('sitesave').addEventListener('click',function(){var v=$('siteurl').value.trim();if(v&&!/^https?:\/\//i.test(v)){mm('smsg','الرابط يجب أن يبدأ بـ https://');return;}try{localStorage.setItem('zlr_site_url',v);}catch(e){}mm('smsg','تم الحفظ.',true);renderFiles();});
 $('msave').addEventListener('click',function(){
-  var o={label:$('mlabel').value.trim(),court:$('mcourt').value.trim(),room:$('mroom').value.trim(),judge:$('mjudge').value.trim(),type:$('mtype').value,no:$('mno').value.trim(),code:$('mcode').value.trim(),yr:$('myr').value.trim(),st:+$('mst').value,note:$('mnote').value.trim(),our:$('mour').value.trim(),kind:$('mkind').value.trim(),cref:$('mcref').value.trim(),ccode:$('mccode').value.trim(),cli:$('mcli').value.trim(),tel:$('mtel').value.trim(),adv:$('madv').value.trim(),advl:$('madvl').value.trim(),fee:$('mfee').value.trim(),feeby:$('mfeeby').value.trim(),email:$('memail').value.trim(),jrole:$('mjrole').value,u:today(),acts:(editId&&items[editId]&&items[editId].acts)||[],pays:(editId&&items[editId]&&items[editId].pays)||[]};
+  var o={label:$('mlabel').value.trim(),court:$('mcourt').value.trim(),room:$('mroom').value.trim(),judge:$('mjudge').value.trim(),type:$('mtype').value,no:$('mno').value.trim(),code:$('mcode').value.trim(),yr:$('myr').value.trim(),st:+$('mst').value,note:$('mnote').value.trim(),our:$('mour').value.trim(),kind:$('mkind').value.trim(),cref:$('mcref').value.trim(),ccode:$('mccode').value.trim(),cli:$('mcli').value.trim(),cin:$('mcin').value.trim(),tel:$('mtel').value.trim(),adv:$('madv').value.trim(),advcin:$('madvin').value.trim(),advl:$('madvl').value.trim(),fee:$('mfee').value.trim(),feeby:$('mfeeby').value.trim(),email:$('memail').value.trim(),jrole:$('mjrole').value,u:today(),acts:(editId&&items[editId]&&items[editId].acts)||[],pays:(editId&&items[editId]&&items[editId].pays)||[]};
   if(editId&&items[editId])o=Object.assign({},items[editId],o);
   if(!o.no||!o.yr){mm('mmsg','أدخلوا رقم الملف وسنته على الأقل.');return;}
   rememberCourt(o.court);
@@ -8676,10 +8687,21 @@ $('bkin').addEventListener('change',function(){
   f.text().then(function(t){var d=JSON.parse(t);if(!d||typeof d.items!=='object')throw 0;Object.assign(items,d.items);persist();mm('bmsg','تم الاستيراد والدمج.',true);}).catch(function(){mm('bmsg','ملف غير صالح.');});
   this.value='';
 });
-var dp=null;
-window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();dp=e;$('inst').hidden=false;});
-$('inst').addEventListener('click',async function(){if(!dp)return;dp.prompt();await dp.userChoice;dp=null;$('inst').hidden=true;});
-window.addEventListener('appinstalled',function(){$('inst').hidden=true;});
+/* Progressive Web App: native install prompts and instructions where unavailable. */
+if('serviceWorker' in navigator && window.isSecureContext){
+  window.addEventListener('load',function(){navigator.serviceWorker.register('./sw.js',{scope:'./'}).catch(function(){});});
+}
+var dp=null,installBtn=$('inst');
+var isiOS=/iPhone|iPad|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+var safari=/Safari/.test(navigator.userAgent)&&!/Chrome|Chromium|CriOS|Edg|FxiOS/.test(navigator.userAgent);
+var installed=(window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone;
+if(!installed&&(isiOS||safari)){installBtn.hidden=false;installBtn.textContent='طريقة التثبيت';}
+window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();dp=e;installBtn.hidden=false;installBtn.textContent='تثبيت التطبيق';});
+installBtn.addEventListener('click',async function(){
+  if(dp){var p=dp;dp=null;p.prompt();try{await p.userChoice;}catch(e){}installBtn.hidden=true;return;}
+  alert(isiOS?'من متصفح Safari اضغطوا مشاركة، ثم «إضافة إلى الشاشة الرئيسية».':safari?'من قائمة «ملف» في Safari اختاروا «إضافة إلى Dock» إن توفر الخيار.':'من قائمة المتصفح اختاروا «تثبيت التطبيق» أو «إضافة إلى الشاشة الرئيسية» إن توفر الخيار.');
+});
+window.addEventListener('appinstalled',function(){dp=null;installBtn.hidden=true;});
 
 wireDL();renderAll();
 show((location.hash||'#agenda').slice(1).replace(/^(?!agenda$|files$|dl$|lex$|set$|edit$|cli$|codes$).*/,'agenda'));
@@ -9521,7 +9543,7 @@ var ZN=(function(){
 /* the language of the interface: العربية، Français، English (kept on this device; the page is drawn again in it) */
 var ZLNG={get:function(){try{var l=localStorage.getItem('zl_lang');return l==='fr'||l==='en'?l:'ar';}catch(e){return 'ar';}},
   ui:function(host){var L=[['ar','العربية','ع'],['fr','Français','Fr'],['en','English','En']],cur=ZLNG.get();
-    var c=document.createElement('div');c.innerHTML='<h3>اللغة</h3><p class="note">لغة واجهة التطبيق. بالفرنسية أو الإنجليزية يُكتب اسم «قلم» بالحروف اللاتينية، وتبقى معطيات المكتب (الأسماء والملاحظات والنصوص) كما كُتبت.</p><div class="zthm zlng" role="radiogroup" aria-label="اللغة" data-noi18n></div>';
+    var c=document.createElement('div');c.innerHTML='<h3 class="zlng-heading"><svg class="zlng-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 8 6 6M4 14l6-6 2-3H2M9 5h12M16 3v3M14 21l5-10 5 10M16 17h6"/></svg>اللغة</h3><p class="note">لغة واجهة التطبيق. بالفرنسية أو الإنجليزية يُكتب اسم «قلم» بالحروف اللاتينية، وتبقى معطيات المكتب (الأسماء والملاحظات والنصوص) كما كُتبت.</p><div class="zthm zlng" role="radiogroup" aria-label="اللغة" data-noi18n></div>';
     var g=c.querySelector('.zlng');L.forEach(function(x){var b=document.createElement('button');b.type='button';b.setAttribute('role','radio');b.setAttribute('data-v',x[0]);var on=x[0]===cur;b.setAttribute('aria-checked',on?'true':'false');b.classList.toggle('on',on);
       b.innerHTML='<i></i><span></span>';b.querySelector('i').textContent=x[2];b.querySelector('span').textContent=x[1];if(x[0]!=='ar')b.lang=x[0];
       b.addEventListener('click',function(){if(x[0]===cur)return;try{localStorage.setItem('zl_lang',x[0]);}catch(e){}location.reload();});g.appendChild(b);});
