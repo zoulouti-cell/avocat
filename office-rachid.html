@@ -2068,6 +2068,7 @@ html.lt textarea.zgrow:focus{border-color:#c6a15b!important}
            <label><span>البطاقة الوطنية</span><input id="mcin" type="text" dir="ltr" maxlength="32" autocomplete="off" aria-label="البطاقة الوطنية للموكل"></label>
           <label><span>هاتف الموكل</span><input id="mtel" dir="ltr" inputmode="tel" maxlength="20" autocomplete="off"></label>
           <label><span>البريد الإلكتروني للموكل</span><input id="memail" type="email" dir="ltr" inputmode="email" maxlength="80" autocomplete="off"></label>
+          <p id="mclientmatch" class="msg" role="status" aria-live="polite" hidden></p>
           <label><span>الخصم</span><textarea id="madv" rows="1" class="zgrow" maxlength="60"></textarea></label>
            <label><span>البطاقة الوطنية</span><input id="madvin" type="text" dir="ltr" maxlength="32" autocomplete="off" aria-label="البطاقة الوطنية للخصم"></label>
       <label><span>ينوب عنه (محامي الطرف الآخر)</span><textarea id="madvl" rows="1" class="zgrow" maxlength="60"></textarea></label>
@@ -3452,6 +3453,7 @@ function renderFiles(){
       UNDO.show('حُذف الملف «'+String(fname(keep)).slice(0,40)+'».',{undo:function(){if(items[x.id])return;items[x.id]=keep;if(typeof tomb==='object'&&tomb){delete tomb[x.id];try{localStorage.setItem(TOMBK,JSON.stringify(tomb));}catch(e){}}persist();}});
     });
     be.addEventListener('click',function(){
+      zlClearClientAuto();if($('mclientmatch')){$('mclientmatch').textContent='';$('mclientmatch').hidden=true;}
       $('mlabel').value=f.label||'';$('mcourt').value=f.court||'';$('mroom').value=f.room||'';$('mjudge').value=f.judge||'';$('mno').value=f.no;$('mcode').value=f.code||'';$('myr').value=f.yr;$('mst').value=String(f.st);$('mnote').value=f.note||'';$('mour').value=f.our||'';$('mtype').dataset.m='1';$('mcref').value=f.cref||'';$('mccode').value=f.ccode||'';$('mcli').value=f.cli||'';$('mcin').value=f.cin||'';$('mtel').value=f.tel||'';$('madv').value=f.adv||'';$('madvin').value=f.advcin||'';$('madvl').value=f.advl||'';$('mfee').value=f.fee||'';$('mfeeby').value=f.feeby||'';$('memail').value=f.email||'';CTBL.load(f);
       editId=x.id;$('msave').textContent='حفظ التعديل';$('mcancel').hidden=false;$('madd').open=true;$('madd').scrollIntoView({behavior:'smooth'});
     });
@@ -3468,7 +3470,74 @@ function renderFiles(){
   function more(){var end=Math.min(LST.length,RN+PG);for(;RN<end;RN++)card(LST[RN]);PG=10;if(RN<LST.length){var s=el('div','fsent');box.appendChild(s);if('IntersectionObserver' in window){var io=new IntersectionObserver(function(en){if(en[0].isIntersecting){io.disconnect();s.remove();more();}},{rootMargin:'900px'});io.observe(s);}else{s.remove();more();}}}
   more();if(KP){var kc=box.querySelector('.fc[data-fid="'+KP.fid+'"]');if(kc){for(var kq=kc;kq;kq=kq.previousElementSibling){if(kq.classList&&kq.classList.contains('fc'))kq.style.contentVisibility='visible';}var dy=kc.getBoundingClientRect().top-KP.top;if(Math.abs(dy)>2)window.scrollBy(0,dy);}}if(window.FUI)FUI.refresh();
 }
-function clearForm(){if(window.FIMP)FIMP.clear();['mlabel','mcourt','mroom','mjudge','mour','mno','mcode','myr','mkind','mnote','mcref','mccode','mcli','mcin','mtel','memail','madv','madvin','madvl','mfee','mfeeby'].forEach(function(i){$(i).value='';});$('mtype').value='مدني';$('mtype').dataset.m='';$('mkind').dataset.auto='';$('mkindhint').textContent='';$('csug').textContent='';$('mst').value='1';editId=null;$('msave').textContent='إضافة الملف';$('mcancel').hidden=true;CTBL.reset();}
+
+/* Saved clients are matched only by BOTH their name and national identity card number.
+   Never reuse another person's contact details on a name-only or ID-only match. */
+var zlClientAuto={key:'',tel:'',email:''};
+function zlClientNameKey(v){
+  var s=String(v||'');
+  try{s=s.normalize('NFKC');}catch(e){}
+  return s.replace(/[\u064b-\u065f\u0670\u0640]/g,'').replace(/[أإآٱ]/g,'ا').replace(/ى/g,'ي')
+    .replace(/[\u200b-\u200f\u2060]/g,'').replace(/[.,،؛:؟!?()"'«»_\-]+/g,' ')
+    .replace(/\s+/g,' ').trim().toLowerCase();
+}
+function zlClientCardKey(v){
+  var s=String(v||'');
+  try{s=s.normalize('NFKC');}catch(e){}
+  return s.replace(/[\u0660-\u0669]/g,function(c){return String(c.charCodeAt(0)-0x660);})
+    .replace(/[\u06f0-\u06f9]/g,function(c){return String(c.charCodeAt(0)-0x6f0);})
+    .replace(/[\s\u200b-\u200f._\/\-\u2010-\u2015]/g,'').toUpperCase();
+}
+function zlClientMatches(){
+  var name=zlClientNameKey($('mcli').value),cin=zlClientCardKey($('mcin').value);
+  var state={name:name,cin:cin,key:name&&cin?name+'|'+cin:'',exact:[],sameName:[],sameCard:[]};
+  Object.keys(items).forEach(function(id){
+    if(id===editId)return;
+    var f=items[id];if(!f||f.diary)return;
+    var n=zlClientNameKey(f.cli),c=zlClientCardKey(f.cin);
+    if(!n)return;
+    if(cin&&c===cin){
+      if(name&&n===name)state.exact.push(f);
+      else if(name&&n!==name)state.sameCard.push(f);
+    }else if(name&&n===name)state.sameName.push(f);
+  });
+  state.exact.sort(function(a,b){return String(b.u||'').localeCompare(String(a.u||''));});
+  return state;
+}
+function zlClearClientAuto(){
+  ['tel','email'].forEach(function(k){
+    if(zlClientAuto[k]&&$('m'+k).value===zlClientAuto[k])$('m'+k).value='';
+  });
+  zlClientAuto={key:'',tel:'',email:''};
+}
+function zlRefreshClientMatch(){
+  var state=zlClientMatches(),hint=$('mclientmatch');
+  if(zlClientAuto.key&&(!state.key||state.key!==zlClientAuto.key||editId!==null))zlClearClientAuto();
+  var msg='';
+  if(state.sameCard.length){
+    msg='تنبيه: رقم البطاقة الوطنية مسجل باسم موكل آخر («'+state.sameCard[0].cli+'»). لن تُستورد بياناته؛ يرجى التحقق من الرقم والاسم قبل الحفظ.';
+  }else if(!editId&&state.exact.length){
+    if(zlClientAuto.key!==state.key)zlClientAuto={key:state.key,tel:'',email:''};
+    var copied=[];
+    ['tel','email'].forEach(function(k){
+      var el=$('m'+k);
+      if(el.value.trim())return;
+      var source=state.exact.find(function(f){return String(f[k]||'').trim();});
+      if(source){
+        el.value=String(source[k]).trim();
+        zlClientAuto[k]=el.value;
+        copied.push(k==='tel'?'الهاتف':'البريد الإلكتروني');
+      }
+    });
+    msg=copied.length?'تم التحقق من الاسم والبطاقة الوطنية واستيراد '+copied.join(' و')+' تلقائيًا.':'الاسم ورقم البطاقة الوطنية مطابقان لموكل مسجل.';
+  }else if(state.name&&state.sameName.length){
+    msg=state.cin?'تنبيه: يوجد موكل بالاسم نفسه، لكن رقم البطاقة الوطنية مختلف أو غير مسجل. لن تُستورد بياناته.':'يوجد موكل بهذا الاسم. أدخلوا رقم البطاقة الوطنية للتحقق قبل استيراد بياناته.';
+  }
+  if(hint){hint.textContent=msg;hint.hidden=!msg;hint.className='msg'+(state.sameCard.length||state.sameName.length?'':' ok');}
+  return state;
+}
+
+function clearForm(){zlClearClientAuto();if($('mclientmatch')){$('mclientmatch').textContent='';$('mclientmatch').hidden=true;}if(window.FIMP)FIMP.clear();['mlabel','mcourt','mroom','mjudge','mour','mno','mcode','myr','mkind','mnote','mcref','mccode','mcli','mcin','mtel','memail','madv','madvin','madvl','mfee','mfeeby'].forEach(function(i){$(i).value='';});$('mtype').value='مدني';$('mtype').dataset.m='';$('mkind').dataset.auto='';$('mkindhint').textContent='';$('csug').textContent='';$('mst').value='1';editId=null;$('msave').textContent='إضافة الملف';$('mcancel').hidden=true;CTBL.reset();}
 function renderAll(){renderAgenda();renderFiles();notifUI();fillFiles();}
 
 
@@ -8659,7 +8728,10 @@ $('msearch').addEventListener('input',function(){clearTimeout(window.__msT);wind
 $('mcgen').addEventListener('click',function(){$('mccode').value=genCode();});
 $('siteurl').value=SITE();
 $('sitesave').addEventListener('click',function(){var v=$('siteurl').value.trim();if(v&&!/^https?:\/\//i.test(v)){mm('smsg','الرابط يجب أن يبدأ بـ https://');return;}try{localStorage.setItem('zlr_site_url',v);}catch(e){}mm('smsg','تم الحفظ.',true);renderFiles();});
+['mcli','mcin'].forEach(function(id){$(id).addEventListener('input',zlRefreshClientMatch);$(id).addEventListener('change',zlRefreshClientMatch);});
 $('msave').addEventListener('click',function(){
+  var identity=zlRefreshClientMatch();
+  if(identity.sameCard.length&&!window.confirm('تحذير: رقم البطاقة الوطنية '+$('mcin').value.trim()+' مسجل باسم موكل آخر («'+identity.sameCard[0].cli+'»). لن يتم استيراد بياناته. هل تريدون حفظ الملف مع هذا التعارض؟')){$('mcin').focus();return;}
   var o={label:$('mlabel').value.trim(),court:$('mcourt').value.trim(),room:$('mroom').value.trim(),judge:$('mjudge').value.trim(),type:$('mtype').value,no:$('mno').value.trim(),code:$('mcode').value.trim(),yr:$('myr').value.trim(),st:+$('mst').value,note:$('mnote').value.trim(),our:$('mour').value.trim(),kind:$('mkind').value.trim(),cref:$('mcref').value.trim(),ccode:$('mccode').value.trim(),cli:$('mcli').value.trim(),cin:$('mcin').value.trim(),tel:$('mtel').value.trim(),adv:$('madv').value.trim(),advcin:$('madvin').value.trim(),advl:$('madvl').value.trim(),fee:$('mfee').value.trim(),feeby:$('mfeeby').value.trim(),email:$('memail').value.trim(),jrole:$('mjrole').value,u:today(),acts:(editId&&items[editId]&&items[editId].acts)||[],pays:(editId&&items[editId]&&items[editId].pays)||[]};
   if(editId&&items[editId])o=Object.assign({},items[editId],o);
   if(!o.no||!o.yr){mm('mmsg','أدخلوا رقم الملف وسنته على الأقل.');return;}
