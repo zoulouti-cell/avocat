@@ -1964,6 +1964,13 @@ html.lt textarea.zgrow:focus{border-color:#c6a15b!important}
 #mclientactions label{display:flex;align-items:center;gap:.4rem;font-weight:500}
 #mclientactions input[type=checkbox]{width:auto;min-height:0}
 
+
+/* Party identity fields in the new-dossier card. The headquarters field is wider. */
+#madd .party-subhead{grid-column:1/-1;margin:.65rem 0 0;font-size:1rem;color:var(--gt);border-bottom:1px solid var(--line);padding-bottom:.2rem}
+#madd .party-hq{grid-column:span 2;min-width:0}
+#madd .party-address{grid-column:1/-1}
+#madd [data-party][hidden]{display:none!important}
+@media(max-width:430px){#madd .party-hq{grid-column:1/-1}}
 </style>
 <script src="fullscreen.js" defer></script>
 </head>
@@ -2053,6 +2060,32 @@ html.lt textarea.zgrow:focus{border-color:#c6a15b!important}
       <summary>إضافة ملف جديد</summary>
       <div class="fimp"><button class="btn p sm" type="button" id="mimp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm4 18H6V4h7v5h5v11zM8 13h8v2H8v-2zm0 4h5v2H8v-2z"/></svg>استيراد من استدعاء أو مقال</button><small>ملف PDF أو صورة: تُقرأ المحكمة ورقم الملف والجلسة والأطراف على هذا الجهاز، وتراجعونها قبل الحفظ.</small></div>
       <div class="fimpbox" id="mimpbox" hidden></div>
+      <details class="case-parties" open><summary>الأطراف</summary>
+        <div class="trf">
+          <h4 class="party-subhead">الموكل</h4>
+          <label><span>اسم الموكل</span><textarea id="mcli" rows="1" class="zgrow" maxlength="60"></textarea></label>
+          <label><span>نوع الموكل</span><select id="mclitype"><option value="natural">شخص طبيعي</option><option value="legal">شخص اعتباري</option></select></label>
+           <label><span>البطاقة الوطنية</span><input id="mcin" type="text" dir="ltr" maxlength="32" autocomplete="off" aria-label="البطاقة الوطنية للموكل"></label>
+          <label><span>هاتف الموكل</span><input id="mtel" dir="ltr" inputmode="tel" maxlength="20" autocomplete="off"></label>
+          <label><span>البريد الإلكتروني للموكل</span><input id="memail" type="email" dir="ltr" inputmode="email" maxlength="80" autocomplete="off"></label>
+          <label data-party="client" data-kind="natural" class="party-address"><span>العنوان</span><textarea id="mcliaddress" rows="2" maxlength="250"></textarea></label>
+          <label data-party="client" data-kind="legal" class="party-hq" hidden><span>عنوان المقر</span><textarea id="mclihq" rows="2" maxlength="250"></textarea></label>
+          <label data-party="client" data-kind="legal" hidden><span>السجل التجاري</span><input id="mclireg" maxlength="80" autocomplete="off"></label>
+          <p id="mclientmatch" class="msg" role="status" aria-live="polite" hidden></p>
+          <div id="mclientactions" hidden></div><div id="mclientsug" class="sug zlive" role="listbox" hidden></div>
+          <h4 class="party-subhead">الخصم</h4>
+          <label><span>اسم الخصم</span><textarea id="madv" rows="1" class="zgrow" maxlength="60"></textarea></label>
+          <label><span>نوع الخصم</span><select id="madvtype"><option value="natural">شخص طبيعي</option><option value="legal">شخص اعتباري</option></select></label>
+           <label><span>البطاقة الوطنية</span><input id="madvin" type="text" dir="ltr" maxlength="32" autocomplete="off" aria-label="البطاقة الوطنية للخصم"></label>
+          <label><span>البريد الإلكتروني للخصم</span><input id="madvemail" type="email" dir="ltr" inputmode="email" maxlength="80" autocomplete="off"></label>
+          <label data-party="opponent" data-kind="natural" class="party-address"><span>العنوان</span><textarea id="madvaddress" rows="2" maxlength="250"></textarea></label>
+          <label data-party="opponent" data-kind="legal" class="party-hq" hidden><span>عنوان المقر</span><textarea id="madvhq" rows="2" maxlength="250"></textarea></label>
+          <label data-party="opponent" data-kind="legal" hidden><span>السجل التجاري</span><input id="madvreg" maxlength="80" autocomplete="off"></label>
+          <p id="mopponentmatch" class="msg" role="status" hidden></p><div id="mopponentsug" class="sug zlive" role="listbox" hidden></div>
+      <label><span>ينوب عنه (محامي الطرف الآخر)</span><textarea id="madvl" rows="1" class="zgrow" maxlength="60"></textarea></label>
+        </div>
+      </details>
+      <details class="case-data" open><summary>البيانات</summary>
       <div class="trf">
         <label><span>عنوان الملف (اختياري)</span><textarea id="mlabel" rows="1" class="zgrow" maxlength="60"></textarea></label>
         <label><span>المحكمة</span><textarea id="mcourt" rows="1" class="zgrow" maxlength="80" autocomplete="off" placeholder="اكتبوا جزءًا من الاسم، أو اسمًا غير مدرج"></textarea><div class="sug" id="csug"></div></label>
@@ -2072,19 +2105,6 @@ html.lt textarea.zgrow:focus{border-color:#c6a15b!important}
       <div class="trf"><label><span id="mklbl">الشعبة</span><select id="mksel"></select></label><label id="mkfree" hidden><span id="mkfl">الشعبة (كتابة يدوية)</span><textarea id="mkind" rows="1" class="zgrow" maxlength="80" autocomplete="off"></textarea></label></div>
       <p class="kind" id="mkindhint"></p>
       <div class="trf"><label><span>ملاحظة خاصة</span><textarea id="mnote" rows="1" class="zgrow" maxlength="160"></textarea></label></div>
-      <details><summary>الأطراف</summary>
-        <div class="trf">
-          <label><span>اسم الموكل</span><textarea id="mcli" rows="1" class="zgrow" maxlength="60"></textarea></label>
-           <label><span>البطاقة الوطنية</span><input id="mcin" type="text" dir="ltr" maxlength="32" autocomplete="off" aria-label="البطاقة الوطنية للموكل"></label>
-          <label><span>هاتف الموكل</span><input id="mtel" dir="ltr" inputmode="tel" maxlength="20" autocomplete="off"></label>
-          <label><span>البريد الإلكتروني للموكل</span><input id="memail" type="email" dir="ltr" inputmode="email" maxlength="80" autocomplete="off"></label>
-          <p id="mclientmatch" class="msg" role="status" aria-live="polite" hidden></p>
-          <div id="mclientactions" hidden></div><div id="mclientsug" class="sug zlive" role="listbox" hidden></div>
-          <label><span>الخصم</span><textarea id="madv" rows="1" class="zgrow" maxlength="60"></textarea></label>
-           <label><span>البطاقة الوطنية</span><input id="madvin" type="text" dir="ltr" maxlength="32" autocomplete="off" aria-label="البطاقة الوطنية للخصم"></label>
-          <p id="mopponentmatch" class="msg" role="status" hidden></p><div id="mopponentsug" class="sug zlive" role="listbox" hidden></div>
-      <label><span>ينوب عنه (محامي الطرف الآخر)</span><textarea id="madvl" rows="1" class="zgrow" maxlength="60"></textarea></label>
-        </div>
       </details>
   <details><summary>الأتعاب (اختياري)</summary><div class="trf">
           <label><span>الأتعاب المتفق عليها (درهم)</span><input id="mfee" dir="ltr" inputmode="decimal" maxlength="10" autocomplete="off"></label>
@@ -3452,6 +3472,11 @@ function renderFiles(){
     kv(KL(f),f.kind);kv('مرجع المكتب',f.our,false,true);
     kv('الموكل',f.cli);kv('الخصم',f.adv);if(f.advl)kv('ينوب عن الخصم',f.advl,true);
     kv('الهاتف',f.tel,false,true);kv('البريد الإلكتروني',f.email,false,true);
+    kv('البريد الإلكتروني للخصم',f.advemail,false,true);
+    if(f.clitype==='legal'){kv('مقر الموكل',f.clihq);kv('سجل الموكل التجاري',f.clireg);}
+    else kv('عنوان الموكل',f.cliaddress);
+    if(f.advtype==='legal'){kv('مقر الخصم',f.advhq);kv('سجل الخصم التجاري',f.advreg);}
+    else kv('عنوان الخصم',f.advaddress);
     kv('القاعة',f.room);kv(JRL(f),f.judge);
     c.appendChild(inf);
     if(f.note)c.appendChild(el('p','meta fcnote',f.note));if(window.KIT)KIT.chips(c,x.id,f);
@@ -3466,7 +3491,7 @@ function renderFiles(){
     });
     be.addEventListener('click',function(){
       zlClearClientAuto();if($('mclientmatch')){$('mclientmatch').textContent='';$('mclientmatch').hidden=true;}
-      $('mlabel').value=f.label||'';$('mcourt').value=f.court||'';$('mroom').value=f.room||'';$('mjudge').value=f.judge||'';$('mno').value=f.no;$('mcode').value=f.code||'';$('myr').value=f.yr;$('mst').value=String(f.st);$('mnote').value=f.note||'';$('mour').value=f.our||'';$('mtype').dataset.m='1';$('mcref').value=f.cref||'';$('mccode').value=f.ccode||'';$('mcli').value=f.cli||'';$('mcin').value=f.cin||'';$('mtel').value=f.tel||'';$('madv').value=f.adv||'';$('madvin').value=f.advcin||'';$('madvl').value=f.advl||'';$('mfee').value=f.fee||'';$('mfeeby').value=f.feeby||'';$('memail').value=f.email||'';CTBL.load(f);
+      $('mlabel').value=f.label||'';$('mcourt').value=f.court||'';$('mroom').value=f.room||'';$('mjudge').value=f.judge||'';$('mno').value=f.no;$('mcode').value=f.code||'';$('myr').value=f.yr;$('mst').value=String(f.st);$('mnote').value=f.note||'';$('mour').value=f.our||'';$('mtype').dataset.m='1';$('mcref').value=f.cref||'';$('mccode').value=f.ccode||'';$('mcli').value=f.cli||'';$('mcin').value=f.cin||'';$('mtel').value=f.tel||'';$('madv').value=f.adv||'';$('madvin').value=f.advcin||'';$('madvl').value=f.advl||'';$('mfee').value=f.fee||'';$('mfeeby').value=f.feeby||'';$('memail').value=f.email||'';zlLoadPartyExtra(f);CTBL.load(f);
       editId=x.id;$('msave').textContent='حفظ التعديل';$('mcancel').hidden=false;$('madd').open=true;$('madd').scrollIntoView({behavior:'smooth'});
     });
     ban.addEventListener('click',function(){AN.analyzeFile(x);});
@@ -3565,12 +3590,15 @@ function zlPhone(v){var s=String(v||'').replace(/[^\d\u0660-\u0669\u06f0-\u06f9]
 function zlEmail(v){return String(v||'').normalize('NFKC').toLowerCase().replace(/[\s\u200b-\u200f]/g,'');}
 function zlRecords(opp){
  return Object.keys(items).filter(function(id){return items[id]&&!items[id].diary;}).map(function(id){
-  var f=items[id];return opp?{id:id,name:f.adv||'',cin:f.advcin||'',date:f.u||''}:
-    {id:id,name:f.cli||'',cin:f.cin||'',tel:f.tel||'',email:f.email||'',date:f.u||''};
+  var f=items[id];return opp?
+    {id:id,name:f.adv||'',cin:f.advcin||'',email:f.advemail||'',address:f.advaddress||'',hq:f.advhq||'',reg:f.advreg||'',type:f.advtype||'natural',date:f.u||''}:
+    {id:id,name:f.cli||'',cin:f.cin||'',tel:f.tel||'',email:f.email||'',address:f.cliaddress||'',hq:f.clihq||'',reg:f.clireg||'',type:f.clitype||'natural',date:f.u||''};
  }).filter(function(r){return r.name||r.cin||r.tel||r.email;})
  .sort(function(a,b){return b.date.localeCompare(a.date);});
 }
-function zlFields(opp){return opp?{name:'madv',cin:'madvin'}:{name:'mcli',cin:'mcin',tel:'mtel',email:'memail'};}
+function zlFields(opp){return opp?
+ {name:'madv',cin:'madvin',email:'madvemail',address:'madvaddress',hq:'madvhq',reg:'madvreg'}:
+ {name:'mcli',cin:'mcin',tel:'mtel',email:'memail',address:'mcliaddress',hq:'mclihq',reg:'mclireg'};}
 function zlCurrent(opp){var f=zlFields(opp),v={};Object.keys(f).forEach(function(k){v[k]=$(f[k]).value.trim();});return v;}
 function zlIdent(opp){
  var v=zlCurrent(opp),n=zlNorm(v.name),c=zlCard(v.cin),out={v:v,n:n,c:c,exact:[],sameName:[],sameCard:[],samePhone:[],sameEmail:[]};
@@ -3661,6 +3689,7 @@ function zlLiveList(opp,fieldId){
   btn.addEventListener('click',function(ev){
    ev.preventDefault();if(!opp){zlClearAuto();zlFixCard=null;zlUpdateContact=false;}
    Object.keys(f).forEach(function(key){if(r[key])$(f[key]).value=r[key];});
+   $(opp?'madvtype':'mclitype').value=r.type==='legal'?'legal':'natural';zlUpdatePartyTypes();
    box.textContent='';box.hidden=true;if(opp)zlRefreshOppMatch();else zlRefreshClientMatch();
   });box.appendChild(btn);
  });box.hidden=!box.childElementCount;
@@ -3722,7 +3751,30 @@ function zlResetLive(){
 function zlClientNameKey(v){return zlNorm(v);}
 function zlClientCardKey(v){return zlCard(v);}
 
-function clearForm(){zlResetLive();zlClearClientAuto();if($('mclientmatch')){$('mclientmatch').textContent='';$('mclientmatch').hidden=true;}if(window.FIMP)FIMP.clear();['mlabel','mcourt','mroom','mjudge','mour','mno','mcode','myr','mkind','mnote','mcref','mccode','mcli','mcin','mtel','memail','madv','madvin','madvl','mfee','mfeeby'].forEach(function(i){$(i).value='';});$('mtype').value='مدني';$('mtype').dataset.m='';$('mkind').dataset.auto='';$('mkindhint').textContent='';$('csug').textContent='';$('mst').value='1';editId=null;$('msave').textContent='إضافة الملف';$('mcancel').hidden=true;CTBL.reset();}
+/* Legal/natural party details are saved with each dossier and restored during editing. */
+function zlUpdatePartyTypes(){
+ [['client','mclitype'],['opponent','madvtype']].forEach(function(a){
+  var sel=$(a[1]);if(!sel)return;
+  document.querySelectorAll('#madd [data-party="'+a[0]+'"]').forEach(function(field){
+   field.hidden=field.getAttribute('data-kind')!==(sel.value==='legal'?'legal':'natural');
+  });
+ });
+}
+function zlLoadPartyExtra(f){
+ ['cliaddress','clihq','clireg','advaddress','advhq','advreg','advemail'].forEach(function(k){
+  var node=$('m'+k);if(node)node.value=f[k]||'';
+ });
+ $('mclitype').value=f.clitype==='legal'?'legal':'natural';
+ $('madvtype').value=f.advtype==='legal'?'legal':'natural';
+ zlUpdatePartyTypes();
+}
+function zlInitPartyTypes(){
+ ['mclitype','madvtype'].forEach(function(id){var n=$(id);if(n)n.addEventListener('change',zlUpdatePartyTypes);});
+ zlUpdatePartyTypes();
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',zlInitPartyTypes);
+else zlInitPartyTypes();
+function clearForm(){zlResetLive();zlClearClientAuto();if($('mclientmatch')){$('mclientmatch').textContent='';$('mclientmatch').hidden=true;}if(window.FIMP)FIMP.clear();['mlabel','mcourt','mroom','mjudge','mour','mno','mcode','myr','mkind','mnote','mcref','mccode','mcli','mcin','mtel','memail','madv','madvin','madvemail','mcliaddress','mclihq','mclireg','madvaddress','madvhq','madvreg','madvl','mfee','mfeeby'].forEach(function(i){$(i).value='';});$('mclitype').value='natural';$('madvtype').value='natural';zlUpdatePartyTypes();$('mtype').value='مدني';$('mtype').dataset.m='';$('mkind').dataset.auto='';$('mkindhint').textContent='';$('csug').textContent='';$('mst').value='1';editId=null;$('msave').textContent='إضافة الملف';$('mcancel').hidden=true;CTBL.reset();}
 function renderAll(){renderAgenda();renderFiles();notifUI();fillFiles();}
 
 
@@ -8916,7 +8968,7 @@ $('sitesave').addEventListener('click',function(){var v=$('siteurl').value.trim(
 zlBindLive();
 $('msave').addEventListener('click',function(){
   if(!zlValidateIdentity())return;
-  var o={label:$('mlabel').value.trim(),court:$('mcourt').value.trim(),room:$('mroom').value.trim(),judge:$('mjudge').value.trim(),type:$('mtype').value,no:$('mno').value.trim(),code:$('mcode').value.trim(),yr:$('myr').value.trim(),st:+$('mst').value,note:$('mnote').value.trim(),our:$('mour').value.trim(),kind:$('mkind').value.trim(),cref:$('mcref').value.trim(),ccode:$('mccode').value.trim(),cli:$('mcli').value.trim(),cin:$('mcin').value.trim(),tel:$('mtel').value.trim(),adv:$('madv').value.trim(),advcin:$('madvin').value.trim(),advl:$('madvl').value.trim(),fee:$('mfee').value.trim(),feeby:$('mfeeby').value.trim(),email:$('memail').value.trim(),jrole:$('mjrole').value,u:today(),acts:(editId&&items[editId]&&items[editId].acts)||[],pays:(editId&&items[editId]&&items[editId].pays)||[]};
+  var o={label:$('mlabel').value.trim(),court:$('mcourt').value.trim(),room:$('mroom').value.trim(),judge:$('mjudge').value.trim(),type:$('mtype').value,no:$('mno').value.trim(),code:$('mcode').value.trim(),yr:$('myr').value.trim(),st:+$('mst').value,note:$('mnote').value.trim(),our:$('mour').value.trim(),kind:$('mkind').value.trim(),cref:$('mcref').value.trim(),ccode:$('mccode').value.trim(),cli:$('mcli').value.trim(),cin:$('mcin').value.trim(),tel:$('mtel').value.trim(),adv:$('madv').value.trim(),advcin:$('madvin').value.trim(),advl:$('madvl').value.trim(),fee:$('mfee').value.trim(),feeby:$('mfeeby').value.trim(),email:$('memail').value.trim(),advemail:$('madvemail').value.trim(),clitype:$('mclitype').value,cliaddress:$('mcliaddress').value.trim(),clihq:$('mclihq').value.trim(),clireg:$('mclireg').value.trim(),advtype:$('madvtype').value,advaddress:$('madvaddress').value.trim(),advhq:$('madvhq').value.trim(),advreg:$('madvreg').value.trim(),jrole:$('mjrole').value,u:today(),acts:(editId&&items[editId]&&items[editId].acts)||[],pays:(editId&&items[editId]&&items[editId].pays)||[]};
   if(editId&&items[editId])o=Object.assign({},items[editId],o);
   if(!o.no||!o.yr){mm('mmsg','أدخلوا رقم الملف وسنته على الأقل.');return;}
   rememberCourt(o.court);
