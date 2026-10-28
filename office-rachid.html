@@ -999,6 +999,8 @@ html.zweb .bar img.zemb{width:44px!important;height:44px!important;box-sizing:bo
 .bar img.zlogo.zl-l{display:none}
 html.lt .bar img.zlogo.zl-d{display:none}
 html.lt .bar img.zlogo.zl-l{display:block;filter:drop-shadow(0 2px 3px rgba(29,65,47,.14))}
+/* The light Arabic wordmark has more transparent side padding: equalize its visible size. */
+html.lt:not(.lat) .bar img.zlogo.zl-l{transform:scaleX(1.10);transform-origin:center center}
 @media(min-width:1024px){
   html.zn body{padding-bottom:0}
   html.zn .zbot{display:none!important}
@@ -1955,7 +1957,6 @@ html.lt textarea.zgrow:focus{border-color:#c6a15b!important}
 @media(max-width:560px){#madd .trf{grid-template-columns:minmax(0,1fr)}.bar #inst{min-height:40px;padding-inline:.6rem;font-size:.84rem}}
 @media(pointer:coarse){button,.btn,select{touch-action:manipulation}}
 </style>
-<script src="fullscreen.js" defer></script>
 </head>
 <body>
 <i class="bgorb o1 fixed"></i><i class="bgorb o2 fixed"></i>
