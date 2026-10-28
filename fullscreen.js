@@ -4,7 +4,7 @@
     var bar = document.querySelector('header.bar');
     if (!bar || !document.fullscreenEnabled || document.getElementById('avocat-fullscreen')) return;
     var style = document.createElement('style');
-    style.textContent = '.avocat-fullscreen{display:inline-grid;place-items:center;flex:0 0 40px;width:40px;height:40px;padding:0;border:0;background:transparent;color:var(--gt,var(--gold,#d8b25c));cursor:pointer}.avocat-fullscreen svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.avocat-fullscreen:focus-visible{outline:2px solid currentColor;outline-offset:2px}.avocat-fullscreen:hover{opacity:.75}:root[data-theme="light"] .avocat-fullscreen,html.lt .avocat-fullscreen{color:#2f6b55}@media print{.avocat-fullscreen{display:none!important}}';
+    style.textContent = '.avocat-fullscreen{display:none;place-items:center;flex:0 0 40px;width:40px;height:40px;padding:0;border:0;background:transparent;color:var(--gt,var(--gold,#d8b25c));cursor:pointer}.avocat-fullscreen svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.avocat-fullscreen:focus-visible{outline:2px solid currentColor;outline-offset:2px}.avocat-fullscreen:hover{opacity:.75}@media (min-width:1024px) and (pointer:fine){.avocat-fullscreen{display:inline-grid}}:root[data-theme="light"] .avocat-fullscreen,html.lt .avocat-fullscreen{color:#2f6b55}@media print{.avocat-fullscreen{display:none!important}}';
     document.head.appendChild(style);
     var button = document.createElement('button');
     button.id = 'avocat-fullscreen';
