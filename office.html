@@ -3556,7 +3556,7 @@ function zlNorm(v){
  return s.replace(/[\u0660-\u0669]/g,function(c){return c.charCodeAt(0)-0x660;})
   .replace(/[\u06f0-\u06f9]/g,function(c){return c.charCodeAt(0)-0x6f0;})
   .replace(/[\u064b-\u065f\u0670\u0640\u200b-\u200f\u2060\uFEFF]/g,'')
-  .replace(/[أإآٱ]/g,'ا').replace(/ؤ/g,'و').replace(/ئ]/g,'ي').replace(/ئ/g,'ي')
+  .replace(/[أإآٱ]/g,'ا').replace(/ؤ/g,'و').replace(/ئ/g,'ي')
   .replace(/ى/g,'ي').replace(/ة/g,'ه').replace(/ء/g,'')
   .toLowerCase().replace(/[\p{P}\p{S}\s]+/gu,'').trim();
 }
@@ -3635,13 +3635,24 @@ function zlLiveList(opp,fieldId){
  var box=$(opp?'mopponentsug':'mclientsug'),node=$(fieldId);
  if(!box||!node||!k)return;node.parentElement.appendChild(box);box.textContent='';box.hidden=true;
  var q=zlNorm(node.value);if(!q)return;
- var v=zlCurrent(opp),seen={};
- zlRecords(opp).map(function(r){
-  var n=zlNorm(r[k]);if(!n||n.indexOf(q)<0)return null;
-  var score=n===q?30:n.indexOf(q)===0?20:10;
-  Object.keys(f).forEach(function(key){if(key!==k&&v[key])score+=zlNorm(r[key]).indexOf(zlNorm(v[key]))>=0?25:-5;});
-  return {r:r,score:score};
- }).filter(Boolean).sort(function(a,b){return b.score-a.score;}).slice(0,80).forEach(function(obj){
+ var v=zlCurrent(opp),seen={},ranked=[];
+ function match(field,stored,typed){
+  var a=field==='tel'?zlPhone(stored):zlNorm(stored);
+  var b=field==='tel'?zlPhone(typed):zlNorm(typed);
+  return !!a&&!!b&&(a.indexOf(b)>=0||(field==='tel'&&zlNorm(stored).indexOf(zlNorm(typed))>=0));
+ }
+ zlRecords(opp).forEach(function(r){
+  if(!match(k,r[k],node.value))return;
+  var n=zlNorm(r[k]),score=n===q?30:n.indexOf(q)===0?20:10,all=true;
+  Object.keys(f).forEach(function(key){
+   if(key===k||!v[key])return;
+   if(match(key,r[key],v[key]))score+=25;
+   else{score-=5;all=false;}
+  });
+  ranked.push({r:r,score:score,all:all});
+ });
+ var full=ranked.filter(function(x){return x.all;});
+ (full.length?full:ranked).sort(function(a,b){return b.score-a.score;}).slice(0,80).forEach(function(obj){
   var r=obj.r,key=[r.name,r.cin,r.tel,r.email].map(zlNorm).join('|');
   if(seen[key]||box.childElementCount>=8)return;seen[key]=true;
   var btn=document.createElement('button');btn.type='button';btn.setAttribute('role','option');
