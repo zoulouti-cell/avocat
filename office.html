@@ -1954,6 +1954,16 @@ html.lt textarea.zgrow:focus{border-color:#c6a15b!important}
 @media(min-width:1024px){main{max-width:1080px}#p-files{max-width:1000px;margin-inline:auto}}
 @media(max-width:560px){#madd .trf{grid-template-columns:minmax(0,1fr)}.bar #inst{min-height:40px;padding-inline:.6rem;font-size:.84rem}}
 @media(pointer:coarse){button,.btn,select{touch-action:manipulation}}
+
+.zlive{min-width:0;max-height:240px;overflow-y:auto;overscroll-behavior:contain;z-index:5}
+.zlive[hidden],#mclientmatch[hidden],#mopponentmatch[hidden],#mclientactions[hidden]{display:none!important}
+.zlive button{display:flex;flex-direction:column;align-items:flex-start;gap:3px;overflow-wrap:anywhere;line-height:1.35}
+.zlive button small{font-size:.8rem;opacity:.8;font-weight:400}
+#mclientmatch,#mopponentmatch,#mclientactions{grid-column:1/-1}
+#mclientactions{display:flex;gap:.7rem;flex-wrap:wrap;align-items:center}
+#mclientactions label{display:flex;align-items:center;gap:.4rem;font-weight:500}
+#mclientactions input[type=checkbox]{width:auto;min-height:0}
+
 </style>
 <script src="fullscreen.js" defer></script>
 </head>
@@ -2069,8 +2079,10 @@ html.lt textarea.zgrow:focus{border-color:#c6a15b!important}
           <label><span>هاتف الموكل</span><input id="mtel" dir="ltr" inputmode="tel" maxlength="20" autocomplete="off"></label>
           <label><span>البريد الإلكتروني للموكل</span><input id="memail" type="email" dir="ltr" inputmode="email" maxlength="80" autocomplete="off"></label>
           <p id="mclientmatch" class="msg" role="status" aria-live="polite" hidden></p>
+          <div id="mclientactions" hidden></div><div id="mclientsug" class="sug zlive" role="listbox" hidden></div>
           <label><span>الخصم</span><textarea id="madv" rows="1" class="zgrow" maxlength="60"></textarea></label>
            <label><span>البطاقة الوطنية</span><input id="madvin" type="text" dir="ltr" maxlength="32" autocomplete="off" aria-label="البطاقة الوطنية للخصم"></label>
+          <p id="mopponentmatch" class="msg" role="status" hidden></p><div id="mopponentsug" class="sug zlive" role="listbox" hidden></div>
       <label><span>ينوب عنه (محامي الطرف الآخر)</span><textarea id="madvl" rows="1" class="zgrow" maxlength="60"></textarea></label>
         </div>
       </details>
@@ -2748,8 +2760,8 @@ var COURTS=[].concat(
 var CK='zl_courts_v1';
 function customCourts(){try{return JSON.parse(localStorage.getItem(CK)||'[]');}catch(e){return [];}}
 function rememberCourt(n){n=String(n||'').trim();if(!n)return;var k=nz(n);if(COURTS.concat(customCourts()).some(function(c){return nz(c)===k;}))return;var l=customCourts();l.push(n);try{localStorage.setItem(CK,JSON.stringify(l));}catch(e){}}
-function nz(x){return String(x||'').replace(/[\u064B-\u065F\u0670\u0640]/g,'').replace(/[أإآ]/g,'ا').replace(/ى/g,'ي').replace(/ة/g,'ه').replace(/ؤ/g,'و').replace(/ئ/g,'ي').toLowerCase().replace(/\s+/g,' ').trim();}
-function courtSug(q){var t=nz(q).split(' ').filter(Boolean);if(!t.length)return [];return COURTS.concat(customCourts()).filter(function(n){var m=nz(n);return t.every(function(w){return m.indexOf(w)>=0;});}).slice(0,8);}
+function nz(x){return zlNorm(x);}
+function courtSug(q){var t=String(q||'').split(/[\s,،.;؛]+/).map(zlNorm).filter(Boolean);if(!t.length)return [];return COURTS.concat(customCourts()).filter(function(n){var k=zlNorm(n);return t.every(function(w){return k.indexOf(w)>=0;});}).slice(0,8);}
 function showSug(){
   var b=$('csug'),q=$('mcourt').value;b.textContent='';
   var l=courtSug(q);if(l.length===1&&nz(l[0])===nz(q))return;
@@ -2767,7 +2779,7 @@ function hintFor0(v,auto){
 function genCode(){var al='ABCDEFGHJKMNPQRSTUVWXYZ23456789',b=crypto.getRandomValues(new Uint8Array(10)),x='';for(var i=0;i<10;i++)x+=al[b[i]%al.length];return x.slice(0,5)+'-'+x.slice(5);}
 var DEF_SITE='https://zoulouti-cell.github.io/avocat';
 function SITE(){try{var v=localStorage.getItem('zl_site_url');return (v===null?DEF_SITE:v).trim().replace(/\/$/,'');}catch(e){return DEF_SITE;}}
-function matches(x,q){var t=nz(q).split(' ').filter(Boolean);if(!t.length)return true;var m=nz([x.label,x.court,x.no,x.code,x.yr,x.our,x.judge,x.kind,x.note,x.room,x.cli,x.adv,x.advl,x.tel,x.email].join(' ')),dx=window.ZDOC?ZDOC.idx(x.id):'';return t.every(function(w){return m.indexOf(w)>=0||dx.indexOf(w)>=0;});}
+function matches(x,q){var t=String(q||'').split(/[\s,،.;؛]+/).map(zlNorm).filter(Boolean);if(!t.length)return true;var m=zlNorm([x.label,x.court,x.no,x.code,x.yr,x.our,x.judge,x.kind,x.note,x.room,x.cli,x.cin,x.adv,x.advcin,x.advl,x.tel,x.email].join(' ')),dx=zlNorm(window.ZDOC?ZDOC.idx(x.id):'');return t.every(function(w){return m.indexOf(w)>=0||dx.indexOf(w)>=0;});}
 
 /* ---------- events (every procedure that has a date) ---------- */
 function events(){
@@ -3536,7 +3548,170 @@ function zlRefreshClientMatch(){
   return state;
 }
 
-function clearForm(){zlClearClientAuto();if($('mclientmatch')){$('mclientmatch').textContent='';$('mclientmatch').hidden=true;}if(window.FIMP)FIMP.clear();['mlabel','mcourt','mroom','mjudge','mour','mno','mcode','myr','mkind','mnote','mcref','mccode','mcli','mcin','mtel','memail','madv','madvin','madvl','mfee','mfeeby'].forEach(function(i){$(i).value='';});$('mtype').value='مدني';$('mtype').dataset.m='';$('mkind').dataset.auto='';$('mkindhint').textContent='';$('csug').textContent='';$('mst').value='1';editId=null;$('msave').textContent='إضافة الملف';$('mcancel').hidden=true;CTBL.reset();}
+
+/* Instant suggestions and explicit identity reconciliation, from every dossier including archives. */
+var zlLiveAuto={key:'',tel:'',email:''},zlFixCard=null,zlUpdateContact=false;
+function zlNorm(v){
+ var s=String(v||'');try{s=s.normalize('NFKC');}catch(e){}
+ return s.replace(/[\u0660-\u0669]/g,function(c){return c.charCodeAt(0)-0x660;})
+  .replace(/[\u06f0-\u06f9]/g,function(c){return c.charCodeAt(0)-0x6f0;})
+  .replace(/[\u064b-\u065f\u0670\u0640\u200b-\u200f\u2060\uFEFF]/g,'')
+  .replace(/[أإآٱ]/g,'ا').replace(/ؤ/g,'و').replace(/ئ]/g,'ي').replace(/ئ/g,'ي')
+  .replace(/ى/g,'ي').replace(/ة/g,'ه').replace(/ء/g,'')
+  .toLowerCase().replace(/[\p{P}\p{S}\s]+/gu,'').trim();
+}
+function zlCard(v){return zlNorm(v).toUpperCase();}
+function zlPhone(v){var s=String(v||'').replace(/[^\d\u0660-\u0669\u06f0-\u06f9]/g,'').replace(/[\u0660-\u0669]/g,function(c){return c.charCodeAt(0)-0x660;}).replace(/[\u06f0-\u06f9]/g,function(c){return c.charCodeAt(0)-0x6f0;});if(s.indexOf('00212')===0)s=s.slice(5);else if(s.indexOf('212')===0)s=s.slice(3);return s&&s.charAt(0)!=='0'?'0'+s:s;}
+function zlEmail(v){return String(v||'').normalize('NFKC').toLowerCase().replace(/[\s\u200b-\u200f]/g,'');}
+function zlRecords(opp){
+ return Object.keys(items).filter(function(id){return items[id]&&!items[id].diary;}).map(function(id){
+  var f=items[id];return opp?{id:id,name:f.adv||'',cin:f.advcin||'',date:f.u||''}:
+    {id:id,name:f.cli||'',cin:f.cin||'',tel:f.tel||'',email:f.email||'',date:f.u||''};
+ }).filter(function(r){return r.name||r.cin||r.tel||r.email;})
+ .sort(function(a,b){return b.date.localeCompare(a.date);});
+}
+function zlFields(opp){return opp?{name:'madv',cin:'madvin'}:{name:'mcli',cin:'mcin',tel:'mtel',email:'memail'};}
+function zlCurrent(opp){var f=zlFields(opp),v={};Object.keys(f).forEach(function(k){v[k]=$(f[k]).value.trim();});return v;}
+function zlIdent(opp){
+ var v=zlCurrent(opp),n=zlNorm(v.name),c=zlCard(v.cin),out={v:v,n:n,c:c,exact:[],sameName:[],sameCard:[],samePhone:[],sameEmail:[]};
+ zlRecords(opp).forEach(function(r){
+  if(r.id===editId)return;var rn=zlNorm(r.name),rc=zlCard(r.cin);
+  if(n&&c&&n===rn&&c===rc)out.exact.push(r);
+  else{if(n&&n===rn)out.sameName.push(r);if(n&&c&&c===rc&&rn&&n!==rn)out.sameCard.push(r);}
+  if(!opp&&v.tel&&zlPhone(v.tel)&&zlPhone(v.tel)===zlPhone(r.tel)&&n&&rn!==n)out.samePhone.push(r);
+  if(!opp&&v.email&&zlEmail(v.email)&&zlEmail(v.email)===zlEmail(r.email)&&n&&rn!==n)out.sameEmail.push(r);
+ });
+ return out;
+}
+function zlClearAuto(){
+ ['tel','email'].forEach(function(k){var n=$(k==='tel'?'mtel':'memail');if(n&&zlLiveAuto[k]&&n.value===zlLiveAuto[k])n.value='';});
+ zlLiveAuto={key:'',tel:'',email:''};
+}
+function zlRefreshClientMatch(){
+ var s=zlIdent(false),key=s.n+'|'+s.c,m=[],hint=$('mclientmatch'),actions=$('mclientactions');
+ if(zlLiveAuto.key&&zlLiveAuto.key!==key)zlClearAuto();
+ if(zlFixCard&&(zlFixCard.name!==s.n||zlFixCard.newCard!==s.c))zlFixCard=null;
+ if(s.sameCard.length)m.push('تحذير: رقم البطاقة مسجل باسم مختلف («'+s.sameCard[0].name+'»). تحققوا من هوية الموكل.');
+ if(s.sameName.length&&s.n)m.push(s.c?'تنبيه: الاسم مسجل برقم بطاقة آخر («'+(s.sameName[0].cin||'غير مسجل')+'»). لا يُدمج السجلان تلقائيًا.':'تم العثور على الاسم سابقًا؛ أدخلوا رقم البطاقة للتحقق.');
+ if(s.samePhone.length)m.push('الهاتف مسجل لموكل آخر («'+s.samePhone[0].name+'»).');
+ if(s.sameEmail.length)m.push('البريد الإلكتروني مسجل لموكل آخر («'+s.sameEmail[0].name+'»).');
+ if(s.exact.length){
+  if(zlLiveAuto.key!==key){zlClearAuto();zlLiveAuto={key:key,tel:'',email:''};}
+  if(!editId)['tel','email'].forEach(function(k){
+   var input=$(k==='tel'?'mtel':'memail');
+   if(!input.value.trim()){var rec=s.exact.find(function(r){return r[k];});if(rec){input.value=rec[k];zlLiveAuto[k]=input.value;}}
+  });
+  if(!m.length)m.push('تم التحقق من الاسم والبطاقة، واستيراد بيانات الاتصال الناقصة عند توفرها.');
+ }
+ var changed=s.exact.some(function(r){return (s.v.tel&&r.tel&&zlPhone(s.v.tel)!==zlPhone(r.tel))||(s.v.email&&r.email&&zlEmail(s.v.email)!==zlEmail(r.email));});
+ if(changed)m.push('بيانات الاتصال مختلفة عن السجل السابق. اختاروا تحيين الملفات السابقة إن كنتم تريدون تصحيحها.');
+ if(hint){hint.textContent=m.join(' ');hint.hidden=!m.length;hint.className='msg'+(m.length&&!changed&&!s.sameCard.length&&!s.sameName.length&&!s.samePhone.length&&!s.sameEmail.length?' ok':'');}
+ if(actions){
+  actions.textContent='';actions.hidden=true;
+  if(changed){
+   var l=document.createElement('label'),ch=document.createElement('input');ch.type='checkbox';ch.checked=zlUpdateContact;
+   ch.addEventListener('change',function(){zlUpdateContact=ch.checked;});
+   l.appendChild(ch);l.appendChild(document.createTextNode(' تحيين الهاتف والبريد في الملفات السابقة لنفس الاسم والبطاقة'));
+   actions.appendChild(l);actions.hidden=false;
+  }
+  var cards=Array.from(new Set(s.sameName.map(function(r){return zlCard(r.cin);})));
+  if(s.n&&s.c&&!s.sameCard.length&&!s.exact.length&&cards.length===1&&cards[0]&&cards[0]!==s.c){
+   var b=document.createElement('button');b.type='button';b.className='btn sm';b.textContent=zlFixCard?'تم اعتماد تصحيح البطاقة':'تصحيح البطاقة في الملفات السابقة';
+   b.addEventListener('click',function(){
+    if(window.confirm('تصحيح رقم البطاقة في جميع الملفات التي تحمل هذا الاسم والرقم القديم؟')){
+     zlFixCard={name:s.n,oldCard:cards[0],newCard:s.c};zlRefreshClientMatch();
+    }
+   });actions.appendChild(b);actions.hidden=false;
+  }
+ }
+ return s;
+}
+function zlRefreshOppMatch(){
+ var s=zlIdent(true),msg=s.sameCard.length?'تنبيه: البطاقة الوطنية للخصم مسجلة باسم مختلف («'+s.sameCard[0].name+'»).':s.sameName.length&&s.c?'الخصم بالاسم نفسه مسجل برقم بطاقة مختلف.':'';
+ var n=$('mopponentmatch');if(n){n.textContent=msg;n.hidden=!msg;}return s;
+}
+function zlLiveList(opp,fieldId){
+ var f=zlFields(opp),k=Object.keys(f).find(function(key){return f[key]===fieldId;});
+ var box=$(opp?'mopponentsug':'mclientsug'),node=$(fieldId);
+ if(!box||!node||!k)return;node.parentElement.appendChild(box);box.textContent='';box.hidden=true;
+ var q=zlNorm(node.value);if(!q)return;
+ var v=zlCurrent(opp),seen={};
+ zlRecords(opp).map(function(r){
+  var n=zlNorm(r[k]);if(!n||n.indexOf(q)<0)return null;
+  var score=n===q?30:n.indexOf(q)===0?20:10;
+  Object.keys(f).forEach(function(key){if(key!==k&&v[key])score+=zlNorm(r[key]).indexOf(zlNorm(v[key]))>=0?25:-5;});
+  return {r:r,score:score};
+ }).filter(Boolean).sort(function(a,b){return b.score-a.score;}).slice(0,80).forEach(function(obj){
+  var r=obj.r,key=[r.name,r.cin,r.tel,r.email].map(zlNorm).join('|');
+  if(seen[key]||box.childElementCount>=8)return;seen[key]=true;
+  var btn=document.createElement('button');btn.type='button';btn.setAttribute('role','option');
+  var nm=document.createElement('strong');nm.textContent=r.name||'طرف بدون اسم';btn.appendChild(nm);
+  var d=document.createElement('small');d.textContent=[r.cin&&'بطاقة: '+r.cin,r.tel&&'هاتف: '+r.tel,r.email&&'بريد: '+r.email].filter(Boolean).join(' · ');btn.appendChild(d);
+  btn.addEventListener('click',function(ev){
+   ev.preventDefault();if(!opp){zlClearAuto();zlFixCard=null;zlUpdateContact=false;}
+   Object.keys(f).forEach(function(key){if(r[key])$(f[key]).value=r[key];});
+   box.textContent='';box.hidden=true;if(opp)zlRefreshOppMatch();else zlRefreshClientMatch();
+  });box.appendChild(btn);
+ });box.hidden=!box.childElementCount;
+}
+function zlBindSavedField(id,prop){
+ var n=$(id);if(!n)return;var box=document.createElement('div');box.className='sug zlive';box.hidden=true;n.parentElement.appendChild(box);
+ function show(){
+  box.textContent='';box.hidden=true;var q=zlNorm(n.value),seen={};if(!q)return;
+  Object.keys(items).forEach(function(id){
+   var f=items[id];if(!f||f.diary)return;var v=String(f[prop]||'').trim(),key=zlNorm(v);
+   if(!key||key.indexOf(q)<0||seen[key]||box.childElementCount>=8)return;seen[key]=true;
+   var b=document.createElement('button');b.type='button';b.textContent=v;b.addEventListener('click',function(){n.value=v;box.hidden=true;box.textContent='';});box.appendChild(b);
+  });box.hidden=!box.childElementCount;
+ }
+ n.addEventListener('input',show);n.addEventListener('focus',show);
+ document.addEventListener('click',function(e){if(!n.parentElement.contains(e.target))box.hidden=true;});
+}
+function zlBindLive(){
+ [false,true].forEach(function(opp){
+  Object.keys(zlFields(opp)).forEach(function(k){
+   var id=zlFields(opp)[k],node=$(id);if(!node)return;node.setAttribute('autocomplete','off');
+   node.addEventListener('input',function(){if(opp)zlRefreshOppMatch();else zlRefreshClientMatch();zlLiveList(opp,id);});
+   node.addEventListener('focus',function(){zlLiveList(opp,id);});
+  });
+ });
+ [['mjudge','judge'],['mroom','room'],['mour','our'],['madvl','advl'],['mfeeby','feeby']].forEach(function(x){zlBindSavedField(x[0],x[1]);});
+ document.addEventListener('click',function(e){
+  ['mclientsug','mopponentsug'].forEach(function(id){
+   var n=$(id),fields=zlFields(id==='mopponentsug');if(!n)return;
+   if(!n.contains(e.target)&&!Object.keys(fields).some(function(k){return $(fields[k])===e.target;}))n.hidden=true;
+  });
+ });
+}
+function zlValidateIdentity(){
+ var c=zlRefreshClientMatch(),o=zlRefreshOppMatch();
+ if(c.sameCard.length&&!window.confirm('البطاقة الوطنية مسجلة باسم موكل آخر. هل تريدون حفظ سجل مستقل رغم التعارض؟')){$('mcin').focus();return false;}
+ if(c.sameName.length&&c.c&&!c.exact.length&&!zlFixCard&&!window.confirm('الاسم نفسه مسجل برقم بطاقة مختلف. هل هما شخصان مختلفان؟ سيتم حفظ سجل مستقل.')){$('mcin').focus();return false;}
+ if(o.sameCard.length&&!window.confirm('بطاقة الخصم مسجلة باسم مختلف. هل تريدون المتابعة؟')){$(zlFields(true).cin).focus();return false;}
+ return true;
+}
+function zlSaveIdentity(id){
+ var f=items[id];if(!f||f.diary)return;
+ if(zlFixCard&&zlNorm(f.cli)===zlFixCard.name&&zlCard(f.cin)===zlFixCard.newCard){
+  Object.keys(items).forEach(function(k){var r=items[k];if(k!==id&&r&&!r.diary&&zlNorm(r.cli)===zlFixCard.name&&zlCard(r.cin)===zlFixCard.oldCard)r.cin=f.cin;});
+ }
+ if(!zlNorm(f.cli)||!zlCard(f.cin))return;
+ var same=zlRecords(false).filter(function(r){return r.id!==id&&zlNorm(r.name)===zlNorm(f.cli)&&zlCard(r.cin)===zlCard(f.cin);});
+ ['tel','email'].forEach(function(k){
+  if(!f[k]){var found=same.find(function(r){return r[k];});if(found)f[k]=found[k];}
+  same.forEach(function(r){if(f[k]&&(zlUpdateContact||!items[r.id][k]))items[r.id][k]=f[k];});
+ });
+}
+function zlResetLive(){
+ zlClearAuto();zlFixCard=null;zlUpdateContact=false;
+ ['mclientsug','mopponentsug','mclientmatch','mopponentmatch','mclientactions'].forEach(function(id){var n=$(id);if(n){n.textContent='';n.hidden=true;}});
+}
+
+
+function zlClientNameKey(v){return zlNorm(v);}
+function zlClientCardKey(v){return zlCard(v);}
+
+function clearForm(){zlResetLive();zlClearClientAuto();if($('mclientmatch')){$('mclientmatch').textContent='';$('mclientmatch').hidden=true;}if(window.FIMP)FIMP.clear();['mlabel','mcourt','mroom','mjudge','mour','mno','mcode','myr','mkind','mnote','mcref','mccode','mcli','mcin','mtel','memail','madv','madvin','madvl','mfee','mfeeby'].forEach(function(i){$(i).value='';});$('mtype').value='مدني';$('mtype').dataset.m='';$('mkind').dataset.auto='';$('mkindhint').textContent='';$('csug').textContent='';$('mst').value='1';editId=null;$('msave').textContent='إضافة الملف';$('mcancel').hidden=true;CTBL.reset();}
 function renderAll(){renderAgenda();renderFiles();notifUI();fillFiles();}
 
 
@@ -8727,16 +8902,15 @@ $('msearch').addEventListener('input',function(){clearTimeout(window.__msT);wind
 $('mcgen').addEventListener('click',function(){$('mccode').value=genCode();});
 $('siteurl').value=SITE();
 $('sitesave').addEventListener('click',function(){var v=$('siteurl').value.trim();if(v&&!/^https?:\/\//i.test(v)){mm('smsg','الرابط يجب أن يبدأ بـ https://');return;}try{localStorage.setItem('zl_site_url',v);}catch(e){}mm('smsg','تم الحفظ.',true);renderFiles();});
-['mcli','mcin'].forEach(function(id){$(id).addEventListener('input',zlRefreshClientMatch);$(id).addEventListener('change',zlRefreshClientMatch);});
+zlBindLive();
 $('msave').addEventListener('click',function(){
-  var identity=zlRefreshClientMatch();
-  if(identity.sameCard.length&&!window.confirm('تحذير: رقم البطاقة الوطنية '+$('mcin').value.trim()+' مسجل باسم موكل آخر («'+identity.sameCard[0].cli+'»). لن يتم استيراد بياناته. هل تريدون حفظ الملف مع هذا التعارض؟')){$('mcin').focus();return;}
+  if(!zlValidateIdentity())return;
   var o={label:$('mlabel').value.trim(),court:$('mcourt').value.trim(),room:$('mroom').value.trim(),judge:$('mjudge').value.trim(),type:$('mtype').value,no:$('mno').value.trim(),code:$('mcode').value.trim(),yr:$('myr').value.trim(),st:+$('mst').value,note:$('mnote').value.trim(),our:$('mour').value.trim(),kind:$('mkind').value.trim(),cref:$('mcref').value.trim(),ccode:$('mccode').value.trim(),cli:$('mcli').value.trim(),cin:$('mcin').value.trim(),tel:$('mtel').value.trim(),adv:$('madv').value.trim(),advcin:$('madvin').value.trim(),advl:$('madvl').value.trim(),fee:$('mfee').value.trim(),feeby:$('mfeeby').value.trim(),email:$('memail').value.trim(),jrole:$('mjrole').value,u:today(),acts:(editId&&items[editId]&&items[editId].acts)||[],pays:(editId&&items[editId]&&items[editId].pays)||[]};
   if(editId&&items[editId])o=Object.assign({},items[editId],o);
   if(!o.no||!o.yr){mm('mmsg','أدخلوا رقم الملف وسنته على الأقل.');return;}
   rememberCourt(o.court);
   var k=editId||('f'+Date.now().toString(36)+Math.random().toString(36).slice(2,6));
-  if(window.FIMP)FIMP.apply(o,k);items[k]=o;mm('mmsg',editId?'تم حفظ التعديل.':'تمت إضافة الملف.',true);clearForm();$('madd').open=false;window.FSOLO=k;var mc=$('mcards');if(mc&&!mc.open){mc._go=1;mc.open=true;}persist();
+  if(window.FIMP)FIMP.apply(o,k);items[k]=o;zlSaveIdentity(k);mm('mmsg',editId?'تم حفظ التعديل.':'تمت إضافة الملف.',true);clearForm();$('madd').open=false;window.FSOLO=k;var mc=$('mcards');if(mc&&!mc.open){mc._go=1;mc.open=true;}persist();
 });
 $('exall').addEventListener('click',function(){var up=events().filter(isUp).sort(function(a,b){return a.start-b.start;});download('mawaid-malafat.ics',buildICS(up));mm('amsg','تم إنشاء الملف. افتحوه من التنزيلات ليضيفه تطبيق الأجندة.',true);});
 $('notif').addEventListener('click',askNotif);$('notif2').addEventListener('click',askNotif);
