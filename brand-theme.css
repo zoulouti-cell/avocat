@@ -138,3 +138,5 @@ html[lang=ar][data-theme=light] .bar[data-brand-type=office] .av-brand-lockup im
  .zbot button[aria-selected=true]{border-radius:8px!important}
  .zbot.hide{transform:translateY(calc(100% + 16px))!important}
 }
+
+@media(max-width:767px){.zbot.av-scroll-hidden{transform:translateY(calc(100% + 16px))!important}}
