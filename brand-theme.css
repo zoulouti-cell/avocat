@@ -72,16 +72,16 @@ html.lat .bar[data-brand-type=office] .av-brand-lockup .zbrand img.zlogo{width:1
 html[lang=ar]:not(.lt):not([data-theme=light]) .bar[data-brand-type=home] .av-brand-lockup .qwm img.qw-ad{height:33.6px!important;max-width:76.608px!important;width:auto!important}
 @media(max-width:420px){html[lang=ar].lt .bar[data-brand-type=office] .av-brand-lockup .zbrand img.zlogo.zl-l,html[lang=ar][data-theme=light] .bar[data-brand-type=office] .av-brand-lockup .zbrand img.zlogo.zl-l{width:58.08px!important;max-width:58.08px!important}html.lat .bar[data-brand-type=office] .av-brand-lockup .zbrand img.zlogo{width:79.2px!important;max-width:79.2px!important}html[lang=ar]:not(.lt):not([data-theme=light]) .bar[data-brand-type=home] .av-brand-lockup .qwm img.qw-ad{height:29.568px!important;max-width:59.136px!important}}
 
-/* Ivory Arabic Qalam wordmark: additional 5% reduction from the latest ivory wordmark sizes in both lawyers' public and office headers, dark theme only. */
+/* Ivory Arabic Qalam wordmark: Additional 5% reduction for public home-page ivory Arabic wordmark only; office unchanged. */
 html[lang=ar]:not(.lt):not([data-theme=light]) .bar[data-brand-type=home] .av-brand-lockup .qwm img.qw-ad{
-  height:46.74565896px!important;max-width:106.5801024288px!important;width:auto!important;
+  height:44.408376012px!important;max-width:101.25109730736px!important;width:auto!important;
 }
 html[lang=ar]:not(.lt):not([data-theme=light]) .bar[data-brand-type=office] .av-brand-lockup .zbrand img.zlogo.zl-d{
   width:111.02094003px!important;max-width:111.02094003px!important;height:auto!important;
 }
 @media(max-width:420px){
   html[lang=ar]:not(.lt):not([data-theme=light]) .bar[data-brand-type=home] .av-brand-lockup .qwm img.qw-ad{
-    height:41.1361798848px!important;max-width:82.2723597696px!important;
+    height:39.07937089056px!important;max-width:78.15874178112px!important;
   }
   html[lang=ar]:not(.lt):not([data-theme=light]) .bar[data-brand-type=office] .av-brand-lockup .zbrand img.zlogo.zl-d{
     width:85.70037476px!important;max-width:85.70037476px!important;
