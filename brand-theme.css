@@ -57,3 +57,11 @@ html[lang=ar].lt .bar[data-brand-type=office] .av-brand-lockup .zbrand img.zlogo
 html[lang=ar]:not(.lt):not([data-theme=light]) .bar[data-brand-type=home] .av-brand-lockup .qwm{height:auto!important}
 html[lang=ar]:not(.lt):not([data-theme=light]) .bar[data-brand-type=home] .av-brand-lockup .qwm img.qw-ad{height:24px!important;max-width:54.72px!important;width:auto!important}
 @media(max-width:420px){html[lang=ar]:not(.lt):not([data-theme=light]) .bar[data-brand-type=office] .av-brand-lockup .zbrand img.zlogo.zl-d{width:61.6px!important;max-width:61.6px!important}html[lang=ar].lt .bar[data-brand-type=office] .av-brand-lockup .zbrand img.zlogo.zl-l,html[lang=ar][data-theme=light] .bar[data-brand-type=office] .av-brand-lockup .zbrand img.zlogo.zl-l{width:52.8px!important;max-width:52.8px!important}html[lang=ar]:not(.lt):not([data-theme=light]) .bar[data-brand-type=home] .av-brand-lockup .qwm img.qw-ad{height:21.12px!important;max-width:42.24px!important}}
+
+/* Arabic optical bounds, measured at alpha >= 96 (excluding the faint export halo).
+   Dark: 853x480, visible [14,3,805,452]; light: 819x480, [0,0,818,479].
+   Percentage offsets follow the rendered artwork at every responsive size. */
+html[lang=ar] .bar .av-brand-lockup{align-items:flex-end!important}
+html[lang=ar] .bar .av-brand-lockup :is(.qwm,.zbrand){height:auto!important;min-height:0!important;align-self:flex-end!important}
+html[lang=ar] .bar .av-brand-lockup :is(img.qw-ad,img.zlogo.zl-d){transform:translate(5.627198%,5.833333%)!important}
+html[lang=ar] .bar .av-brand-lockup :is(img.qw-al,img.zlogo.zl-l){transform:translate(.122100%,.208333%)!important}
