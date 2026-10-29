@@ -113,14 +113,14 @@ html[lang=ar][data-theme=light] .bar[data-brand-type=office] .av-brand-lockup im
  .bar .brand-tools>button[title*="الشاشة"]{display:none!important}
 }
 
-/* Phone only: enlarge both ornamental Arabic Qalam wordmarks by 30% in both office spaces.
+/* Phone only: enlarge both ornamental Arabic Qalam wordmarks by an additional 20% after the prior 30% in both office spaces.
    Public home pages and desktop remain unchanged. */
 @media(max-width:767px){
  html[lang=ar]:not(.lt):not([data-theme=light]) .bar[data-brand-type=office] .av-brand-lockup .zbrand img.zlogo.zl-d{
-  width:78.6112397598528px!important;max-width:78.6112397598528px!important;height:auto!important;
+  width:94.33348771182336px!important;max-width:94.33348771182336px!important;height:auto!important;
  }
  html[lang=ar].lt .bar[data-brand-type=office] .av-brand-lockup .zbrand img.zlogo.zl-l,
  html[lang=ar][data-theme=light] .bar[data-brand-type=office] .av-brand-lockup .zbrand img.zlogo.zl-l{
-  width:75.504px!important;max-width:75.504px!important;height:auto!important;
+  width:90.6048px!important;max-width:90.6048px!important;height:auto!important;
  }
 }
