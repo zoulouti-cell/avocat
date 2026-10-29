@@ -39,7 +39,7 @@ if(bar.getAttribute('data-brand-type')==='office'){
  var pending=false;new MutationObserver(function(){if(pending)return;pending=true;requestAnimationFrame(function(){pending=false;officeEnhancements()})}).observe(document.body,{subtree:true,childList:true});
 }
 // Phone office header and dock: scoped to the two office documents only.
-if(bar.getAttribute('data-brand-type')==='office' && /(?:^|\\/)(?:office|office-rachid)\\.html$/i.test(location.pathname)){
+if(bar.getAttribute('data-brand-type')==='office' && ['office.html','office-rachid.html'].includes(location.pathname.split('/').pop())){
  var mobile=window.matchMedia('(max-width:767px)');
  var settingsButton=bar.querySelector('.zsetb');
  var headerTools=bar.querySelector('.av-header-tools,.brand-tools');
@@ -51,7 +51,7 @@ if(bar.getAttribute('data-brand-type')==='office' && /(?:^|\\/)(?:office|office-
   settingsButton.addEventListener('click',function(){
    requestAnimationFrame(function(){
     var expanded=settingsButton.getAttribute('aria-expanded')==='true';
-    settingsButton.setAttribute('aria-expanded',String(!expanded));
+    settingsButton.setAttribute('aria-expanded',String(expanded));
    });
   });
  }
