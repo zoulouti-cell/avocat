@@ -225,3 +225,12 @@ html[lang=ar][data-theme=light] .bar[data-brand-type=office] .av-brand-lockup im
   display:grid!important;visibility:visible!important;opacity:1!important;
  }
 }
+
+/* Mobile office controls: strict phone-only overrides (2026-10-29). */
+@media screen and (max-width:767px){
+ .bar[data-brand-type=office] :is(.av-theme,.avocat-fullscreen,#avocat-fullscreen,.brand-tools>button[title*="Fullscreen"],.brand-tools>button[title*="الشاشة"],.brand-tools>button[title*="المظهر"]){display:none!important}
+ .bar[data-brand-type=office] .av-brand-lockup{margin-inline-end:auto!important}
+ .bar[data-brand-type=office] .av-header-tools{margin-inline-start:auto!important}
+ body:has(.bar[data-brand-type=office]) .zbot{position:fixed!important;inset:auto 0 0 0!important;width:100%!important;max-width:100%!important;border-radius:0!important;min-height:64px!important;box-sizing:border-box!important}
+ body:has(.bar[data-brand-type=office]) .zbot.av-scroll-hidden{transform:translateY(calc(100% + 20px))!important;pointer-events:none!important}
+}
