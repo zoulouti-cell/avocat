@@ -88,12 +88,23 @@ html[lang=ar]:not(.lt):not([data-theme=light]) .bar[data-brand-type=office] .av-
   }
 }
 
-/* Green Arabic Qalam wordmark: 5% smaller, consistent across both main pages and all viewports. */
-html[lang=ar] :is(.lt,[data-theme=light]) .bar .av-brand-lockup img.qw-al{height:41.8px!important;width:auto!important;max-width:none!important}
+/* Public home pages only: green Arabic wordmark 5% smaller (44px -> 41.8px).
+   Office wordmarks keep their earlier original dark/light sizes. */
 html[lang=ar].lt .bar[data-brand-type=home] .av-brand-lockup img.qw-al,
-html[lang=ar][data-theme=light] .bar[data-brand-type=home] .av-brand-lockup img.qw-al,
+html[lang=ar][data-theme=light] .bar[data-brand-type=home] .av-brand-lockup img.qw-al{
+  height:41.8px!important;width:auto!important;max-width:none!important;
+}
+/* Restore the office light-green Arabic artwork to its size before the home-page changes. */
 html[lang=ar].lt .bar[data-brand-type=office] .av-brand-lockup img.zlogo.zl-l,
-html[lang=ar][data-theme=light] .bar[data-brand-type=office] .av-brand-lockup img.zlogo.zl-l{height:41.8px!important;width:auto!important;max-width:none!important;max-height:none!important}
+html[lang=ar][data-theme=light] .bar[data-brand-type=office] .av-brand-lockup img.zlogo.zl-l{
+  width:75.24px!important;max-width:75.24px!important;height:auto!important;max-height:none!important;
+}
+@media(max-width:420px){
+ html[lang=ar].lt .bar[data-brand-type=office] .av-brand-lockup img.zlogo.zl-l,
+ html[lang=ar][data-theme=light] .bar[data-brand-type=office] .av-brand-lockup img.zlogo.zl-l{
+  width:58.08px!important;max-width:58.08px!important;height:auto!important;
+ }
+}
 /* Mobile headers: retain theme/navigation, hide language and fullscreen controls. */
 @media(max-width:767px){
  .bar .brand-tools .brand-language,.bar .brand-tools .avocat-fullscreen,
