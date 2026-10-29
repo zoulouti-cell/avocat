@@ -72,18 +72,18 @@ html.lat .bar[data-brand-type=office] .av-brand-lockup .zbrand img.zlogo{width:1
 html[lang=ar]:not(.lt):not([data-theme=light]) .bar[data-brand-type=home] .av-brand-lockup .qwm img.qw-ad{height:33.6px!important;max-width:76.608px!important;width:auto!important}
 @media(max-width:420px){html[lang=ar].lt .bar[data-brand-type=office] .av-brand-lockup .zbrand img.zlogo.zl-l,html[lang=ar][data-theme=light] .bar[data-brand-type=office] .av-brand-lockup .zbrand img.zlogo.zl-l{width:58.08px!important;max-width:58.08px!important}html.lat .bar[data-brand-type=office] .av-brand-lockup .zbrand img.zlogo{width:79.2px!important;max-width:79.2px!important}html[lang=ar]:not(.lt):not([data-theme=light]) .bar[data-brand-type=home] .av-brand-lockup .qwm img.qw-ad{height:29.568px!important;max-width:59.136px!important}}
 
-/* Ivory Arabic Qalam wordmark: 5% reduction from the latest ivory wordmark sizes in both lawyers' public and office headers, dark theme only. */
+/* Ivory Arabic Qalam wordmark: additional 2% reduction from the latest ivory wordmark sizes in both lawyers' public and office headers, dark theme only. */
 html[lang=ar]:not(.lt):not([data-theme=light]) .bar[data-brand-type=home] .av-brand-lockup .qwm img.qw-ad{
-  height:50.21016px!important;max-width:114.4791648px!important;width:auto!important;
+  height:49.2059568px!important;max-width:112.189581504px!important;width:auto!important;
 }
 html[lang=ar]:not(.lt):not([data-theme=light]) .bar[data-brand-type=office] .av-brand-lockup .zbrand img.zlogo.zl-d{
-  width:119.24913px!important;max-width:119.24913px!important;height:auto!important;
+  width:116.8641474px!important;max-width:116.8641474px!important;height:auto!important;
 }
 @media(max-width:420px){
   html[lang=ar]:not(.lt):not([data-theme=light]) .bar[data-brand-type=home] .av-brand-lockup .qwm img.qw-ad{
-    height:44.1849408px!important;max-width:88.3698816px!important;
+    height:43.301241984px!important;max-width:86.602483968px!important;
   }
   html[lang=ar]:not(.lt):not([data-theme=light]) .bar[data-brand-type=office] .av-brand-lockup .zbrand img.zlogo.zl-d{
-    width:92.05196px!important;max-width:92.05196px!important;
+    width:90.2109208px!important;max-width:90.2109208px!important;
   }
 }
