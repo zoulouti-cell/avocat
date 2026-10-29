@@ -13,7 +13,7 @@
    window.addEventListener('zllanguagechange',function(){var date=document.getElementById('odate');if(date)date.textContent=new Intl.DateTimeFormat(document.documentElement.lang==='ar'?'ar-MA':document.documentElement.lang,{weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(new Date());});
    var toggle=document.createElement('button');toggle.type='button';toggle.className='av-header-icon av-theme';toggle.setAttribute('data-noi18n','');
    function themeLabel(){var l=document.documentElement.lang||'ar';toggle.innerHTML=svg(window.ZTH&&ZTH.light()?'moon':'sun');toggle.title=l==='fr'?'Changer le thème':l==='en'?'Change theme':'تغيير المظهر';toggle.setAttribute('aria-label',toggle.title);}
-   toggle.addEventListener('click',function(){if(window.ZTH)ZTH.set(ZTH.light()?'dark':'light');themeLabel();});tools.appendChild(toggle);bar.querySelectorAll('.zsetb').forEach(function(e){e.remove();});window.addEventListener('zltheme',themeLabel);window.addEventListener('zllanguagechange',themeLabel);themeLabel();
+   toggle.addEventListener('click',function(){if(window.ZTH)ZTH.set(ZTH.light()?'dark':'light');themeLabel();});tools.appendChild(toggle);/* Preserve the office settings action; on phones it replaces the emblem's former position. */window.addEventListener('zltheme',themeLabel);window.addEventListener('zllanguagechange',themeLabel);themeLabel();
   }
   document.addEventListener('fullscreenchange',label);new MutationObserver(label).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});label();
  }
