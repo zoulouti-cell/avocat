@@ -160,7 +160,7 @@ html.lt details.card>summary{color:#234c3d}
 @media(max-width:420px){.step{font-size:.66rem}.bar .tt small{display:none}.bar{gap:.5rem}.lseg button{padding:0 .55rem;font-size:.82rem}.bar .wm img{height:34px}html.lat .bar .wm img{height:28px}.bar .tt b{font-size:1.05rem}}
 </style>
 <script src="fullscreen.js" defer></script>
-</head>
+<link rel="stylesheet" href="brand-theme.css?v=20261029b"><script defer src="brand-theme.js?v=20261029b"></script></head>
 <body>
 <div id="login">
   <div class="gl">
@@ -398,7 +398,7 @@ $('lf').addEventListener('submit',login);$('out').addEventListener('click',out);
 (function(){var v='';var m=/^#r=(.+)$/.exec(location.hash||'');if(m){try{v=decodeURIComponent(m[1]);}catch(e){v=m[1];}try{history.replaceState(null,'',location.pathname+location.search);}catch(e){}}
   var kept='';try{kept=localStorage.getItem('zc_ref_'+CFG.repoKey)||'';}catch(e){}if(!v&&kept){v=kept;$('crem').checked=true;}
   if(v){$('cref').value=v;setTimeout(function(){try{$('ccode').focus({preventScroll:true});}catch(e){}},300);}})();
-setLang(lang);
+window.brandSetLang=setLang;setLang(lang);
 })();
 </script>
 </body>
