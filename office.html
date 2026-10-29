@@ -4054,7 +4054,7 @@ if(typeof module!=='undefined')module.exports=VAULT;
 /* ===================== office: encrypted vault on GitHub ===================== */
 var GHA=window.ZL_GH_API||'https://api.github.com';
 var office={files:{},tomb:{},users:{},gh:{tok:''}},odoc=null,OK=null,ME=null,baseSha=null,lastReg='',snap={},regCache={},saving=false,again=false,timer=null;
-function repoName(){var r='';try{r=(localStorage.getItem('zl_repo')||'').trim();}catch(e){}return /^[\\w.-]+\\/[\\w.-]+$/.test(r)?r:'zoulouti-cell/zoulouti-data';}
+function repoName(){var r='';try{r=(localStorage.getItem('zl_repo')||'').trim();}catch(e){}return /^[\w.-]+\/[\w.-]+$/.test(r)?r:'zoulouti-cell/zoulouti-data';}
 function b64u(t){return btoa(unescape(encodeURIComponent(t)));}
 function ub64u(t){return decodeURIComponent(escape(atob(t.replace(/\s/g,''))));}
 function setSync(t){var e=$('sync');if(e)e.textContent=t;}
@@ -4187,7 +4187,7 @@ function wireOffice(){
   $('gtks').addEventListener('click',function(){var t=$('gtk').value.trim();if(!t)return;office.gh.tok=t;$('gtk').value='';cloudSave();mm('umsg','تم تحديث المفتاح وسيُحفظ مشفّرًا.',true);});
   $('set-repo-save').addEventListener('click',function(){
     var next=$('set-repo').value.trim();
-    if(!/^[\\w.-]+\\/[\\w.-]+$/.test(next)){mm('umsg','أدخلوا اسم المستودع بصيغة الحساب/المستودع.');return;}
+    if(!/^[\w.-]+\/[\w.-]+$/.test(next)){mm('umsg','أدخلوا اسم المستودع بصيغة الحساب/المستودع.');return;}
     if(next===repoName()){mm('umsg','هذا هو مستودع البيانات الحالي.',true);return;}
     if(saving||/بانتظار الحفظ|جارٍ الحفظ/.test($('sync').textContent)){mm('umsg','انتظروا اكتمال حفظ البيانات قبل تغيير المستودع.');return;}
     if(!confirm('سيُعاد فتح صفحة الدخول للمستودع الجديد. لن تُنقل البيانات من المستودع الحالي. هل تريدون المتابعة؟'))return;
