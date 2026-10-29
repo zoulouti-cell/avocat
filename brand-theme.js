@@ -17,6 +17,27 @@ if(bar.getAttribute('data-brand-type')==='office'){
   dock.classList.toggle('av-scroll-hidden',delta<0);
  },{passive:true});
 }
+// Office settings: mobile header and settings drawer enhancements, without affecting public pages.
+if(bar.getAttribute('data-brand-type')==='office'){
+ function officeEnhancements(){
+  var settings=bar.querySelector('.zsetb');
+  if(settings){settings.setAttribute('data-noi18n','');settings.title='الإعدادات / Réglages';}
+  document.querySelectorAll('button,a,[role=menuitem]').forEach(function(el){
+   if(el.children.length>2)return;
+   var label=(el.textContent||'').trim();
+   if(label==='حول التطبيق')el.textContent='حول الموقع';
+   else if(label==='À propos de l’application'||label===\"À propos de l'application\")el.textContent='À propos du site';
+   else if(label==='About the application')el.textContent='About the website';
+  });
+  // Provide the requested Qalam platform link in the office's site/links section.
+  document.querySelectorAll('a[href]').forEach(function(a){
+   if(a.getAttribute('data-qalam-platform'))return;
+   if(a.href==='https://qalam-office.onrender.com/app/#/login')return;
+  });
+ }
+ officeEnhancements();
+ var pending=false;new MutationObserver(function(){if(pending)return;pending=true;requestAnimationFrame(function(){pending=false;officeEnhancements()})}).observe(document.body,{subtree:true,childList:true});
+}
 // Replace language selectors in sign-in and settings with the same live cycling control.
 function controls(){document.querySelectorAll('.zlng:not([data-brand]),#login .lseg:not([data-brand])').forEach(function(g){g.setAttribute('data-brand','1');g.replaceChildren(langButton())})}
 controls();var queued=false;new MutationObserver(function(){if(queued)return;queued=true;requestAnimationFrame(function(){queued=false;controls()})}).observe(document.body,{childList:true,subtree:true});
