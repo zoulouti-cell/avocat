@@ -124,3 +124,17 @@ html[lang=ar][data-theme=light] .bar[data-brand-type=office] .av-brand-lockup im
   width:81.54432px!important;max-width:81.54432px!important;height:auto!important;
  }
 }
+
+/* Office-only phone layout: settings and emblem at opposite ends, compact full-width dock. */
+@media(max-width:767px){
+ .bar[data-brand-type=office] .av-header-tools .avocat-fullscreen,
+ .bar[data-brand-type=office] .av-header-tools .av-theme,
+ .bar[data-brand-type=office] .brand-tools .brand-language,
+ .bar[data-brand-type=office] .brand-tools .avocat-fullscreen{display:none!important}
+ .bar[data-brand-type=office] .zsetb{display:grid!important;order:10!important;margin-inline-start:auto!important}
+ .bar[data-brand-type=office] .av-round-emblem{order:-10!important}
+ .zbot{inset:auto 0 0 0!important;width:100%!important;max-width:none!important;margin:0!important;border-radius:0!important;padding:.12rem .15rem calc(.12rem + env(safe-area-inset-bottom,0px))!important;gap:0!important}
+ .zbot button{min-height:47px!important;padding:.2rem .02rem!important;border-radius:8px!important;font-size:.65rem!important}
+ .zbot button[aria-selected=true]{border-radius:8px!important}
+ .zbot.hide{transform:translateY(calc(100% + 16px))!important}
+}
