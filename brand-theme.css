@@ -266,3 +266,98 @@ html[lang=ar][data-theme=light] .bar[data-brand-type=office] .av-brand-lockup im
 @media screen and (max-width:767px) and (prefers-reduced-motion:reduce){
   *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
+
+
+/* MOBILE-FIRST REDESIGN — public landing page and office pages; desktop unaffected. */
+@media screen and (max-width:767px){
+  body{padding-bottom:env(safe-area-inset-bottom,0px)}
+  body:not(:has(.bar[data-brand-type=office])) .bar{
+    position:sticky!important;top:0!important;z-index:100!important;
+    min-height:58px!important;box-sizing:border-box!important;
+    padding:calc(env(safe-area-inset-top,0px) + .45rem) .65rem .45rem!important;
+    gap:.4rem!important;
+    background:color-mix(in srgb,var(--green,#103c30) 94%,transparent)!important;
+    box-shadow:0 5px 22px rgba(0,0,0,.13)!important;
+  }
+  body:not(:has(.bar[data-brand-type=office])) .bar .who{
+    order:10!important;flex:1 0 100%!important;justify-content:stretch!important;
+    display:flex!important;gap:.25rem!important;margin:.15rem 0 0!important;
+  }
+  body:not(:has(.bar[data-brand-type=office])) .bar .who a{
+    flex:1 1 0!important;text-align:center!important;min-width:0!important;
+    padding:.48rem .35rem!important;font-size:.78rem!important;
+  }
+  body:not(:has(.bar[data-brand-type=office])) .bar .sp{display:none!important}
+  body:not(:has(.bar[data-brand-type=office])) .hero{
+    padding:1.35rem 1rem 0!important;
+    background-image:radial-gradient(ellipse at 50% 12%,rgba(200,162,74,.2),transparent 58%),linear-gradient(155deg,#123f32 0%,#092a23 72%,#071e1a 100%)!important;
+  }
+  body:not(:has(.bar[data-brand-type=office])) .hin{
+    display:flex!important;flex-direction:column!important;align-items:stretch!important;
+    gap:.65rem!important;max-width:560px!important;
+  }
+  body:not(:has(.bar[data-brand-type=office])) .hero .txt{
+    position:relative!important;z-index:2!important;text-align:center!important;
+    padding:.35rem .15rem 0!important;
+  }
+  body:not(:has(.bar[data-brand-type=office])) .hero .firm{font-size:.88rem!important;letter-spacing:.02em}
+  body:not(:has(.bar[data-brand-type=office])) .hero .name-ar{
+    font-size:clamp(1.9rem,8vw,2.8rem)!important;line-height:1.35!important;
+    text-wrap:balance!important;
+  }
+  body:not(:has(.bar[data-brand-type=office])) .hero h1{
+    font-size:clamp(1rem,4.4vw,1.3rem)!important;margin:.45rem 0!important;
+  }
+  body:not(:has(.bar[data-brand-type=office])) .hero .orn{margin:.6rem auto!important;max-width:190px}
+  body:not(:has(.bar[data-brand-type=office])) .hero .fig{
+    width:min(100%,390px)!important;margin:.1rem auto 0!important;
+    max-height:42vh!important;overflow:hidden!important;
+    -webkit-mask-image:linear-gradient(#000 0%,#000 82%,transparent 100%);
+    mask-image:linear-gradient(#000 0%,#000 82%,transparent 100%);
+  }
+  body:not(:has(.bar[data-brand-type=office])) .sec{
+    padding:2.6rem 1rem!important;scroll-margin-top:5rem!important;
+  }
+  body:not(:has(.bar[data-brand-type=office])) h2{
+    font-size:clamp(1.55rem,6vw,2rem)!important;line-height:1.35!important;
+    margin-bottom:1rem!important;
+  }
+  body:not(:has(.bar[data-brand-type=office])) .cards,
+  body:not(:has(.bar[data-brand-type=office])) .hgrid,
+  body:not(:has(.bar[data-brand-type=office])) .portals{
+    grid-template-columns:minmax(0,1fr)!important;gap:.85rem!important;
+  }
+  body:not(:has(.bar[data-brand-type=office])) .card,
+  body:not(:has(.bar[data-brand-type=office])) .pt{
+    min-width:0!important;box-sizing:border-box!important;
+    border-radius:16px!important;padding:1.25rem 1.05rem!important;
+    box-shadow:0 8px 24px rgba(14,45,33,.07)!important;
+  }
+  body:not(:has(.bar[data-brand-type=office])) .card::before,
+  body:not(:has(.bar[data-brand-type=office])) .pt::before{pointer-events:none}
+  body:not(:has(.bar[data-brand-type=office])) .cta{
+    display:grid!important;grid-template-columns:1fr!important;gap:.65rem!important;
+  }
+  body:not(:has(.bar[data-brand-type=office])) .cta :is(a,button){
+    width:100%!important;min-height:48px!important;box-sizing:border-box!important;
+    justify-content:center!important;border-radius:12px!important;
+  }
+  body:not(:has(.bar[data-brand-type=office])) :is(.btn,a.button,button.button){
+    min-height:44px;
+  }
+  body:not(:has(.bar[data-brand-type=office])) .week{gap:.4rem!important}
+  body:not(:has(.bar[data-brand-type=office])) .week span{
+    flex:1 1 calc(33.333% - .4rem)!important;min-width:0!important;
+    box-sizing:border-box!important;padding:.55rem .35rem!important;
+  }
+  body:not(:has(.bar[data-brand-type=office])) :is(input,select,textarea){
+    width:100%;max-width:100%;min-width:0;box-sizing:border-box;font-size:16px!important;
+  }
+  body:not(:has(.bar[data-brand-type=office])) :is(img,video,iframe,canvas){max-width:100%;height:auto}
+}
+@media screen and (max-width:380px){
+  body:not(:has(.bar[data-brand-type=office])) .bar .qwm{width:78px!important;flex:0 0 78px!important}
+  body:not(:has(.bar[data-brand-type=office])) .bar .bemb{width:38px!important;height:38px!important;flex-basis:38px!important}
+  body:not(:has(.bar[data-brand-type=office])) .hero{padding-inline:.8rem!important}
+  body:not(:has(.bar[data-brand-type=office])) .sec{padding-inline:.8rem!important}
+}
