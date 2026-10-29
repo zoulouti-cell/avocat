@@ -19,6 +19,9 @@ html.lt body:has(.zbrand){background-image:linear-gradient(45deg,transparent 48.
 
 .brand-tools>*{order:0!important}.bar :is(.hlogo,.av-office-emblem,.bemb) img{background:transparent!important;box-shadow:none!important;margin:0!important}
 
-:is(#login,#lock) .lg-q{width:82px!important;height:82px!important;display:grid!important;place-items:center;overflow:visible!important;border-radius:50%;background:#103c30} :is(#login,#lock) .lg-q img{width:72px!important;height:72px!important;object-fit:contain!important;transform:none!important;filter:brightness(2.8) saturate(.2)!important} html.lt :is(#login,#lock) .lg-q{background:#fff9e8}html.lt :is(#login,#lock) .lg-q img{filter:hue-rotate(76deg) saturate(.7) brightness(.66)!important}
-
 .bar .wm img{width:114px!important;height:50px!important;object-fit:contain!important;transform:none!important}
+
+.bar :is(.hlogo,.av-office-emblem,.bemb){background:#fff8e8!important;overflow:visible!important}
+.bar :is(.hlogo,.av-office-emblem,.bemb) img{filter:none!important;object-fit:contain!important;transform:none!important;background:transparent!important}
+html.lt .bar :is(.hlogo,.av-office-emblem,.bemb),html[data-theme=light] .bar :is(.hlogo,.av-office-emblem,.bemb){background:#123e32!important}
+html.lt .bar :is(.hlogo,.av-office-emblem,.bemb) img,html[data-theme=light] .bar .bemb img{filter:none!important}
