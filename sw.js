@@ -1,8 +1,8 @@
 // Brand refresh 20261029b
 'use strict';
 /* Cache only public app shells, never authenticated responses or user records. */
-const CACHE='avocat-qalam-shell-v6';
-const SHELL=['./assets/office-hakim-emblem.png','./assets/office-rachid-emblem.png','./brand-theme.js?v=20261029e','./brand-theme.css?v=20261029e','./assets/brand-ar-light.webp','./assets/brand-ar-dark.webp','./assets/brand-la-light.png','./assets/brand-la-dark.webp','./office.html','./app.webmanifest','./icon-192.png','./icon-512.png','./header-controls.js?v=20261029','./header-controls.css?v=20261029','./party-form.js?v=20261029','./party-form.css?v=20261029'];
+const CACHE='avocat-qalam-shell-v7';
+const SHELL=['./assets/office-hakim-emblem.png','./assets/office-rachid-emblem.png','./brand-theme.js?v=20261029f','./brand-theme.css?v=20261029f','./assets/brand-ar-light.webp','./assets/brand-ar-dark.webp','./assets/brand-la-light.png','./assets/brand-la-dark.webp','./office.html','./app.webmanifest','./icon-192.png','./icon-512.png','./header-controls.js?v=20261029','./header-controls.css?v=20261029','./party-form.js?v=20261029','./party-form.css?v=20261029'];
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(SHELL)).then(()=>self.skipWaiting()));
 });
