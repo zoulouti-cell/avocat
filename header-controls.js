@@ -1,7 +1,7 @@
 (function(){'use strict';
  var paths={full:'M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5',moon:'M20.4 14.6A8.6 8.6 0 0 1 9.4 3.6a8.6 8.6 0 1 0 11 11z',sun:'M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5'};
  function svg(k){return '<svg viewBox="0 0 24 24" aria-hidden="true">'+(k==='sun'?'<circle cx="12" cy="12" r="4"/>':'')+'<path d="'+paths[k]+'"/></svg>';}
- function init(){var bar=document.querySelector('header.bar');if(!bar||bar.querySelector('.av-header-tools'))return;var home=!!document.getElementById('lbtn');
+ function init(){var bar=document.querySelector('header.bar');if(!bar)return;/* Load explicit phone-only overrides on every route, including office pages with inline legacy CSS. */if(!document.querySelector('link[data-mobile-only-styles]')){var mobileCss=document.createElement('link');mobileCss.rel='stylesheet';mobileCss.href='mobile-only.css?v=20261029-3';mobileCss.setAttribute('data-mobile-only-styles','');document.head.appendChild(mobileCss);}if(bar.querySelector('.av-header-tools'))return;var home=!!document.getElementById('lbtn');
   var tools=document.createElement('div');tools.className='av-header-tools'+(home?'':' av-office-tools');bar.appendChild(tools);
   var full=document.createElement('button');full.type='button';full.id='avocat-fullscreen';full.className='av-header-icon avocat-fullscreen';full.setAttribute('data-noi18n','');full.innerHTML=svg('full');
   function label(){var l=document.documentElement.lang||'ar',on=!!document.fullscreenElement;full.title=l==='fr'?(on?'Quitter le plein écran':'Plein écran'):l==='en'?(on?'Exit fullscreen':'Fullscreen'):(on?'الخروج من ملء الشاشة':'ملء الشاشة');full.setAttribute('aria-label',full.title);full.setAttribute('aria-pressed',String(on));}
