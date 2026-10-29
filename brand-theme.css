@@ -25,3 +25,19 @@ html.lt body:has(.zbrand){background-image:linear-gradient(45deg,transparent 48.
 .bar :is(.hlogo,.av-office-emblem,.bemb) img{filter:none!important;object-fit:contain!important;transform:none!important;background:transparent!important}
 html.lt .bar :is(.hlogo,.av-office-emblem,.bemb),html[data-theme=light] .bar :is(.hlogo,.av-office-emblem,.bemb){background:#123e32!important}
 html.lt .bar :is(.hlogo,.av-office-emblem,.bemb) img,html[data-theme=light] .bar .bemb img{filter:none!important}
+
+/* The two office headers use the exact same original artwork as their home page. */
+.bar .av-brand-lockup{display:flex;align-items:center;gap:10px;flex:none;line-height:0}
+.bar .av-brand-lockup :is(.bemb,.av-office-emblem){display:grid!important;place-items:center;flex:0 0 44px!important;width:44px!important;height:44px!important;padding:3px!important;margin:0!important;box-sizing:border-box}
+.bar .av-brand-lockup :is(.bemb,.av-office-emblem) img{width:100%!important;height:100%!important;object-fit:contain!important;filter:none!important;transform:none!important}
+.bar .av-brand-lockup :is(.qwm,.zbrand){margin:0!important;align-self:center;align-items:center;flex:none}
+html:not(.lt):not([data-theme=light]) .bar[data-brand-type=home] .qwm{width:91.2px!important;height:40px!important}
+html.lt.lat .bar[data-brand-type=office] img.zlogo{width:125.4px!important;max-width:125.4px!important;height:55px!important}
+@media(max-width:420px){.bar .av-brand-lockup{gap:8px}html:not(.lt):not([data-theme=light]) .bar[data-brand-type=home] .qwm{width:70.4px!important;max-width:70.4px!important;height:35.2px!important}html.lt.lat .bar[data-brand-type=office] img.zlogo{width:96.8px!important;max-width:96.8px!important;height:48.4px!important}}
+/* Shrink-wrap transparent artwork so the visible gap is identical in every language. */
+.bar .av-brand-lockup .qwm,.bar .av-brand-lockup .zbrand{width:auto!important;max-width:none!important}
+.bar .av-brand-lockup .qwm img,.bar .av-brand-lockup img.zlogo{width:auto!important;height:50px!important;max-width:114px!important;object-fit:contain!important}
+html:not(.lt):not([data-theme=light]) .bar[data-brand-type=home] .av-brand-lockup .qwm{width:auto!important;max-width:none!important}
+html:not(.lt):not([data-theme=light]) .bar[data-brand-type=home] .av-brand-lockup .qwm img{width:auto!important;height:40px!important;max-width:91.2px!important}
+html.lt.lat .bar[data-brand-type=office] .av-brand-lockup img.zlogo{width:auto!important;height:55px!important;max-width:125.4px!important}
+@media(max-width:420px){.bar .av-brand-lockup .qwm img,.bar .av-brand-lockup img.zlogo{height:44px!important;max-width:88px!important}html:not(.lt):not([data-theme=light]) .bar[data-brand-type=home] .av-brand-lockup .qwm img{height:35.2px!important;max-width:70.4px!important}html.lt.lat .bar[data-brand-type=office] .av-brand-lockup img.zlogo{height:48.4px!important;max-width:96.8px!important}}
