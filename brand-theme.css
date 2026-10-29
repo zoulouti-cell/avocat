@@ -71,3 +71,19 @@ html[lang=ar].lt .bar[data-brand-type=office] .av-brand-lockup .zbrand img.zlogo
 html.lat .bar[data-brand-type=office] .av-brand-lockup .zbrand img.zlogo{width:102.6px!important;max-width:102.6px!important;height:auto!important}
 html[lang=ar]:not(.lt):not([data-theme=light]) .bar[data-brand-type=home] .av-brand-lockup .qwm img.qw-ad{height:33.6px!important;max-width:76.608px!important;width:auto!important}
 @media(max-width:420px){html[lang=ar].lt .bar[data-brand-type=office] .av-brand-lockup .zbrand img.zlogo.zl-l,html[lang=ar][data-theme=light] .bar[data-brand-type=office] .av-brand-lockup .zbrand img.zlogo.zl-l{width:58.08px!important;max-width:58.08px!important}html.lat .bar[data-brand-type=office] .av-brand-lockup .zbrand img.zlogo{width:79.2px!important;max-width:79.2px!important}html[lang=ar]:not(.lt):not([data-theme=light]) .bar[data-brand-type=home] .av-brand-lockup .qwm img.qw-ad{height:29.568px!important;max-width:59.136px!important}}
+
+/* Ivory Arabic Qalam wordmark: +30% in both lawyers' public and office headers, dark theme only. */
+html[lang=ar]:not(.lt):not([data-theme=light]) .bar[data-brand-type=home] .av-brand-lockup .qwm img.qw-ad{
+  height:43.68px!important;max-width:99.5904px!important;width:auto!important;
+}
+html[lang=ar]:not(.lt):not([data-theme=light]) .bar[data-brand-type=office] .av-brand-lockup .zbrand img.zlogo.zl-d{
+  width:103.74px!important;max-width:103.74px!important;height:auto!important;
+}
+@media(max-width:420px){
+  html[lang=ar]:not(.lt):not([data-theme=light]) .bar[data-brand-type=home] .av-brand-lockup .qwm img.qw-ad{
+    height:38.4384px!important;max-width:76.8768px!important;
+  }
+  html[lang=ar]:not(.lt):not([data-theme=light]) .bar[data-brand-type=office] .av-brand-lockup .zbrand img.zlogo.zl-d{
+    width:80.08px!important;max-width:80.08px!important;
+  }
+}
