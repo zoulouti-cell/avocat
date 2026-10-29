@@ -165,3 +165,44 @@ html[lang=ar][data-theme=light] .bar[data-brand-type=office] .av-brand-lockup im
 @media(max-width:767px){
  .bar[data-brand-type=office] :is(.av-theme,.avocat-fullscreen,#avocat-fullscreen,.thb,#thb,.hglobe[data-action="theme"],button[title="ملء الشاشة"],button[title="Plein écran"],button[title="Fullscreen"]){display:none!important}
 }
+
+/* Mobile office spaces only: keep badge beside the Qalam wordmark,
+   place settings at the opposite edge, and remove auxiliary header actions. */
+@media screen and (max-width:767px){
+ body:has(.bar[data-brand-type=office]) .bar[data-brand-type=office]{
+  display:flex!important;align-items:center!important;width:100%;
+ }
+ .bar[data-brand-type=office] .av-brand-lockup{
+  display:flex!important;align-items:center!important;gap:8px!important;
+  margin-inline-end:auto!important;flex:0 1 auto!important;min-width:0;
+ }
+ .bar[data-brand-type=office] .av-brand-lockup .av-round-emblem{
+  display:grid!important;position:relative!important;order:0!important;
+  flex-shrink:0!important;
+ }
+ .bar[data-brand-type=office] .av-brand-lockup .zbrand{order:1!important}
+ .bar[data-brand-type=office] .av-header-tools,
+ .bar[data-brand-type=office] .brand-tools{
+  margin-inline-start:auto!important;flex:0 0 auto!important;
+ }
+ .bar[data-brand-type=office] :is(.av-return,.av-theme,.avocat-fullscreen,#avocat-fullscreen,.brand-language,.thb,#thb,a.hb){
+  display:none!important;
+ }
+ .bar[data-brand-type=office] .zsetb{display:grid!important;order:99!important}
+ .bar[data-brand-type=office] .av-header-tools .av-office-emblem:not(.av-brand-lockup .av-office-emblem){display:none!important}
+ body:has(.bar[data-brand-type=office]) .zbot{
+  width:100%!important;max-width:none!important;left:0!important;right:0!important;
+  border-radius:0!important;min-height:56px!important;
+  padding:.28rem .2rem calc(.28rem + env(safe-area-inset-bottom,0px))!important;
+  transition:transform .24s ease,opacity .24s ease!important;
+ }
+ body:has(.bar[data-brand-type=office]) .zbot.av-scroll-hidden{
+  transform:translateY(calc(100% + 18px))!important;pointer-events:none!important;
+ }
+ html[lang=fr] .bar[data-brand-type=office].av-office-scrolled,
+ html[lang=en] .bar[data-brand-type=office].av-office-scrolled,
+ html[dir=ltr] .bar[data-brand-type=office].av-office-scrolled{
+  background:transparent!important;background-color:transparent!important;
+  box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+ }
+}
