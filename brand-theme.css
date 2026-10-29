@@ -140,3 +140,23 @@ html[lang=ar][data-theme=light] .bar[data-brand-type=office] .av-brand-lockup im
 }
 
 @media(max-width:767px){.zbot.av-scroll-hidden{transform:translateY(calc(100% + 16px))!important}}
+
+/* Phone office settings: match the reference screenshot's round hamburger button at the opposite end from the emblem. */
+@media(max-width:767px){
+ .bar[data-brand-type=office] .av-brand-lockup{order:0!important}
+ .bar[data-brand-type=office] .av-header-tools{order:2!important}
+ .bar[data-brand-type=office] .av-header-tools .av-round-emblem{display:none!important}
+ .bar[data-brand-type=office] .av-brand-lockup .av-round-emblem{order:0!important}
+ .bar[data-brand-type=office] .zsetb{
+  display:grid!important;place-items:center!important;flex:none!important;
+  width:44px!important;height:44px!important;min-width:44px!important;
+  border-radius:50%!important;border:1px solid rgba(190,160,87,.42)!important;
+  background:rgba(255,255,255,.065)!important;color:#e7c777!important;
+  padding:0!important;margin:0!important;box-shadow:none!important;
+ }
+ .bar[data-brand-type=office] .zsetb svg{width:25px!important;height:25px!important;stroke:currentColor!important;stroke-width:2!important}
+ html.lt .bar[data-brand-type=office] .zsetb,
+ html[data-theme=light] .bar[data-brand-type=office] .zsetb{
+  color:#234e3f!important;background:#edf4ef!important;border-color:#dbe5de!important;
+ }
+}
