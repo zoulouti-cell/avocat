@@ -44,6 +44,7 @@ if(bar.getAttribute('data-brand-type')==='office' &&
  var phone=window.matchMedia('(max-width:767px)');
  var officeTools=bar.querySelector('.av-header-tools');
  var officeBrand=bar.querySelector('.av-brand-lockup');
+ var lastOfficeSection='agenda';
  function syncOfficeHeader(){
   if(!phone.matches)return;
   var badge=bar.querySelector('.av-office-emblem,.hlogo,.bemb');
@@ -52,6 +53,18 @@ if(bar.getAttribute('data-brand-type')==='office' &&
   if(settings && officeTools && settings.parentElement!==officeTools){
    officeTools.appendChild(settings);
    settings.title=document.documentElement.lang==='fr'?'Paramètres':document.documentElement.lang==='en'?'Settings':'الإعدادات';
+   if(!settings.dataset.mobileToggle){
+    settings.dataset.mobileToggle='1';
+    settings.addEventListener('click',function(ev){
+     if(!phone.matches)return;
+     var active=document.documentElement.getAttribute('data-zs');
+     if(active==='set'){
+      ev.preventDefault();ev.stopImmediatePropagation();
+      var dest=document.querySelector('.zbot button[data-s="'+lastOfficeSection+'"]')||document.querySelector('.zbot button[data-s="agenda"]');
+      if(dest)dest.click();
+     }else if(active&&active!=='set')lastOfficeSection=active;
+    },true);
+   }
   }
  }
  syncOfficeHeader();
