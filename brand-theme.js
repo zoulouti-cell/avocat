@@ -29,11 +29,20 @@ if(bar.getAttribute('data-brand-type')==='office'){
    else if(label==='À propos de l’application'||label===\"À propos de l'application\")el.textContent='À propos du site';
    else if(label==='About the application')el.textContent='About the website';
   });
-  // Provide the requested Qalam platform link in the office's site/links section.
-  document.querySelectorAll('a[href]').forEach(function(a){
-   if(a.getAttribute('data-qalam-platform'))return;
-   if(a.href==='https://qalam-office.onrender.com/app/#/login')return;
-  });
+  // Add the official Qalam platform to Settings without replacing the office's own site URL.
+  var section=document.getElementById('p-set');
+  if(section&&!section.querySelector('[data-qalam-platform]')){
+   var card=document.createElement('div');card.className='card';card.setAttribute('data-qalam-platform','1');
+   var heading=document.createElement('h3');heading.textContent='المواقع / Sites / Websites';
+   var link=document.createElement('a');link.href='https://qalam-office.onrender.com/app/#/login';
+   link.target='_blank';link.rel='noopener noreferrer';link.className='btn';
+   link.style.cssText='display:inline-flex;align-items:center;gap:.6rem;max-width:100%;';
+   var emblem=document.createElement('span');emblem.textContent='ق';
+   emblem.setAttribute('aria-hidden','true');emblem.style.cssText='display:inline-grid;place-items:center;border-radius:50%;width:27px;height:27px;background:#154d39;color:#dcb86a;font-weight:bold;';
+   var label=document.createElement('span');label.textContent='منصة قلم';
+   link.appendChild(emblem);link.appendChild(label);card.appendChild(heading);card.appendChild(link);
+   section.appendChild(card);
+  }
  }
  officeEnhancements();
  var pending=false;new MutationObserver(function(){if(pending)return;pending=true;requestAnimationFrame(function(){pending=false;officeEnhancements()})}).observe(document.body,{subtree:true,childList:true});
