@@ -39,17 +39,16 @@ if(bar.getAttribute('data-brand-type')==='office'){
  var pending=false;new MutationObserver(function(){if(pending)return;pending=true;requestAnimationFrame(function(){pending=false;officeEnhancements()})}).observe(document.body,{subtree:true,childList:true});
 }
 // Mobile-only office controls. Settings are created asynchronously by the office app.
-if(bar.getAttribute('data-brand-type')==='office' &&
- ['office.html','office-rachid.html'].includes(location.pathname.split('/').pop())){
+if(bar.getAttribute('data-brand-type')==='office'){
  var phone=window.matchMedia('(max-width:767px)');
- var officeTools=bar.querySelector('.av-header-tools');
+ var officeTools=bar.querySelector('.av-header-tools,.brand-tools');
  var officeBrand=bar.querySelector('.av-brand-lockup');
  var lastOfficeSection='agenda';
  function syncOfficeHeader(){
   if(!phone.matches)return;
   var badge=bar.querySelector('.av-office-emblem,.hlogo,.bemb');
   if(officeBrand && badge && badge.parentElement!==officeBrand)officeBrand.insertBefore(badge,officeBrand.firstChild);
-  var settings=bar.querySelector('.zsetb');
+  var settings=document.querySelector('.zsetb');
   if(settings && officeTools && settings.parentElement!==officeTools){
    officeTools.appendChild(settings);
    settings.title=document.documentElement.lang==='fr'?'Paramètres':document.documentElement.lang==='en'?'Settings':'الإعدادات';
@@ -78,7 +77,7 @@ if(bar.getAttribute('data-brand-type')==='office' &&
  var previousOfficeY=window.scrollY||0;
  function onOfficeScroll(){
   if(!phone.matches)return;
-  var y=window.scrollY||0,delta=y-previousOfficeY;previousOfficeY=y;
+  var y=window.scrollY||document.documentElement.scrollTop||0,delta=y-previousOfficeY;previousOfficeY=y;
   var dock=document.querySelector('.zbot');
   if(dock&&Math.abs(delta)>4){
    if(y<45||delta>0)dock.classList.remove('av-scroll-hidden');
