@@ -32,12 +32,19 @@ html.lt .bar :is(.hlogo,.av-office-emblem,.bemb) img,html[data-theme=light] .bar
 .bar .av-brand-lockup :is(.bemb,.av-office-emblem) img{width:100%!important;height:100%!important;object-fit:contain!important;filter:none!important;transform:none!important}
 .bar .av-brand-lockup :is(.qwm,.zbrand){margin:0!important;align-self:center;align-items:center;flex:none}
 html:not(.lt):not([data-theme=light]) .bar[data-brand-type=home] .qwm{width:91.2px!important;height:40px!important}
-html.lt.lat .bar[data-brand-type=office] img.zlogo{width:125.4px!important;max-width:125.4px!important;height:55px!important}
-@media(max-width:420px){.bar .av-brand-lockup{gap:8px}html:not(.lt):not([data-theme=light]) .bar[data-brand-type=home] .qwm{width:70.4px!important;max-width:70.4px!important;height:35.2px!important}html.lt.lat .bar[data-brand-type=office] img.zlogo{width:96.8px!important;max-width:96.8px!important;height:48.4px!important}}
+
+@media(max-width:420px){.bar .av-brand-lockup{gap:8px}html:not(.lt):not([data-theme=light]) .bar[data-brand-type=home] .qwm{width:70.4px!important;max-width:70.4px!important;height:35.2px!important}}
 /* Shrink-wrap transparent artwork so the visible gap is identical in every language. */
 .bar .av-brand-lockup .qwm,.bar .av-brand-lockup .zbrand{width:auto!important;max-width:none!important}
 .bar .av-brand-lockup .qwm img,.bar .av-brand-lockup img.zlogo{width:auto!important;height:50px!important;max-width:114px!important;object-fit:contain!important}
 html:not(.lt):not([data-theme=light]) .bar[data-brand-type=home] .av-brand-lockup .qwm{width:auto!important;max-width:none!important}
 html:not(.lt):not([data-theme=light]) .bar[data-brand-type=home] .av-brand-lockup .qwm img{width:auto!important;height:40px!important;max-width:91.2px!important}
-html.lt.lat .bar[data-brand-type=office] .av-brand-lockup img.zlogo{width:auto!important;height:55px!important;max-width:125.4px!important}
-@media(max-width:420px){.bar .av-brand-lockup .qwm img,.bar .av-brand-lockup img.zlogo{height:44px!important;max-width:88px!important}html:not(.lt):not([data-theme=light]) .bar[data-brand-type=home] .av-brand-lockup .qwm img{height:35.2px!important;max-width:70.4px!important}html.lt.lat .bar[data-brand-type=office] .av-brand-lockup img.zlogo{height:48.4px!important;max-width:96.8px!important}}
+
+@media(max-width:420px){.bar .av-brand-lockup .qwm img,.bar .av-brand-lockup img.zlogo{height:44px!important;max-width:88px!important}html:not(.lt):not([data-theme=light]) .bar[data-brand-type=home] .av-brand-lockup .qwm img{height:35.2px!important;max-width:70.4px!important}}
+
+/* One isolated circular badge: legacy zemb rules must not reach the inner image. */
+html .bar .av-brand-lockup .av-round-emblem{display:grid!important;place-items:center!important;flex:0 0 44px!important;width:44px!important;height:44px!important;min-width:44px!important;max-width:44px!important;min-height:44px!important;max-height:44px!important;aspect-ratio:1!important;box-sizing:border-box!important;padding:3px!important;border:1px solid #c5a250!important;border-radius:50%!important;overflow:hidden!important;background:#fff8e8!important;margin:0!important}
+html.lt .bar .av-brand-lockup .av-round-emblem,html[data-theme=light] .bar .av-brand-lockup .av-round-emblem{background:#123e32!important}
+html .bar .av-brand-lockup .av-round-emblem>.av-emblem-image{display:block!important;width:100%!important;height:100%!important;max-width:100%!important;max-height:100%!important;min-width:0!important;min-height:0!important;box-sizing:border-box!important;object-fit:contain!important;object-position:center!important;padding:0!important;margin:0!important;border:0!important;border-radius:0!important;box-shadow:none!important;background:transparent!important;filter:none!important;transform:none!important;mask-image:none!important;-webkit-mask-image:none!important}
+html .bar[data-brand-type=office] .av-brand-lockup .zbrand img.zlogo{width:114px!important;max-width:114px!important;height:auto!important;max-height:none!important}
+@media(max-width:420px){html .bar[data-brand-type=office] .av-brand-lockup .zbrand img.zlogo{width:88px!important;max-width:88px!important;height:auto!important}}
