@@ -38,6 +38,39 @@ if(bar.getAttribute('data-brand-type')==='office'){
  officeEnhancements();
  var pending=false;new MutationObserver(function(){if(pending)return;pending=true;requestAnimationFrame(function(){pending=false;officeEnhancements()})}).observe(document.body,{subtree:true,childList:true});
 }
+// Phone office header and dock: scoped to the two office documents only.
+if(bar.getAttribute('data-brand-type')==='office' && /(?:^|\\/)(?:office|office-rachid)\\.html$/i.test(location.pathname)){
+ var mobile=window.matchMedia('(max-width:767px)');
+ var settingsButton=bar.querySelector('.zsetb');
+ var headerTools=bar.querySelector('.av-header-tools,.brand-tools');
+ var lockup=bar.querySelector('.av-brand-lockup');
+ if(settingsButton && headerTools && lockup){
+  headerTools.appendChild(settingsButton);
+  settingsButton.setAttribute('aria-label',document.documentElement.lang==='fr'?'Paramètres':document.documentElement.lang==='en'?'Settings':'الإعدادات');
+  settingsButton.setAttribute('aria-expanded',settingsButton.getAttribute('aria-expanded')||'false');
+  settingsButton.addEventListener('click',function(){
+   requestAnimationFrame(function(){
+    var expanded=settingsButton.getAttribute('aria-expanded')==='true';
+    settingsButton.setAttribute('aria-expanded',String(!expanded));
+   });
+  });
+ }
+ var lastOfficeY=window.scrollY||0;
+ function officeScroll(){
+  if(!mobile.matches)return;
+  var y=window.scrollY||0,delta=y-lastOfficeY;
+  lastOfficeY=y;
+  var dock=document.querySelector('.zbot');
+  if(dock && Math.abs(delta)>4){
+   if(y<40 || delta>0)dock.classList.remove('av-scroll-hidden');
+   else dock.classList.add('av-scroll-hidden');
+  }
+  bar.classList.toggle('av-office-scrolled',y>30);
+ }
+ window.addEventListener('scroll',officeScroll,{passive:true});
+ window.addEventListener('resize',officeScroll,{passive:true});
+ officeScroll();
+}
 // Replace language selectors in sign-in and settings with the same live cycling control.
 function controls(){document.querySelectorAll('.zlng:not([data-brand]),#login .lseg:not([data-brand])').forEach(function(g){g.setAttribute('data-brand','1');g.replaceChildren(langButton())})}
 controls();var queued=false;new MutationObserver(function(){if(queued)return;queued=true;requestAnimationFrame(function(){queued=false;controls()})}).observe(document.body,{childList:true,subtree:true});
