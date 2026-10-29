@@ -77,14 +77,14 @@ html[lang=ar]:not(.lt):not([data-theme=light]) .bar[data-brand-type=home] .av-br
   height:44.408376012px!important;max-width:101.25109730736px!important;width:auto!important;
 }
 html[lang=ar]:not(.lt):not([data-theme=light]) .bar[data-brand-type=office] .av-brand-lockup .zbrand img.zlogo.zl-d{
-  width:74.60607170016px!important;max-width:74.60607170016px!important;height:auto!important;
+  width:78.336375285168px!important;max-width:78.336375285168px!important;height:auto!important;
 }
 @media(max-width:420px){
   html[lang=ar]:not(.lt):not([data-theme=light]) .bar[data-brand-type=home] .av-brand-lockup .qwm img.qw-ad{
     height:39.07937089056px!important;max-width:78.15874178112px!important;
   }
   html[lang=ar]:not(.lt):not([data-theme=light]) .bar[data-brand-type=office] .av-brand-lockup .zbrand img.zlogo.zl-d{
-    width:57.59065183872px!important;max-width:57.59065183872px!important;
+    width:60.470184430656px!important;max-width:60.470184430656px!important;
   }
 }
 
