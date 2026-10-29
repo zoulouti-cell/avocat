@@ -88,12 +88,12 @@ html[lang=ar]:not(.lt):not([data-theme=light]) .bar[data-brand-type=office] .av-
   }
 }
 
-/* Keep the green Arabic Qalam wordmark at one size on both main pages and all viewports. */
-html[lang=ar] :is(.lt,[data-theme=light]) .bar .av-brand-lockup img.qw-al{height:44px!important;width:auto!important;max-width:none!important}
+/* Green Arabic Qalam wordmark: 5% smaller, consistent across both main pages and all viewports. */
+html[lang=ar] :is(.lt,[data-theme=light]) .bar .av-brand-lockup img.qw-al{height:41.8px!important;width:auto!important;max-width:none!important}
 html[lang=ar].lt .bar[data-brand-type=home] .av-brand-lockup img.qw-al,
 html[lang=ar][data-theme=light] .bar[data-brand-type=home] .av-brand-lockup img.qw-al,
 html[lang=ar].lt .bar[data-brand-type=office] .av-brand-lockup img.zlogo.zl-l,
-html[lang=ar][data-theme=light] .bar[data-brand-type=office] .av-brand-lockup img.zlogo.zl-l{height:44px!important;width:auto!important;max-width:none!important;max-height:none!important}
+html[lang=ar][data-theme=light] .bar[data-brand-type=office] .av-brand-lockup img.zlogo.zl-l{height:41.8px!important;width:auto!important;max-width:none!important;max-height:none!important}
 /* Mobile headers: retain theme/navigation, hide language and fullscreen controls. */
 @media(max-width:767px){
  .bar .brand-tools .brand-language,.bar .brand-tools .avocat-fullscreen,
