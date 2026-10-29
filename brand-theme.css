@@ -160,3 +160,8 @@ html[lang=ar][data-theme=light] .bar[data-brand-type=office] .av-brand-lockup im
   color:#234e3f!important;background:#edf4ef!important;border-color:#dbe5de!important;
  }
 }
+
+/* Office spaces on phones only: remove theme-switch and fullscreen icons, including legacy variants. */
+@media(max-width:767px){
+ .bar[data-brand-type=office] :is(.av-theme,.avocat-fullscreen,#avocat-fullscreen,.thb,#thb,.hglobe[data-action="theme"],button[title="ملء الشاشة"],button[title="Plein écran"],button[title="Fullscreen"]){display:none!important}
+}
