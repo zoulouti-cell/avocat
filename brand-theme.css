@@ -234,3 +234,35 @@ html[lang=ar][data-theme=light] .bar[data-brand-type=office] .av-brand-lockup im
  body:has(.bar[data-brand-type=office]) .zbot{position:fixed!important;inset:auto 0 0 0!important;width:100%!important;max-width:100%!important;border-radius:0!important;min-height:64px!important;box-sizing:border-box!important}
  body:has(.bar[data-brand-type=office]) .zbot.av-scroll-hidden{transform:translateY(calc(100% + 20px))!important;pointer-events:none!important}
 }
+
+
+/* Phone-only responsive polish: desktop/tablet layout intentionally untouched. */
+@media screen and (max-width:767px){
+  html{scroll-padding-top:5.5rem}
+  body{overflow-x:clip}
+  .bar{gap:.4rem!important;padding-inline:.65rem!important}
+  .bar .av-brand-lockup{min-width:0!important;max-width:calc(100% - 100px)!important}
+  .bar .av-brand-lockup :is(.qwm,.zbrand){min-width:0!important}
+  .bar .av-brand-lockup :is(.qwm img,.zbrand img,.zlogo){max-width:clamp(58px,22vw,88px)!important}
+  .bar .av-header-tools{gap:0!important}
+  .bar .av-header-tools :is(button,a){touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+  .zbot{padding-left:max(.35rem,env(safe-area-inset-left,0px))!important;padding-right:max(.35rem,env(safe-area-inset-right,0px))!important}
+  .zbot :is(a,button,[role=button]){min-width:0;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+  main,main section,section{min-width:0}
+  img,video,iframe,canvas,svg{max-width:100%}
+  input,select,textarea,button{font:inherit}
+  input,select,textarea{max-width:100%;font-size:16px!important}
+  textarea{resize:vertical}
+  :is(button,a,[role=button],input[type=checkbox],input[type=radio]){-webkit-tap-highlight-color:transparent}
+  :focus-visible{scroll-margin-block:6rem}
+}
+@media screen and (max-width:420px){
+  .bar{padding-inline:.5rem!important;gap:.3rem!important}
+  .bar .av-brand-lockup{gap:6px!important;max-width:calc(100% - 88px)!important}
+  .bar .av-brand-lockup .av-round-emblem{width:38px!important;height:38px!important;min-width:38px!important;min-height:38px!important;flex-basis:38px!important}
+  .bar .av-header-tools :is(button.av-header-icon,a.av-header-icon,.lang>.lbtn){width:36px!important;height:40px!important;min-width:36px!important;flex-basis:36px!important}
+  body:has(.bar[data-brand-type=office]) .zbot{min-height:60px!important;padding-bottom:calc(.35rem + env(safe-area-inset-bottom,0px))!important}
+}
+@media screen and (max-width:767px) and (prefers-reduced-motion:reduce){
+  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
