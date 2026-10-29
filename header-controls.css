@@ -17,3 +17,9 @@ html[dir=ltr] .av-office-tools{margin-left:auto!important;margin-right:0!importa
 .bar .av-header-tools :is(button.av-header-icon,a.av-header-icon,.lang>.lbtn){color:inherit!important}
 @media(max-width:400px){.bar .qwm{width:88px;height:42px}.bar .av-header-tools{gap:1px}}
 @media print{.av-header-tools{display:none!important}}
+
+/* No language or fullscreen buttons in phone-sized headers. */
+@media(max-width:767px){
+ .bar .av-header-tools .avocat-fullscreen,.bar .av-header-tools .lang,
+ .bar .av-header-tools .brand-language{display:none!important}
+}
