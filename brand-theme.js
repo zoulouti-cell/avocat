@@ -3,10 +3,101 @@ var full='<path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/>',globe='<circle cx="1
 function icon(x){return '<svg viewBox="0 0 24 24" aria-hidden="true">'+x+'</svg>'}
 function cycle(b){var all=['ar','fr','en'],next=all[(all.indexOf(document.documentElement.lang)+1)%3];if(window.I18N&&I18N.set)I18N.set(next);else if(window.brandSetLang)window.brandSetLang(next);else return;b.querySelector('span').textContent=next.toUpperCase();b.classList.remove('flash');void b.offsetWidth;b.classList.add('flash')}
 function langButton(){var b=document.createElement('button');b.type='button';b.className='brand-language';b.setAttribute('data-noi18n','');b.setAttribute('aria-label','اللغة / Langue / Language');b.title='العربية / Français / English';b.innerHTML=icon(globe)+'<span aria-live="polite"></span>';b.addEventListener('click',function(e){e.stopPropagation();cycle(b)});return b}
-function init(){var bar=document.querySelector('header.bar');if(!bar)return;
+function init(){var bar=document.querySelector('header.bar');if(!bar)return;/* Explicit mobile overrides are loaded on every route using the shared brand script. */if(!document.querySelector('link[data-mobile-only-styles]')){var mobileCss=document.createElement('link');mobileCss.rel='stylesheet';mobileCss.href='mobile-only.css?v=20261029-4';mobileCss.setAttribute('data-mobile-only-styles','');document.head.appendChild(mobileCss);}
 var client=bar.querySelector('#lgb');if(client){var ct=document.createElement('div');ct.className='brand-tools';bar.appendChild(ct);var cf=document.createElement('button');cf.type='button';cf.title='ملء الشاشة / Fullscreen';cf.innerHTML=icon(full);cf.onclick=function(){var p=document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();if(p)p.catch(function(){cf.title='F11'})};ct.appendChild(cf);client.classList.add('brand-language');client.removeAttribute('aria-haspopup');client.removeAttribute('aria-expanded');client.innerHTML=icon(globe)+'<span id="lgc" aria-live="polite"></span>';client.addEventListener('click',function(e){e.preventDefault();e.stopImmediatePropagation();cycle(client)},true);ct.appendChild(client);var theme=bar.querySelector('.thb');if(theme)ct.appendChild(theme);var old=bar.querySelector('.lmenu');if(old)old.style.display='none';document.querySelectorAll('.lseg').forEach(function(g){g.replaceChildren(langButton())});return;}
 var tools=bar.querySelector('.av-header-tools');if(tools){tools.classList.add('brand-tools');if(tools.classList.contains('av-office-tools')){var f=tools.querySelector('.avocat-fullscreen'),em=tools.querySelector('.av-office-emblem');if(f)tools.prepend(f);if(em)bar.prepend(em);var l=langButton();if(f)f.after(l);var th=tools.querySelector('.av-theme'),back=tools.querySelector('.av-return');if(th)l.after(th);if(back)tools.appendChild(back)}}else{tools=document.createElement('div');tools.className='brand-tools';bar.appendChild(tools);var f=document.createElement('button');f.type='button';f.title='ملء الشاشة / Plein écran / Fullscreen';f.setAttribute('aria-label',f.title);f.innerHTML=icon(full);f.onclick=function(){var p=document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();if(p)p.catch(function(){f.title='F11'})};tools.appendChild(f);tools.appendChild(langButton());var th=document.createElement('button');th.type='button';th.title='المظهر / Thème / Theme';th.setAttribute('aria-label',th.title);th.innerHTML=icon(sun);th.onclick=function(){if(window.ZTH)ZTH.set(ZTH.light()?'dark':'light')};tools.appendChild(th)}
 var emblem=bar.querySelector('.bemb,.av-office-emblem'),word=bar.querySelector('.qwm,.zbrand');if(emblem&&word){var lockup=document.createElement('div');lockup.className='av-brand-lockup';bar.setAttribute('data-brand-type',bar.querySelector('.qwm')?'home':'office');bar.insertBefore(lockup,bar.firstChild);lockup.appendChild(emblem);lockup.appendChild(word);emblem.classList.add('av-round-emblem');var emblemImage=emblem.querySelector('img');if(emblemImage){emblemImage.className='av-emblem-image';emblemImage.removeAttribute('style');}}
+// Phone-only office dock: hide on upward scroll, reveal on downward scroll.
+if(bar.getAttribute('data-brand-type')==='office'){
+ var previousY=window.scrollY||0;
+ window.addEventListener('scroll',function(){if(!window.matchMedia('(max-width:767px)').matches)return;
+  var y=window.scrollY||0,delta=y-previousY;previousY=y;
+  var dock=document.querySelector('.zbot');if(!dock||Math.abs(delta)<5)return;
+  if(y<45){dock.classList.remove('av-scroll-hidden');return;}
+  dock.classList.toggle('av-scroll-hidden',delta<0);
+ },{passive:true});
+}
+// Office settings: mobile header and settings drawer enhancements, without affecting public pages.
+if(bar.getAttribute('data-brand-type')==='office'){
+ function officeEnhancements(){
+  var settings=bar.querySelector('.zsetb');
+  if(settings){settings.setAttribute('data-noi18n','');settings.title='الإعدادات / Réglages';}
+  document.querySelectorAll('button,a,[role=menuitem]').forEach(function(el){
+   if(el.children.length>2)return;
+   var label=(el.textContent||'').trim();
+   if(label==='حول التطبيق')el.textContent='حول الموقع';
+   else if(label==='À propos de l’application'||label===\"À propos de l'application\")el.textContent='À propos du site';
+   else if(label==='About the application')el.textContent='About the website';
+  });
+  // Add the official Qalam platform to Settings without replacing the office's own site URL.
+  var section=document.getElementById('p-set');
+  if(section&&!section.querySelector('[data-qalam-platform]')){
+   var card=document.createElement('div');card.className='card';card.setAttribute('data-qalam-platform','1');
+   var heading=document.createElement('h3');heading.textContent='المواقع / Sites / Websites';
+   var link=document.createElement('a');link.href='https://qalam-office.onrender.com/app/#/login';
+   link.target='_blank';link.rel='noopener noreferrer';link.className='btn';
+   link.style.cssText='display:inline-flex;align-items:center;gap:.6rem;max-width:100%;';
+   var emblem=document.createElement('span');emblem.textContent='ق';
+   emblem.setAttribute('aria-hidden','true');emblem.style.cssText='display:inline-grid;place-items:center;border-radius:50%;width:27px;height:27px;background:#154d39;color:#dcb86a;font-weight:bold;';
+   var label=document.createElement('span');label.textContent='منصة قلم';
+   link.appendChild(emblem);link.appendChild(label);card.appendChild(heading);card.appendChild(link);
+   section.appendChild(card);
+  }
+ }
+ officeEnhancements();
+ var pending=false;new MutationObserver(function(){if(pending)return;pending=true;requestAnimationFrame(function(){pending=false;officeEnhancements()})}).observe(document.body,{subtree:true,childList:true});
+}
+// Mobile-only office controls. Settings are created asynchronously by the office app.
+if(bar.getAttribute('data-brand-type')==='office'){
+ var phone=window.matchMedia('(max-width:767px)');
+ var officeTools=bar.querySelector('.av-header-tools,.brand-tools');
+ var officeBrand=bar.querySelector('.av-brand-lockup');
+ var lastOfficeSection='agenda';
+ function syncOfficeHeader(){
+  if(!phone.matches)return;
+  var badge=bar.querySelector('.av-office-emblem,.hlogo,.bemb');
+  if(officeBrand && badge && badge.parentElement!==officeBrand)officeBrand.insertBefore(badge,officeBrand.firstChild);
+  var settings=document.querySelector('.zsetb');
+  if(settings && officeTools && settings.parentElement!==officeTools){
+   officeTools.appendChild(settings);
+   settings.title=document.documentElement.lang==='fr'?'Paramètres':document.documentElement.lang==='en'?'Settings':'الإعدادات';
+   if(!settings.dataset.mobileToggle){
+    settings.dataset.mobileToggle='1';
+    settings.addEventListener('click',function(ev){
+     if(!phone.matches)return;
+     var active=document.documentElement.getAttribute('data-zs');
+     if(active==='set'){
+      ev.preventDefault();ev.stopImmediatePropagation();
+      var dest=document.querySelector('.zbot button[data-s="'+lastOfficeSection+'"]')||document.querySelector('.zbot button[data-s="agenda"]');
+      if(dest)dest.click();
+     }else if(active&&active!=='set')lastOfficeSection=active;
+    },true);
+   }
+  }
+ }
+ syncOfficeHeader();
+ // The office creates .zsetb after its data initialization, not at DOMContentLoaded.
+ var scheduled=false;
+ new MutationObserver(function(){
+  if(scheduled)return;
+  scheduled=true;
+  requestAnimationFrame(function(){scheduled=false;syncOfficeHeader();});
+ }).observe(bar,{childList:true,subtree:true});
+ var previousOfficeY=window.scrollY||0;
+ function onOfficeScroll(){
+  if(!phone.matches)return;
+  var y=window.scrollY||document.documentElement.scrollTop||0,delta=y-previousOfficeY;previousOfficeY=y;
+  var dock=document.querySelector('.zbot');
+  if(dock&&Math.abs(delta)>4){
+   if(y<45||delta>0)dock.classList.remove('av-scroll-hidden');
+   else dock.classList.add('av-scroll-hidden');
+  }
+  bar.classList.toggle('av-office-scrolled',y>30);
+ }
+ window.addEventListener('scroll',onOfficeScroll,{passive:true});
+ window.addEventListener('resize',function(){syncOfficeHeader();onOfficeScroll();},{passive:true});
+ onOfficeScroll();
+}
 // Replace language selectors in sign-in and settings with the same live cycling control.
 function controls(){document.querySelectorAll('.zlng:not([data-brand]),#login .lseg:not([data-brand])').forEach(function(g){g.setAttribute('data-brand','1');g.replaceChildren(langButton())})}
 controls();var queued=false;new MutationObserver(function(){if(queued)return;queued=true;requestAnimationFrame(function(){queued=false;controls()})}).observe(document.body,{childList:true,subtree:true});
