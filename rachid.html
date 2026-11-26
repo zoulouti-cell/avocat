@@ -298,7 +298,7 @@ footer{background:var(--green);color:#9fb0a7;text-align:center;font-size:.9rem;p
 .xb:hover .em,.xb:focus-visible .em{transform:rotate(-7deg) scale(1.08)}
 .xt{display:grid;gap:.1rem;min-width:0}.xt b{font-size:1rem;color:#fff}.xt small{color:rgba(246,241,226,.78);line-height:1.4;font-weight:400}
 .xn{margin:1rem 0 0;color:rgba(246,241,226,.7);font-size:.85rem}
-.xl .legacy-link{margin-top:.35rem}.xl .legacy-link a{color:inherit;font:inherit;text-decoration:underline;text-underline-offset:.2em}
+.xl .legacy-link{margin-top:.35rem;font-size:.75rem}.xl .legacy-link a{color:inherit;font:inherit;text-decoration:underline;text-underline-offset:.2em}
 .pti .ic img{object-fit:contain}
 @media(min-width:860px){.xg{grid-template-columns:repeat(4,1fr)}.xb{flex-direction:column;text-align:center;padding:1.2rem .9rem}.xi{width:72px;height:72px}}
 @media(prefers-reduced-motion:reduce){.xb,.xi .em{transition:none}}
@@ -355,7 +355,7 @@ html[dir=ltr] .pvline li{padding:.2rem 0 .6rem 1rem}
 
 .cdrow{display:grid;gap:.25rem;padding:.6rem .85rem;border-radius:16px;border:1px solid rgba(200,162,74,.45);background:rgba(200,162,74,.06)}.cdh{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap}.cdc{font:700 1.05rem "Jost",ui-monospace,Menlo,monospace;direction:ltr;color:var(--gt,#7a5a12)}td.cdc{white-space:nowrap;font-size:.95rem}.cdall{margin-top:1rem!important}
 
-/* The platform and client portal share the first row. */
+/* The platform and client portal sit together under the three shortcuts. */
 .portals{grid-template-columns:repeat(6,minmax(0,1fr))}
 .portals .pt{grid-column:span 2}
 .portals .pt.wide{grid-column:span 3}
@@ -521,11 +521,11 @@ html:not([lang=ar]) .bar .qwm img{height:40px!important}
   <svg class="wv w1" viewBox="0 0 2400 120" preserveAspectRatio="none" aria-hidden="true"><path d="M0 60C200 20 400 100 600 60C800 20 1000 100 1200 60C1400 20 1600 100 1800 60C2000 20 2200 100 2400 60V120H0Z"/></svg>
   <svg class="wv w2" viewBox="0 0 2400 120" preserveAspectRatio="none" aria-hidden="true"><path d="M0 70C150 110 450 30 600 70C750 110 1050 30 1200 70C1350 110 1650 30 1800 70C1950 110 2250 30 2400 70V120H0Z"/></svg>
   <nav class="portals stagger" aria-label="Portals">
-    <a href="https://qalam-office.onrender.com/app/?gateway=show#/login" class="pt wide"><span class="pti"><span class="ic"><img src="assets/qalam-q-logo.png" width="34" height="34" alt=""></span><span class="tx"><b data-t="pt5">منصة قلم</b><small data-t="pt5s">المكتب الرقمي والمكتبة الرقمية</small></span></span></a>
-    <a href="https://qalam-office.onrender.com/app/#/portal" class="pt wide cli"><span class="pti"><span class="ic"><svg><use href="#i-user"/></svg></span><span class="tx"><b data-t="pt8">فضاء الموكل</b><small data-t="pt8s">مستجدات ملفاتكم والوثائق التي يشاركها المكتب معكم</small></span></span></a>
     <a href="#hours" class="pt"><span class="pti"><span class="ic"><svg><use href="#i-clock"/></svg></span><b data-t="pt3">مواعيد</b><small data-t="pt3s">أوقات العمل والاستقبال</small></span></a>
   <a href="#contact" class="pt"><span class="pti"><span class="ic"><svg><use href="#i-tel"/></svg></span><b data-t="pt4">تواصل</b><small data-t="pt4s">الهاتف والواتساب والعنوان</small></span></a>
   <a href="#links" class="pt"><span class="pti"><span class="ic"><svg><use href="#i-globe"/></svg></span><b data-t="pt7">روابط</b><small data-t="pt7s">مواقع رسمية مفيدة</small></span></a>
+    <a href="https://qalam-office.onrender.com/app/?gateway=show#/login" class="pt wide"><span class="pti"><span class="ic"><img src="assets/qalam-q-logo.png" width="34" height="34" alt=""></span><span class="tx"><b data-t="pt5">منصة قلم</b><small data-t="pt5s">المكتب الرقمي والمكتبة الرقمية</small></span></span></a>
+    <a href="https://qalam-office.onrender.com/app/#/portal" class="pt wide cli"><span class="pti"><span class="ic"><svg><use href="#i-user"/></svg></span><span class="tx"><b data-t="pt8">فضاء الموكل</b><small data-t="pt8s">مستجدات ملفاتكم والوثائق التي يشاركها المكتب معكم</small></span></span></a>
     <p class="pgh tools-only" data-t="pgh">أدوات قانونية</p>
     <a href="#help" class="pt tool tools-only" data-tool="cp"><span class="pti"><span class="ic"><svg><use href="#i-car"/></svg></span><b data-t="tl1">حوادث السير</b><small data-t="tl1s">التعويض وفق القانون 70.24</small></span></a>
     <a href="#help" class="pt tool tools-only" data-tool="wk"><span class="pti"><span class="ic"><svg><use href="#i-build"/></svg></span><b data-t="tl2">حوادث الشغل</b><small data-t="tl2s">التعويض وفق القانون 18.12</small></span></a>
@@ -653,8 +653,7 @@ html:not([lang=ar]) .bar .qwm img{height:40px!important}
       <a class="xb" data-k="avocat" href="https://www.justice.gov.ma" target="_blank" rel="noopener"><span class="xi"><svg class="em" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="emg4" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe28f"/><stop offset=".55" stop-color="#c8a24a"/><stop offset="1" stop-color="#a67e26"/></linearGradient></defs><circle cx="32" cy="32" r="30" fill="url(#emg4)"/><circle cx="32" cy="32" r="26.5" fill="none" stroke="#0b2420" stroke-opacity=".3" stroke-width="1.2"/><ellipse cx="24" cy="15" rx="14" ry="7" fill="#fff" fill-opacity=".3"/><g fill="none" stroke="#0b2420" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="15" y="17" width="34" height="23" rx="3"/><path d="M10 46h44" stroke-width="3.6"/><path d="M32 22v13M26 25h12" stroke-width="2.4"/><path d="M26 25l-3 6h6zM38 25l-3 6h6z" fill="#0b2420" stroke-width="1.6"/></g></svg></span><span class="xt"><b data-t="xl4">منصة المحامي</b><small data-t="xl4s">التقاضي عن بعد</small></span></a>
     </div>
     <p class="xn" data-t="xl_n">مواقع خارجية تابعة لجهاتها الرسمية، ولا علاقة للمكتب بإدارتها.</p>
-    <p class="xn legacy-link"><a href="office-rachid.html" data-t="legacyOffice">الإصدار القديم لفضاء المكتب</a></p>
-    <p class="xn legacy-link"><a href="client-rachid.html" data-t="legacyClient">الإصدار القديم لفضاء الموكل</a></p>
+    <p class="xn legacy-link"><a href="office-rachid.html" data-t="legacyOffice">الإصدار القديم لفضاء المكتب</a><span aria-hidden="true"> · </span><a href="client-rachid.html" data-t="legacyClient">الإصدار القديم لفضاء الموكل</a></p>
   </div>
 </section>
 
